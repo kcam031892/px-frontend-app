@@ -17,6 +17,7 @@ const Routes = () => {
       <ClientRoutes exact path={`${ROUTES.DASHBOARD}/:id`} component={AsyncDashboardDetailPage} />
       <ClientRoutes exact path={ROUTES.PROFILE} component={AsyncProfileList} />
       <ClientRoutes exact path={ROUTES.PROFILE_DETAIL} component={AsyncProfileDetail} />
+      <ClientRoutes exact path={`${ROUTES.PROFILE_DETAIL}/:tab`} component={AsyncProfileDetail} />
       <ClientRoutes exact path={ROUTES.TALENT} component={AsyncDashboardPage} />
       <ClientRoutes exact path={ROUTES.AGENCIES} component={AsyncDashboardPage} />
       <ClientRoutes exact path={ROUTES.MESSAGING} component={AsyncDashboardPage} />

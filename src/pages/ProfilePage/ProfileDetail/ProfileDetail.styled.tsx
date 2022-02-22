@@ -11,4 +11,5 @@ export const Tabs = styled(AntTabs)`
 
 export const TabContainer = styled.div`
   padding: 1rem 0;
+  position: relative;
 `;

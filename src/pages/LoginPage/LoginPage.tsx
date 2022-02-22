@@ -4,7 +4,7 @@ import { Space, Typography, Checkbox } from 'antd';
 import { Button } from 'shared/theme/elements';
 import { useHistory } from 'react-router-dom';
 import { ROUTES } from 'shared/constants/ROUTES';
-import { Logo } from 'components';
+import { FacebookLogin, Logo } from 'components';
 import {
   ActionContainer,
   ButtonContainer,
@@ -56,6 +56,7 @@ const LoginPage = () => {
                 <Button type="primary" fullwidth onClick={() => handleLogin()}>
                   Login
                 </Button>
+                <FacebookLogin />
                 <Button type="ghost" fullwidth>
                   Create an Account
                 </Button>
