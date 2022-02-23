@@ -11,6 +11,10 @@ export const Card = styled(AntCard)`
   border-radius: 0.5rem;
 `;
 
+export const TagContainer = styled.div`
+  margin-top: 1rem;
+`;
+
 export const TopContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -19,4 +23,8 @@ export const TopContainer = styled.div`
 
 export const MainContainer = styled.div`
   margin-top: 1rem;
+  .cropper__text {
+    display: block;
+    text-align: center;
+  }
 `;

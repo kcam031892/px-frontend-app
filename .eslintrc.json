@@ -38,6 +38,7 @@
     "@typescript-eslint/no-shadow": "off",
     "react/require-default-props": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
     "no-underscore-dangle": "off",
     "@typescript-eslint/naming-convention": [
       "error",
