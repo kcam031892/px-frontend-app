@@ -1,35 +1,27 @@
+import { CssBaseline } from '@material-ui/core';
+import store from 'app/store';
+import SwitchThemeProvider from 'app/SwitchThemeProvider';
+import { ConfirmProvider } from 'material-ui-confirm';
+import { SnackbarProvider } from 'notistack';
 import React from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
-import { Routes } from 'shared/navigation';
-import { theme } from 'shared/theme';
-import { GlobalStyle } from 'shared/theme/GlobalStyle';
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      refetchOnReconnect: false,
-      refetchOnMount: false,
-      retry: false,
-      staleTime: 5 * 60 * 1000,
-    },
-  },
-});
+import { CookiesProvider } from 'react-cookie';
+import { Provider } from 'react-redux';
+import Routes from 'shared/navigation/Routes';
 
 const App = () => {
   return (
-    <>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider theme={theme}>
-          <Router>
-            <GlobalStyle />
-            <Routes />
-          </Router>
-        </ThemeProvider>
-      </QueryClientProvider>
-    </>
+    <Provider store={store}>
+      <SwitchThemeProvider>
+        <SnackbarProvider maxSnack={3}>
+          <CssBaseline />
+          <ConfirmProvider>
+            <CookiesProvider>
+              <Routes />
+            </CookiesProvider>
+          </ConfirmProvider>
+        </SnackbarProvider>
+      </SwitchThemeProvider>
+    </Provider>
   );
 };
 
