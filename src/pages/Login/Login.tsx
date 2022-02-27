@@ -10,6 +10,7 @@ import { MyCheckBox, Password } from 'components/textField';
 import { ResultType } from 'types';
 import FrontLayout from 'features/account';
 import { useStyles } from './Login.styles';
+import { ROUTES } from 'shared/constants/ROUTES';
 
 interface LoginState {
   userName: string;
@@ -19,6 +20,7 @@ interface LoginState {
 
 const Login = () => {
   const classes = useStyles();
+  const history = useHistory();
   const dispatch = useDispatch();
   const [loginState, setLoginState] = React.useState<LoginState>({
     userName: '',
@@ -36,11 +38,11 @@ const Login = () => {
 
   const appState: AppState = useSelector((state: RootState) => state.app);
 
-  const history = useHistory();
   const handleLogin = () => {
-    if (loginState.userName.length > 0 && loginState.password.length > 0) {
-      dispatch(userLogin(loginState.userName, loginState.password, loginState.rememberMe));
-    }
+    // if (loginState.userName.length > 0 && loginState.password.length > 0) {
+    //   dispatch(userLogin(loginState.userName, loginState.password, loginState.rememberMe));
+    // }
+    history.push(ROUTES.APP.PROFILE);
   };
 
   const handleInputKeyPress = (event: React.KeyboardEvent<HTMLElement>) => {
@@ -49,11 +51,11 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    if (appState.loggedIn) {
-      history.replace('/app');
-    }
-  }, [appState.loggedIn, history]);
+  // useEffect(() => {
+  //   if (appState.loggedIn) {
+  //     history.replace('/app');
+  //   }
+  // }, [appState.loggedIn, history]);
 
   return (
     <FrontLayout>

@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { UpIcon, DownIcon, DeleteIcon } from '../../../components/icon';
+import { UpIcon, DownIcon, DeleteIcon } from '../../../components/Icons';
 
 import { ResumeSection, ResumeSectionAction, ResumeSectionType, Direction } from './ResumeTypes';
 import ResumeParagraph from './ResumeParagraph';

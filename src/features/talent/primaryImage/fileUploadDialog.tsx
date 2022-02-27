@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Dialog, DialogContent, IconButton, makeStyles } from '@material-ui/core';
-import { RemoveIcon } from '../../../components/icon';
+import { RemoveIcon } from '../../../components/Icons';
 import NoPrimaryImage from './noPrimaryImage';
 
 export interface FileUploadDialogProps {

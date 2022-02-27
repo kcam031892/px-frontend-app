@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { signUp, signUpConfirm } from '../../api/myAccount';
 import { acceptPresentation, denyPresentation } from '../../api/myProfile';

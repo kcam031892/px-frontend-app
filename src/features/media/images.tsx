@@ -27,7 +27,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../app/appSlice';
 import { RootState } from '../../app/rootReducer';
-import { ImageSliderLargeIcon, ImageSliderSmallIcon, MediaUploadIcon, SearchIcon } from '../../components/icon';
+import { ImageSliderLargeIcon, ImageSliderSmallIcon, MediaUploadIcon, SearchIcon } from '../../components/Icons';
 import PhotoListItem from '../../components/PhotoListItem';
 import { MediaType } from '../../types';
 import ImageEditor from './imageEditor';

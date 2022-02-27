@@ -21,7 +21,7 @@ import {
   MediaIcon,
   RepresentationIcon,
   PitchIcon,
-} from '../components/icon';
+} from '../components/Icons';
 import Talent from '../features/talent';
 import Settings from '../features/settings';
 import SearchIcon from '@material-ui/icons/Search';

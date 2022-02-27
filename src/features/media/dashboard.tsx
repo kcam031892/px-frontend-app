@@ -16,7 +16,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import React, { useEffect, useCallback } from 'react';
-import { AudioIcon, CircleIcon, DocumentIcon, MediaUploadIcon, PhotoIcon, VideoIcon } from '../../components/icon';
+import { AudioIcon, CircleIcon, DocumentIcon, MediaUploadIcon, PhotoIcon, VideoIcon } from '../../components/Icons';
 import ImageList from '@material-ui/core/ImageList';
 import ImageListItem from '@material-ui/core/ImageListItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';

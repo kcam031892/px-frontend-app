@@ -52,7 +52,7 @@ interface ReorderTableRowConfigPayload {
   destIndex: number;
 }
 
-let initialState: ResumeState = {
+const initialState: ResumeState = {
   model: {
     profileId: '',
     sections: [],
@@ -156,7 +156,10 @@ const resumeSlice = createSlice({
         section.texts = section.texts?.filter((x) => x.rowIndex !== action.payload.rowIndex);
         section.texts
           ?.filter((x) => x.rowIndex > action.payload.rowIndex)
-          .forEach((x) => (x.rowIndex = x.rowIndex - 1));
+          .forEach((x) => {
+            const item = x;
+            item.rowIndex = item.rowIndex - 1;
+          });
       }
     },
 
@@ -177,8 +180,14 @@ const resumeSlice = createSlice({
       if (section) {
         const sourceTexts = section.texts?.filter((x) => x.rowIndex === action.payload.sourceIndex) || [];
         const destTexts = section.texts?.filter((x) => x.rowIndex === action.payload.destIndex) || [];
-        sourceTexts.forEach((x) => (x.rowIndex = action.payload.destIndex));
-        destTexts.forEach((x) => (x.rowIndex = action.payload.sourceIndex));
+        sourceTexts.forEach((x) => {
+          const item = x;
+          item.rowIndex = action.payload.destIndex;
+        });
+        destTexts.forEach((x) => {
+          const item = x;
+          item.rowIndex = action.payload.sourceIndex;
+        });
       }
     },
   },

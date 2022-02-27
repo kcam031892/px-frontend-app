@@ -9,16 +9,8 @@ function AddNew(props: SvgIconProps) {
         <path d="M83 67H77V73H75V67H69V65H75V59H77V65H83V67Z" fill="white" />
       </g>
       <defs>
-        <filter
-          id="filter0_ddd"
-          x="0"
-          y="0"
-          width="152"
-          height="152"
-          filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
-        >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <filter id="filter0_ddd" x="0" y="0" width="152" height="152" filterUnits="userSpaceOnUse">
+          <feFlood result="BackgroundImageFix" />
           <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
           <feOffset dy="10" />
           <feGaussianBlur stdDeviation="24" />

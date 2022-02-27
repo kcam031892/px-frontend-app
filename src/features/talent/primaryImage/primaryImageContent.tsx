@@ -32,7 +32,7 @@ import {
   RotateLeftIcon,
   RotateRightIcon,
   SearchIcon,
-} from '../../../components/icon';
+} from '../../../components/Icons';
 import _ from 'lodash';
 import FileUploadDialog from './fileUploadDialog';
 import { Alert } from '@material-ui/lab';

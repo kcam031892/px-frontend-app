@@ -16,7 +16,7 @@ import {
   saveResume,
 } from './resumeSlice';
 import { ResumeSectionComponent } from './ResumeSection';
-import { AddNewIcon } from '../../../components/icon';
+import { AddNewIcon } from '../../../components/Icons';
 import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';

@@ -61,7 +61,8 @@ const statsmSlice = createSlice({
       const group = ethnicities.find((x) => x.text === action.payload);
       if (group) {
         group.items.forEach((x) => {
-          x.selected = false;
+          const item = x;
+          item.selected = false;
         });
       }
     },

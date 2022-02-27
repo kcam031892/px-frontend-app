@@ -15,7 +15,7 @@ import { EthnicityGroup, EthnicityItem } from './statsTypes';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import clsx from 'clsx';
 import { Grid } from '@material-ui/core';
-import { BackIcon } from '../../../components/icon';
+import { BackIcon } from '../../../components/Icons';
 export interface EthnicityialogProps {
   open: boolean;
   onClose: () => void;

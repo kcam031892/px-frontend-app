@@ -35,7 +35,7 @@ import EthnicityDialog from './ethnicityDialog';
 import ArtistTypeDialog from './artistTypeDialog';
 import { AppState } from '../../../app/appSlice';
 import { Close } from '@material-ui/icons';
-import Search from '../../../components/icon/Search';
+import Search from '../../../components/Icons/Search';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

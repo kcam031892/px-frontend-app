@@ -2,6 +2,6 @@ export interface AxiosConifguration {
   enableInterceptors: boolean;
 }
 
-export let AxiosConfig: AxiosConifguration = {
+export const AxiosConfig: AxiosConifguration = {
   enableInterceptors: true,
 };
