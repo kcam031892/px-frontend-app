@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getMySkill, postMySKill } from '../../../api/mySkill';
 import { AppThunk } from '../../../app/store';
@@ -27,7 +28,7 @@ function setSelectedGroup(state: SkillState, groupIndex: number) {
   }
 }
 
-let initialState: SkillState = {
+const initialState: SkillState = {
   pageType: SkillPageType.List,
   selectedGroupId: 0,
   model: {
@@ -68,6 +69,7 @@ const skillSlice = createSlice({
     applyChanges(state: SkillState) {
       const targetGroup = state.model.groups.find((x) => x.id === state.editGroup?.id);
       if (targetGroup) {
+        // eslint-disable-next-line no-param-reassign
         targetGroup.items.forEach((x) => (x.selected = false));
         const selectedItems = state.editGroup?.items.filter((x) => x.selected);
         if (selectedItems) {

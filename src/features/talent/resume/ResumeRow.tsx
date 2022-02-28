@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { ResumeMediaIcon, DeleteIcon, MoveIcon } from '../../../components/icon';
+import { ResumeMediaIcon, DeleteIcon, MoveIcon } from '../../../components/Icons';
 import { RedditTextField } from '../../../components/textField';
 import { ResumeTextItem } from './ResumeTypes';
 import { IconButton } from '@material-ui/core';

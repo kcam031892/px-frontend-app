@@ -27,7 +27,7 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import { SearchIcon } from '../../../components/icon';
+import { SearchIcon } from '../../../components/Icons';
 import { Country } from '../../../types';
 import { AgencySupportedCountries } from '../../../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';

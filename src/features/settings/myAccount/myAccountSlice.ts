@@ -21,7 +21,7 @@ interface DataLoadPayLoad {
   account: MyAccountModel;
 }
 
-let initialState: MyAccountState = {
+const initialState: MyAccountState = {
   model: {
     memberId: '',
     firstName: '',
@@ -66,6 +66,56 @@ function generateAgeRange(state: MyAccountState) {
   if (!state.ageOptions.find((x) => x === state.model.ageTo)) {
     state.model.ageTo = null;
   }
+}
+
+function validateAccount(account: MyAccountModel, isPostValidate: boolean): ValidateError[] {
+  const errors: ValidateError[] = [];
+  if ((account.firstName || '').trim().length === 0) {
+    errors.push({
+      field: 'firstName',
+      message: 'First Name is required',
+    });
+  }
+
+  if ((account.lastName || '').trim().length === 0) {
+    errors.push({
+      field: 'lastName',
+      message: 'Last Name is required',
+    });
+  }
+
+  if ((account.email || '').trim().length === 0) {
+    errors.push({
+      field: 'email',
+      message: 'Email is required',
+    });
+  } else {
+    if (!isValidEmail(account.email)) {
+      errors.push({
+        field: 'email',
+        message: 'Email is invalid',
+      });
+    }
+  }
+
+  if ((account.contactNumber || '').trim().length === 0) {
+    errors.push({
+      field: 'contactNumber',
+      message: 'Contact Number is required',
+    });
+  }
+
+  if (isPostValidate) {
+    const homeStateId = account.homeStateId || 0;
+    if (homeStateId === 0) {
+      errors.push({
+        field: 'homeStateId',
+        message: 'State/Region is required',
+      });
+    }
+  }
+
+  return errors;
 }
 
 const myAccountSlice = createSlice({
@@ -169,53 +219,3 @@ export const saveAccountPageData =
       }
     } catch (err) {}
   };
-
-function validateAccount(account: MyAccountModel, isPostValidate: boolean): ValidateError[] {
-  const errors: ValidateError[] = [];
-  if ((account.firstName || '').trim().length === 0) {
-    errors.push({
-      field: 'firstName',
-      message: 'First Name is required',
-    });
-  }
-
-  if ((account.lastName || '').trim().length === 0) {
-    errors.push({
-      field: 'lastName',
-      message: 'Last Name is required',
-    });
-  }
-
-  if ((account.email || '').trim().length === 0) {
-    errors.push({
-      field: 'email',
-      message: 'Email is required',
-    });
-  } else {
-    if (!isValidEmail(account.email)) {
-      errors.push({
-        field: 'email',
-        message: 'Email is invalid',
-      });
-    }
-  }
-
-  if ((account.contactNumber || '').trim().length === 0) {
-    errors.push({
-      field: 'contactNumber',
-      message: 'Contact Number is required',
-    });
-  }
-
-  if (isPostValidate) {
-    const homeStateId = account.homeStateId || 0;
-    if (homeStateId === 0) {
-      errors.push({
-        field: 'homeStateId',
-        message: 'State/Region is required',
-      });
-    }
-  }
-
-  return errors;
-}

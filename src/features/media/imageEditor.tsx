@@ -33,7 +33,7 @@ import {
   ResetIcon,
   RotateLeftIcon,
   RotateRightIcon,
-} from '../../components/icon';
+} from '../../components/Icons';
 import { bytesToSize } from '../../utils/numberUtil';
 import { DateTime } from 'luxon';
 import { Visibility, VisibilityOff } from '@material-ui/icons';

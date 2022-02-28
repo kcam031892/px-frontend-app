@@ -13,7 +13,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import clsx from 'clsx';
-import { ImageWarnIcon, VideoPlayIcon } from './icon';
+import { ImageWarnIcon, VideoPlayIcon } from './Icons';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     iconBox: {

@@ -34,7 +34,7 @@ import {
   RotateLeftIcon,
   RotateRightIcon,
   VideoPlayIcon,
-} from '../../components/icon';
+} from '../../components/Icons';
 import { bytesToSize, numberToDuration } from '../../utils/numberUtil';
 import { DateTime } from 'luxon';
 import { Visibility, VisibilityOff } from '@material-ui/icons';

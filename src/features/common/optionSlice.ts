@@ -14,7 +14,7 @@ export interface OptionDataPayLoad {
   states: State[];
 }
 
-let initialState: OptionState = {
+const initialState: OptionState = {
   countries: [],
   states: [],
 };

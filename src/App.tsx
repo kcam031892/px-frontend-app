@@ -7,20 +7,23 @@ import React from 'react';
 import { CookiesProvider } from 'react-cookie';
 import { Provider } from 'react-redux';
 import Routes from 'shared/navigation/Routes';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const App = () => {
   return (
     <Provider store={store}>
-      <SwitchThemeProvider>
-        <SnackbarProvider maxSnack={3}>
-          <CssBaseline />
-          <ConfirmProvider>
-            <CookiesProvider>
-              <Routes />
-            </CookiesProvider>
-          </ConfirmProvider>
-        </SnackbarProvider>
-      </SwitchThemeProvider>
+      <Router>
+        <SwitchThemeProvider>
+          <SnackbarProvider maxSnack={3}>
+            <CssBaseline />
+            <ConfirmProvider>
+              <CookiesProvider>
+                <Routes />
+              </CookiesProvider>
+            </ConfirmProvider>
+          </SnackbarProvider>
+        </SwitchThemeProvider>
+      </Router>
     </Provider>
   );
 };

@@ -19,7 +19,7 @@ import { Guid } from 'guid-typescript';
 import clsx from 'clsx';
 import React, { useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { AudioIcon, CircleIcon, DocumentIcon, MediaUploadIcon, PhotoIcon, VideoIcon } from '../../components/icon';
+import { AudioIcon, CircleIcon, DocumentIcon, MediaUploadIcon, PhotoIcon, VideoIcon } from '../../components/Icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../app/appSlice';
 import { RootState } from '../../app/rootReducer';
@@ -27,7 +27,7 @@ import { clearUploadItems, postUploadFile, removeUploadItem } from './uploadSlic
 import { FileUploadModel, FileUploadState, UploadStatus } from './uploadTypes';
 import { MediaType } from '../../types/commonTypes';
 import { bytesToSize } from '../../utils/numberUtil';
-import { ImageCancelIcon } from '../../components/icon';
+import { ImageCancelIcon } from '../../components/Icons';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { MediaState } from './mediaTypes';
 import _ from 'lodash';
