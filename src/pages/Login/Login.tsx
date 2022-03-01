@@ -1,4 +1,14 @@
-import { Box, Button, createStyles, FormControlLabel, makeStyles, TextField, Theme } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  createStyles,
+  FormControlLabel,
+  makeStyles,
+  Snackbar,
+  TextField,
+  Theme,
+  Typography,
+} from '@material-ui/core';
 import React, { useEffect } from 'react';
 
 import { Link, useHistory } from 'react-router-dom';
@@ -11,13 +21,14 @@ import { ResultType } from 'types';
 import * as yup from 'yup';
 import { useStyles } from './Login.styles';
 import { ROUTES } from 'shared/constants/ROUTES';
-import { selectUserState, userGoogleLogin, userLogin } from 'shared/redux/slicers/user.slicer';
+import { selectUserState, setErrorMessage, userGoogleLogin, userLogin } from 'shared/redux/slicers/user.slicer';
 import { FrontLayout, GoogleLogin } from 'components';
 import { ISignInRequestPayload } from 'shared/interfaces/IUser';
 import { FormikProps, useFormik } from 'formik';
 import { Input, InputPassword } from 'themes/elements';
 import { getErrorMessage } from 'shared/utils/getErrorMessage';
 import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import { Alert } from '@material-ui/lab';
 
 interface LoginState {
   userName: string;
@@ -52,6 +63,9 @@ const Login = () => {
   });
 
   const handleLoginSubmit = async (values: ISignInRequestPayload) => {
+    const authToken = localStorage.getItem('auth_token');
+    console.log('auth token', authToken);
+
     dispatch(userLogin(values));
   };
 
@@ -97,6 +111,10 @@ const Login = () => {
     }
   };
 
+  const handleSnackBarClose = () => {
+    dispatch(setErrorMessage(null));
+  };
+
   // useEffect(() => {
   //   if (appState.loggedIn) {
   //     history.replace('/app');
@@ -123,7 +141,6 @@ const Login = () => {
 
         <InputPassword
           label={'Password'}
-          margin={'normal'}
           fullWidth
           errorMessage={getErrorMessage(form.touched.user?.password, form.errors.user?.password)}
           name="user.password"
@@ -168,6 +185,12 @@ const Login = () => {
       <Button variant="outlined" disableElevation fullWidth component={Link} to={'/signup'}>
         Create an Account
       </Button>
+
+      <Snackbar open={!!errorMessage} autoHideDuration={6000} onClose={handleSnackBarClose}>
+        <Alert severity="error" onClose={handleSnackBarClose}>
+          {errorMessage}
+        </Alert>
+      </Snackbar>
     </FrontLayout>
   );
 };

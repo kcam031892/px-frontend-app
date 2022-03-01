@@ -18,8 +18,8 @@ const InputPassword: React.FC<Props> = ({ errorMessage, ...props }) => {
         error={!!errorMessage}
         type={showPassword ? 'text' : 'password'}
         {...props}
-        inputProps={{
-          ...props.inputProps,
+        InputProps={{
+          ...props.InputProps,
           endAdornment: (
             <InputAdornment position="end">
               <IconButton aria-label="toggle password visibility" onClick={toggleShowPassword}>

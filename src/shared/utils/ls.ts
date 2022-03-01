@@ -1,18 +1,22 @@
 export const ls = () => {
   const setLS = (key: string, value: any) => {
-    localStorage.setItem(key, value);
+    localStorage[key] = value;
   };
   const getLS = (key: string) => {
-    const data = localStorage.getItem(key);
-    return data;
+    return localStorage[key];
   };
 
   const removeLS = (key: string) => {
-    localStorage.removeItem(key);
+    delete localStorage[key];
   };
+  const clearLS = () => {
+    localStorage.clear();
+  };
+
   return {
     setLS,
     getLS,
     removeLS,
+    clearLS,
   };
 };

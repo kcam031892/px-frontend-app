@@ -29,7 +29,7 @@ export const userSlicer = createSlice({
     setIsLoading(state: UserState, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
     },
-    setErrorMessage(state: UserState, action: PayloadAction<string>) {
+    setErrorMessage(state: UserState, action: PayloadAction<string | null>) {
       state.errorMessage = action.payload;
     },
     setIsLoggedIn(state: UserState, action: PayloadAction<boolean>) {
@@ -59,6 +59,7 @@ export const userLogin =
       setLS('user', JSON.stringify(user));
       dispatch(setUser({ user }));
       dispatch(setIsLoggedIn(true));
+      dispatch(setErrorMessage(null));
       return user;
     } catch (err: any) {
       dispatch(setErrorMessage(err.response.data.message));
@@ -81,6 +82,7 @@ export const userGoogleLogin =
       setLS('user', JSON.stringify(user));
       dispatch(setUser({ user }));
       dispatch(setIsLoggedIn(true));
+      dispatch(setErrorMessage(null));
     } catch (err: any) {
       dispatch(setErrorMessage(err.response.data.message));
     } finally {
@@ -91,9 +93,11 @@ export const userGoogleLogin =
 export const userLogout = (): AppThunk => async (dispatch) => {
   try {
     dispatch(setIsLoading(true));
+
     await logout();
     removeLS('auth_token');
     removeLS('user');
+
     dispatch(setIsLoggedIn(false));
   } catch (err: any) {
     dispatch(setErrorMessage(err.response.data.message));

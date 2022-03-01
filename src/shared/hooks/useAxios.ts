@@ -11,16 +11,11 @@ export interface IAxios<P, B> {
   headers?: AxiosRequestHeaders;
 }
 
-const { getAuthToken } = tokenService();
-const authToken = getAuthToken();
-console.log('authToken', authToken);
-
 export const useAxios = () => {
   const instance = axios.create({
     baseURL: CONFIG.API_URL,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: authToken ? `Bearer ${authToken}` : false,
     },
   });
 
