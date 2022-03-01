@@ -18,7 +18,7 @@ import { Logo } from 'components/nav';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import theme from 'theme';
 import { useStyles } from './Sidebar.styles';
 import clsx from 'clsx';
@@ -27,9 +27,13 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { SIDEBAR_ITEMS } from 'shared/constants/SIDEBAR_ITEMS';
 import { MyAccountState } from 'features/settings/myAccount/myAccountTypes';
-import { RootState } from 'app/rootReducer';
-import { PrimaryImageState } from 'features/talent/primaryImage/primaryImageTypes';
-import { ProfileState } from 'features/talent/profileTypes';
+import { useAuth } from 'shared/hooks/useAuth';
+import { tokenService } from 'shared/services/tokenService';
+import { userLogout } from 'shared/redux/slicers/user.slicer';
+import { ROUTES } from 'shared/constants/ROUTES';
+// import { RootState } from 'app/rootReducer';
+// import { PrimaryImageState } from 'features/talent/primaryImage/primaryImageTypes';
+// import { ProfileState } from 'features/talent/profileTypes';
 
 type Props = {
   isMobileDrawerOpen?: boolean;
@@ -37,6 +41,9 @@ type Props = {
   isDrawerCollapse?: boolean;
   toggleDrawerCollapse: () => void;
 };
+
+const { getUser } = tokenService();
+
 const Sidebar: React.FC<Props> = ({
   isMobileDrawerOpen,
   handleMobileDrawer,
@@ -45,24 +52,27 @@ const Sidebar: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
   const listItemStyle = useMainListeItemStyle();
   const [selectedMenu, setSelectedMenu] = React.useState('');
+  const user = getUser();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const myAccount: MyAccountState = useSelector((state: RootState) => state.myAccount);
-  const primaryImage: PrimaryImageState = useSelector((state: RootState) => state.primaryImage);
-  const profile: ProfileState = useSelector((state: RootState) => state.profile);
+  // const myAccount: MyAccountState = useSelector((state: RootState) => state.myAccount);
+  // const primaryImage: PrimaryImageState = useSelector((state: RootState) => state.primaryImage);
+  // const profile: ProfileState = useSelector((state: RootState) => state.profile);
 
-  const displayImage = () => {
-    if (primaryImage.model.image.length > 0) {
-      return primaryImage.model.image;
-    }
+  // const displayImage = () => {
+  //   if (primaryImage.model.image.length > 0) {
+  //     return primaryImage.model.image;
+  //   }
 
-    return profile.profiles.find((x) => x.isPrimary)?.primaryImage || '';
-  };
+  //   return profile.profiles.find((x) => x.isPrimary)?.primaryImage || '';
+  // };
 
-  const handleLogOut = () => {
-    dispatch(logOut());
+  const handleLogOut = async () => {
+    await dispatch(userLogout());
+    history.push(ROUTES.LOGIN);
   };
 
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -150,11 +160,11 @@ const Sidebar: React.FC<Props> = ({
         <div>
           <Box className={classes.myAccountContent}>
             <Link to="/app/settings">
-              <Avatar
+              {/* <Avatar
                 alt={myAccount.model.firstName + ' ' + myAccount.model.lastName}
                 src={displayImage()}
                 className={classes.headShot}
-              />
+              /> */}
             </Link>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <div
@@ -179,7 +189,8 @@ const Sidebar: React.FC<Props> = ({
                       width: '100%',
                     }}
                   >
-                    {myAccount.model.firstName} {myAccount.model.lastName}
+                    {/* {myAccount.model.firstName} {myAccount.model.lastName} */}
+                    {`${user?.first_name} ${user?.last_name}`}
                   </h4>
                 </Link>
                 <Link to="/app/settings" style={{ textDecoration: 'none' }}>

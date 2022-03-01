@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import axios, { AxiosRequestHeaders, AxiosResponse } from 'axios';
 import { CONFIG } from 'shared/config';
+import { tokenService } from 'shared/services/tokenService';
 
 export interface IAxios<P, B> {
   url?: string;
@@ -10,11 +11,16 @@ export interface IAxios<P, B> {
   headers?: AxiosRequestHeaders;
 }
 
+const { getAuthToken } = tokenService();
+const authToken = getAuthToken();
+console.log('authToken', authToken);
+
 export const useAxios = () => {
   const instance = axios.create({
     baseURL: CONFIG.API_URL,
     headers: {
       'Content-Type': 'application/json',
+      Authorization: authToken ? `Bearer ${authToken}` : false,
     },
   });
 
@@ -55,8 +61,6 @@ export const useAxios = () => {
   );
 
   const GET = async <R, P = unknown, B = unknown>(args: IAxios<P, B>): Promise<AxiosResponse<R>> => {
-    console.log('args', args);
-
     try {
       return await instance({
         ...args,
@@ -93,7 +97,7 @@ export const useAxios = () => {
     try {
       return await instance({
         ...args,
-        method: 'PUT',
+        method: 'DELETE',
       });
     } catch (e) {
       throw e;
