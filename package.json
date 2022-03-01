@@ -23,6 +23,7 @@
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
     "fontsource-roboto": "^4.0.0",
+    "formik": "^2.2.9",
     "guid-typescript": "^1.0.9",
     "html-to-draftjs": "^1.5.0",
     "immutable": "^4.0.0-rc.12",
@@ -40,6 +41,8 @@
     "react-dom": "^17.0.2",
     "react-draft-wysiwyg": "^1.14.5",
     "react-dropzone": "^11.3.2",
+    "react-google-button": "^0.7.2",
+    "react-google-login": "^5.2.2",
     "react-phone-number-input": "^3.1.23",
     "react-player": "^2.9.0",
     "react-redux": "^7.2.1",
@@ -51,7 +54,8 @@
     "universal-cookie": "^4.0.4",
     "wavesurfer.js": "^5.2.0",
     "webfontloader": "^1.6.28",
-    "yarn": "^1.22.10"
+    "yarn": "^1.22.10",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",

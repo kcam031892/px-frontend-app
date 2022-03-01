@@ -1,16 +1,34 @@
-import { Box, Button, createStyles, FormControlLabel, makeStyles, TextField, Theme } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  createStyles,
+  FormControlLabel,
+  makeStyles,
+  Snackbar,
+  TextField,
+  Theme,
+  Typography,
+} from '@material-ui/core';
 import React, { useEffect } from 'react';
 
 import { Link, useHistory } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { AppState, userLogin } from 'app/appSlice';
+import { AppState } from 'app/appSlice';
 import { RootState } from 'app/rootReducer';
-import { MyCheckBox, Password } from 'components/textField';
+import { MyCheckBox } from 'components/textField';
 import { ResultType } from 'types';
-import FrontLayout from 'features/account';
+import * as yup from 'yup';
 import { useStyles } from './Login.styles';
 import { ROUTES } from 'shared/constants/ROUTES';
+import { selectUserState, setErrorMessage, userGoogleLogin, userLogin } from 'shared/redux/slicers/user.slicer';
+import { FrontLayout, GoogleLogin } from 'components';
+import { ISignInRequestPayload } from 'shared/interfaces/IUser';
+import { FormikProps, useFormik } from 'formik';
+import { Input, InputPassword } from 'themes/elements';
+import { getErrorMessage } from 'shared/utils/getErrorMessage';
+import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import { Alert } from '@material-ui/lab';
 
 interface LoginState {
   userName: string;
@@ -22,6 +40,41 @@ const Login = () => {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
+  const { user, isLoading, errorMessage, isLoggedIn } = useSelector(selectUserState);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      history.push(ROUTES.APP.PROFILE);
+    }
+  }, [isLoggedIn, history]);
+
+  const initialValues: ISignInRequestPayload = {
+    user: {
+      email: 'test123@test.com',
+      password: 'Asdf123',
+    },
+  };
+
+  const signInValidationSchema: yup.SchemaOf<ISignInRequestPayload> = yup.object().shape({
+    user: yup.object({
+      email: yup.string().email('Email must be a valid email').required('Email is required'),
+      password: yup.string().required('Password is required'),
+    }),
+  });
+
+  const handleLoginSubmit = async (values: ISignInRequestPayload) => {
+    const authToken = localStorage.getItem('auth_token');
+    console.log('auth token', authToken);
+
+    dispatch(userLogin(values));
+  };
+
+  const form: FormikProps<ISignInRequestPayload> = useFormik({
+    initialValues,
+    validationSchema: signInValidationSchema,
+    onSubmit: (values) => handleLoginSubmit(values),
+  });
+
   const [loginState, setLoginState] = React.useState<LoginState>({
     userName: '',
     password: '',
@@ -36,19 +89,30 @@ const Login = () => {
     setLoginState({ ...loginState, [prop]: event.target.checked });
   };
 
+  const handleLoginSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+    if ('tokenId' in response) {
+      const token = response.tokenId;
+      dispatch(userGoogleLogin(token));
+    }
+  };
+
   const appState: AppState = useSelector((state: RootState) => state.app);
 
   const handleLogin = () => {
     // if (loginState.userName.length > 0 && loginState.password.length > 0) {
     //   dispatch(userLogin(loginState.userName, loginState.password, loginState.rememberMe));
     // }
-    history.push(ROUTES.APP.PROFILE);
+    // history.push(ROUTES.APP.PROFILE);
   };
 
   const handleInputKeyPress = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.key === 'Enter') {
       handleLogin();
     }
+  };
+
+  const handleSnackBarClose = () => {
+    dispatch(setErrorMessage(null));
   };
 
   // useEffect(() => {
@@ -60,28 +124,31 @@ const Login = () => {
   return (
     <FrontLayout>
       <Box>
-        <TextField
+        <Input
           label={'Email Address'}
-          error={appState.currentResult?.type === ResultType.error && loginState.userName.length > 0}
+          name="user.email"
+          errorMessage={getErrorMessage(form.touched.user?.email, form.errors.user?.email)}
           fullWidth
           margin={'normal'}
           autoFocus
           inputProps={{ tabIndex: 1 }}
-          onChange={handleChange('userName')}
+          onChange={form.handleChange}
           onKeyPress={handleInputKeyPress}
           InputProps={{ disableUnderline: true }}
           InputLabelProps={{ shrink: true }}
+          value={form.values.user.email}
         />
 
-        <Password
+        <InputPassword
           label={'Password'}
-          margin={'normal'}
           fullWidth
+          errorMessage={getErrorMessage(form.touched.user?.password, form.errors.user?.password)}
+          name="user.password"
           InputProps={{ disableUnderline: true }}
           InputLabelProps={{ shrink: true }}
           inputProps={{ tabIndex: 2 }}
-          onChange={handleChange('password')}
-          value={loginState.password}
+          onChange={form.handleChange}
+          value={form.values.user.password}
           onKeyPress={handleInputKeyPress}
         />
       </Box>
@@ -104,12 +171,26 @@ const Login = () => {
           </Link>
         </Box>
       </Box>
-      <Button variant="contained" disableElevation fullWidth onClick={handleLogin} style={{ marginBottom: '16px' }}>
+      <Button
+        variant="contained"
+        disableElevation
+        fullWidth
+        onClick={() => form.handleSubmit()}
+        style={{ marginBottom: '16px' }}
+        disabled={isLoading}
+      >
         Log In
       </Button>
+      <GoogleLogin handleLoginSuccess={handleLoginSuccess} />
       <Button variant="outlined" disableElevation fullWidth component={Link} to={'/signup'}>
         Create an Account
       </Button>
+
+      <Snackbar open={!!errorMessage} autoHideDuration={6000} onClose={handleSnackBarClose}>
+        <Alert severity="error" onClose={handleSnackBarClose}>
+          {errorMessage}
+        </Alert>
+      </Snackbar>
     </FrontLayout>
   );
 };
