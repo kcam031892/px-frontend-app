@@ -6,7 +6,7 @@ type Props = {
 } & TextFieldProps;
 const Input: React.FC<Props> = ({ errorMessage, ...props }) => {
   return (
-    <Box>
+    <>
       <TextField
         error={!!errorMessage}
         type={'text'}
@@ -14,13 +14,9 @@ const Input: React.FC<Props> = ({ errorMessage, ...props }) => {
         inputProps={{
           ...props.inputProps,
         }}
+        helperText={!!errorMessage && errorMessage}
       />
-      {errorMessage && (
-        <Typography variant="caption" color="error">
-          {errorMessage}
-        </Typography>
-      )}
-    </Box>
+    </>
   );
 };
 

@@ -141,6 +141,11 @@ function NewProfileDialog(props: NewProfileDialogProps) {
   const profile: ProfileState = useSelector((state: RootState) => state.profile);
 
   const dispatch = useDispatch();
+  const handleAgencySearch = (agencyName: string, countryCode: string) => {
+    if (agencyName.length > 1) {
+      dispatch(searchAgency(agencyName, countryCode));
+    }
+  };
   const handleCountryChange = (countryCode: string) => {
     handleAgencySearch(dialogState.agencyName, countryCode);
     setDialogState({ ...dialogState, selectedCountryCode: countryCode });
@@ -149,12 +154,6 @@ function NewProfileDialog(props: NewProfileDialogProps) {
   const hanldeAgencyNameChange = (agencyName: string) => {
     handleAgencySearch(agencyName, dialogState.selectedCountryCode);
     setDialogState({ ...dialogState, agencyName: agencyName });
-  };
-
-  const handleAgencySearch = (agencyName: string, countryCode: string) => {
-    if (agencyName.length > 1) {
-      dispatch(searchAgency(agencyName, countryCode));
-    }
   };
 
   const handleContinue = () => {

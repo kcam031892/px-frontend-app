@@ -7,6 +7,7 @@ import ClientRoute from './ClientRoute';
 import PublicRoute from './PublicRoute';
 
 const AsyncProfileList = React.lazy(() => import('pages/Profiles/ProfileList'));
+const AsyncProfileDetail = React.lazy(() => import('pages/Profiles/ProfileDetail'));
 
 const Routes = () => {
   return (
@@ -15,6 +16,7 @@ const Routes = () => {
       <PublicRoute exact path={ROUTES.LOGIN} component={Login} />
       <PublicRoute exact path={ROUTES.SIGNUP} component={Signup} />
       <ClientRoute exact path={ROUTES.APP.PROFILE} component={AsyncProfileList} />
+      <ClientRoute exact path={ROUTES.APP.PROFILE_DETAIL} component={AsyncProfileDetail} />
     </Switch>
   );
 };

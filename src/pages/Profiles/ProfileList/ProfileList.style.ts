@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core';
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      padding: theme.spacing(4),
+      // padding: theme.spacing(8),
     },
 
     pageHeader: {
@@ -13,9 +13,9 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
 
     header: {
-      margin: '50px 0px 41px 8px',
       fontWeight: 700,
       fontSize: 34,
+      marginBottom: '1rem',
     },
     newProfileButton: {
       background: '#FFFFFF',

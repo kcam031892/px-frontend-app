@@ -4,7 +4,7 @@ import { authService } from 'shared/services/authService';
 import { ls } from 'shared/utils/ls';
 import { AppThunk, RootState } from '../store';
 
-const { login, loginWithGoogle, logout } = authService();
+const { login, loginWithGoogle, loginWithFacebook, logout, getUserProfile: getUserProfileService } = authService();
 const { setLS, removeLS } = ls();
 
 export interface UserState {
@@ -52,7 +52,7 @@ export const userLogin =
       dispatch(setIsLoading(true));
 
       const {
-        data: { user, token },
+        data: { data: user, token },
       } = await login(payload);
 
       setLS('auth_token', token);
@@ -76,7 +76,7 @@ export const userGoogleLogin =
     try {
       dispatch(setIsLoading(true));
       const {
-        data: { user, token },
+        data: { data: user, token },
       } = await loginWithGoogle(payload);
       setLS('auth_token', token);
       setLS('user', JSON.stringify(user));
@@ -89,6 +89,40 @@ export const userGoogleLogin =
       dispatch(setIsLoading(false));
     }
   };
+
+export const userFacebookLogin =
+  (payload: string): AppThunk =>
+  async (dispatch) => {
+    try {
+      dispatch(setIsLoading(true));
+      const {
+        data: { data: user, token },
+      } = await loginWithFacebook(payload);
+      setLS('auth_token', token);
+      setLS('user', JSON.stringify(user));
+      dispatch(setUser({ user }));
+      dispatch(setIsLoggedIn(true));
+      dispatch(setErrorMessage(null));
+    } catch (err: any) {
+      dispatch(setErrorMessage(err.response.data.message));
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  };
+
+export const getUserProfile = (): AppThunk => async (dispatch) => {
+  try {
+    const {
+      data: { data },
+    } = await getUserProfileService();
+    dispatch(setUser({ user: data }));
+    dispatch(setIsLoggedIn(true));
+  } catch (err: any) {
+    dispatch(setErrorMessage(err.response.data.message));
+  } finally {
+    dispatch(setIsLoading(false));
+  }
+};
 
 export const userLogout = (): AppThunk => async (dispatch) => {
   try {

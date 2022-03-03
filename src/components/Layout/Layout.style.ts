@@ -8,7 +8,10 @@ export const useStyles = makeStyles((theme: Theme) =>
 
     content: {
       flexGrow: 1,
-      padding: theme.spacing(4, 0),
+      // padding: theme.spacing(4, 0),
+      marginTop: '80px',
+      padding: theme.spacing(2, 4),
+      // padding: theme.spacing(8),
 
       backgroundColor: theme.palette.secondary.main,
       minHeight: '100vh',

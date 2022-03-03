@@ -5,6 +5,7 @@ export const ROUTES = {
   APP: {
     DASHBOARD: '/app/dashboard',
     PROFILE: '/app/profiles',
+    PROFILE_DETAIL: '/app/profiles_detail',
     MEDIA: '/app/media',
   },
 };

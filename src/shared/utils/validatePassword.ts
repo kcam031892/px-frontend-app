@@ -8,6 +8,8 @@ export interface PasswordPrinciple {
 }
 
 export const validatePassword = (password: string): PasswordPrinciple => {
+  const trimPassword = password.trim();
+
   const result = {
     LengthInValid: false,
     LowerCaseInValid: false,
