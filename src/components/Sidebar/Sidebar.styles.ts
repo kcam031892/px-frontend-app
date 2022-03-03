@@ -65,10 +65,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     hidden: {
       display: 'none !important',
     },
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: '#fff',
-    },
+
     collapseContainer: {
       position: 'relative',
       display: 'flex',

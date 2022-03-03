@@ -8,12 +8,13 @@ type Props = {
   heading?: string;
   subHeading?: string;
   children: React.ReactNode;
+  containerWidth?: number;
 };
-const FrontLayout: React.FC<Props> = ({ children, heading, subHeading }) => {
+const FrontLayout: React.FC<Props> = ({ children, heading, subHeading, containerWidth }) => {
   const classes = useStyles();
   return (
     <div className={classes.bodyContainer}>
-      <Paper className={classes.mainContainer} style={{ width: 400 }}>
+      <Paper className={classes.mainContainer} style={{ width: containerWidth || 400 }}>
         <Box className={classes.header}>
           <Avatar variant="square" className={classes.avatarStyle} src="/logo.png" />
           <Box style={{ marginLeft: '16px' }}>

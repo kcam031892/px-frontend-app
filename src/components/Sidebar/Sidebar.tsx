@@ -29,8 +29,9 @@ import { SIDEBAR_ITEMS } from 'shared/constants/SIDEBAR_ITEMS';
 import { MyAccountState } from 'features/settings/myAccount/myAccountTypes';
 import { useAuth } from 'shared/hooks/useAuth';
 import { tokenService } from 'shared/services/tokenService';
-import { userLogout } from 'shared/redux/slicers/user.slicer';
+import { selectUserState, userLogout } from 'shared/redux/slicers/user.slicer';
 import { ROUTES } from 'shared/constants/ROUTES';
+import { Backdrop } from 'themes/elements';
 // import { RootState } from 'app/rootReducer';
 // import { PrimaryImageState } from 'features/talent/primaryImage/primaryImageTypes';
 // import { ProfileState } from 'features/talent/profileTypes';
@@ -55,6 +56,7 @@ const Sidebar: React.FC<Props> = ({
   const history = useHistory();
   const listItemStyle = useMainListeItemStyle();
   const [selectedMenu, setSelectedMenu] = React.useState('');
+  const { isLoading } = useSelector(selectUserState);
   const user = getUser();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -99,7 +101,7 @@ const Sidebar: React.FC<Props> = ({
   const drawer = (
     <div className={classes.drawerContainer}>
       <div className={classes.drawerHeader}>
-        <Link to="/app/settings">
+        <Link to={ROUTES.APP.PROFILE}>
           <Logo />
         </Link>
       </div>
@@ -190,7 +192,7 @@ const Sidebar: React.FC<Props> = ({
                     }}
                   >
                     {/* {myAccount.model.firstName} {myAccount.model.lastName} */}
-                    {`${user?.first_name} ${user?.last_name}`}
+                    {`${user?.attributes?.first_name} ${user?.attributes?.last_name}`}
                   </h4>
                 </Link>
                 <Link to="/app/settings" style={{ textDecoration: 'none' }}>
@@ -264,6 +266,7 @@ const Sidebar: React.FC<Props> = ({
           {drawer}
         </Drawer>
       </Hidden>
+      <Backdrop isLoading={isLoading} />
     </>
   );
 };

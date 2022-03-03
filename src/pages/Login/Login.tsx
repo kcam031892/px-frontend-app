@@ -21,14 +21,21 @@ import { ResultType } from 'types';
 import * as yup from 'yup';
 import { useStyles } from './Login.styles';
 import { ROUTES } from 'shared/constants/ROUTES';
-import { selectUserState, setErrorMessage, userGoogleLogin, userLogin } from 'shared/redux/slicers/user.slicer';
-import { FrontLayout, GoogleLogin } from 'components';
+import {
+  selectUserState,
+  setErrorMessage,
+  userFacebookLogin,
+  userGoogleLogin,
+  userLogin,
+} from 'shared/redux/slicers/user.slicer';
+import { FacebookLogin, FrontLayout, GoogleLogin } from 'components';
 import { ISignInRequestPayload } from 'shared/interfaces/IUser';
 import { FormikProps, useFormik } from 'formik';
-import { Input, InputPassword } from 'themes/elements';
+import { Backdrop, Input, InputPassword } from 'themes/elements';
 import { getErrorMessage } from 'shared/utils/getErrorMessage';
 import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { Alert } from '@material-ui/lab';
+import { ReactFacebookFailureResponse, ReactFacebookLoginInfo } from 'react-facebook-login';
 
 interface LoginState {
   userName: string;
@@ -63,9 +70,6 @@ const Login = () => {
   });
 
   const handleLoginSubmit = async (values: ISignInRequestPayload) => {
-    const authToken = localStorage.getItem('auth_token');
-    console.log('auth token', authToken);
-
     dispatch(userLogin(values));
   };
 
@@ -81,18 +85,21 @@ const Login = () => {
     rememberMe: false,
   });
 
-  const handleChange = (prop: keyof LoginState) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLoginState({ ...loginState, [prop]: event.target.value });
-  };
-
   const handleCheckBoxChange = (prop: keyof LoginState) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setLoginState({ ...loginState, [prop]: event.target.checked });
   };
 
-  const handleLoginSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+  const handleGoogleSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
     if ('tokenId' in response) {
       const token = response.tokenId;
       dispatch(userGoogleLogin(token));
+    }
+  };
+
+  const handleFacebookSuccess = (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse) => {
+    if ('accessToken' in response) {
+      const token = response.accessToken;
+      dispatch(userFacebookLogin(token));
     }
   };
 
@@ -181,7 +188,8 @@ const Login = () => {
       >
         Log In
       </Button>
-      <GoogleLogin handleLoginSuccess={handleLoginSuccess} />
+      <GoogleLogin handleLoginSuccess={handleGoogleSuccess} />
+      <FacebookLogin handleLoginSuccess={handleFacebookSuccess} />
       <Button variant="outlined" disableElevation fullWidth component={Link} to={'/signup'}>
         Create an Account
       </Button>
@@ -191,6 +199,7 @@ const Login = () => {
           {errorMessage}
         </Alert>
       </Snackbar>
+      <Backdrop isLoading={isLoading} />
     </FrontLayout>
   );
 };

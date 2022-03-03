@@ -3,7 +3,7 @@ import { useAxios } from 'shared/hooks/useAxios';
 import { ISignInRequestPayload, ISignInResponsePayload } from 'shared/interfaces/IUser';
 
 import { tokenService } from './tokenService';
-const { POST, DELETE } = useAxios();
+const { GET, POST, DELETE } = useAxios();
 const { getAuthToken } = tokenService();
 
 export const authService = () => {
@@ -27,6 +27,29 @@ export const authService = () => {
     };
   };
 
+  const loginWithFacebook = async (token: string) => {
+    const response = await POST<ISignInResponsePayload>({
+      url: `${ENDPOINTS.USERS}/facebook/sign_in?id_token=${token}`,
+    });
+
+    return {
+      data: response?.data,
+    };
+  };
+
+  const getUserProfile = async () => {
+    const authToken = getAuthToken();
+    const response = await GET<ISignInResponsePayload>({
+      url: `${ENDPOINTS.USERS}/profile`,
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    return {
+      data: response?.data,
+    };
+  };
+
   const logout = async () => {
     const authToken = getAuthToken();
     const response = await DELETE({
@@ -43,6 +66,8 @@ export const authService = () => {
   return {
     login,
     loginWithGoogle,
+    loginWithFacebook,
+    getUserProfile,
     logout,
   };
 };
