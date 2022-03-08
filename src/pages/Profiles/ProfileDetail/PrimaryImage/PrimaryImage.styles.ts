@@ -7,6 +7,7 @@ export const useStyles = makeStyles(() =>
       width: '296px',
       height: '456px',
       borderRadius: '8px',
+      marginTop: '16px',
     },
     card__content: {
       padding: '20px 0px',
@@ -56,6 +57,15 @@ export const useStyles = makeStyles(() =>
       border: '1.5px solid rgba(41, 98, 255, 0.4)',
       color: '#2962FF',
       fontWeight: 500,
+    },
+    action: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    action__buttonContainer: {
+      display: 'flex',
+      gap: '1rem',
     },
   }),
 );

@@ -10,8 +10,11 @@ import {
   InputAdornment,
   OutlinedInputProps,
   Chip,
+  Button,
 } from '@material-ui/core';
 import { Autocomplete, createFilterOptions } from '@material-ui/lab';
+import { FileUploadDialog } from 'components';
+
 import { RemoveIcon, SearchIcon } from 'components/Icons';
 import { Guid } from 'guid-typescript';
 import React, { useState } from 'react';
@@ -23,6 +26,7 @@ const PrimaryImage = () => {
   const classes = useStyles();
   const [tags, setTags] = useState<string[]>([]);
   const [autocompleteKey, setAutoCompleteKey] = useState<string>('');
+  const [isFileDialogOpen, setIsFileDialogOpen] = useState<boolean>(false);
   const [autoCompleteValue] = useDebounce(autocompleteKey, 500);
   const onSelectTag = (newTag: string) => {
     if (!tags.includes(newTag)) {
@@ -34,9 +38,13 @@ const PrimaryImage = () => {
     setTags(filteredTag);
   };
   const filter = createFilterOptions<string>();
+
+  const closeFileDialog = () => setIsFileDialogOpen(false);
+  const openFileDialog = () => setIsFileDialogOpen(true);
+
   return (
-    <Grid container spacing={2}>
-      <Grid>
+    <Grid container spacing={10}>
+      <Grid item md={12} lg={4}>
         <Typography variant="h6" gutterBottom>
           Preview
         </Typography>
@@ -125,6 +133,20 @@ const PrimaryImage = () => {
             ))}
         </Box>
       </Grid>
+      <Grid item md={12} lg={8}>
+        <Box className={classes.action}>
+          <Typography variant="h6" gutterBottom>
+            Edit Photo
+          </Typography>
+          <Box className={classes.action__buttonContainer}>
+            <Button variant="outlined" onClick={openFileDialog}>
+              Upload New Image
+            </Button>
+            <Button variant="contained">Save</Button>
+          </Box>
+        </Box>
+      </Grid>
+      <FileUploadDialog open={isFileDialogOpen} onClose={closeFileDialog} onFileSelected={() => alert('s')} />
     </Grid>
   );
 };
