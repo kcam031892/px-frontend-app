@@ -10,7 +10,6 @@ const Tabs = withStyles({
     height: '4px',
     borderRadius: '4px 4px 0px 0px',
   },
-  selected: {},
 })(MUITabs);
 
 export default Tabs;

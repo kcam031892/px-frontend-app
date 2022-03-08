@@ -34,7 +34,7 @@ const ProfileListItem = () => {
         <span>PRIMARY</span>
       </Box>
       <Card className={classes.card}>
-        <Link to={`${ROUTES.APP.PROFILE_DETAIL}`}>
+        <Link to={`${ROUTES.APP.PROFILE_DETAIL}/primary_image`}>
           <CardMedia image="https://picsum.photos/200/300" className={classes.card__media}>
             <Avatar src="https://picsum.photos/200" className={classes.card__avatar} />
           </CardMedia>

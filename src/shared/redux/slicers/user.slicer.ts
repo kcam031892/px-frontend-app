@@ -1,10 +1,15 @@
+import build from '@date-io/date-fns';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AxiosError } from 'axios';
+import { authDao } from 'shared/dao/authDao';
 import { ISignInRequestPayload, IUser } from 'shared/interfaces/IUser';
 import { authService } from 'shared/services/authService';
+
 import { ls } from 'shared/utils/ls';
 import { AppThunk, RootState } from '../store';
 
-const { login, loginWithGoogle, loginWithFacebook, logout, getUserProfile: getUserProfileService } = authService();
+const { loginWithGoogle, loginWithFacebook, logout, getUserProfile: getUserProfileService } = authDao();
+const { login } = authService();
 const { setLS, removeLS } = ls();
 
 export interface UserState {
@@ -36,7 +41,23 @@ export const userSlicer = createSlice({
       state.isLoggedIn = action.payload;
     },
   },
-  extraReducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(login.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(login.fulfilled, (state, { payload }) => {
+      const { data: user, token } = payload;
+      setLS('auth_token', token);
+      setLS('user', JSON.stringify(user));
+      state.user = user;
+      state.isLoggedIn = true;
+      state.isLoading = false;
+    });
+    builder.addCase(login.rejected, (state, { payload }) => {
+      state.errorMessage = payload.response.data.message;
+      state.isLoading = false;
+    });
+  },
 });
 
 export const selectUserState = (state: RootState) => state.user;
@@ -44,31 +65,6 @@ export const selectUser = (state: RootState) => state.user.user;
 
 export const { setUser, setIsLoading, setErrorMessage, setIsLoggedIn } = userSlicer.actions;
 export default userSlicer.reducer;
-
-export const userLogin =
-  (payload: ISignInRequestPayload): AppThunk =>
-  async (dispatch) => {
-    try {
-      dispatch(setIsLoading(true));
-
-      const {
-        data: { data: user, token },
-      } = await login(payload);
-
-      setLS('auth_token', token);
-      setLS('user', JSON.stringify(user));
-      dispatch(setUser({ user }));
-      dispatch(setIsLoggedIn(true));
-      dispatch(setErrorMessage(null));
-      return user;
-    } catch (err: any) {
-      dispatch(setErrorMessage(err.response.data.message));
-
-      // console.log(JSON.stringify(err.response.data.message));
-    } finally {
-      dispatch(setIsLoading(false));
-    }
-  };
 
 export const userGoogleLogin =
   (payload: string): AppThunk =>
@@ -112,6 +108,7 @@ export const userFacebookLogin =
 
 export const getUserProfile = (): AppThunk => async (dispatch) => {
   try {
+    dispatch(setIsLoading(true));
     const {
       data: { data },
     } = await getUserProfileService();

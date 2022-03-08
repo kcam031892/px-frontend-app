@@ -1,4 +1,7 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AxiosError } from 'axios';
 import { ENDPOINTS } from 'shared/constants/ENDPOINTS';
+import { authDao } from 'shared/dao/authDao';
 import { useAxios } from 'shared/hooks/useAxios';
 import { ISignInRequestPayload, ISignInResponsePayload } from 'shared/interfaces/IUser';
 
@@ -6,68 +9,22 @@ import { tokenService } from './tokenService';
 const { GET, POST, DELETE } = useAxios();
 const { getAuthToken } = tokenService();
 
+const { login: loginDao } = authDao();
+
 export const authService = () => {
-  const login = async (payload: ISignInRequestPayload) => {
-    const response = await POST<ISignInResponsePayload>({
-      url: `${ENDPOINTS.USERS}/sign_in`,
-      data: payload,
-    });
-
-    return {
-      data: response?.data,
-    };
-  };
-
-  const loginWithGoogle = async (token: string) => {
-    const response = await POST<ISignInResponsePayload>({
-      url: `${ENDPOINTS.USERS}/google/sign_in?id_token=${token}`,
-    });
-    return {
-      data: response?.data,
-    };
-  };
-
-  const loginWithFacebook = async (token: string) => {
-    const response = await POST<ISignInResponsePayload>({
-      url: `${ENDPOINTS.USERS}/facebook/sign_in?id_token=${token}`,
-    });
-
-    return {
-      data: response?.data,
-    };
-  };
-
-  const getUserProfile = async () => {
-    const authToken = getAuthToken();
-    const response = await GET<ISignInResponsePayload>({
-      url: `${ENDPOINTS.USERS}/profile`,
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-    return {
-      data: response?.data,
-    };
-  };
-
-  const logout = async () => {
-    const authToken = getAuthToken();
-    const response = await DELETE({
-      url: `${ENDPOINTS.USERS}/sign_out`,
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-    return {
-      data: response,
-    };
-  };
+  const login = createAsyncThunk<ISignInResponsePayload, ISignInRequestPayload, { rejectValue: any }>(
+    'users/login',
+    async (payload: ISignInRequestPayload, thunkApi) => {
+      try {
+        const response = await loginDao(payload);
+        return response.data;
+      } catch (err) {
+        return thunkApi.rejectWithValue(err);
+      }
+    },
+  );
 
   return {
     login,
-    loginWithGoogle,
-    loginWithFacebook,
-    getUserProfile,
-    logout,
   };
 };

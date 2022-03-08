@@ -56,8 +56,7 @@ const Sidebar: React.FC<Props> = ({
   const history = useHistory();
   const listItemStyle = useMainListeItemStyle();
   const [selectedMenu, setSelectedMenu] = React.useState('');
-  const { isLoading } = useSelector(selectUserState);
-  const user = getUser();
+  const { isLoading, user } = useSelector(selectUserState);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   // const myAccount: MyAccountState = useSelector((state: RootState) => state.myAccount);
@@ -192,7 +191,7 @@ const Sidebar: React.FC<Props> = ({
                     }}
                   >
                     {/* {myAccount.model.firstName} {myAccount.model.lastName} */}
-                    {`${user?.attributes?.first_name} ${user?.attributes?.last_name}`}
+                    {`${user?.attributes?.first_name || ''} ${user?.attributes?.last_name || ''}`}
                   </h4>
                 </Link>
                 <Link to="/app/settings" style={{ textDecoration: 'none' }}>
