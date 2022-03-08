@@ -2,6 +2,7 @@
 import axios, { AxiosRequestHeaders, AxiosResponse } from 'axios';
 import { CONFIG } from 'shared/config';
 import { tokenService } from 'shared/services/tokenService';
+import { ls } from 'shared/utils/ls';
 
 export interface IAxios<P, B> {
   url?: string;
@@ -11,6 +12,7 @@ export interface IAxios<P, B> {
   headers?: AxiosRequestHeaders;
 }
 
+const { removeLS } = ls();
 export const useAxios = () => {
   const instance = axios.create({
     baseURL: CONFIG.API_URL,
@@ -31,8 +33,9 @@ export const useAxios = () => {
       }
       return request;
     },
-    (error) => {
+    async (error) => {
       if (CONFIG.isDevelopment) console.log(error);
+
       return Promise.reject(error);
     },
   );
@@ -51,6 +54,12 @@ export const useAxios = () => {
     },
     (error) => {
       if (CONFIG.isDevelopment) console.log(error);
+      if (error.response) {
+        if (error.response.status === 401) {
+          removeLS('auth_token');
+          // window.location.href = '/login';
+        }
+      }
       return Promise.reject(error);
     },
   );

@@ -21,7 +21,13 @@ import { ResultType } from 'types';
 import * as yup from 'yup';
 import { useStyles } from './Login.styles';
 import { ROUTES } from 'shared/constants/ROUTES';
-import { selectUserState, setErrorMessage, userFacebookLogin, userGoogleLogin } from 'shared/redux/slicers/user.slicer';
+import {
+  selectUserState,
+  setErrorMessage,
+  userFacebookLogin,
+  userGoogleLogin,
+  userLogin,
+} from 'shared/redux/slicers/user.slicer';
 import { FacebookLogin, FrontLayout, GoogleLogin } from 'components';
 import { ISignInRequestPayload } from 'shared/interfaces/IUser';
 import { FormikProps, useFormik } from 'formik';
@@ -31,7 +37,6 @@ import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-lo
 import { Alert } from '@material-ui/lab';
 import { ReactFacebookFailureResponse, ReactFacebookLoginInfo } from 'react-facebook-login';
 import { authService } from 'shared/services/authService';
-import { useAppDispatch } from 'shared/redux/store';
 
 interface LoginState {
   userName: string;
@@ -40,10 +45,9 @@ interface LoginState {
 }
 
 const Login = () => {
-  const { login } = authService();
   const classes = useStyles();
   const history = useHistory();
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const { user, isLoading, errorMessage, isLoggedIn } = useSelector(selectUserState);
 
   useEffect(() => {
@@ -67,8 +71,7 @@ const Login = () => {
   });
 
   const handleLoginSubmit = async (values: ISignInRequestPayload) => {
-    const response = await dispatch(login(values));
-    console.log(response);
+    dispatch(userLogin(values));
   };
 
   const form: FormikProps<ISignInRequestPayload> = useFormik({
