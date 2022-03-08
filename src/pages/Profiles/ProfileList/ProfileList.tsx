@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useStyles } from './ProfileList.style';
+import { useStyles } from './ProfileList.styles';
 import { Box, Button, Grid, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import NewProfileDialog from './NewProfileDialog/NewProfileDialog';

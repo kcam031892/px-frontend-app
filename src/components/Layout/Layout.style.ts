@@ -10,7 +10,8 @@ export const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       // padding: theme.spacing(4, 0),
       marginTop: '80px',
-      padding: theme.spacing(2, 4),
+      padding: theme.spacing(2, 2),
+      // overflow: 'hidden',
       // padding: theme.spacing(8),
 
       backgroundColor: theme.palette.secondary.main,

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router';
 import { ROUTES } from 'shared/constants/ROUTES';
 import { getUserProfile, selectUser, selectUserState } from 'shared/redux/slicers/user.slicer';
+import { useAppDispatch } from 'shared/redux/store';
 import { tokenService } from 'shared/services/tokenService';
 
 type Props = {
@@ -16,8 +17,8 @@ const { isAuthenticated } = tokenService();
 const ClientRoute: React.FC<Props> = ({ component: Component, exact, path }) => {
   const { getAuthToken } = tokenService();
   const authToken = getAuthToken();
-  const dispatch = useDispatch();
-  const { user, isLoggedIn } = useSelector(selectUserState);
+  const dispatch = useAppDispatch();
+  const { isLoggedIn } = useSelector(selectUserState);
 
   useEffect(() => {
     if (authToken && !isLoggedIn) {

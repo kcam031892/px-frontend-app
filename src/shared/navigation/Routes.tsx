@@ -17,6 +17,7 @@ const Routes = () => {
       <PublicRoute exact path={ROUTES.SIGNUP} component={Signup} />
       <ClientRoute exact path={ROUTES.APP.PROFILE} component={AsyncProfileList} />
       <ClientRoute exact path={ROUTES.APP.PROFILE_DETAIL} component={AsyncProfileDetail} />
+      <ClientRoute exact path={`${ROUTES.APP.PROFILE_DETAIL}/:tab`} component={AsyncProfileDetail} />
     </Switch>
   );
 };
