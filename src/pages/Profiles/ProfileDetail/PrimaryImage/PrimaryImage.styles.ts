@@ -67,5 +67,8 @@ export const useStyles = makeStyles(() =>
       display: 'flex',
       gap: '1rem',
     },
+    cropperContainer: {
+      marginTop: '1rem',
+    },
   }),
 );

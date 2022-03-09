@@ -11,13 +11,15 @@ import {
   OutlinedInputProps,
   Chip,
   Button,
+  Snackbar,
 } from '@material-ui/core';
-import { Autocomplete, createFilterOptions } from '@material-ui/lab';
-import { FileUploadDialog } from 'components';
+import { Alert, Autocomplete, createFilterOptions } from '@material-ui/lab';
+import { FileUploadDialog, ImageCropper } from 'components';
 
 import { RemoveIcon, SearchIcon } from 'components/Icons';
 import { Guid } from 'guid-typescript';
 import React, { useState } from 'react';
+import { ImageQuanlityLevel } from 'shared/enums/ImageQualityLevel';
 import { Input } from 'themes/elements';
 import { useDebounce } from 'use-debounce';
 import { useStyles } from './PrimaryImage.styles';
@@ -28,6 +30,12 @@ const PrimaryImage = () => {
   const [autocompleteKey, setAutoCompleteKey] = useState<string>('');
   const [isFileDialogOpen, setIsFileDialogOpen] = useState<boolean>(false);
   const [autoCompleteValue] = useDebounce(autocompleteKey, 500);
+  const [cropData, setCropData] = useState<string>('https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png');
+  const [cropper, setCropper] = useState<any>();
+  const [image, setImage] = useState<string>('');
+  const [isValidImage, setIsValidImage] = useState<string | null>(null);
+  const [qualityLevel, setQualityLevel] = useState<ImageQuanlityLevel>(ImageQuanlityLevel.None);
+
   const onSelectTag = (newTag: string) => {
     if (!tags.includes(newTag)) {
       setTags((tags) => [...tags, newTag]);
@@ -42,15 +50,26 @@ const PrimaryImage = () => {
   const closeFileDialog = () => setIsFileDialogOpen(false);
   const openFileDialog = () => setIsFileDialogOpen(true);
 
+  const getCropData = () => {
+    if (typeof cropper !== 'undefined') {
+      setCropData(cropper.getCroppedCanvas().toDataURL());
+    }
+  };
+
+  const onFileSelected = (name: string, type: string, image: string) => {
+    setImage(image);
+    closeFileDialog();
+  };
+
   return (
-    <Grid container spacing={10}>
-      <Grid item md={12} lg={4}>
+    <Grid container spacing={0}>
+      <Grid item md={12} lg={4} xl={3}>
         <Typography variant="h6" gutterBottom>
           Preview
         </Typography>
 
         <Card className={classes.card}>
-          <CardMedia image="https://picsum.photos/200/300" className={classes.card__media} />
+          <CardMedia image={cropData} className={classes.card__media} />
           <CardContent className={classes.card__content}>
             <InputBase placeholder="Enter name here" fullWidth />
             <Typography className={classes.card__text__pixels}>200 x 300 pixels</Typography>
@@ -133,7 +152,7 @@ const PrimaryImage = () => {
             ))}
         </Box>
       </Grid>
-      <Grid item md={12} lg={8}>
+      <Grid item md={12} lg={8} xl={9}>
         <Box className={classes.action}>
           <Typography variant="h6" gutterBottom>
             Edit Photo
@@ -142,11 +161,40 @@ const PrimaryImage = () => {
             <Button variant="outlined" onClick={openFileDialog}>
               Upload New Image
             </Button>
-            <Button variant="contained">Save</Button>
+            <Button variant="contained" disabled={qualityLevel === ImageQuanlityLevel.Reject}>
+              Save
+            </Button>
           </Box>
         </Box>
+        <Box className={classes.cropperContainer}>
+          <ImageCropper
+            src={image}
+            cropper={cropper}
+            setCropper={setCropper}
+            handleCrop={getCropData}
+            qualityLevel={qualityLevel}
+            setQualityLevel={setQualityLevel}
+          />
+          <Typography variant="body2" gutterBottom style={{ marginTop: '24px', textAlign: 'center' }}>
+            Move and scale the image until it fits within the recommended crop
+          </Typography>
+        </Box>
       </Grid>
-      <FileUploadDialog open={isFileDialogOpen} onClose={closeFileDialog} onFileSelected={() => alert('s')} />
+      <FileUploadDialog open={isFileDialogOpen} onClose={closeFileDialog} onFileSelected={onFileSelected} />
+
+      <Snackbar open={qualityLevel === ImageQuanlityLevel.Reject} autoHideDuration={6000 * 10}>
+        <Alert variant="filled" severity="error">
+          The image you have selected/uploaded is below the 800 pixel size height requirement, you cannot use this
+          image. Please select another image.
+        </Alert>
+      </Snackbar>
+
+      <Snackbar open={qualityLevel === ImageQuanlityLevel.Bad} autoHideDuration={6000 * 10}>
+        <Alert variant="filled" severity="warning">
+          The image you have selected/uploaded is below the 1500 pixel size height requirement. You may proceed however
+          quality will be compromised
+        </Alert>
+      </Snackbar>
     </Grid>
   );
 };
