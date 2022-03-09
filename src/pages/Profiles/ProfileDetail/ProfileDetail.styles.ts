@@ -1,9 +1,9 @@
-import { createStyles, makeStyles } from '@material-ui/core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
-export const useStyles = makeStyles(() =>
+export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     tabContainer: {
-      padding: '32px 36px',
+      marginTop: theme.spacing(4),
     },
   }),
 );

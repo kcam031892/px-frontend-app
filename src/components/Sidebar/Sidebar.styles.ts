@@ -31,9 +31,9 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
 
     drawer: {
-      // width: drawerWidth,
-      // flexShrink: 0,
-      // whiteSpace: 'nowrap',
+      width: drawerWidth,
+      flexShrink: 0,
+      whiteSpace: 'nowrap',
     },
     drawerPaper: {
       width: drawerWidth,

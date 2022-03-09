@@ -74,6 +74,7 @@ const ProfileDetail = () => {
             disabled={tab.disabled}
             value={tab.name}
             to={`${ROUTES.APP.PROFILE_DETAIL}/${tab.name}`}
+            classes={tabStyle}
           />
         ))}
       </Tabs>

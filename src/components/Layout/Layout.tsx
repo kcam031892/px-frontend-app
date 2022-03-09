@@ -32,9 +32,11 @@ const Layout: React.FC<Props> = ({ children }) => {
         isDrawerCollapse={isDrawerCollapse}
         toggleDrawerCollapse={toggleDrawerCollapse}
       />
-      <Suspense fallback={<h1>Loading</h1>}>
-        <main className={classes.content}>{children}</main>
-      </Suspense>
+
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        <Suspense fallback={<h1>Loading</h1>}>{children}</Suspense>
+      </main>
     </div>
   );
 };

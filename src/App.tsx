@@ -1,5 +1,9 @@
 import { CssBaseline } from '@material-ui/core';
-
+import 'fontsource-roboto';
+import 'fontsource-roboto/300.css';
+import 'fontsource-roboto/500.css';
+import 'fontsource-roboto/700.css';
+import 'fontsource-roboto/900.css';
 import SwitchThemeProvider from 'app/SwitchThemeProvider';
 import { ConfirmProvider } from 'material-ui-confirm';
 import { SnackbarProvider } from 'notistack';
@@ -18,9 +22,9 @@ const App = () => {
       <Router>
         <SwitchThemeProvider>
           <SnackbarProvider maxSnack={3}>
-            <CssBaseline />
             <ConfirmProvider>
               <CookiesProvider>
+                <CssBaseline />
                 <Routes />
               </CookiesProvider>
             </ConfirmProvider>
