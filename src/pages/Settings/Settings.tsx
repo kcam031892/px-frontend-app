@@ -67,6 +67,7 @@ const Settings = () => {
       <Tabs value={tab}>
         {tabs.map((tab, index) => (
           <Tab
+            className={tabStyle.root}
             key={index}
             label={tab.header}
             component={Link}
