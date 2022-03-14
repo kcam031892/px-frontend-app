@@ -4,6 +4,7 @@ import { Header } from 'components/Header';
 import { useStyles } from './Layout.style';
 import { useMediaQuery } from '@material-ui/core';
 import theme from 'theme';
+import { Backdrop } from 'themes/elements';
 
 type Props = {
   children: React.ReactNode;
@@ -35,7 +36,9 @@ const Layout: React.FC<Props> = ({ children }) => {
 
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Suspense fallback={<h1>Loading</h1>}>{children}</Suspense>
+        <Suspense fallback={<Backdrop />}>
+          <>{children}</>
+        </Suspense>
       </main>
     </div>
   );
