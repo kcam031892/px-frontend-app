@@ -10,6 +10,7 @@ export interface IAxios<P, B> {
   body?: B;
   data?: B;
   headers?: AxiosRequestHeaders;
+  onUploadProgress?: (event: any) => void;
 }
 
 const { removeLS } = ls();

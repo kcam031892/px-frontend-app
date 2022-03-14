@@ -3,20 +3,21 @@ import { createStyles, makeStyles } from '@material-ui/core';
 export const useStyles = makeStyles(() =>
   createStyles({
     container: {
-      minWidth: '512px',
-      height: '328px',
-      borderRadius: '24px',
-      display: 'flex',
-      alignItems: 'center',
+      overflow: 'hidden',
       justifyContent: 'center',
-      flexDirection: 'column',
     },
-    uploaderContainer: {
-      width: 'auto',
+    editorPanel: {
+      background: '#25282A',
+      width: 1136,
+      padding: '24px 12px 34px 12px',
       display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
       flexDirection: 'column',
+      position: 'relative',
+    },
+    toolbar: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
     },
   }),
 );

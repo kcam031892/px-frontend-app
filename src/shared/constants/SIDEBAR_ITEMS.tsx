@@ -28,7 +28,7 @@ export const SIDEBAR_ITEMS: ISidebarItems[] = [
   {
     name: 'Media',
     icon: <MediaIcon />,
-    link: ROUTES.APP.MEDIA,
+    link: `${ROUTES.APP.MEDIA}/dashboard`,
   },
   {
     name: 'Projects',

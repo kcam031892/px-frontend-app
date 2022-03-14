@@ -7,11 +7,12 @@ type Props = {
   label?: string;
   errorMessage?: string;
   data: IKeyValue[];
+  hasMargin?: boolean;
 } & SelectProps;
-const Select: React.FC<Props> = ({ fullWidth, label, errorMessage, data, ...props }) => {
+const Select: React.FC<Props> = ({ fullWidth, label, errorMessage, data, hasMargin = true, ...props }) => {
   return (
     <>
-      <FormControl margin="normal" fullWidth={fullWidth} error={!!errorMessage}>
+      <FormControl margin={hasMargin ? 'normal' : undefined} fullWidth={fullWidth} error={!!errorMessage}>
         {!!label && <InputLabel shrink>{label}</InputLabel>}
 
         <MUISelect disableUnderline {...props} error={!!errorMessage}>

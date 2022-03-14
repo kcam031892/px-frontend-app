@@ -1,72 +1,65 @@
 import { Box, Tab } from '@material-ui/core';
-import React, { useMemo, useState } from 'react';
-import { Route, Link, Switch, useRouteMatch, useParams, Redirect, useLocation, useHistory } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import { useParams, useHistory } from 'react-router';
 import { ROUTES } from 'shared/constants/ROUTES';
 import { ITab } from 'shared/interfaces/utils/ITab';
 import { Tabs } from 'themes/elements';
 import { useTabStyle } from 'themes/styles/useTabStyle';
-import Biography from './Biography/Biography';
-import PrimaryImage from './PrimaryImage/PrimaryImage';
-import { useStyles } from './ProfileDetail.styles';
-import Resume from './Resume/Resume';
+import Dashboard from './Dashboard/Dashboard';
+import ImagesTab from './ImagesTab/ImagesTab';
+import { useStyles } from './Media.styles';
+import Upload from './Upload/Upload';
 
 const tabs: ITab[] = [
   {
-    name: 'primary_image',
-    header: 'Primary Image',
-    component: <PrimaryImage />,
-    disabled: false,
-  },
-  {
-    name: 'biography',
-    header: 'Biography',
-    component: <Biography />,
-    disabled: false,
-  },
-  {
-    name: 'resume',
-    header: 'Resume',
-    component: <Resume />,
+    name: 'dashboard',
+    header: 'Dashboard',
+    component: <Dashboard />,
     disabled: false,
   },
   {
     name: 'images',
     header: 'Images',
-    component: <div>HEllo</div>,
-    disabled: true,
+    component: <ImagesTab />,
+    disabled: false,
   },
   {
     name: 'videos',
-    header: 'Video',
+    header: 'Videos',
     component: <div>Videos</div>,
-    disabled: true,
+    disabled: false,
   },
   {
     name: 'audios',
-    header: 'Audio',
+    header: 'Audios',
     component: <div>Audios</div>,
+    disabled: false,
+  },
+  {
+    name: 'documents',
+    header: 'Documents',
+    component: <div>Documents</div>,
     disabled: true,
   },
   {
-    name: 'composite_card',
-    header: 'Composite Card',
-    component: <div>Composite Card</div>,
-    disabled: true,
+    name: 'upload',
+    header: 'Upload',
+    component: <Upload />,
+    disabled: false,
   },
 ];
 
-const ProfileDetail = () => {
-  const { tab } = useParams() as { tab: string };
-  const history = useHistory();
-
+const Media = () => {
   const classes = useStyles();
   const tabStyle = useTabStyle();
+  const { tab } = useParams() as { tab: string };
+  const history = useHistory();
   const getActiveTab = useMemo(() => {
     return tabs.find((_tab) => _tab.name === tab)?.component;
   }, [tab]);
 
   const handleTabChange = (event: React.ChangeEvent<{}>, newValue: string) => {
-    history.push(`${ROUTES.APP.PROFILE_DETAIL}/${newValue}`);
+    history.push(`${ROUTES.APP.MEDIA}/${newValue}`);
   };
   return (
     <Box>
@@ -80,4 +73,4 @@ const ProfileDetail = () => {
   );
 };
 
-export default ProfileDetail;
+export default Media;

@@ -23,10 +23,8 @@ const App = () => {
         <SwitchThemeProvider>
           <SnackbarProvider maxSnack={3}>
             <ConfirmProvider>
-              <CookiesProvider>
-                <CssBaseline />
-                <Routes />
-              </CookiesProvider>
+              <CssBaseline />
+              <Routes />
             </ConfirmProvider>
           </SnackbarProvider>
         </SwitchThemeProvider>

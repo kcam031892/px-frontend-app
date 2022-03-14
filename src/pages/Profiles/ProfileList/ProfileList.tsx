@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useStyles } from './ProfileList.styles';
-import { Box, Button, Grid, Typography } from '@material-ui/core';
+import { Box, Grid, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import NewProfileDialog from './NewProfileDialog/NewProfileDialog';
 import ProfileListItem from './ProfileListItem/ProfileListItem';
+import { Button } from 'themes/elements';
 
 const ProfileList = () => {
   const profileList = Array.from({ length: 12 }).fill('');
@@ -15,12 +16,7 @@ const ProfileList = () => {
     <Box className={classes.container}>
       <Box className={classes.pageHeader}>
         <Typography className={classes.header}>My Profiles</Typography>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          className={classes.newProfileButton}
-          onClick={handleOpenProfileDialog}
-        >
+        <Button variant="contained" startIcon={<AddIcon />} onClick={handleOpenProfileDialog} customVariant="newButton">
           New Profile
         </Button>
       </Box>
