@@ -17,6 +17,10 @@ import { ContactInput, Input, InputPassword } from 'themes/elements';
 import { useStyles } from './MyAccount.styles';
 import { useCardContentStyle } from 'themes/styles/useCardContentStyle';
 
+const selectAge = (event: React.ChangeEvent<{}>) => {
+  console.log(event.target);
+};
+
 const MyAccount = () => {
   const classes = useStyles();
   const cardContentStyle = useCardContentStyle();
@@ -146,7 +150,7 @@ const MyAccount = () => {
                     <InputLabel id="lblType" shrink>
                       Adult/Minor
                     </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline>
+                    <Select onChange={selectAge} labelId={'lblType'} disableUnderline>
                       <MenuItem key={'ADULT'} value={'ADULT'}>
                         Adult
                       </MenuItem>
