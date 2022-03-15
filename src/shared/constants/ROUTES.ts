@@ -7,5 +7,6 @@ export const ROUTES = {
     PROFILE: '/app/profiles',
     PROFILE_DETAIL: '/app/profiles_detail',
     MEDIA: '/app/media',
+    SETTINGS: '/app/settings',
   },
 };

@@ -160,7 +160,7 @@ const Sidebar: React.FC<Props> = ({
         </div>
         <div>
           <Box className={classes.myAccountContent}>
-            <Link to="/app/settings">
+            <Link to={`${ROUTES.APP.SETTINGS}/:tab`}>
               {/* <Avatar
                 alt={myAccount.model.firstName + ' ' + myAccount.model.lastName}
                 src={displayImage()}
@@ -179,7 +179,7 @@ const Sidebar: React.FC<Props> = ({
                   [classes.hidden]: isDrawerCollapse,
                 })}
               >
-                <Link to="/app/settings" style={{ textDecoration: 'none' }}>
+                <Link to={`${ROUTES.APP.SETTINGS}/my_account`} style={{ textDecoration: 'none' }}>
                   <h4
                     style={{
                       margin: '0px 0px 0px 0px',
@@ -194,7 +194,7 @@ const Sidebar: React.FC<Props> = ({
                     {`${user?.attributes?.first_name || ''} ${user?.attributes?.last_name || ''}`}
                   </h4>
                 </Link>
-                <Link to="/app/settings" style={{ textDecoration: 'none' }}>
+                <Link to={`${ROUTES.APP.SETTINGS}/my_account`} style={{ textDecoration: 'none' }}>
                   <span
                     style={{
                       fontSize: '12px',
