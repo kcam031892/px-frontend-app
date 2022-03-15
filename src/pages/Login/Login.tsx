@@ -43,7 +43,7 @@ const Login = () => {
   const { login } = authService();
   const classes = useStyles();
   const history = useHistory();
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const { user, isLoading, errorMessage, isLoggedIn } = useSelector(selectUserState);
 
   useEffect(() => {

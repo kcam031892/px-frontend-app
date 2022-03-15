@@ -17,7 +17,7 @@ const { isAuthenticated } = tokenService();
 const ClientRoute: React.FC<Props> = ({ component: Component, exact, path }) => {
   const { getAuthToken } = tokenService();
   const authToken = getAuthToken();
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const { isLoggedIn } = useSelector(selectUserState);
 
   useEffect(() => {

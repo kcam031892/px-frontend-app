@@ -7,7 +7,7 @@ import { useStyles } from './ContactInput.styles';
 const ContactInput = () => {
   const classes = useStyles();
   return (
-    <FormControl fullWidth margin="normal">
+    <FormControl fullWidth>
       <InputLabel id="lblContactInput" shrink>
         Contact Number
       </InputLabel>
