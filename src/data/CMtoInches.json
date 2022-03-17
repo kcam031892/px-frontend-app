@@ -1,0 +1,927 @@
+[
+    {
+      "cm": "31",
+      "actualValue": "12.20472441",
+      "lookupValue": "12"
+    },
+    {
+      "cm": "32",
+      "actualValue": "12.5984252",
+      "lookupValue": "12.5"
+    },
+    {
+      "cm": "33",
+      "actualValue": "12.99212598",
+      "lookupValue": "13"
+    },
+    {
+      "cm": "34",
+      "actualValue": "13.38582677",
+      "lookupValue": "13.5"
+    },
+    {
+      "cm": "35",
+      "actualValue": "13.77952756",
+      "lookupValue": "14"
+    },
+    {
+      "cm": "36",
+      "actualValue": "14.17322835",
+      "lookupValue": "14"
+    },
+    {
+      "cm": "37",
+      "actualValue": "14.56692913",
+      "lookupValue": "14.5"
+    },
+    {
+      "cm": "38",
+      "actualValue": "14.96062992",
+      "lookupValue": "15"
+    },
+    {
+      "cm": "39",
+      "actualValue": "15.35433071",
+      "lookupValue": "15.5"
+    },
+    {
+      "cm": "40",
+      "actualValue": "15.7480315",
+      "lookupValue": "15.5"
+    },
+    {
+      "cm": "41",
+      "actualValue": "16.14173228",
+      "lookupValue": "16"
+    },
+    {
+      "cm": "42",
+      "actualValue": "16.53543307",
+      "lookupValue": "16.5"
+    },
+    {
+      "cm": "43",
+      "actualValue": "16.92913386",
+      "lookupValue": "17"
+    },
+    {
+      "cm": "44",
+      "actualValue": "17.32283465",
+      "lookupValue": "17.5"
+    },
+    {
+      "cm": "45",
+      "actualValue": "17.71653543",
+      "lookupValue": "17.5"
+    },
+    {
+      "cm": "46",
+      "actualValue": "18.11023622",
+      "lookupValue": "18"
+    },
+    {
+      "cm": "47",
+      "actualValue": "18.50393701",
+      "lookupValue": "18.5"
+    },
+    {
+      "cm": "48",
+      "actualValue": "18.8976378",
+      "lookupValue": "19"
+    },
+    {
+      "cm": "49",
+      "actualValue": "19.29133858",
+      "lookupValue": "19.5"
+    },
+    {
+      "cm": "50",
+      "actualValue": "19.68503937",
+      "lookupValue": "19.5"
+    },
+    {
+      "cm": "51",
+      "actualValue": "20.07874016",
+      "lookupValue": "20"
+    },
+    {
+      "cm": "52",
+      "actualValue": "20.47244094",
+      "lookupValue": "20.5"
+    },
+    {
+      "cm": "53",
+      "actualValue": "20.86614173",
+      "lookupValue": "21"
+    },
+    {
+      "cm": "54",
+      "actualValue": "21.25984252",
+      "lookupValue": "21.5"
+    },
+    {
+      "cm": "55",
+      "actualValue": "21.65354331",
+      "lookupValue": "21.5"
+    },
+    {
+      "cm": "56",
+      "actualValue": "22.04724409",
+      "lookupValue": "22"
+    },
+    {
+      "cm": "57",
+      "actualValue": "22.44094488",
+      "lookupValue": "22.5"
+    },
+    {
+      "cm": "58",
+      "actualValue": "22.83464567",
+      "lookupValue": "23"
+    },
+    {
+      "cm": "59",
+      "actualValue": "23.22834646",
+      "lookupValue": "23"
+    },
+    {
+      "cm": "60",
+      "actualValue": "23.62204724",
+      "lookupValue": "23.5"
+    },
+    {
+      "cm": "61",
+      "actualValue": "24.01574803",
+      "lookupValue": "24"
+    },
+    {
+      "cm": "62",
+      "actualValue": "24.40944882",
+      "lookupValue": "24.5"
+    },
+    {
+      "cm": "63",
+      "actualValue": "24.80314961",
+      "lookupValue": "25"
+    },
+    {
+      "cm": "64",
+      "actualValue": "25.19685039",
+      "lookupValue": "25"
+    },
+    {
+      "cm": "65",
+      "actualValue": "25.59055118",
+      "lookupValue": "25.5"
+    },
+    {
+      "cm": "66",
+      "actualValue": "25.98425197",
+      "lookupValue": "26"
+    },
+    {
+      "cm": "67",
+      "actualValue": "26.37795276",
+      "lookupValue": "26.5"
+    },
+    {
+      "cm": "68",
+      "actualValue": "26.77165354",
+      "lookupValue": "27"
+    },
+    {
+      "cm": "69",
+      "actualValue": "27.16535433",
+      "lookupValue": "27"
+    },
+    {
+      "cm": "70",
+      "actualValue": "27.55905512",
+      "lookupValue": "27.5"
+    },
+    {
+      "cm": "71",
+      "actualValue": "27.95275591",
+      "lookupValue": "28"
+    },
+    {
+      "cm": "72",
+      "actualValue": "28.34645669",
+      "lookupValue": "28.5"
+    },
+    {
+      "cm": "73",
+      "actualValue": "28.74015748",
+      "lookupValue": "28.5"
+    },
+    {
+      "cm": "74",
+      "actualValue": "29.13385827",
+      "lookupValue": "29"
+    },
+    {
+      "cm": "75",
+      "actualValue": "29.52755906",
+      "lookupValue": "29.5"
+    },
+    {
+      "cm": "76",
+      "actualValue": "29.92125984",
+      "lookupValue": "30"
+    },
+    {
+      "cm": "77",
+      "actualValue": "30.31496063",
+      "lookupValue": "30.5"
+    },
+    {
+      "cm": "78",
+      "actualValue": "30.70866142",
+      "lookupValue": "30.5"
+    },
+    {
+      "cm": "79",
+      "actualValue": "31.1023622",
+      "lookupValue": "31"
+    },
+    {
+      "cm": "80",
+      "actualValue": "31.49606299",
+      "lookupValue": "31.5"
+    },
+    {
+      "cm": "81",
+      "actualValue": "31.88976378",
+      "lookupValue": "32"
+    },
+    {
+      "cm": "82",
+      "actualValue": "32.28346457",
+      "lookupValue": "32.5"
+    },
+    {
+      "cm": "83",
+      "actualValue": "32.67716535",
+      "lookupValue": "32.5"
+    },
+    {
+      "cm": "84",
+      "actualValue": "33.07086614",
+      "lookupValue": "33"
+    },
+    {
+      "cm": "85",
+      "actualValue": "33.46456693",
+      "lookupValue": "33.5"
+    },
+    {
+      "cm": "86",
+      "actualValue": "33.85826772",
+      "lookupValue": "34"
+    },
+    {
+      "cm": "87",
+      "actualValue": "34.2519685",
+      "lookupValue": "34.5"
+    },
+    {
+      "cm": "88",
+      "actualValue": "34.64566929",
+      "lookupValue": "34.5"
+    },
+    {
+      "cm": "89",
+      "actualValue": "35.03937008",
+      "lookupValue": "35"
+    },
+    {
+      "cm": "90",
+      "actualValue": "35.43307087",
+      "lookupValue": "35.5"
+    },
+    {
+      "cm": "91",
+      "actualValue": "35.82677165",
+      "lookupValue": "36"
+    },
+    {
+      "cm": "92",
+      "actualValue": "36.22047244",
+      "lookupValue": "36"
+    },
+    {
+      "cm": "93",
+      "actualValue": "36.61417323",
+      "lookupValue": "36.5"
+    },
+    {
+      "cm": "94",
+      "actualValue": "37.00787402",
+      "lookupValue": "37"
+    },
+    {
+      "cm": "95",
+      "actualValue": "37.4015748",
+      "lookupValue": "37.5"
+    },
+    {
+      "cm": "96",
+      "actualValue": "37.79527559",
+      "lookupValue": "38"
+    },
+    {
+      "cm": "97",
+      "actualValue": "38.18897638",
+      "lookupValue": "38"
+    },
+    {
+      "cm": "98",
+      "actualValue": "38.58267717",
+      "lookupValue": "38.5"
+    },
+    {
+      "cm": "99",
+      "actualValue": "38.97637795",
+      "lookupValue": "39"
+    },
+    {
+      "cm": "100",
+      "actualValue": "39.37007874",
+      "lookupValue": "39.5"
+    },
+    {
+      "cm": "101",
+      "actualValue": "39.76377953",
+      "lookupValue": "40"
+    },
+    {
+      "cm": "102",
+      "actualValue": "40.15748031",
+      "lookupValue": "40"
+    },
+    {
+      "cm": "103",
+      "actualValue": "40.5511811",
+      "lookupValue": "40.5"
+    },
+    {
+      "cm": "104",
+      "actualValue": "40.94488189",
+      "lookupValue": "41"
+    },
+    {
+      "cm": "105",
+      "actualValue": "41.33858268",
+      "lookupValue": "41.5"
+    },
+    {
+      "cm": "106",
+      "actualValue": "41.73228346",
+      "lookupValue": "41.5"
+    },
+    {
+      "cm": "107",
+      "actualValue": "42.12598425",
+      "lookupValue": "42"
+    },
+    {
+      "cm": "108",
+      "actualValue": "42.51968504",
+      "lookupValue": "42.5"
+    },
+    {
+      "cm": "109",
+      "actualValue": "42.91338583",
+      "lookupValue": "43"
+    },
+    {
+      "cm": "110",
+      "actualValue": "43.30708661",
+      "lookupValue": "43.5"
+    },
+    {
+      "cm": "111",
+      "actualValue": "43.7007874",
+      "lookupValue": "43.5"
+    },
+    {
+      "cm": "112",
+      "actualValue": "44.09448819",
+      "lookupValue": "44"
+    },
+    {
+      "cm": "113",
+      "actualValue": "44.48818898",
+      "lookupValue": "44.5"
+    },
+    {
+      "cm": "114",
+      "actualValue": "44.88188976",
+      "lookupValue": "45"
+    },
+    {
+      "cm": "115",
+      "actualValue": "45.27559055",
+      "lookupValue": "45.5"
+    },
+    {
+      "cm": "116",
+      "actualValue": "45.66929134",
+      "lookupValue": "45.5"
+    },
+    {
+      "cm": "117",
+      "actualValue": "46.06299213",
+      "lookupValue": "46"
+    },
+    {
+      "cm": "118",
+      "actualValue": "46.45669291",
+      "lookupValue": "46.5"
+    },
+    {
+      "cm": "119",
+      "actualValue": "46.8503937",
+      "lookupValue": "47"
+    },
+    {
+      "cm": "120",
+      "actualValue": "47.24409449",
+      "lookupValue": "47"
+    },
+    {
+      "cm": "121",
+      "actualValue": "47.63779528",
+      "lookupValue": "47.5"
+    },
+    {
+      "cm": "122",
+      "actualValue": "48.03149606",
+      "lookupValue": "48"
+    },
+    {
+      "cm": "123",
+      "actualValue": "48.42519685",
+      "lookupValue": "48.5"
+    },
+    {
+      "cm": "124",
+      "actualValue": "48.81889764",
+      "lookupValue": "49"
+    },
+    {
+      "cm": "125",
+      "actualValue": "49.21259843",
+      "lookupValue": "49"
+    },
+    {
+      "cm": "126",
+      "actualValue": "49.60629921",
+      "lookupValue": "49.5"
+    },
+    {
+      "cm": "127",
+      "actualValue": "50",
+      "lookupValue": "50"
+    },
+    {
+      "cm": "128",
+      "actualValue": "50.39370079",
+      "lookupValue": "50.5"
+    },
+    {
+      "cm": "129",
+      "actualValue": "50.78740157",
+      "lookupValue": "51"
+    },
+    {
+      "cm": "130",
+      "actualValue": "51.18110236",
+      "lookupValue": "51"
+    },
+    {
+      "cm": "131",
+      "actualValue": "51.57480315",
+      "lookupValue": "51.5"
+    },
+    {
+      "cm": "132",
+      "actualValue": "51.96850394",
+      "lookupValue": "52"
+    },
+    {
+      "cm": "133",
+      "actualValue": "52.36220472",
+      "lookupValue": "52.5"
+    },
+    {
+      "cm": "134",
+      "actualValue": "52.75590551",
+      "lookupValue": "53"
+    },
+    {
+      "cm": "135",
+      "actualValue": "53.1496063",
+      "lookupValue": "53"
+    },
+    {
+      "cm": "136",
+      "actualValue": "53.54330709",
+      "lookupValue": "53.5"
+    },
+    {
+      "cm": "137",
+      "actualValue": "53.93700787",
+      "lookupValue": "54"
+    },
+    {
+      "cm": "138",
+      "actualValue": "54.33070866",
+      "lookupValue": "54.5"
+    },
+    {
+      "cm": "139",
+      "actualValue": "54.72440945",
+      "lookupValue": "54.5"
+    },
+    {
+      "cm": "140",
+      "actualValue": "55.11811024",
+      "lookupValue": "55"
+    },
+    {
+      "cm": "141",
+      "actualValue": "55.51181102",
+      "lookupValue": "55.5"
+    },
+    {
+      "cm": "142",
+      "actualValue": "55.90551181",
+      "lookupValue": "56"
+    },
+    {
+      "cm": "143",
+      "actualValue": "56.2992126",
+      "lookupValue": "56.5"
+    },
+    {
+      "cm": "144",
+      "actualValue": "56.69291339",
+      "lookupValue": "56.5"
+    },
+    {
+      "cm": "145",
+      "actualValue": "57.08661417",
+      "lookupValue": "57"
+    },
+    {
+      "cm": "146",
+      "actualValue": "57.48031496",
+      "lookupValue": "57.5"
+    },
+    {
+      "cm": "147",
+      "actualValue": "57.87401575",
+      "lookupValue": "58"
+    },
+    {
+      "cm": "148",
+      "actualValue": "58.26771654",
+      "lookupValue": "58.5"
+    },
+    {
+      "cm": "149",
+      "actualValue": "58.66141732",
+      "lookupValue": "58.5"
+    },
+    {
+      "cm": "150",
+      "actualValue": "59.05511811",
+      "lookupValue": "59"
+    },
+    {
+      "cm": "151",
+      "actualValue": "59.4488189",
+      "lookupValue": "59.5"
+    },
+    {
+      "cm": "152",
+      "actualValue": "59.84251969",
+      "lookupValue": "60"
+    },
+    {
+      "cm": "153",
+      "actualValue": "60.23622047",
+      "lookupValue": "60"
+    },
+    {
+      "cm": "154",
+      "actualValue": "60.62992126",
+      "lookupValue": "60.5"
+    },
+    {
+      "cm": "155",
+      "actualValue": "61.02362205",
+      "lookupValue": "61"
+    },
+    {
+      "cm": "156",
+      "actualValue": "61.41732283",
+      "lookupValue": "61.5"
+    },
+    {
+      "cm": "157",
+      "actualValue": "61.81102362",
+      "lookupValue": "62"
+    },
+    {
+      "cm": "158",
+      "actualValue": "62.20472441",
+      "lookupValue": "62"
+    },
+    {
+      "cm": "159",
+      "actualValue": "62.5984252",
+      "lookupValue": "62.5"
+    },
+    {
+      "cm": "160",
+      "actualValue": "62.99212598",
+      "lookupValue": "63"
+    },
+    {
+      "cm": "161",
+      "actualValue": "63.38582677",
+      "lookupValue": "63.5"
+    },
+    {
+      "cm": "162",
+      "actualValue": "63.77952756",
+      "lookupValue": "64"
+    },
+    {
+      "cm": "163",
+      "actualValue": "64.17322835",
+      "lookupValue": "64"
+    },
+    {
+      "cm": "164",
+      "actualValue": "64.56692913",
+      "lookupValue": "64.5"
+    },
+    {
+      "cm": "165",
+      "actualValue": "64.96062992",
+      "lookupValue": "65"
+    },
+    {
+      "cm": "166",
+      "actualValue": "65.35433071",
+      "lookupValue": "65.5"
+    },
+    {
+      "cm": "167",
+      "actualValue": "65.7480315",
+      "lookupValue": "65.5"
+    },
+    {
+      "cm": "168",
+      "actualValue": "66.14173228",
+      "lookupValue": "66"
+    },
+    {
+      "cm": "169",
+      "actualValue": "66.53543307",
+      "lookupValue": "66.5"
+    },
+    {
+      "cm": "170",
+      "actualValue": "66.92913386",
+      "lookupValue": "67"
+    },
+    {
+      "cm": "171",
+      "actualValue": "67.32283465",
+      "lookupValue": "67.5"
+    },
+    {
+      "cm": "172",
+      "actualValue": "67.71653543",
+      "lookupValue": "67.5"
+    },
+    {
+      "cm": "173",
+      "actualValue": "68.11023622",
+      "lookupValue": "68"
+    },
+    {
+      "cm": "174",
+      "actualValue": "68.50393701",
+      "lookupValue": "68.5"
+    },
+    {
+      "cm": "175",
+      "actualValue": "68.8976378",
+      "lookupValue": "69"
+    },
+    {
+      "cm": "176",
+      "actualValue": "69.29133858",
+      "lookupValue": "69.5"
+    },
+    {
+      "cm": "177",
+      "actualValue": "69.68503937",
+      "lookupValue": "69.5"
+    },
+    {
+      "cm": "178",
+      "actualValue": "70.07874016",
+      "lookupValue": "70"
+    },
+    {
+      "cm": "179",
+      "actualValue": "70.47244094",
+      "lookupValue": "70.5"
+    },
+    {
+      "cm": "180",
+      "actualValue": "70.86614173",
+      "lookupValue": "71"
+    },
+    {
+      "cm": "181",
+      "actualValue": "71.25984252",
+      "lookupValue": "71.5"
+    },
+    {
+      "cm": "182",
+      "actualValue": "71.65354331",
+      "lookupValue": "71.5"
+    },
+    {
+      "cm": "183",
+      "actualValue": "72.04724409",
+      "lookupValue": "72"
+    },
+    {
+      "cm": "184",
+      "actualValue": "72.44094488",
+      "lookupValue": "72.5"
+    },
+    {
+      "cm": "185",
+      "actualValue": "72.83464567",
+      "lookupValue": "73"
+    },
+    {
+      "cm": "186",
+      "actualValue": "73.22834646",
+      "lookupValue": "73"
+    },
+    {
+      "cm": "187",
+      "actualValue": "73.62204724",
+      "lookupValue": "73.5"
+    },
+    {
+      "cm": "188",
+      "actualValue": "74.01574803",
+      "lookupValue": "74"
+    },
+    {
+      "cm": "189",
+      "actualValue": "74.40944882",
+      "lookupValue": "74.5"
+    },
+    {
+      "cm": "190",
+      "actualValue": "74.80314961",
+      "lookupValue": "75"
+    },
+    {
+      "cm": "191",
+      "actualValue": "75.19685039",
+      "lookupValue": "75"
+    },
+    {
+      "cm": "192",
+      "actualValue": "75.59055118",
+      "lookupValue": "75.5"
+    },
+    {
+      "cm": "193",
+      "actualValue": "75.98425197",
+      "lookupValue": "76"
+    },
+    {
+      "cm": "194",
+      "actualValue": "76.37795276",
+      "lookupValue": "76.5"
+    },
+    {
+      "cm": "195",
+      "actualValue": "76.77165354",
+      "lookupValue": "77"
+    },
+    {
+      "cm": "196",
+      "actualValue": "77.16535433",
+      "lookupValue": "77"
+    },
+    {
+      "cm": "197",
+      "actualValue": "77.55905512",
+      "lookupValue": "77.5"
+    },
+    {
+      "cm": "198",
+      "actualValue": "77.95275591",
+      "lookupValue": "78"
+    },
+    {
+      "cm": "199",
+      "actualValue": "78.34645669",
+      "lookupValue": "78.5"
+    },
+    {
+      "cm": "200",
+      "actualValue": "78.74015748",
+      "lookupValue": "78.5"
+    },
+    {
+      "cm": "201",
+      "actualValue": "79.13385827",
+      "lookupValue": "79"
+    },
+    {
+      "cm": "202",
+      "actualValue": "79.52755906",
+      "lookupValue": "79.5"
+    },
+    {
+      "cm": "203",
+      "actualValue": "79.92125984",
+      "lookupValue": "80"
+    },
+    {
+      "cm": "204",
+      "actualValue": "80.31496063",
+      "lookupValue": "80.5"
+    },
+    {
+      "cm": "205",
+      "actualValue": "80.70866142",
+      "lookupValue": "80.5"
+    },
+    {
+      "cm": "206",
+      "actualValue": "81.1023622",
+      "lookupValue": "81"
+    },
+    {
+      "cm": "207",
+      "actualValue": "81.49606299",
+      "lookupValue": "81.5"
+    },
+    {
+      "cm": "208",
+      "actualValue": "81.88976378",
+      "lookupValue": "82"
+    },
+    {
+      "cm": "209",
+      "actualValue": "82.28346457",
+      "lookupValue": "82.5"
+    },
+    {
+      "cm": "210",
+      "actualValue": "82.67716535",
+      "lookupValue": "82.5"
+    },
+    {
+      "cm": "211",
+      "actualValue": "83.07086614",
+      "lookupValue": "83"
+    },
+    {
+      "cm": "212",
+      "actualValue": "83.46456693",
+      "lookupValue": "83.5"
+    },
+    {
+      "cm": "213",
+      "actualValue": "83.85826772",
+      "lookupValue": "84"
+    },
+    {
+      "cm": "214",
+      "actualValue": "84.2519685",
+      "lookupValue": "84.5"
+    },
+    {
+      "cm": "215",
+      "actualValue": "84.64566929",
+      "lookupValue": "84.5"
+    }
+]

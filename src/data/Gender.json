@@ -1,0 +1,26 @@
+[
+    {
+      "key": "Male",
+      "value": "Male"
+    },
+    {
+      "key": "Female",
+      "value": "Female"
+    },
+    {
+      "key": "Non-Binary",
+      "value": "Non-Binary"
+    },
+    {
+      "key": "Trans Man",
+      "value": "Trans Man"
+    },
+    {
+      "key": "Trans Woman",
+      "value": "Trans Woman"
+    },
+    {
+      "key": "Other",
+      "value": "Other"
+    }
+]

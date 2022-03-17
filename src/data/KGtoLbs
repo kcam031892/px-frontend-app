@@ -1,0 +1,617 @@
+[
+    {
+        "kg": "5",
+        "actualValue": "11.02311311",
+        "lookupValue": "11"
+    },
+    {
+        "kg": "6",
+        "actualValue": "13.22773573",
+        "lookupValue": "13"
+    },
+    {
+        "kg": "7",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    },
+    {
+        "kg": "000",
+        "actualValue": "0000",
+        "lookupValue": "0000"
+    }
+]

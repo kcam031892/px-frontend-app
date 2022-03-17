@@ -24,6 +24,7 @@
     "project": ["./tsconfig.json"]
   },
   "rules": {
+    "@typescript-eslint/return-await": "off",
     "linebreak-style": "off",
     "no-console": "warn",
     "import/prefer-default-export": "off",

@@ -17,13 +17,15 @@ import { ContactInput, Input, InputPassword } from 'themes/elements';
 import { useStyles } from './MyAccount.styles';
 import { useCardContentStyle } from 'themes/styles/useCardContentStyle';
 
-const selectAge = (event: React.ChangeEvent<{}>) => {
-  console.log(event.target);
-};
-
 const MyAccount = () => {
   const classes = useStyles();
   const cardContentStyle = useCardContentStyle();
+
+  const [selectValue, setSelectValue] = useState('');
+
+  const selectAge = (event: React.ChangeEvent<{ value: any }>) => {
+    setSelectValue(event.target.value);
+  };
 
   return (
     <Box className={classes.contentContainer}>
@@ -160,6 +162,90 @@ const MyAccount = () => {
                     </Select>
                   </FormControl>
                 </Grid>
+                {selectValue === 'MINOR' ? (
+                  <Grid xs={6} item>
+                    <FormControl margin={'normal'} fullWidth>
+                      <Grid container spacing={2} style={{ marginTop: -2 }}>
+                        <InputLabel id="lblDob" shrink>
+                          Date of Birth <span style={{ fontWeight: 400 }}>(For Security Only)</span>
+                        </InputLabel>
+                        <Grid xs={6} item>
+                          <FormControl margin={'normal'} style={{ marginBottom: '0px' }} fullWidth>
+                            <Select onChange={selectAge} labelId={'lblType'} disableUnderline>
+                              <MenuItem key={'ADULT'} value={'ADULT'}>
+                                Adult
+                              </MenuItem>
+                              <MenuItem key={'MINOR'} value={'MINOR'}>
+                                Minor
+                              </MenuItem>
+                            </Select>
+                          </FormControl>
+                        </Grid>
+                        <Grid xs={3} style={{ paddingTop: '2px' }} item>
+                          <FormControl fullWidth>
+                            <InputLabel id="lblAgeRange" shrink>
+                              Age Range
+                            </InputLabel>
+                            <Select onChange={selectAge} labelId={'lblType'} disableUnderline>
+                              <MenuItem key={'ADULT'} value={'ADULT'}>
+                                Adult
+                              </MenuItem>
+                              <MenuItem key={'MINOR'} value={'MINOR'}>
+                                Minor
+                              </MenuItem>
+                            </Select>
+                          </FormControl>
+                        </Grid>
+                        <Grid xs={3} item>
+                          <FormControl margin={'normal'} style={{ marginBottom: '0px' }} fullWidth>
+                            <Select onChange={selectAge} labelId={'lblType'} disableUnderline>
+                              <MenuItem key={'ADULT'} value={'ADULT'}>
+                                Adult
+                              </MenuItem>
+                              <MenuItem key={'MINOR'} value={'MINOR'}>
+                                Minor
+                              </MenuItem>
+                            </Select>
+                          </FormControl>
+                        </Grid>
+                      </Grid>
+                    </FormControl>
+                  </Grid>
+                ) : (
+                  <Grid xs={6} item>
+                    <FormControl margin={'normal'} fullWidth>
+                      <Grid container spacing={2} style={{ marginTop: -2 }}>
+                        <Grid xs={6} style={{ paddingTop: '2px' }} item>
+                          <FormControl fullWidth>
+                            <InputLabel id="lblAgeRange" shrink>
+                              Age Range
+                            </InputLabel>
+                            <Select onChange={selectAge} labelId={'lblType'} disableUnderline>
+                              <MenuItem key={'ADULT'} value={'ADULT'}>
+                                Adult
+                              </MenuItem>
+                              <MenuItem key={'MINOR'} value={'MINOR'}>
+                                Minor
+                              </MenuItem>
+                            </Select>
+                          </FormControl>
+                        </Grid>
+                        <Grid xs={6} item>
+                          <FormControl margin={'normal'} style={{ marginBottom: '0px' }} fullWidth>
+                            <Select onChange={selectAge} labelId={'lblType'} disableUnderline>
+                              <MenuItem key={'ADULT'} value={'ADULT'}>
+                                Adult
+                              </MenuItem>
+                              <MenuItem key={'MINOR'} value={'MINOR'}>
+                                Minor
+                              </MenuItem>
+                            </Select>
+                          </FormControl>
+                        </Grid>
+                      </Grid>
+                    </FormControl>
+                  </Grid>
+                )}
               </Grid>
               <FormControlLabel
                 control={<Checkbox name="checkedC" value={'model'} />}

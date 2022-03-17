@@ -11,7 +11,7 @@ const AsyncStatistics = React.lazy(() => import('./Statistics/Statistics'));
 
 const tabs = [
   {
-    name: 'my_account',
+    name: 'myAccount',
     header: 'My Account',
     component: <AsyncMyAccount />,
     disabled: false,
