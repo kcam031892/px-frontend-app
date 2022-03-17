@@ -8,7 +8,7 @@ export const useStyles = makeStyles(() =>
     },
     editorPanel: {
       background: '#25282A',
-      width: 1136,
+      width: '100%',
       padding: '24px 12px 34px 12px',
       display: 'flex',
       flexDirection: 'column',

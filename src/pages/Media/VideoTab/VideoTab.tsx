@@ -1,65 +1,93 @@
 import {
   Box,
+  Grid,
+  Typography,
+  InputAdornment,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  IconButton,
   Chip,
+  LinearProgress,
   Dialog,
   DialogContent,
-  FormControlLabel,
-  Grid,
-  IconButton,
   ImageList,
   ImageListItem,
-  InputAdornment,
-  LinearProgress,
-  Radio,
-  RadioGroup,
-  Typography,
 } from '@material-ui/core';
-import ClearIcon from '@material-ui/icons/Clear';
-import { useWindowSize } from '@react-hook/window-size';
-import { ImageEditor } from 'components';
-import { ImageSliderLargeIcon, ImageSliderSmallIcon, MediaUploadIcon, SearchIcon } from 'components/Icons';
-import React, { useState } from 'react';
-import { EditorMode } from 'shared/enums/EditorMode';
-import { Button, Input } from 'themes/elements';
-import ImageItem from './ImageItem/ImageItem';
-import { ImageSizeSlider } from './ImageSizeSlider';
-import { useStyles } from './ImagesTab.styles';
 
-interface ImageListState {
+import { ImageSliderSmallIcon, ImageSliderLargeIcon, MediaUploadIcon, SearchIcon } from 'components/Icons';
+import React, { useEffect, useState } from 'react';
+import { Button, Input } from 'themes/elements';
+import { ImageSizeSlider } from '../ImagesTab/ImageSizeSlider';
+import { useStyles } from './VideoTab.styles';
+import ClearIcon from '@material-ui/icons/Clear';
+import VideoItem from './VideoItem/VideoItem';
+import { useWindowSize } from '@react-hook/window-size';
+import { useHistory, useLocation } from 'react-router';
+import { VideoEditor } from 'components';
+import { EditorMode } from 'shared/enums/EditorMode';
+
+interface VideoListState {
   imageCol: number;
   imageHeight: number;
   imageSlider: number;
   ratio: number;
 }
-
-const ImagesTab = () => {
+const VideoTab = () => {
   const classes = useStyles();
+  const history = useHistory();
+  const location = useLocation();
   const [width] = useWindowSize();
   const IMAGE_COL = Math.floor(((width - 240) * 8) / 12 / 180);
   const IMAGE_HEIGHT = Math.floor(180 * 1.25);
-  const initialImageListState: ImageListState = {
+  const initialVideoListState: VideoListState = {
     imageSlider: 6,
     ratio: 1,
     imageCol: Math.floor(((width - 240) * 8) / 12 / 180),
     imageHeight: Math.floor(180 * 1.25),
   };
-
-  const [imageSliderValue, setImageSliderValue] = useState<number>(6);
-  const [imageListState, setImageListState] = useState<ImageListState>(initialImageListState);
+  const [videoListState, setVideoListState] = useState<VideoListState>(initialVideoListState);
+  const [sliderValue, setSliderValue] = useState<number>(6);
   const [isEditorOpen, setIsEditorOpen] = useState<boolean>(false);
 
-  const handleImageSliderChange = (event: React.ChangeEvent<{}>, value: number | number[]) => {
+  const handleSliderValueChange = (event: React.ChangeEvent<{}>, value: number | number[]) => {
     if (typeof value === 'number') {
-      if (imageSliderValue !== value) {
-        if (value !== imageListState.imageSlider) {
-          const fact = value > imageListState.imageSlider ? 2 : 0.5;
-          const ratio = fact * imageListState.ratio;
+      if (sliderValue !== value) {
+        if (value !== videoListState.imageSlider) {
+          const fact = value > videoListState.imageSlider ? 2 : 0.5;
+          const ratio = fact * videoListState.ratio;
 
-          setImageListState({ ...imageListState, imageSlider: value, ratio });
+          setVideoListState({ ...videoListState, imageSlider: value, ratio });
         }
-        setImageSliderValue(value);
+        setSliderValue(value);
       }
     }
+  };
+
+  useEffect(() => {
+    if (location.search) {
+      if (location.search === '?edit' || location.search === '?view') {
+        setIsEditorOpen(true);
+      }
+    }
+  }, [location.search]);
+
+  const handleEditVideo = (mode: EditorMode) => {
+    if (mode === EditorMode.VIEW) {
+      history.push({
+        search: '?view',
+      });
+    } else {
+      history.push({
+        search: '?edit',
+      });
+    }
+  };
+
+  const handleOnCloseEditor = () => {
+    history.push({
+      search: '',
+    });
   };
 
   return (
@@ -69,7 +97,7 @@ const ImagesTab = () => {
         {/* Header */}
         <Grid item xs={12} lg={8}>
           <Box className={classes.header}>
-            <Typography className={classes.header__title}>Images</Typography>
+            <Typography className={classes.header__title}>Videos</Typography>
             <Box className={classes.header__sliderContainer}>
               <ImageSliderSmallIcon width="16" height="16" viewBox="0 0 16 16" style={{ fontSize: 16 }} />
               <ImageSizeSlider
@@ -78,8 +106,8 @@ const ImagesTab = () => {
                 step={2}
                 min={2}
                 max={10}
-                value={imageSliderValue}
-                onChange={handleImageSliderChange}
+                value={sliderValue}
+                onChange={handleSliderValueChange}
               />
               <ImageSliderLargeIcon width="24" height="24" viewBox="0 0 24 24" style={{ fontSize: 24 }} />
             </Box>
@@ -97,31 +125,26 @@ const ImagesTab = () => {
 
       {/* Bottom */}
       <Grid container spacing={10} style={{ marginTop: '2rem' }}>
-        {/* Image List */}
+        {/* Video List */}
         <Grid item xs={12} lg={8}>
-          <ImageList rowHeight={IMAGE_HEIGHT} cols={IMAGE_COL} gap={8} className={classes.imageList}>
-            <ImageListItem cols={1 * imageListState.ratio}>
-              <ImageItem
-                src="https://picsum.photos/200/300"
-                isBadQuality
-                handleEditImage={() => setIsEditorOpen(true)}
-              />
+          <ImageList rowHeight={IMAGE_HEIGHT} cols={IMAGE_COL} gap={8} className={classes.videoList}>
+            <ImageListItem cols={1 * videoListState.ratio}>
+              <VideoItem src="https://picsum.photos/200/300" handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
             </ImageListItem>
-            <ImageListItem cols={2 * imageListState.ratio}>
-              <ImageItem src="https://picsum.photos/200/300" handleEditImage={() => setIsEditorOpen(true)} />
+            <ImageListItem cols={2 * videoListState.ratio}>
+              <VideoItem src="https://picsum.photos/200/300" handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
             </ImageListItem>
-            <ImageListItem cols={2 * imageListState.ratio}>
-              <ImageItem src="https://picsum.photos/200/300" handleEditImage={() => setIsEditorOpen(true)} />
+            <ImageListItem cols={2 * videoListState.ratio}>
+              <VideoItem src="https://picsum.photos/200/300" handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
             </ImageListItem>
-            <ImageListItem cols={2 * imageListState.ratio}>
-              <ImageItem src="https://picsum.photos/200/300" handleEditImage={() => setIsEditorOpen(true)} />
+            <ImageListItem cols={2 * videoListState.ratio}>
+              <VideoItem src="https://picsum.photos/200/300" handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
             </ImageListItem>
-            <ImageListItem cols={2 * imageListState.ratio}>
-              <ImageItem src="https://picsum.photos/200/300" handleEditImage={() => setIsEditorOpen(true)} />
+            <ImageListItem cols={2 * videoListState.ratio}>
+              <VideoItem src="https://picsum.photos/200/300" handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
             </ImageListItem>
           </ImageList>
         </Grid>
-
         {/* Filter / Searching */}
         <Grid item xs={12} lg={4}>
           {/* Search Input */}
@@ -184,11 +207,15 @@ const ImagesTab = () => {
         classes={{ paper: classes.dialogPaper }}
       >
         <DialogContent className={classes.dialogContent}>
-          <ImageEditor onCloseEditor={() => setIsEditorOpen(false)} />
+          {/* <ImageEditor onCloseEditor={() => setIsEditorOpen(false)} /> */}
+          <VideoEditor
+            onCloseEditor={() => handleOnCloseEditor()}
+            url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+          />
         </DialogContent>
       </Dialog>
     </Box>
   );
 };
 
-export default ImagesTab;
+export default VideoTab;
