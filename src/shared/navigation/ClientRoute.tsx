@@ -19,8 +19,6 @@ const ClientRoute: React.FC<Props> = ({ component: Component, exact, path }) => 
   const dispatch = useDispatch();
   const { isLoggedIn, errorMessage } = useSelector(selectUserState);
   const history = useHistory();
-  const { isLoggedIn } = useSelector(selectUserState);
-
   useEffect(() => {
     if (authToken && !isLoggedIn) {
       dispatch(getUserProfile());
