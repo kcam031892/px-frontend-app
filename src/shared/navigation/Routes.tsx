@@ -9,6 +9,7 @@ import PublicRoute from './PublicRoute';
 const AsyncProfileList = React.lazy(() => import('pages/Profiles/ProfileList'));
 const AsyncProfileDetail = React.lazy(() => import('pages/Profiles/ProfileDetail'));
 const AsyncMedia = React.lazy(() => import('pages/Media/Media'));
+const AsyncSettings = React.lazy(() => import('pages/Settings/Settings'));
 
 const Routes = () => {
   return (
@@ -20,6 +21,9 @@ const Routes = () => {
       <ClientRoute exact path={ROUTES.APP.PROFILE_DETAIL} component={AsyncProfileDetail} />
       <ClientRoute exact path={`${ROUTES.APP.PROFILE_DETAIL}/:tab`} component={AsyncProfileDetail} />s
       <ClientRoute exact path={`${ROUTES.APP.MEDIA}/:tab`} component={AsyncMedia} />
+      <ClientRoute exact path={`${ROUTES.APP.PROFILE_DETAIL}/:tab`} component={AsyncProfileDetail} />
+      <ClientRoute exact path={ROUTES.APP.SETTINGS} component={AsyncSettings} />
+      <ClientRoute exact path={`${ROUTES.APP.SETTINGS}/:tab`} component={AsyncSettings} />
       <Route path="*" exact component={() => <h1>Not Found</h1>} />
     </Switch>
   );

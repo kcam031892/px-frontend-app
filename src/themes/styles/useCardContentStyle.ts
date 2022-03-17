@@ -1,14 +1,13 @@
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-export const useTabStyle = makeStyles((theme: Theme) => {
+export const useCardContentStyle = makeStyles((theme: Theme) => {
   return createStyles({
     root: {
-      padding: '0 12px',
-      marginRight: '48px',
-      '& .MuiTab-wrapper': {
-        fontSize: '14px',
+      padding: '24px',
+      '& .MuiTypography-h6': {
         fontWeight: 600,
-        textTransform: 'capitalize',
-        alignItems: 'flex-start',
+      },
+      '& .MuiInputLabel-formControl': {
+        fontWeight: 600,
       },
       [theme.breakpoints.up('sm')]: {
         minWidth: '0',
