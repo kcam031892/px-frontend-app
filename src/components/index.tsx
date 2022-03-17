@@ -9,3 +9,4 @@ export { FileUploadDialog } from './FileUploadDialog';
 export { RichEditor } from './RichEditor';
 export { UsageData } from './UsageData';
 export { ImageEditor } from './ImageEditor';
+export { VideoEditor } from './VideoEditor';

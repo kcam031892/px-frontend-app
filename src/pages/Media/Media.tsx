@@ -9,6 +9,7 @@ import Dashboard from './Dashboard/Dashboard';
 import ImagesTab from './ImagesTab/ImagesTab';
 import { useStyles } from './Media.styles';
 import Upload from './Upload/Upload';
+import VideoTab from './VideoTab/VideoTab';
 
 const tabs: ITab[] = [
   {
@@ -26,7 +27,7 @@ const tabs: ITab[] = [
   {
     name: 'videos',
     header: 'Videos',
-    component: <div>Videos</div>,
+    component: <VideoTab />,
     disabled: false,
   },
   {
