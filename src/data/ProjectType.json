@@ -1,0 +1,102 @@
+[
+  {
+    "key": "Commercial",
+    "value": "Commercial"
+  },
+  {
+    "key": "Corporate",
+    "value": "Corporate"
+  },
+  {
+    "key": "Dance",
+    "value": "Dance"
+  },
+  {
+    "key": "Documentary",
+    "value": "Documentary"
+  },
+  {
+    "key": "Education",
+    "value": "Education"
+  },
+  {
+    "key": "Film",
+    "value": "Film"
+  },
+  {
+    "key": "Hosting",
+    "value": "Hosting"
+  },
+  {
+    "key": "Industrial",
+    "value": "Industrial"
+  },
+  {
+    "key": "Infomercial",
+    "value": "Infomercial"
+  },
+  {
+    "key": "Modeling",
+    "value": "Modeling"
+  },
+  {
+    "key": "Music",
+    "value": "Music"
+  },
+  {
+    "key": "Music Video",
+    "value": "Music Video"
+  },
+  {
+    "key": "Music Theater",
+    "value": "Music Theater"
+  },
+  {
+    "key": "Online Content",
+    "value": "Online Content"
+  },
+  {
+    "key": "Opera",
+    "value": "Opera"
+  },
+  {
+    "key": "Print",
+    "value": "Print"
+  },
+  {
+    "key": "Radio",
+    "value": "Radio"
+  },
+  {
+    "key": "Reality TV",
+    "value": "Reality TV"
+  },
+  {
+    "key": "Short Film",
+    "value": "Short Film"
+  },
+  {
+    "key": "Television",
+    "value": "Television"
+  },
+  {
+    "key": "Theater",
+    "value": "Theater"
+  },
+  {
+    "key": "Training",
+    "value": "Training"
+  },
+  {
+    "key": "Video Game",
+    "value": "Video Game"
+  },
+  {
+    "key": "Voice Over",
+    "value": "Voice Over"
+  },
+  {
+    "key": "Web Series",
+    "value": "Web Series"
+  }
+]

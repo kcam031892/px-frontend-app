@@ -122,8 +122,8 @@ function EthnicityDialog(props: EthnicityialogProps) {
                       {group.items.length === 1 && (
                         <Checkbox
                           edge="end"
-                          checked={group.items[0].selected}
                           color="default"
+                          checked={group.items[0].selected}
                           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                             props.onChangeItemStatus(event.target.checked, group.text, group.items[0].code)
                           }

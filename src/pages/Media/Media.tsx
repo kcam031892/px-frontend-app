@@ -5,6 +5,7 @@ import { ROUTES } from 'shared/constants/ROUTES';
 import { ITab } from 'shared/interfaces/utils/ITab';
 import { Tabs } from 'themes/elements';
 import { useTabStyle } from 'themes/styles/useTabStyle';
+import AudioTab from './AudioTab/AudioTab';
 import Dashboard from './Dashboard/Dashboard';
 import ImagesTab from './ImagesTab/ImagesTab';
 import { useStyles } from './Media.styles';
@@ -33,7 +34,7 @@ const tabs: ITab[] = [
   {
     name: 'audios',
     header: 'Audios',
-    component: <div>Audios</div>,
+    component: <AudioTab />,
     disabled: false,
   },
   {

@@ -1,14 +1,18 @@
 import { Box, Tab } from '@material-ui/core';
-import React, { useMemo, useState } from 'react';
-import { Route, Link, Switch, useRouteMatch, useParams, Redirect, useLocation, useHistory } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import { ROUTES } from 'shared/constants/ROUTES';
 import { ITab } from 'shared/interfaces/utils/ITab';
 import { Tabs } from 'themes/elements';
 import { useTabStyle } from 'themes/styles/useTabStyle';
-import Biography from './Biography/Biography';
+import AudioTab from './AudioTab/AudioTab';
+import CompositeTab from './CompositeTab/CompositeTab';
+import ImageTab from './ImageTab/ImageTab';
+
 import PrimaryImage from './PrimaryImage/PrimaryImage';
 import { useStyles } from './ProfileDetail.styles';
-import Resume from './Resume/Resume';
+import ResumeTab from './ResumeTab/ResumeTab';
+import VideoTab from './VideoTab/VideoTab';
 
 const tabs: ITab[] = [
   {
@@ -18,40 +22,34 @@ const tabs: ITab[] = [
     disabled: false,
   },
   {
-    name: 'biography',
-    header: 'Biography',
-    component: <Biography />,
-    disabled: false,
-  },
-  {
     name: 'resume',
     header: 'Resume',
-    component: <Resume />,
+    component: <ResumeTab />,
     disabled: false,
   },
   {
     name: 'images',
     header: 'Images',
-    component: <div>HEllo</div>,
-    disabled: true,
+    component: <ImageTab />,
+    disabled: false,
   },
   {
     name: 'videos',
     header: 'Video',
-    component: <div>Videos</div>,
-    disabled: true,
+    component: <VideoTab />,
+    disabled: false,
   },
   {
     name: 'audios',
     header: 'Audio',
-    component: <div>Audios</div>,
-    disabled: true,
+    component: <AudioTab />,
+    disabled: false,
   },
   {
     name: 'composite_card',
     header: 'Composite Card',
-    component: <div>Composite Card</div>,
-    disabled: true,
+    component: <CompositeTab />,
+    disabled: false,
   },
 ];
 

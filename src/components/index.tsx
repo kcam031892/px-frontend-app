@@ -10,3 +10,5 @@ export { RichEditor } from './RichEditor';
 export { UsageData } from './UsageData';
 export { ImageEditor } from './ImageEditor';
 export { VideoEditor } from './VideoEditor';
+export { AudioEditor } from './AudioEditor';
+export { default as Waveform } from './Waveform/Waveform';

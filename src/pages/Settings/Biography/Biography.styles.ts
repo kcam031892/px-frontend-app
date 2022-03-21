@@ -2,9 +2,7 @@ import { createStyles, makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles(() =>
   createStyles({
-    container: {
-      margin: '0 144px',
-    },
+    container: {},
     card: {
       border: '2px solid #A4A4A4',
       boxShadow: 'none',
