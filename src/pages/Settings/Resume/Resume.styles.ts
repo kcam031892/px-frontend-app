@@ -3,9 +3,13 @@ import { createStyles, makeStyles } from '@material-ui/core';
 export const useStyles = makeStyles(() =>
   createStyles({
     container: {
-      margin: '0 144px',
       position: 'relative',
       paddingBottom: '4rem',
+    },
+    showYearContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '.5rem',
     },
     actionContainer: {
       marginTop: '11px',

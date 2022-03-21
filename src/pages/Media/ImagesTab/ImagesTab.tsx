@@ -35,6 +35,8 @@ interface ImageListState {
 const ImagesTab = () => {
   const classes = useStyles();
   const [width] = useWindowSize();
+  const IMAGE_COL = Math.floor(((width - 240) * 8) / 12 / 180);
+  const IMAGE_HEIGHT = Math.floor(180 * 1.25);
   const initialImageListState: ImageListState = {
     imageSlider: 6,
     ratio: 1,
@@ -52,8 +54,8 @@ const ImagesTab = () => {
         if (value !== imageListState.imageSlider) {
           const fact = value > imageListState.imageSlider ? 2 : 0.5;
           const ratio = fact * imageListState.ratio;
-          const imageHeight = imageListState.imageHeight * fact;
-          setImageListState({ ...imageListState, imageSlider: value, ratio, imageHeight });
+
+          setImageListState({ ...imageListState, imageSlider: value, ratio });
         }
         setImageSliderValue(value);
       }
@@ -73,7 +75,7 @@ const ImagesTab = () => {
               <ImageSizeSlider
                 aria-labelledby="continuous-slider"
                 style={{ width: 96, margin: '0 16px' }}
-                step={4}
+                step={2}
                 min={2}
                 max={10}
                 value={imageSliderValue}
@@ -97,12 +99,7 @@ const ImagesTab = () => {
       <Grid container spacing={10} style={{ marginTop: '2rem' }}>
         {/* Image List */}
         <Grid item xs={12} lg={8}>
-          <ImageList
-            rowHeight={imageListState.imageHeight}
-            cols={imageListState.imageCol}
-            gap={8}
-            className={classes.imageList}
-          >
+          <ImageList rowHeight={IMAGE_HEIGHT} cols={IMAGE_COL} gap={8} className={classes.imageList}>
             <ImageListItem cols={1 * imageListState.ratio}>
               <ImageItem
                 src="https://picsum.photos/200/300"
@@ -187,7 +184,7 @@ const ImagesTab = () => {
         classes={{ paper: classes.dialogPaper }}
       >
         <DialogContent className={classes.dialogContent}>
-          <ImageEditor mode={EditorMode.VIEW} onCloseEditor={() => setIsEditorOpen(false)} />
+          <ImageEditor onCloseEditor={() => setIsEditorOpen(false)} />
         </DialogContent>
       </Dialog>
     </Box>

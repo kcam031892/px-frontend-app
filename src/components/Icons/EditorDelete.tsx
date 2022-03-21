@@ -10,8 +10,8 @@ function EditorDelete(props: SvgIconProps) {
       />
       <path
         opacity="0.5"
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M14 4.49902V3.99902C14 3.44674 13.5523 2.99902 13 2.99902H11C10.4477 2.99902 10 3.44674 10 3.99902V4.49902H5.5C5.22386 4.49902 5 4.72288 5 4.99902V6.49902C5 6.77517 5.22386 6.99902 5.5 6.99902H18.5C18.7761 6.99902 19 6.77517 19 6.49902V4.99902C19 4.72288 18.7761 4.49902 18.5 4.49902H14Z"
         fill="white"
       />
