@@ -22,8 +22,18 @@ export const useStyles = makeStyles((theme) =>
       paddingRight: 24,
       gap: '1rem',
       cursor: 'grab',
-
       scrollBehavior: 'smooth',
+      '&::-webkit-scrollbar': {
+        padding: '2rem 0',
+        height: 5,
+      },
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: theme.palette.primary.main,
+      },
+      '&::-webkit-scrollbar-track': {
+        boxShadow: 'inset 0 0 5px grey',
+        borderRadius: 10,
+      },
     },
     selectedAudios__dragContainer: {
       display: 'flex',

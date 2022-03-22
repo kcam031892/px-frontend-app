@@ -105,7 +105,7 @@ const VideoTab = () => {
           <Typography variant="caption">(2 of 16 hidden)</Typography>
         </Box>
         <Box className={classes.selectedVideos__videoList}>
-          <ScrollContainer vertical={false} className={classes.selectedVideos__scroll}>
+          <ScrollContainer hideScrollbars={false} vertical={false} className={classes.selectedVideos__scroll}>
             {Array.from({ length: 32 }).map((_, i) => (
               <VideoItem isHideVideo handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
             ))}

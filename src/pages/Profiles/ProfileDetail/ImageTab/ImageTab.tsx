@@ -74,7 +74,7 @@ const ImageTab = () => {
           <Typography variant="caption">(2 of 16 hidden)</Typography>
         </Box>
         <Box className={classes.selectedImages__imageList}>
-          <ScrollContainer vertical={false} className={classes.selectedImage__scroll}>
+          <ScrollContainer vertical={false} hideScrollbars={false} className={classes.selectedImage__scroll}>
             {Array.from({ length: 32 }).map((_, i) => (
               <ImageItem isHideImage handleEditImage={() => setIsEditorOpen(true)} />
             ))}
