@@ -4,28 +4,41 @@ import { Route, Link, Switch, useRouteMatch, useParams, Redirect, useLocation } 
 import { ROUTES } from 'shared/constants/ROUTES';
 import { Tabs } from 'themes/elements';
 import { useTabStyle } from 'themes/styles/useTabStyle';
+import Biography from './Biography/Biography';
+import MyAccount from './MyAccount';
+import Resume from './Resume/Resume';
 import { useStyles } from './Settings.styles';
-
-const AsyncMyAccount = React.lazy(() => import('./MyAccount/MyAccount'));
-const AsyncStatistics = React.lazy(() => import('./Statistics/Statistics'));
+import Statistics from './Statistics';
 
 const tabs = [
   {
     name: 'myAccount',
     header: 'My Account',
-    component: <AsyncMyAccount />,
+    component: <MyAccount />,
     disabled: false,
   },
   {
     name: 'statistics',
     header: 'Statistics',
-    component: <AsyncStatistics />,
+    component: <Statistics />,
     disabled: false,
   },
   {
     name: 'skills',
     header: 'Skills',
     component: <div>Skills</div>,
+    disabled: false,
+  },
+  {
+    name: 'biography',
+    header: 'Biography',
+    component: <Biography />,
+    disabled: false,
+  },
+  {
+    name: 'resume',
+    header: 'Resume',
+    component: <Resume />,
     disabled: false,
   },
   {
@@ -64,7 +77,7 @@ const Settings = () => {
   }, [tab]);
   return (
     <Box>
-      <Tabs value={tab}>
+      <Tabs value={tab} variant="scrollable" scrollButtons="auto" aria-label="scrollable auto tabs example">
         {tabs.map((tab, index) => (
           <Tab
             className={tabStyle.root}

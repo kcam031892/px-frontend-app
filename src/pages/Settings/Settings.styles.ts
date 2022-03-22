@@ -1,10 +1,10 @@
 import { createStyles, makeStyles } from '@material-ui/core';
 import { capitalize, unset } from 'lodash';
 
-export const useStyles = makeStyles(() =>
+export const useStyles = makeStyles((theme) =>
   createStyles({
     tabContainer: {
-      padding: '16px 28px',
+      marginTop: theme.spacing(4),
     },
     tabItems: {
       fontWeight: 600,

@@ -6,7 +6,6 @@ import { ImageQuanlityLevel } from 'shared/enums/ImageQualityLevel';
 import { useStyles } from './ImageCropper.styles';
 import clsx from 'clsx';
 import { ImageSlider } from 'themes/elements';
-import 'cropperjs/dist/cropper.css';
 
 const standardHeightPixel = 1500;
 const standardWidthPixel = 1125;

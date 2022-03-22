@@ -186,6 +186,8 @@ const initialState: VideoEditorState = {
 
 export default function VideoEditor(props: VideoEditorProps) {
   const classes = useStyles();
+
+  const dispatch = useDispatch();
   const uploadTime = DateTime.fromISO(props.uploadedTime);
   const [state, setState] = useState<VideoEditorState>({
     ...initialState,
@@ -251,7 +253,6 @@ export default function VideoEditor(props: VideoEditorProps) {
     }
   };
 
-  const dispatch = useDispatch();
   const handleSaveChange = () => {
     dispatch(
       saveMediaInfo(props.memberId, props.mediaId, MediaType.VIDEO, state.fileName, state.visibility, state.tags),

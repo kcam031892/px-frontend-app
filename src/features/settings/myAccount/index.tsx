@@ -229,7 +229,12 @@ export default function MyAccount() {
                     <InputLabel id="labelArtistType" shrink>
                       Primary Talent Type
                     </InputLabel>
-                    <Select labelId={'labelArtistType'} disableUnderline value={myAccount.model.primaryArtistTypeCode}>
+                    <Select
+                      onChange={(e, value) => console.log(value)}
+                      labelId={'labelArtistType'}
+                      disableUnderline
+                      value={myAccount.model.primaryArtistTypeCode}
+                    >
                       {myAccount.artistTypes.map((x) => (
                         <MenuItem key={x.code} value={x.code}>
                           {x.name}
