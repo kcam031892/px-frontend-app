@@ -28,7 +28,7 @@ const MyAccount = () => {
   };
 
   return (
-    <Box className={classes.contentContainer}>
+    <Grid container spacing={0}>
       <Grid container spacing={2}>
         <Grid xs={12} md={6} item>
           <Card variant="outlined">
@@ -333,7 +333,7 @@ const MyAccount = () => {
           Save Changes
         </Button>
       </Box>
-    </Box>
+    </Grid>
   );
 };
 
