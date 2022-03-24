@@ -122,6 +122,7 @@ export const getUserProfile = (): AppThunk => async (dispatch) => {
     dispatch(setIsLoggedIn(true));
   } catch (err: any) {
     // dispatch(setErrorMessage(err.response.data.error));
+
     dispatch(setIsLoggedIn(false));
   } finally {
     dispatch(setIsLoading(false));

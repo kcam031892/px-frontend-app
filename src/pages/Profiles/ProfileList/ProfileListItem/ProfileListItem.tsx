@@ -16,8 +16,13 @@ import { Link } from 'react-router-dom';
 import { useStyles } from './ProfileListItem.styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { ROUTES } from 'shared/constants/ROUTES';
+import { IProfile } from 'shared/interfaces/IProfile';
+import { RepresentationType } from 'shared/enums/RepresentationType';
 
-const ProfileListItem = () => {
+type Props = {
+  attributes: IProfile;
+};
+const ProfileListItem: React.FC<Props> = ({ attributes }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -31,20 +36,20 @@ const ProfileListItem = () => {
   return (
     <Grid item className={classes.container}>
       <Box className={classes.profileFlag}>
-        <span>PRIMARY</span>
+        <span style={{ textTransform: 'uppercase' }}>{attributes.primary ? 'PRIMARY' : attributes.status}</span>
       </Box>
       <Card className={classes.card}>
         <Link to={`${ROUTES.APP.PROFILE_DETAIL}/primary_image`}>
-          <CardMedia image="https://picsum.photos/200/300" className={classes.card__media}>
-            <Avatar src="https://picsum.photos/200" className={classes.card__avatar} />
+          <CardMedia image={attributes.agency_banner_url ?? ''} className={classes.card__media}>
+            <Avatar src={attributes.primary_image_url} className={classes.card__avatar} />
           </CardMedia>
         </Link>
         <CardContent className={classes.card__content}>
           <Typography variant="body1" className={classes.agency__type}>
-            Hello
+            {attributes.representation_type === RepresentationType.FREELANCE ? 'Freelance' : attributes.agency_name}
           </Typography>
           <Typography variant="body2" className={classes.agency__detail}>
-            Hell • Nice • Low
+            {attributes.agency_state} • {attributes.agency_country}
           </Typography>
 
           <IconButton

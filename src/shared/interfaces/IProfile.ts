@@ -1,3 +1,4 @@
+import { RepresentationType } from 'shared/enums/RepresentationType';
 import { SectionType } from 'shared/enums/SectionType';
 
 export interface ISection {
@@ -9,17 +10,35 @@ export interface ISection {
 }
 
 export interface IProfile {
-  age_from: number;
-  age_to: number;
-  agency_country: string;
-  agency_logo: string;
-  agency_name: string;
-  agency_state_name: string;
-  agency_talent_type: string;
-  agency_type: string;
-  first_name: string;
-  last_name: string;
-  gender: string;
-  is_primary: boolean;
-  primary_image: boolean;
+  id: string;
+  representation_type: RepresentationType;
+  primary: boolean;
+  status: string | null;
+  country: string;
+  note: string;
+  confirmed_agreement: boolean;
+  primary_image_url: string;
+  agency_name: string | null;
+  agency_company_type: string | null;
+  agency_state: string | null;
+  agency_country: string | null;
+  agency_logo_url: string | null;
+  agency_banner_url: string | null;
+  created_at: number;
+  updated_at: number;
+}
+
+export interface IProfileResponsePayload {
+  data: {
+    id: string;
+    type: string;
+    attributes: IProfile;
+  }[];
+}
+
+export interface IProfileCreatePayload {
+  representation_type: RepresentationType;
+  country: string;
+  note?: string;
+  agency_name?: string;
 }
