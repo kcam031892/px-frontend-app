@@ -15,21 +15,35 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { store } from 'shared/redux/store';
 import { tokenService } from 'shared/services/tokenService';
 import { selectUser } from 'shared/redux/slicers/user.slicer';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      refetchOnMount: false,
+      retry: false,
+      staleTime: 5 * 60 * 1000,
+    },
+  },
+});
 const App = () => {
   return (
-    <Provider store={store}>
-      <Router>
-        <SwitchThemeProvider>
-          <SnackbarProvider maxSnack={3}>
-            <ConfirmProvider>
-              <CssBaseline />
-              <Routes />
-            </ConfirmProvider>
-          </SnackbarProvider>
-        </SwitchThemeProvider>
-      </Router>
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <Router>
+          <SwitchThemeProvider>
+            <SnackbarProvider maxSnack={3}>
+              <ConfirmProvider>
+                <CssBaseline />
+                <Routes />
+              </ConfirmProvider>
+            </SnackbarProvider>
+          </SwitchThemeProvider>
+        </Router>
+      </Provider>
+    </QueryClientProvider>
   );
 };
 

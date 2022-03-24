@@ -37,6 +37,7 @@ import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-lo
 import { Alert } from '@material-ui/lab';
 import { ReactFacebookFailureResponse, ReactFacebookLoginInfo } from 'react-facebook-login';
 import { authService } from 'shared/services/authService';
+import { ls } from 'shared/utils/ls';
 
 interface LoginState {
   userName: string;
@@ -44,6 +45,7 @@ interface LoginState {
   rememberMe: boolean;
 }
 
+const { getLS } = ls();
 const Login = () => {
   const classes = useStyles();
   const history = useHistory();
