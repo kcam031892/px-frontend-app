@@ -11,34 +11,35 @@ export interface ISection {
 
 export interface IProfile {
   id: string;
-  representation_type: RepresentationType;
-  primary: boolean;
-  status: string | null;
-  country: string;
-  note: string;
-  confirmed_agreement: boolean;
-  primary_image_url: string;
-  agency_name: string | null;
-  agency_company_type: string | null;
-  agency_state: string | null;
-  agency_country: string | null;
-  agency_logo_url: string | null;
-  agency_banner_url: string | null;
-  created_at: number;
-  updated_at: number;
+  type: string;
+  attributes: {
+    representation_type: RepresentationType;
+    primary: boolean;
+    status: string | null;
+    country: string;
+    note: string;
+    confirmed_agreement: boolean;
+    primary_image_url: string;
+    agency_id: string;
+    agency_name: string | null;
+    agency_company_type: string | null;
+    agency_state: string | null;
+    agency_country: string | null;
+    agency_logo_url: string | null;
+    agency_banner_url: string | null;
+    created_at: number;
+    updated_at: number;
+  };
 }
 
 export interface IProfileResponsePayload {
-  data: {
-    id: string;
-    type: string;
-    attributes: IProfile;
-  }[];
+  data: IProfile[];
 }
 
 export interface IProfileCreatePayload {
   representation_type: RepresentationType;
   country: string;
   note?: string;
-  agency_name?: string;
+  agency_id?: string;
+  confirmed_agreement: boolean;
 }

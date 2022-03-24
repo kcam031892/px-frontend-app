@@ -20,8 +20,6 @@ const ProfileList = () => {
     (data) => data.attributes.representation_type === RepresentationType.FREELANCE,
   );
 
-  console.log(hasFreelance);
-
   return (
     <Box className={classes.container}>
       <Box className={classes.pageHeader}>
@@ -33,9 +31,16 @@ const ProfileList = () => {
       <Grid container spacing={3}>
         {data &&
           data.data.length > 0 &&
-          data.data.map((profile, index) => <ProfileListItem attributes={profile.attributes} key={index} />)}
+          data.data.map((profile, index) => <ProfileListItem profile={profile} key={index} />)}
       </Grid>
-      <NewProfileDialog open={isProfileDialogOpen} onClose={handleCloseProfileDialog} hasFreelance={hasFreelance} />
+      {data && (
+        <NewProfileDialog
+          open={isProfileDialogOpen}
+          onClose={handleCloseProfileDialog}
+          hasFreelance={hasFreelance}
+          profiles={data.data}
+        />
+      )}
     </Box>
   );
 };

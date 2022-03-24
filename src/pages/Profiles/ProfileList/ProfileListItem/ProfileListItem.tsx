@@ -20,9 +20,9 @@ import { IProfile } from 'shared/interfaces/IProfile';
 import { RepresentationType } from 'shared/enums/RepresentationType';
 
 type Props = {
-  attributes: IProfile;
+  profile: IProfile;
 };
-const ProfileListItem: React.FC<Props> = ({ attributes }) => {
+const ProfileListItem: React.FC<Props> = ({ profile }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -36,20 +36,24 @@ const ProfileListItem: React.FC<Props> = ({ attributes }) => {
   return (
     <Grid item className={classes.container}>
       <Box className={classes.profileFlag}>
-        <span style={{ textTransform: 'uppercase' }}>{attributes.primary ? 'PRIMARY' : attributes.status}</span>
+        <span style={{ textTransform: 'uppercase' }}>
+          {profile.attributes.primary ? 'PRIMARY' : profile.attributes.status}
+        </span>
       </Box>
       <Card className={classes.card}>
         <Link to={`${ROUTES.APP.PROFILE_DETAIL}/primary_image`}>
-          <CardMedia image={attributes.agency_banner_url ?? ''} className={classes.card__media}>
-            <Avatar src={attributes.primary_image_url} className={classes.card__avatar} />
+          <CardMedia image={profile.attributes.agency_banner_url ?? ''} className={classes.card__media}>
+            <Avatar src={profile.attributes.primary_image_url} className={classes.card__avatar} />
           </CardMedia>
         </Link>
         <CardContent className={classes.card__content}>
           <Typography variant="body1" className={classes.agency__type}>
-            {attributes.representation_type === RepresentationType.FREELANCE ? 'Freelance' : attributes.agency_name}
+            {profile.attributes.representation_type === RepresentationType.FREELANCE
+              ? 'Freelance'
+              : profile.attributes.agency_name}
           </Typography>
           <Typography variant="body2" className={classes.agency__detail}>
-            {attributes.agency_state} • {attributes.agency_country}
+            {profile.attributes.agency_state} • {profile.attributes.agency_country}
           </Typography>
 
           <IconButton

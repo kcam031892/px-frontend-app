@@ -1,14 +1,19 @@
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { profileDao } from 'shared/dao/profileDao';
-import { IProfileResponsePayload } from 'shared/interfaces/IProfile';
+import { IProfileCreatePayload, IProfileResponsePayload } from 'shared/interfaces/IProfile';
 
-const { getProfiles: getProfilesDao } = profileDao();
+const { getProfiles: getProfilesDao, createProfile: createProfileDao } = profileDao();
 export const profileService = () => {
   const getProfiles = () => {
     return useQuery<IProfileResponsePayload, Error>(['profiles'], () => getProfilesDao());
   };
 
+  const createProfile = () => {
+    return useMutation((payload: IProfileCreatePayload) => createProfileDao(payload));
+  };
+
   return {
     getProfiles,
+    createProfile,
   };
 };

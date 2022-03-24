@@ -32,6 +32,7 @@ import { tokenService } from 'shared/services/tokenService';
 import { selectUserState, userLogout } from 'shared/redux/slicers/user.slicer';
 import { ROUTES } from 'shared/constants/ROUTES';
 import { Backdrop } from 'themes/elements';
+import { useQueryClient } from 'react-query';
 // import { RootState } from 'app/rootReducer';
 // import { PrimaryImageState } from 'features/talent/primaryImage/primaryImageTypes';
 // import { ProfileState } from 'features/talent/profileTypes';
@@ -57,6 +58,7 @@ const Sidebar: React.FC<Props> = ({
   const listItemStyle = useMainListeItemStyle();
   const [selectedMenu, setSelectedMenu] = React.useState('');
   const { isLoading, user } = useSelector(selectUserState);
+  const queryClient = useQueryClient();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   // const myAccount: MyAccountState = useSelector((state: RootState) => state.myAccount);
@@ -73,6 +75,7 @@ const Sidebar: React.FC<Props> = ({
 
   const handleLogOut = async () => {
     await dispatch(userLogout());
+    queryClient.clear();
     history.push(ROUTES.LOGIN);
   };
 

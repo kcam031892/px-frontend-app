@@ -36,7 +36,9 @@ export const useStyles = makeStyles((theme) =>
       border: '1px solid #E1E1E1',
       borderRadius: 6,
       marginTop: 16,
+      position: 'relative',
     },
+
     agencyList__item: {
       '& .MuiListItemText-primary': {
         color: '#25282A',

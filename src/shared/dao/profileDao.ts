@@ -1,13 +1,15 @@
+import { ENDPOINTS } from 'shared/constants/ENDPOINTS';
 import { useAxios } from 'shared/hooks/useAxios';
-import { IProfileResponsePayload } from 'shared/interfaces/IProfile';
+import { IProfileCreatePayload, IProfileResponsePayload } from 'shared/interfaces/IProfile';
 import { authToken } from 'shared/utils/authToken';
 
-const { GET } = useAxios();
-const { getAuthToken } = authToken();
+const { GET, POST } = useAxios();
+
 export const profileDao = () => {
+  const { getAuthToken } = authToken();
   const getProfiles = async () => {
     const response = await GET<IProfileResponsePayload>({
-      url: `https://px-general-service.herokuapp.com/v1/profiles`,
+      url: `${ENDPOINTS.PROFILE}`,
       headers: {
         Authorization: `Bearer ${getAuthToken()}`,
       },
@@ -16,7 +18,19 @@ export const profileDao = () => {
     return response.data;
   };
 
+  const createProfile = async (payload: IProfileCreatePayload) => {
+    const response = await POST({
+      url: `${ENDPOINTS.PROFILE}`,
+      data: payload,
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
+    return response.data;
+  };
+
   return {
     getProfiles,
+    createProfile,
   };
 };
