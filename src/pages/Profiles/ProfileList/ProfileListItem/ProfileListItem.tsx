@@ -84,9 +84,10 @@ const ProfileListItem: React.FC<Props> = ({ profile }) => {
               </Link>
             </MenuItem>
 
-            <MenuItem className={classes.action__item}>Make Primary</MenuItem>
+            {!profile.attributes.primary && <MenuItem className={classes.action__item}>Make Primary</MenuItem>}
 
             <MenuItem className={classes.action__item}>Change Rep</MenuItem>
+            {!profile.attributes.primary && <MenuItem className={classes.action__item}>Delete Primary</MenuItem>}
           </Menu>
         </CardContent>
       </Card>

@@ -5,3 +5,4 @@ export { Tab } from './Tab';
 export { ImageSlider } from './ImageSlider';
 export { VideoSlider } from './VideoSlider';
 export { Button } from './Button';
+export { useAlert } from './Alert';
