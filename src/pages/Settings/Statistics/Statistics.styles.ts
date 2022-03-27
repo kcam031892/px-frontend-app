@@ -6,5 +6,11 @@ export const useStyles = makeStyles(() =>
       padding: '0 144px',
       marginTop: '16px',
     },
+    profileItemsContainer: {
+      '& .MuiGrid-grid-lg-2': {
+        maxWidth: '20%',
+        flexBasis: '20%',
+      },
+    },
   }),
 );
