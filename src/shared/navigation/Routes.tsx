@@ -17,13 +17,13 @@ const Routes = () => {
       <Route exact path={ROUTES.ROOT} component={() => <Redirect to={ROUTES.LOGIN} />} />
       <PublicRoute exact path={ROUTES.LOGIN} component={Login} />
       <PublicRoute exact path={ROUTES.SIGNUP} component={Signup} />
-      <ClientRoute exact path={ROUTES.APP.PROFILE} component={AsyncProfileList} />
-      <ClientRoute exact path={ROUTES.APP.PROFILE_DETAIL} component={AsyncProfileDetail} />
-      <ClientRoute exact path={`${ROUTES.APP.PROFILE_DETAIL}/:tab`} component={AsyncProfileDetail} />s
-      <ClientRoute exact path={`${ROUTES.APP.MEDIA}/:tab`} component={AsyncMedia} />
-      <ClientRoute exact path={`${ROUTES.APP.PROFILE_DETAIL}/:tab`} component={AsyncProfileDetail} />
-      <ClientRoute exact path={ROUTES.APP.SETTINGS} component={AsyncSettings} />
-      <ClientRoute exact path={`${ROUTES.APP.SETTINGS}/:tab`} component={AsyncSettings} />
+      <ClientRoute exact path={ROUTES.TALENT.PROFILE} component={AsyncProfileList} />
+      <ClientRoute exact path={ROUTES.TALENT.PROFILE_DETAIL} component={AsyncProfileDetail} />
+      <ClientRoute exact path={`${ROUTES.TALENT.PROFILE_DETAIL}/:tab`} component={AsyncProfileDetail} />s
+      <ClientRoute exact path={`${ROUTES.TALENT.MEDIA}/:tab`} component={AsyncMedia} />
+      <ClientRoute exact path={`${ROUTES.TALENT.PROFILE_DETAIL}/:tab`} component={AsyncProfileDetail} />
+      <ClientRoute exact path={ROUTES.TALENT.SETTINGS} component={AsyncSettings} />
+      <ClientRoute exact path={`${ROUTES.TALENT.SETTINGS}/:tab`} component={AsyncSettings} />
       <Route path="*" exact component={() => <h1>Not Found</h1>} />
     </Switch>
   );

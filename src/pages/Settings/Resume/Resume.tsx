@@ -2,11 +2,16 @@ import {
   Box,
   Button,
   Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   FormControlLabel,
   Grid,
   IconButton,
   Menu,
   MenuItem,
+  Tab,
   Typography,
 } from '@material-ui/core';
 import { AddNewIcon } from 'components/Icons';
@@ -26,15 +31,47 @@ import {
   selectResumeState,
   toggleShowYear,
 } from 'shared/redux/slicers/resume.slicer';
+import MediaGallery from './MediaGallery';
+import { Tabs } from 'themes/elements';
+import { useTabStyle } from 'components/style';
+
+const galleryTabs = [
+  {
+    name: 'Images',
+    value: 'images',
+  },
+  {
+    name: 'Videos',
+    value: 'videos',
+  },
+  {
+    name: 'Audios',
+    value: 'audios',
+  },
+];
 
 const Resume = () => {
   const classes = useStyles();
+  const tabStyle = useTabStyle();
   // const [sections, setSections] = useState<ISection[]>([]);
   const { sections, isSectionShowYear } = useSelector(selectResumeState);
   const dispatch = useDispatch();
   const [isSelected, setSelected] = useState<number>(-1);
   const [anchorEl, setAnchorEl] = React.useState<any>(null);
-  console.log('sections', sections);
+  const [galleryDialogOpen, setGalleryDialogOpen] = useState<boolean>(false);
+  const [selectedGalleryTab, setSelectedGalleryTab] = useState<string>('images');
+
+  const handleOpenGalleryDialog = () => {
+    setGalleryDialogOpen(true);
+  };
+
+  const handleCloseGalleryDialog = () => {
+    setGalleryDialogOpen(false);
+  };
+
+  const handleTabChange = (event: React.ChangeEvent<{}>, newValue: string) => {
+    setSelectedGalleryTab(newValue);
+  };
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -135,6 +172,7 @@ const Resume = () => {
                   handleReorderTable={handleReorderTable}
                   handleRowChange={handleRowChange}
                   handleColumnChange={handleColumnChange}
+                  handleOpenGalleryDialog={handleOpenGalleryDialog}
                 />
               </Grid>
             ))}
@@ -179,6 +217,52 @@ const Resume = () => {
         <MenuItem onClick={() => handleMenuClick(SectionType.TEXTAREA)}>Text Area</MenuItem>
         <MenuItem onClick={() => handleMenuClick(SectionType.TABLE)}>Table</MenuItem>
       </Menu>
+
+      <Dialog
+        open={galleryDialogOpen}
+        onClose={handleCloseGalleryDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        fullWidth
+        maxWidth="lg"
+        className={classes.dialog}
+      >
+        <DialogTitle>Media Gallery</DialogTitle>
+        <DialogContent>
+          <Tabs value={selectedGalleryTab} onChange={handleTabChange}>
+            {galleryTabs.map((galleryTab, index) => (
+              <Tab key={index} label={galleryTab.name} value={galleryTab.value} classes={tabStyle} />
+            ))}
+          </Tabs>
+          <Box mt={4}>
+            <Grid container spacing={2}>
+              <Grid item lg={3}>
+                <MediaGallery />
+              </Grid>
+              <Grid item lg={3}>
+                <MediaGallery isSelected />
+              </Grid>
+              <Grid item lg={3}>
+                <MediaGallery />
+              </Grid>
+              <Grid item lg={3}>
+                <MediaGallery />
+              </Grid>
+              <Grid item lg={3}>
+                <MediaGallery />
+              </Grid>
+            </Grid>
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="outlined" disableElevation onClick={handleCloseGalleryDialog}>
+            Cancel
+          </Button>
+          <Button variant="contained" color="primary" disableElevation>
+            Save Selected Media
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
