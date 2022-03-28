@@ -1,18 +1,12 @@
-import { Button, Card, Col, Row, Slider, Space } from 'antd';
+import { Box, Card, CardActions, CardContent, IconButton } from '@material-ui/core';
+import { CropIcon, FlipIcon, ResetIcon, RotateLeftIcon, RotateRightIcon } from 'components/Icons';
 import React, { useState } from 'react';
 import { Cropper } from 'react-cropper';
-import { CardActions, CropperContainer, ImageCropperWrapper } from './ImageCropper.styled';
-import 'cropperjs/dist/cropper.css';
-import { RotateLeftOutlined, RotateRightOutlined, UndoOutlined } from '@ant-design/icons';
-import { FlipIcon } from 'components/Icons';
-import { Alert } from 'shared/theme/elements';
+import { ImageQuanlityLevel } from 'shared/enums/ImageQualityLevel';
+import { useStyles } from './ImageCropper.styles';
+import clsx from 'clsx';
+import { ImageSlider } from 'themes/elements';
 
-type Props = {
-  src: string;
-  cropper: any;
-  setCropper: (instance: any) => void;
-  setIsValidImage: (bool: boolean) => void;
-};
 const standardHeightPixel = 1500;
 const standardWidthPixel = 1125;
 const rejectWidthQuanlity = 600;
@@ -20,28 +14,47 @@ const rejectHeightQuanlity = 800;
 const acceptWidthQuanlity = 1125;
 const acceptHeightQuanlity = 1500;
 
-const ImageCropper: React.FC<Props> = ({ src, cropper, setCropper, setIsValidImage }) => {
-  const [image, setImage] = useState(src);
-  const [sliderValue, setSliderValue] = useState<number>(0);
-  const [minZoomRatio, setMinZoomRatio] = useState<number>(0);
-  const [maxZoomRatio, setMaxZoomRatio] = useState<number>(1);
-  const [cropData, setCropData] = useState('#');
+type Props = {
+  src: string;
+  cropper: any;
+  setCropper: (instance: any) => void;
+  handleCrop: () => void;
+  qualityLevel: ImageQuanlityLevel;
+  setQualityLevel: (level: ImageQuanlityLevel) => void;
+};
+const ImageCropper: React.FC<Props> = ({ src, cropper, setCropper, handleCrop, setQualityLevel, qualityLevel }) => {
+  const classes = useStyles();
+  const [minZoomRatio, setMinZoomRatio] = useState(0);
+  const [maxZoomRatio, setMaxZoomRatio] = useState(1);
+  const [imageData, setImageData] = useState<Cropper.ImageData | undefined>(undefined);
 
-  const handleSliderChange = (value: number) => {
-    if (value <= minZoomRatio) {
-      cropper.zoomTo(minZoomRatio);
+  const [sliderDefaultValue, setSliderDefaultValue] = useState<number>(0.2);
+
+  const handleSliderChange = (event: any, newValue: number | number[]) => {
+    const valueNumber = newValue as number;
+    setSliderDefaultValue(valueNumber);
+    cropper.zoomTo(valueNumber);
+  };
+
+  const handleImageReady = (e: Cropper.ReadyEvent<HTMLImageElement>) => {
+    const imageData = e.currentTarget.cropper.getImageData();
+    const minSliderZoom = imageData.width / imageData.naturalWidth;
+    const maxSliderZoom =
+      Math.min.apply([imageData.naturalWidth / standardWidthPixel, imageData.naturalHeight / standardHeightPixel]) || 1;
+
+    setMaxZoomRatio(maxSliderZoom);
+    setMinZoomRatio(minSliderZoom);
+    setImageData(imageData);
+
+    if (imageData.naturalWidth < rejectWidthQuanlity || imageData.naturalHeight < rejectHeightQuanlity) {
+      setQualityLevel(ImageQuanlityLevel.Reject);
+      // setErrorSnackbarOpen(true);
+    } else if (imageData.naturalWidth < acceptWidthQuanlity || imageData.naturalHeight < acceptHeightQuanlity) {
+      setQualityLevel(ImageQuanlityLevel.Bad);
+      // setWarningSnackbarOpen(true);
     } else {
-      setSliderValue(value);
-      cropper.zoomTo(value);
+      setQualityLevel(ImageQuanlityLevel.Accept);
     }
-  };
-
-  const handleRotateLeft = () => {
-    cropper.rotate(-45);
-  };
-
-  const handleRotateRight = () => {
-    cropper.rotate(45);
   };
 
   const handleReset = () => {
@@ -53,90 +66,110 @@ const ImageCropper: React.FC<Props> = ({ src, cropper, setCropper, setIsValidIma
     cropper.scaleX(-cropperData.scaleX);
   };
 
-  const handleImageReady = (e: Cropper.ReadyEvent<HTMLImageElement>) => {
-    const imageData = e.currentTarget.cropper.getImageData();
-    const minSliderZoom = imageData.width / imageData.naturalWidth;
-    const maxSliderZoom =
-      Math.min.apply([imageData.naturalWidth / standardWidthPixel, imageData.naturalHeight / standardHeightPixel]) || 1;
+  const handleRotateRight = () => {
+    cropper.rotate(45);
+  };
 
-    setMaxZoomRatio(maxSliderZoom);
-    setMinZoomRatio(minSliderZoom);
-    setSliderValue(minSliderZoom);
-
-    if (imageData.naturalWidth < rejectWidthQuanlity || imageData.naturalHeight < rejectHeightQuanlity) {
-      Alert.error(
-        'Error',
-        'The image you have selected/uploaded is below the 800 pixel size height requirement, you cannot use this image. Please select another image.',
-      );
-      setIsValidImage(false);
-    } else if (imageData.naturalWidth < acceptWidthQuanlity || imageData.naturalHeight < acceptHeightQuanlity) {
-      Alert.warning(
-        'Warning',
-        ` The image you have selected/uploaded is below the 1500 pixel size height requirement. You may proceed however
-      quality will be compromised`,
-      );
-      setIsValidImage(true);
-    } else {
-      setIsValidImage(true);
-    }
+  const handleRotateLeft = () => {
+    cropper.rotate(-45);
   };
 
   return (
-    <ImageCropperWrapper>
-      <Card>
-        <CropperContainer>
-          <Cropper
-            style={{ height: 440, width: '100%' }}
-            zoomTo={0}
-            preview=".img-preview"
-            src={src}
-            minCropBoxHeight={440}
-            initialAspectRatio={0.75}
-            aspectRatio={0.75}
-            viewMode={1}
-            guides={false}
-            modal={true}
-            autoCrop={true}
-            responsive={true}
-            background={false}
-            wheelZoomRatio={0.1}
-            cropBoxResizable={false}
-            ready={handleImageReady}
-            checkCrossOrigin={true}
-            zoomOnWheel={true}
-            onInitialized={(instance) => {
-              setCropper(instance);
-            }}
+    <Card className={classes.card}>
+      <CardContent className={classes.cropperContainer}>
+        <Cropper
+          style={{ height: 440, width: '100%' }}
+          zoomTo={0}
+          preview=".img-preview"
+          src={src}
+          minCropBoxHeight={440}
+          initialAspectRatio={0.75}
+          aspectRatio={0.75}
+          viewMode={1}
+          guides={false}
+          modal={true}
+          autoCrop={true}
+          responsive={true}
+          background={false}
+          wheelZoomRatio={0.1}
+          cropBoxResizable={false}
+          ready={handleImageReady}
+          checkCrossOrigin={true}
+          zoomOnWheel={true}
+          onInitialized={(instance) => {
+            setCropper(instance);
+          }}
+        />
+      </CardContent>
+      <CardActions className={classes.card__action}>
+        <Box className={classes.action}>
+          <IconButton
+            aria-label="upload picture"
+            disabled={qualityLevel === ImageQuanlityLevel.Reject}
+            className={clsx(classes.action__buttonActive, {
+              [classes.action__buttonDisable]: qualityLevel === ImageQuanlityLevel.Reject,
+            })}
+            onClick={handleReset}
+          >
+            <ResetIcon width="24" height="24" viewBox="0 0 24 24" />
+            <span style={{ marginLeft: '5px', fontSize: '10px' }}>RESET</span>
+          </IconButton>
+        </Box>
+        <Box className={classes.slider}>
+          <ImageSlider
+            key={'slider_' + src}
+            min={minZoomRatio}
+            step={0.0001}
+            value={sliderDefaultValue}
+            max={1}
+            disabled={qualityLevel === ImageQuanlityLevel.Reject || maxZoomRatio <= minZoomRatio || !src}
+            onChange={handleSliderChange}
           />
-        </CropperContainer>
-        <CardActions>
-          <Row gutter={16}>
-            <Col span={6}>
-              <Button icon={<UndoOutlined />} onClick={handleReset} disabled={!src} />
-            </Col>
-            <Col span={12}>
-              <Slider
-                tooltipVisible={false}
-                min={minZoomRatio}
-                max={1}
-                onChange={handleSliderChange}
-                disabled={maxZoomRatio <= minZoomRatio || !src}
-                step={0.0001}
-                defaultValue={sliderValue}
-                value={sliderValue}
-              />
-            </Col>
-            <Col span={6}>
-              <Space size="small">
-                <Button icon={<FlipIcon />} onClick={handleFlip} disabled={!src} />
-                <Button icon={<RotateLeftOutlined />} onClick={handleRotateLeft} disabled={!src} />
-                <Button icon={<RotateRightOutlined />} onClick={handleRotateRight} disabled={!src} />
-              </Space>
-            </Col>
-          </Row>
-        </CardActions>
-      </Card>
-    </ImageCropperWrapper>
+        </Box>
+        <Box className={classes.action}>
+          <IconButton
+            aria-label="upload picture"
+            disabled={qualityLevel === ImageQuanlityLevel.Reject}
+            className={clsx(classes.action__buttonActive, {
+              [classes.action__buttonDisable]: qualityLevel === ImageQuanlityLevel.Reject,
+            })}
+            onClick={handleCrop}
+          >
+            <CropIcon width="24" height="24" viewBox="0 0 24 24" />
+          </IconButton>
+          <IconButton
+            aria-label="flip picture"
+            disabled={qualityLevel === ImageQuanlityLevel.Reject}
+            className={clsx(classes.action__buttonActive, {
+              [classes.action__buttonDisable]: qualityLevel === ImageQuanlityLevel.Reject,
+            })}
+            onClick={handleFlip}
+          >
+            <FlipIcon width="24" height="24" viewBox="0 0 24 24" />
+          </IconButton>
+          <IconButton
+            aria-label="rotate left picture"
+            disabled={qualityLevel === ImageQuanlityLevel.Reject}
+            className={clsx(classes.action__buttonActive, {
+              [classes.action__buttonDisable]: qualityLevel === ImageQuanlityLevel.Reject,
+            })}
+            onClick={handleRotateLeft}
+          >
+            <RotateLeftIcon width="24" height="24" viewBox="0 0 24 24" />
+          </IconButton>
+          <IconButton
+            aria-label="rotate right picture"
+            disabled={qualityLevel === ImageQuanlityLevel.Reject}
+            className={clsx(classes.action__buttonActive, {
+              [classes.action__buttonDisable]: qualityLevel === ImageQuanlityLevel.Reject,
+            })}
+            onClick={handleRotateRight}
+          >
+            <RotateRightIcon width="24" height="24" viewBox="0 0 24 24" />
+          </IconButton>
+        </Box>
+      </CardActions>
+    </Card>
   );
 };
 

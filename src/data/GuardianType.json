@@ -1,0 +1,55 @@
+[
+    {
+      "key": "Mother",
+      "value": "Mother"
+    },
+    {
+      "key": "Father",
+      "value": "Father"
+    },
+    {
+      "key": "Uncle",
+      "value": "Uncle"
+    },
+    {
+      "key": "Aunt",
+      "value": "Aunt"
+    },
+    {
+      "key": "Cousin",
+      "value": "Cousin"
+    },
+    {
+      "key": "Brother",
+      "value": "Brother"
+    },
+    {
+      "key": "Sister",
+      "value": "Sister"
+    },
+    {
+      "key": "Grandmother",
+      "value": "Grandmother"
+    },
+    {
+      "key": "Grandfather",
+      "value": "Grandfather"
+    },
+    {
+      "key": "Aupere",
+      "value": "Aupere"
+    },
+    {
+      "key": "Nanny",
+      "value": "Nanny"
+    },
+    {
+      "key": "Minder",
+      "value": "Minder"
+    },
+    {
+      "key": "Other",
+      "value": "Other"
+    }
+]
+  

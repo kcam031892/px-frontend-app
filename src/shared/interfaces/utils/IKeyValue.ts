@@ -1,5 +1,4 @@
 export interface IKeyValue {
-  id: string;
-  value: string;
-  disabled?: boolean;
+  key: string;
+  value: string | number;
 }

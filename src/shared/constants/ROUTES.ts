@@ -1,10 +1,12 @@
 export const ROUTES = {
-  LOGIN: '/',
-  DASHBOARD: '/dashboard',
-  PROFILE: '/profile',
-  PROFILE_DETAIL: '/profile/detail',
-  TALENT: '/talent',
-  AGENCIES: '/agencies',
-  MESSAGING: '/messaging',
-  CONTACTS: '/contacts',
+  ROOT: '/',
+  LOGIN: '/login',
+  SIGNUP: '/signup',
+  TALENT: {
+    DASHBOARD: '/talent/dashboard',
+    PROFILE: '/talent/profiles',
+    PROFILE_DETAIL: '/talent/profiles_detail',
+    MEDIA: '/talent/media',
+    SETTINGS: '/talent/settings',
+  },
 };

@@ -1,27 +1,30 @@
-import LoginPage from 'pages/LoginPage';
+import Login from 'pages/Login';
+import Signup from 'pages/Signup';
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router';
 import { ROUTES } from 'shared/constants/ROUTES';
-import ClientRoutes from './ClientRoutes';
+import ClientRoute from './ClientRoute';
+import PublicRoute from './PublicRoute';
 
-const AsyncDashboardPage = React.lazy(() => import('pages/Dashboard'));
-const AsyncDashboardDetailPage = React.lazy(() => import('pages/DashboardDetail'));
-const AsyncProfileList = React.lazy(() => import('pages/ProfilePage/ProfileList'));
-const AsyncProfileDetail = React.lazy(() => import('pages/ProfilePage/ProfileDetail'));
+const AsyncProfileList = React.lazy(() => import('pages/Profiles/ProfileList'));
+const AsyncProfileDetail = React.lazy(() => import('pages/Profiles/ProfileDetail'));
+const AsyncMedia = React.lazy(() => import('pages/Media/Media'));
+const AsyncSettings = React.lazy(() => import('pages/Settings/Settings'));
 
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path={ROUTES.LOGIN} component={LoginPage} />
-      <ClientRoutes exact path={ROUTES.DASHBOARD} component={AsyncDashboardPage} />
-      <ClientRoutes exact path={`${ROUTES.DASHBOARD}/:id`} component={AsyncDashboardDetailPage} />
-      <ClientRoutes exact path={ROUTES.PROFILE} component={AsyncProfileList} />
-      <ClientRoutes exact path={ROUTES.PROFILE_DETAIL} component={AsyncProfileDetail} />
-      <ClientRoutes exact path={`${ROUTES.PROFILE_DETAIL}/:tab`} component={AsyncProfileDetail} />
-      <ClientRoutes exact path={ROUTES.TALENT} component={AsyncDashboardPage} />
-      <ClientRoutes exact path={ROUTES.AGENCIES} component={AsyncDashboardPage} />
-      <ClientRoutes exact path={ROUTES.MESSAGING} component={AsyncDashboardPage} />
-      <ClientRoutes exact path={ROUTES.CONTACTS} component={AsyncDashboardPage} />
+      <Route exact path={ROUTES.ROOT} component={() => <Redirect to={ROUTES.LOGIN} />} />
+      <PublicRoute exact path={ROUTES.LOGIN} component={Login} />
+      <PublicRoute exact path={ROUTES.SIGNUP} component={Signup} />
+      <ClientRoute exact path={ROUTES.TALENT.PROFILE} component={AsyncProfileList} />
+      <ClientRoute exact path={ROUTES.TALENT.PROFILE_DETAIL} component={AsyncProfileDetail} />
+      <ClientRoute exact path={`${ROUTES.TALENT.PROFILE_DETAIL}/:tab`} component={AsyncProfileDetail} />s
+      <ClientRoute exact path={`${ROUTES.TALENT.MEDIA}/:tab`} component={AsyncMedia} />
+      <ClientRoute exact path={`${ROUTES.TALENT.PROFILE_DETAIL}/:tab`} component={AsyncProfileDetail} />
+      <ClientRoute exact path={ROUTES.TALENT.SETTINGS} component={AsyncSettings} />
+      <ClientRoute exact path={`${ROUTES.TALENT.SETTINGS}/:tab`} component={AsyncSettings} />
+      <Route path="*" exact component={() => <h1>Not Found</h1>} />
     </Switch>
   );
 };
