@@ -9,6 +9,8 @@ import {
   Menu,
   MenuItem,
   Divider,
+  Box,
+  Button,
 } from '@material-ui/core';
 import React, { useState } from 'react';
 import { Input } from 'themes/elements';
@@ -25,6 +27,16 @@ import complexion from 'data/Complexion.json';
 const Statistics = () => {
   const classes = useStyles();
 
+  const [selectValue, setSelectValue] = useState('');
+
+  const selectRegion = (event: React.ChangeEvent<{ value: any }>) => {
+    setSelectValue(event.target.value);
+  };
+
+  const selectGender = (event: React.ChangeEvent<{ value: any }>) => {
+    setSelectValue(event.target.value);
+  };
+
   return (
     <Grid container spacing={0}>
       <Grid container spacing={2}>
@@ -40,7 +52,7 @@ const Statistics = () => {
                     <InputLabel id="labelCountry" shrink>
                       Region
                     </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline defaultValue={region[0].value}>
+                    <Select labelId={'lblType'} onChange={selectRegion} disableUnderline defaultValue={region[0].value}>
                       {region.map((i) => (
                         <MenuItem key={i.key} value={i.value}>
                           {i.value}
@@ -146,89 +158,134 @@ const Statistics = () => {
                 </Grid>
                 <Grid xs={12} md={6} lg={2} item>
                   <FormControl margin={'normal'} fullWidth>
-                    <InputLabel id="labelGender" shrink>
-                      Height
-                    </InputLabel>
-                    <Input
-                      label={'Height'}
-                      fullWidth
-                      InputProps={{ disableUnderline: true }}
-                      InputLabelProps={{ shrink: true }}
-                    />
+                    <Grid container spacing={2}>
+                      <Grid xs={6} md={6} item>
+                        <Input
+                          label={'Height'}
+                          InputProps={{ disableUnderline: true }}
+                          InputLabelProps={{ shrink: true }}
+                        />
+                      </Grid>
+                      <Grid xs={6} md={6} item>
+                        <Input label={' '} InputProps={{ disableUnderline: true }} />
+                      </Grid>
+                    </Grid>
                   </FormControl>
                 </Grid>
                 <Grid xs={12} md={6} lg={2} item>
                   <FormControl margin={'normal'} fullWidth>
-                    <Input
-                      label={'Waist Size'}
-                      fullWidth
-                      InputProps={{ disableUnderline: true }}
-                      InputLabelProps={{ shrink: true }}
-                    />
-                  </FormControl>
-                </Grid>
-              </Grid>
-              <Grid container className={classes.profileItemsContainer} spacing={2}>
-                <Grid xs={12} md={6} lg={2} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <Input
-                      label={'Suit Size'}
-                      fullWidth
-                      InputProps={{ disableUnderline: true }}
-                      InputLabelProps={{ shrink: true }}
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid xs={12} md={6} lg={2} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <Input
-                      label={'Chest Size'}
-                      fullWidth
-                      InputProps={{ disableUnderline: true }}
-                      InputLabelProps={{ shrink: true }}
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid xs={12} md={6} lg={2} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <Input
-                      label={'Collar Size'}
-                      fullWidth
-                      InputProps={{ disableUnderline: true }}
-                      InputLabelProps={{ shrink: true }}
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid xs={12} md={6} lg={2} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <Input
-                      label={'Inside Leg'}
-                      fullWidth
-                      InputProps={{ disableUnderline: true }}
-                      InputLabelProps={{ shrink: true }}
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid xs={12} md={6} lg={2} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <Input
-                      label={'Outside Leg'}
-                      fullWidth
-                      InputProps={{ disableUnderline: true }}
-                      InputLabelProps={{ shrink: true }}
-                    />
+                    <Grid container spacing={2}>
+                      <Grid xs={6} md={6} item>
+                        <Input
+                          label={'Waist Size'}
+                          InputProps={{ disableUnderline: true }}
+                          InputLabelProps={{ shrink: true }}
+                        />
+                      </Grid>
+                      <Grid xs={6} md={6} item>
+                        <Input label={' '} InputProps={{ disableUnderline: true }} />
+                      </Grid>
+                    </Grid>
                   </FormControl>
                 </Grid>
               </Grid>
               <Grid container className={classes.profileItemsContainer} spacing={2}>
                 <Grid xs={12} md={6} lg={2} item>
                   <FormControl margin={'normal'} fullWidth>
-                    <Input
-                      label={'Shoe Size'}
-                      fullWidth
-                      InputProps={{ disableUnderline: true }}
-                      InputLabelProps={{ shrink: true }}
-                    />
+                    <Grid container spacing={2}>
+                      <Grid xs={6} md={6} item>
+                        <Input
+                          label={'Suit Size'}
+                          InputProps={{ disableUnderline: true }}
+                          InputLabelProps={{ shrink: true }}
+                        />
+                      </Grid>
+                      <Grid xs={6} md={6} item>
+                        <Input label={' '} InputProps={{ disableUnderline: true }} />
+                      </Grid>
+                    </Grid>
+                  </FormControl>
+                </Grid>
+                <Grid xs={12} md={6} lg={2} item>
+                  <FormControl margin={'normal'} fullWidth>
+                    <Grid container spacing={2}>
+                      <Grid xs={6} md={6} item>
+                        <Input
+                          label={'Chest Size'}
+                          InputProps={{ disableUnderline: true }}
+                          InputLabelProps={{ shrink: true }}
+                        />
+                      </Grid>
+                      <Grid xs={6} md={6} item>
+                        <Input label={' '} InputProps={{ disableUnderline: true }} />
+                      </Grid>
+                    </Grid>
+                  </FormControl>
+                </Grid>
+                <Grid xs={12} md={6} lg={2} item>
+                  <FormControl margin={'normal'} fullWidth>
+                    <Grid container spacing={2}>
+                      <Grid xs={6} md={6} item>
+                        <Input
+                          label={'Collar Size'}
+                          InputProps={{ disableUnderline: true }}
+                          InputLabelProps={{ shrink: true }}
+                        />
+                      </Grid>
+                      <Grid xs={6} md={6} item>
+                        <Input label={' '} InputProps={{ disableUnderline: true }} />
+                      </Grid>
+                    </Grid>
+                  </FormControl>
+                </Grid>
+                <Grid xs={12} md={6} lg={2} item>
+                  <FormControl margin={'normal'} fullWidth>
+                    <Grid container spacing={2}>
+                      <Grid xs={6} md={6} item>
+                        <Input
+                          label={'Inside Leg'}
+                          InputProps={{ disableUnderline: true }}
+                          InputLabelProps={{ shrink: true }}
+                        />
+                      </Grid>
+                      <Grid xs={6} md={6} item>
+                        <Input label={' '} InputProps={{ disableUnderline: true }} />
+                      </Grid>
+                    </Grid>
+                  </FormControl>
+                </Grid>
+                <Grid xs={12} md={6} lg={2} item>
+                  <FormControl margin={'normal'} fullWidth>
+                    <Grid container spacing={2}>
+                      <Grid xs={6} md={6} item>
+                        <Input
+                          label={'Outside Leg'}
+                          InputProps={{ disableUnderline: true }}
+                          InputLabelProps={{ shrink: true }}
+                        />
+                      </Grid>
+                      <Grid xs={6} md={6} item>
+                        <Input label={' '} InputProps={{ disableUnderline: true }} />
+                      </Grid>
+                    </Grid>
+                  </FormControl>
+                </Grid>
+              </Grid>
+              <Grid container className={classes.profileItemsContainer} spacing={2}>
+                <Grid xs={12} md={6} lg={2} item>
+                  <FormControl margin={'normal'} fullWidth>
+                    <Grid container spacing={2}>
+                      <Grid xs={6} md={6} item>
+                        <Input
+                          label={'Shoe Size'}
+                          InputProps={{ disableUnderline: true }}
+                          InputLabelProps={{ shrink: true }}
+                        />
+                      </Grid>
+                      <Grid xs={6} md={6} item>
+                        <Input label={' '} InputProps={{ disableUnderline: true }} />
+                      </Grid>
+                    </Grid>
                   </FormControl>
                 </Grid>
                 <Grid xs={12} md={6} lg={2} item>
@@ -243,10 +300,23 @@ const Statistics = () => {
                 </Grid>
               </Grid>
               <Divider style={{ margin: '24px 0px' }} />
+              <Grid spacing={2} container>
+                <Grid xs={12} md={6} lg={6} item>
+                  <Input label={'Ethnicities'} fullWidth margin={'normal'} InputLabelProps={{ shrink: true }} />
+                </Grid>
+                <Grid xs={12} md={6} lg={6} item>
+                  <Input label={'Other Talent Types'} fullWidth margin={'normal'} InputLabelProps={{ shrink: true }} />
+                </Grid>
+              </Grid>
             </CardContent>
           </Card>
         </Grid>
       </Grid>
+      <Box mt={3}>
+        <Button variant="contained" disableElevation>
+          Save Changes
+        </Button>
+      </Box>
     </Grid>
   );
 };

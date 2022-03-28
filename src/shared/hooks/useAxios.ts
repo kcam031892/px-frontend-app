@@ -16,7 +16,6 @@ export interface IAxios<P, B> {
 const { removeLS } = ls();
 export const useAxios = () => {
   const instance = axios.create({
-    baseURL: CONFIG.API_URL,
     headers: {
       'Content-Type': 'application/json',
     },

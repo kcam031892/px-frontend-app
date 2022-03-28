@@ -106,7 +106,7 @@ const AudioTab = () => {
           <Typography variant="caption">(2 of 16 hidden)</Typography>
         </Box>
         <Box className={classes.selectedAudios__audioList}>
-          <ScrollContainer vertical={false} className={classes.selectedAudios__scroll}>
+          <ScrollContainer hideScrollbars={false} vertical={false} className={classes.selectedAudios__scroll}>
             {Array.from({ length: 32 }).map((_, i) => (
               <AudioItem isHideAudio handleEditAudio={() => handleEditAudio(EditorMode.VIEW)} />
             ))}

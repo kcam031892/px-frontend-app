@@ -1,4 +1,8 @@
+import { CONFIG } from 'shared/config';
+
 export const ENDPOINTS = {
-  USERS: '/users',
-  ME: '/me',
+  USERS: `${CONFIG.AUTH_API_URL}/users`,
+  ME: `${CONFIG.GENERAL_API_URL}/me`,
+  PROFILE: `${CONFIG.GENERAL_API_URL}/profiles`,
+  AGENCY: `${CONFIG.GENERAL_API_URL}/agencies`,
 };

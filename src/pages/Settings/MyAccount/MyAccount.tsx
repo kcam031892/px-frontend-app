@@ -171,7 +171,7 @@ const MyAccount = () => {
                     </Select>
                   </FormControl>
                 </Grid>
-                {selectValue === 'MINOR' ? (
+                {selectValue === 'Minor' ? (
                   <Grid xs={6} item>
                     <FormControl margin={'normal'} fullWidth>
                       <Grid container spacing={2} style={{ marginTop: -2 }}>
@@ -229,7 +229,7 @@ const MyAccount = () => {
                             <InputLabel id="lblAgeRange" shrink>
                               Age Range
                             </InputLabel>
-                            <Select onChange={selectAge} labelId={'lblType'} disableUnderline>
+                            <Select labelId={'lblType'} disableUnderline>
                               <MenuItem key={'ADULT'} value={'ADULT'}>
                                 Adult
                               </MenuItem>
@@ -241,7 +241,7 @@ const MyAccount = () => {
                         </Grid>
                         <Grid xs={6} item>
                           <FormControl margin={'normal'} style={{ marginBottom: '0px' }} fullWidth>
-                            <Select onChange={selectAge} labelId={'lblType'} disableUnderline>
+                            <Select labelId={'lblType'} disableUnderline>
                               <MenuItem key={'ADULT'} value={'ADULT'}>
                                 Adult
                               </MenuItem>

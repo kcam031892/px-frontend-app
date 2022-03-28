@@ -62,12 +62,16 @@ const ProfeciencyDialog: React.FC<Props> = ({ open, onClose }) => {
           </Grid>
           <Grid item xs={12} md={12}>
             <FormControl margin={'normal'} fullWidth>
-              <InputLabel id="lblCountry" shrink>
-                Add Media
-              </InputLabel>
-              <Button variant="contained" component="label">
+              <Button variant="contained">
                 Upload File
                 <input type="file" hidden />
+              </Button>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <FormControl margin={'normal'} fullWidth>
+              <Button variant="contained" component="label">
+                Submit
               </Button>
             </FormControl>
           </Grid>
