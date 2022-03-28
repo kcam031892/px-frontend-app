@@ -1,6 +1,7 @@
-import React from 'react';
-import { Button as MUIButton, ButtonProps } from '@material-ui/core';
+import { ButtonProps, Button as MUIButton } from '@material-ui/core';
 import clsx from 'clsx';
+import React from 'react';
+
 import { useStyles } from './Button.styles';
 
 type Props = {

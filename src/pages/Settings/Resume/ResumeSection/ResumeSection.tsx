@@ -1,16 +1,12 @@
 import { Box, Card, CardContent, IconButton, InputBase, MenuItem, Select, Tooltip } from '@material-ui/core';
-import React, { useState } from 'react';
 import clsx from 'clsx';
-import { useStyles } from './ResumeSection.styles';
-
-import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
 import { DeleteIcon, DownIcon, UpIcon } from 'components/Icons';
-import TableCard from '../TableCard/TableCard';
-import SummaryCard from '../SummaryCard/SummaryCard';
-import { ISection } from 'shared/interfaces/IProfile';
-import { SectionType } from 'shared/enums/SectionType';
 import ProjectTypes from 'data/ProjectType.json';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { SectionType } from 'shared/enums/SectionType';
+import { ISection } from 'shared/interfaces/IProfile';
+import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
 import {
   changeSectionTitle,
   removeSection,
@@ -18,6 +14,10 @@ import {
   selectResumeState,
 } from 'shared/redux/slicers/resume.slicer';
 import { Range } from 'shared/utils/range';
+
+import SummaryCard from '../SummaryCard/SummaryCard';
+import TableCard from '../TableCard/TableCard';
+import { useStyles } from './ResumeSection.styles';
 
 const rows: IKeyValue[] = Range(2, 10).map((value) => {
   return {

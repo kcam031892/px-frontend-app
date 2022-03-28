@@ -1,9 +1,10 @@
-import { Card, IconButton, Box, CardMedia, CardContent, Typography, Menu, MenuItem } from '@material-ui/core';
+import { Box, Card, CardContent, CardMedia, IconButton, Menu, MenuItem, Typography } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import clsx from 'clsx';
 import { MoveIcon } from 'components/Icons';
 import React, { useState } from 'react';
 import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
+
 import { useStyles } from './AudioItem.styles';
 
 type Props = {

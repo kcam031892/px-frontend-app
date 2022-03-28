@@ -3,12 +3,12 @@ import { AudioEditor } from 'components';
 import React, { useEffect, useState } from 'react';
 import {
   DragDropContext,
-  Droppable,
-  DroppableProvided,
   Draggable,
   DraggableProvided,
   DraggableStateSnapshot,
   DropResult,
+  Droppable,
+  DroppableProvided,
 } from 'react-beautiful-dnd';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import { useHistory, useLocation } from 'react-router-dom';

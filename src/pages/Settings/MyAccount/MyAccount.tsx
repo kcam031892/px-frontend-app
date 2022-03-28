@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
 import {
-  Grid,
-  Typography,
+  Box,
+  Button,
   Card,
   CardContent,
-  Box,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormControlLabel,
   Checkbox,
-  Button,
+  FormControl,
+  FormControlLabel,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
 } from '@material-ui/core';
+import React, { useState } from 'react';
 import { ContactInput, Input, InputPassword } from 'themes/elements';
-import { useStyles } from './MyAccount.styles';
 import { useCardContentStyle } from 'themes/styles/useCardContentStyle';
+
+import { useStyles } from './MyAccount.styles';
 
 const MyAccount = () => {
   const classes = useStyles();

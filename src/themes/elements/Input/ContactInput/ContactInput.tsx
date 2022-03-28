@@ -1,6 +1,7 @@
 import { Box, FormControl, InputLabel } from '@material-ui/core';
-import React from 'react';
 import MuiPhoneInput from 'material-ui-phone-number';
+import React from 'react';
+
 import { Input } from '..';
 import { useStyles } from './ContactInput.styles';
 

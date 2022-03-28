@@ -1,6 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import userReducer from './slicers/user.slicer';
+
 import resumeReducer from './slicers/resume.slicer';
+import userReducer from './slicers/user.slicer';
 
 const rootReducer = combineReducers({
   user: userReducer,

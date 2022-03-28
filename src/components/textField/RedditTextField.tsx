@@ -1,7 +1,7 @@
-import React from 'react';
-import { fade, makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 import { OutlinedInputProps } from '@material-ui/core/OutlinedInput';
+import { Theme, createStyles, fade, makeStyles } from '@material-ui/core/styles';
+import TextField, { TextFieldProps } from '@material-ui/core/TextField';
+import React from 'react';
 
 const useStylesReddit = makeStyles((theme: Theme) =>
   createStyles({

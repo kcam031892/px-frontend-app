@@ -5,10 +5,10 @@ import { ROUTES } from 'shared/constants/ROUTES';
 import { ITab } from 'shared/interfaces/utils/ITab';
 import { Tabs } from 'themes/elements';
 import { useTabStyle } from 'themes/styles/useTabStyle';
+
 import AudioTab from './AudioTab/AudioTab';
 import CompositeTab from './CompositeTab/CompositeTab';
 import ImageTab from './ImageTab/ImageTab';
-
 import PrimaryImage from './PrimaryImage/PrimaryImage';
 import { useStyles } from './ProfileDetail.styles';
 import ResumeTab from './ResumeTab/ResumeTab';

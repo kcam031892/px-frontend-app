@@ -1,10 +1,10 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { SectionType } from 'shared/enums/SectionType';
-
 import { ISection } from 'shared/interfaces/IProfile';
 import { createEmptyTableArray } from 'shared/utils/createEmptyTableArray';
 import { generateSectionId } from 'shared/utils/generateSectionId';
 import { swap2DArrayElement, swapArrayElement } from 'shared/utils/swapArrayElement';
+
 import { RootState } from '../store';
 
 export interface IResumeState {

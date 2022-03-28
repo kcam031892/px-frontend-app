@@ -14,6 +14,7 @@ import clsx from 'clsx';
 import { MoveIcon } from 'components/Icons';
 import React, { useState } from 'react';
 import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
+
 import { useStyles } from './ImageItem.styles';
 
 type Props = {

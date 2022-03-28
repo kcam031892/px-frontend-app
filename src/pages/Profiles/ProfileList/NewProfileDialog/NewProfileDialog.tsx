@@ -24,26 +24,27 @@ import {
   Select,
   Typography,
 } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import BackspaceIcon from '@material-ui/icons/Backspace';
 import ClearIcon from '@material-ui/icons/Clear';
 import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
-import { useStyles } from './NewProfileDialog.styles';
-import { SearchIcon } from 'components/Icons';
-import { Button, Input, useAlert } from 'themes/elements';
-import { IProfile, IProfileCreatePayload } from 'shared/interfaces/IProfile';
-import { RepresentationType } from 'shared/enums/RepresentationType';
-import * as yup from 'yup';
-import { FormikProps, useFormik } from 'formik';
-import { useDebounce } from 'use-debounce';
-import { agencyService } from 'shared/services/agencyService';
-import BackspaceIcon from '@material-ui/icons/Backspace';
-import { IAgency } from 'shared/interfaces/utils/IAgency';
-import { profileService } from 'shared/services/profileService';
-import { useQueryClient } from 'react-query';
-import { IAlertStatus } from 'shared/interfaces/utils/IAlert';
 import { AxiosError } from 'axios';
+import { SearchIcon } from 'components/Icons';
+import { FormikProps, useFormik } from 'formik';
+import React, { useEffect, useState } from 'react';
+import { useQueryClient } from 'react-query';
+import { RepresentationType } from 'shared/enums/RepresentationType';
+import { IProfile, IProfileCreatePayload } from 'shared/interfaces/IProfile';
+import { IAgency } from 'shared/interfaces/utils/IAgency';
+import { IAlertStatus } from 'shared/interfaces/utils/IAlert';
 import { IErrorResponse } from 'shared/interfaces/utils/IErrorResonse';
+import { agencyService } from 'shared/services/agencyService';
+import { profileService } from 'shared/services/profileService';
 import { errorResponseToArray } from 'shared/utils/errorResponseToArray';
+import { Button, Input, useAlert } from 'themes/elements';
+import { useDebounce } from 'use-debounce';
+import * as yup from 'yup';
+
+import { useStyles } from './NewProfileDialog.styles';
 
 const VISIBLE_AGENCY_COUNT = 3;
 const VISIBLE_AGENCY_COUNT_LARGE = 6;

@@ -5,14 +5,15 @@ import {
   DragDropContext,
   Draggable,
   DraggableProvided,
+  DropResult,
   Droppable,
   DroppableProvided,
-  DropResult,
 } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { ISection } from 'shared/interfaces/IProfile';
 import { changeTextValues, removeRow, selectResumeState } from 'shared/redux/slicers/resume.slicer';
 import { Input } from 'themes/elements';
+
 import { useStyles } from './TableCard.styles';
 
 type Props = {

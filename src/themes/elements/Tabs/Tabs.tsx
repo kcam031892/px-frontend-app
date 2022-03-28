@@ -1,5 +1,5 @@
-import { withStyles } from '@material-ui/styles';
 import { Tabs as MUITabs } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
 
 const Tabs = withStyles({
   root: {

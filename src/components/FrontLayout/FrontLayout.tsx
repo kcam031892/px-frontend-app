@@ -1,4 +1,4 @@
-import { Paper, Box, Avatar, Typography, Snackbar } from '@material-ui/core';
+import { Avatar, Box, Paper, Snackbar, Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import React from 'react';
 

@@ -1,6 +1,6 @@
 import { Snackbar } from '@material-ui/core';
-import React, { useMemo, useState } from 'react';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+import React, { useMemo, useState } from 'react';
 import { IAlertStatus } from 'shared/interfaces/utils/IAlert';
 
 export const Alert = (props: AlertProps) => <MuiAlert {...props} />;

@@ -1,19 +1,19 @@
 import { Box, Dialog, DialogContent, Grid, Typography } from '@material-ui/core';
-
+import { ImageEditor } from 'components';
 import React, { useState } from 'react';
-import ImageItem from './ImageItem/ImageItem';
-import { useStyles } from './ImageTab.styles';
-import ScrollContainer from 'react-indiana-drag-scroll';
 import {
   DragDropContext,
   Draggable,
   DraggableProvided,
   DraggableStateSnapshot,
+  DropResult,
   Droppable,
   DroppableProvided,
-  DropResult,
 } from 'react-beautiful-dnd';
-import { ImageEditor } from 'components';
+import ScrollContainer from 'react-indiana-drag-scroll';
+
+import ImageItem from './ImageItem/ImageItem';
+import { useStyles } from './ImageTab.styles';
 
 const ImageTab = () => {
   const classes = useStyles();

@@ -1,14 +1,15 @@
 import { Box, Dialog, DialogActions, DialogContent, Grid, IconButton, Typography } from '@material-ui/core';
 import { CloseOutlined } from '@material-ui/icons';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import React, { RefObject, useRef, useState } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import { Button } from 'themes/elements';
+
 import { useStyles } from './CompositeTab.styles';
 import Content from './Content/Content';
 import ImageItem from './ImageItem/ImageItem';
 import Templates from './Templates/Templates';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 const CompositeTab = () => {
   const classes = useStyles();

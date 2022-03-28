@@ -1,7 +1,7 @@
 import { Box, IconButton, InputAdornment, TextField, TextFieldProps, Typography } from '@material-ui/core';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import React, { useState } from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { classicNameResolver } from 'typescript';
 
 const useStyles = makeStyles((theme: Theme) =>
