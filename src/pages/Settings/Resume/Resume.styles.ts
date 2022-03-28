@@ -27,5 +27,10 @@ export const useStyles = makeStyles(() =>
         backgroundColor: '#333',
       },
     },
+    dialog: {
+      paper: {
+        maxWidth: 1000,
+      },
+    },
   }),
 );

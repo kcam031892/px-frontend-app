@@ -13,7 +13,7 @@ const { isAuthenticated } = tokenService();
 const PublicRoute: React.FC<Props> = ({ component: Component, path, exact }) => {
   return (
     <Route
-      component={() => (!isAuthenticated() ? <Component /> : <Redirect to={ROUTES.APP.PROFILE} />)}
+      component={() => (!isAuthenticated() ? <Component /> : <Redirect to={ROUTES.TALENT.PROFILE} />)}
       exact={exact}
       path={path}
     />

@@ -2,11 +2,11 @@ export const ROUTES = {
   ROOT: '/',
   LOGIN: '/login',
   SIGNUP: '/signup',
-  APP: {
-    DASHBOARD: '/app/dashboard',
-    PROFILE: '/app/profiles',
-    PROFILE_DETAIL: '/app/profiles_detail',
-    MEDIA: '/app/media',
-    SETTINGS: '/app/settings',
+  TALENT: {
+    DASHBOARD: '/talent/dashboard',
+    PROFILE: '/talent/profiles',
+    PROFILE_DETAIL: '/talent/profiles_detail',
+    MEDIA: '/talent/media',
+    SETTINGS: '/talent/settings',
   },
 };

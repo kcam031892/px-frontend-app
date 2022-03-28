@@ -14,8 +14,6 @@ import {
 import { useWindowSize } from '@react-hook/window-size';
 import { UsageData } from 'components';
 import { AudioIcon, DocumentIcon, MediaUploadIcon, PhotoIcon, VideoIcon } from 'components/Icons';
-import media from 'features/media';
-import _ from 'lodash';
 import React from 'react';
 import { Button } from 'themes/elements';
 import { useStyles } from './Dashboard.styles';

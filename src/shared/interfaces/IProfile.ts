@@ -42,4 +42,5 @@ export interface IProfileCreatePayload {
   note?: string;
   agency_id?: string;
   confirmed_agreement: boolean;
+  talent_type: string;
 }
