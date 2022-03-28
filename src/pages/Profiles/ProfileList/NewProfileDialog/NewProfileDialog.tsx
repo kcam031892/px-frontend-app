@@ -43,7 +43,7 @@ import { useQueryClient } from 'react-query';
 import { IAlertStatus } from 'shared/interfaces/utils/IAlert';
 import { AxiosError } from 'axios';
 import { IErrorResponse } from 'shared/interfaces/utils/IErrorResonse';
-import { errorResponseToArray } from 'utils/errorResponseToArray';
+import { errorResponseToArray } from 'shared/utils/errorResponseToArray';
 
 const VISIBLE_AGENCY_COUNT = 3;
 const VISIBLE_AGENCY_COUNT_LARGE = 6;

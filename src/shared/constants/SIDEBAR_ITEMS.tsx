@@ -23,12 +23,12 @@ export const SIDEBAR_ITEMS: ISidebarItems[] = [
   {
     name: 'Profiles',
     icon: <ProfilesIcon />,
-    link: ROUTES.APP.PROFILE,
+    link: ROUTES.TALENT.PROFILE,
   },
   {
     name: 'Media',
     icon: <MediaIcon />,
-    link: `${ROUTES.APP.MEDIA}/dashboard`,
+    link: `${ROUTES.TALENT.MEDIA}/dashboard`,
   },
   {
     name: 'Projects',

@@ -4,7 +4,6 @@ import 'fontsource-roboto/300.css';
 import 'fontsource-roboto/500.css';
 import 'fontsource-roboto/700.css';
 import 'fontsource-roboto/900.css';
-import SwitchThemeProvider from 'app/SwitchThemeProvider';
 import { ConfirmProvider } from 'material-ui-confirm';
 import { SnackbarProvider } from 'notistack';
 import React, { useEffect } from 'react';
@@ -16,6 +15,7 @@ import { store } from 'shared/redux/store';
 import { tokenService } from 'shared/services/tokenService';
 import { selectUser } from 'shared/redux/slicers/user.slicer';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import SwitchThemeProvider from 'themes/SwitchThemeProvider';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,7 +36,6 @@ const App = () => {
           <SwitchThemeProvider>
             <SnackbarProvider maxSnack={3}>
               <ConfirmProvider>
-                <CssBaseline />
                 <Routes />
               </ConfirmProvider>
             </SnackbarProvider>

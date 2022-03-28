@@ -61,7 +61,7 @@ const Media = () => {
   }, [tab]);
 
   const handleTabChange = (event: React.ChangeEvent<{}>, newValue: string) => {
-    history.push(`${ROUTES.APP.MEDIA}/${newValue}`);
+    history.push(`${ROUTES.TALENT.MEDIA}/${newValue}`);
   };
   return (
     <Box>

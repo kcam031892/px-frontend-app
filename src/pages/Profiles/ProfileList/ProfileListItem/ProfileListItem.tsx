@@ -41,7 +41,7 @@ const ProfileListItem: React.FC<Props> = ({ profile }) => {
         </span>
       </Box>
       <Card className={classes.card}>
-        <Link to={`${ROUTES.APP.PROFILE_DETAIL}/primary_image`}>
+        <Link to={`${ROUTES.TALENT.PROFILE_DETAIL}/primary_image`}>
           <CardMedia image={profile.attributes.agency_banner_url ?? ''} className={classes.card__media}>
             <Avatar src={profile.attributes.primary_image_url} className={classes.card__avatar} />
           </CardMedia>

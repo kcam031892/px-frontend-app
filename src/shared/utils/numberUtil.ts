@@ -1,4 +1,4 @@
-import { SizeUnit } from '../types';
+import { SizeUnit } from 'shared/enums/SizeUnit';
 
 export const toImperial = (number: number): string => {
   return `${number} cm`;
@@ -22,7 +22,7 @@ export const convertToUnit = (number: number, unit: SizeUnit): string => {
     : toImperialAndMetric(number);
 };
 
-export const bytesToSize = (bytes: number, decimals: number = 2) => {
+export const bytesToSize = (bytes: number, decimals = 2) => {
   if (bytes === 0) return '0 Bytes';
   const k = 1024;
   const dm = decimals < 0 ? 0 : decimals;

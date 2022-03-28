@@ -69,7 +69,7 @@ export const resumeSlicer = createSlice({
     removeRow(state: IResumeState, action: PayloadAction<{ sectionIndex: number; rowIndex: number }>) {
       const { sectionIndex, rowIndex } = action.payload;
       const getSection = state.sections.filter((_, i) => i === sectionIndex)[0];
-      if (getSection.values) {
+      if (getSection.values.length > 1) {
         const filteredValues = getSection.values.filter((_, i) => i !== rowIndex);
         const updatedSection: ISection = { ...getSection, values: filteredValues };
         const updatedSections = state.sections.map((section, i) => {
