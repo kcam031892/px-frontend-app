@@ -9,7 +9,7 @@ import * as yup from 'yup';
 import { FormikProps, useFormik } from 'formik';
 import { getErrorMessage } from 'shared/utils/getErrorMessage';
 import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
-import { PasswordPrinciple, validatePassword } from 'utils/passwordUtil';
+import { PasswordPrinciple, validatePassword } from 'shared/utils/passwordUtil';
 
 const NORMAL_SIZE = 456;
 const FULL_SIZE = 800;

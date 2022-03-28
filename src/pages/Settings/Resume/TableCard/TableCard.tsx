@@ -23,8 +23,17 @@ type Props = {
   index: number;
   cardRows: number;
   cardColumns: number;
+  handleOpenGalleryDialog: () => void;
 };
-const TableCard: React.FC<Props> = ({ handleReorderTable, section, index, cardRows, cardColumns, handleRowChange }) => {
+const TableCard: React.FC<Props> = ({
+  handleReorderTable,
+  section,
+  index,
+  cardRows,
+  cardColumns,
+  handleRowChange,
+  handleOpenGalleryDialog,
+}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { isSectionShowYear } = useSelector(selectResumeState);
@@ -148,16 +157,21 @@ const TableCard: React.FC<Props> = ({ handleReorderTable, section, index, cardRo
                       </Grid>
 
                       <Grid className={classes.actionContainer}>
-                        <IconButton disabled={true}>
+                        <IconButton onClick={handleOpenGalleryDialog}>
                           <ResumeMediaIcon viewBox="0 0 16 16" style={{ width: 16, height: 16, marginTop: '7px' }} />
                         </IconButton>
-                        <div {...providedDraggable.dragHandleProps}>
-                          <IconButton>
+                        <div {...providedDraggable.dragHandleProps} onClick={(e) => e.stopPropagation()}>
+                          <IconButton onClick={(e) => e.stopPropagation()}>
                             <MoveIcon viewBox="0 0 16 16" style={{ width: 16, height: 16 }} />
                           </IconButton>
                         </div>
 
-                        <IconButton onClick={() => handleRemoveRow(rowIndex)}>
+                        <IconButton
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRemoveRow(rowIndex);
+                          }}
+                        >
                           <DeleteIcon viewBox="0 0 16 16" style={{ width: 16, height: 16 }} />
                         </IconButton>
                       </Grid>

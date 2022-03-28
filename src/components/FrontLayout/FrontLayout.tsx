@@ -1,7 +1,7 @@
 import { Paper, Box, Avatar, Typography, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import React from 'react';
-import { ResultType } from 'types';
+
 import { useStyles } from './FrontLayout.style';
 
 type Props = {
@@ -21,9 +21,9 @@ const FrontLayout: React.FC<Props> = ({ children, heading, subHeading, container
             <Typography variant="body1">{heading ? heading : 'Welcome to'} </Typography>
             <Box style={{ display: 'flex' }}>
               <Typography variant="h5" style={{ fontWeight: 700 }}>
-                {subHeading ? subHeading : 'Audition'}
+                {subHeading ? subHeading : 'Casting'}
               </Typography>
-              <Typography variant="h5">{subHeading ? '' : 'magic'}</Typography>
+              <Typography variant="h5">{subHeading ? '' : 'App'}</Typography>
             </Box>
           </Box>
         </Box>

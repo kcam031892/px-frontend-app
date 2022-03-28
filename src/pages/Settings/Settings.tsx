@@ -86,7 +86,7 @@ const Settings = () => {
             component={Link}
             disabled={tab.disabled}
             value={tab.name}
-            to={`${ROUTES.APP.SETTINGS}/${tab.name}`}
+            to={`${ROUTES.TALENT.SETTINGS}/${tab.name}`}
           />
         ))}
       </Tabs>

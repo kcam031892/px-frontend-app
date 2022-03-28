@@ -27,6 +27,11 @@ export const lightTheme = createTheme({
           background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.24)), #2962FF',
         },
       },
+      containedSecondary: {
+        '&:focus': {
+          backgroundColor: '#bab8b8',
+        },
+      },
     },
     MuiInputLabel: {
       root: {

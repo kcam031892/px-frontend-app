@@ -14,10 +14,8 @@ import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from 'app/appSlice';
-import { RootState } from 'app/rootReducer';
 import { MyCheckBox } from 'components/textField';
-import { ResultType } from 'types';
+
 import * as yup from 'yup';
 import { useStyles } from './Login.styles';
 import { ROUTES } from 'shared/constants/ROUTES';
@@ -54,7 +52,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      history.push(ROUTES.APP.PROFILE);
+      history.push(ROUTES.TALENT.PROFILE);
     }
   }, [isLoggedIn, history]);
 
@@ -106,14 +104,7 @@ const Login = () => {
     }
   };
 
-  const appState: AppState = useSelector((state: RootState) => state.app);
-
-  const handleLogin = () => {
-    // if (loginState.userName.length > 0 && loginState.password.length > 0) {
-    //   dispatch(userLogin(loginState.userName, loginState.password, loginState.rememberMe));
-    // }
-    // history.push(ROUTES.APP.PROFILE);
-  };
+  const handleLogin = () => {};
 
   const handleInputKeyPress = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.key === 'Enter') {
@@ -199,7 +190,7 @@ const Login = () => {
 
       <Snackbar open={!!errorMessage} autoHideDuration={6000} onClose={handleSnackBarClose}>
         <Alert severity="error" onClose={handleSnackBarClose}>
-          {errorMessage}
+          {errorMessage && 'Login Failed. Invalid Email or Password entered.'}
         </Alert>
       </Snackbar>
       <Backdrop isLoading={isLoading} />
