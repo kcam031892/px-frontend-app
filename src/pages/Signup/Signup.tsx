@@ -13,6 +13,7 @@ import { getErrorMessage } from 'shared/utils/getErrorMessage';
 import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
 import { ROUTES } from 'shared/constants/ROUTES';
 import { PasswordPrinciple, validatePassword } from 'utils/passwordUtil';
+import PasswordStrength from '../../components/PasswordStrength';
 
 const NORMAL_SIZE = 456;
 const FULL_SIZE = 800;
@@ -48,7 +49,7 @@ const Signup = () => {
   const initialValues: ISignUpRequestPayload = {
     first_name: '',
     last_name: '',
-    contact_number: '2',
+    contact_number: '',
     email: '',
     country: 'PH',
     state: 'AU',
@@ -86,14 +87,10 @@ const Signup = () => {
   });
 
   return (
-    <FrontLayout
-      heading="Let’s create your new"
-      subHeading="Account Now"
-      containerWidth={!isFullModel ? NORMAL_SIZE : FULL_SIZE}
-    >
+    <FrontLayout heading="Let’s create your new" subHeading="Account Now" containerWidth={FULL_SIZE}>
       <Box>
         <Grid container spacing={2}>
-          <Grid xs={12} lg={isFullModel ? 6 : 12} item>
+          <Grid xs={12} md={6} lg={6} item>
             <Input
               label={'First Name'}
               autoFocus
@@ -160,6 +157,8 @@ const Signup = () => {
                 </Grid>
               </Grid>
             </Box>
+          </Grid>
+          <Grid xs={12} md={6} lg={6} item>
             <Box className={classes.password__container}>
               <InputPassword
                 label={'New Password'}
@@ -173,9 +172,9 @@ const Signup = () => {
                 InputLabelProps={{ shrink: true }}
                 inputProps={{ tabIndex: 8 }}
               />
-              <span className={classes.password__helper} onClick={toggleFullModel}>
+              {/* <span className={classes.password__helper} onClick={toggleFullModel}>
                 (?)
-              </span>
+              </span> */}
               <InputPassword
                 label={'Repeat Password'}
                 margin={'normal'}
@@ -184,27 +183,14 @@ const Signup = () => {
                 InputLabelProps={{ shrink: true }}
                 inputProps={{ tabIndex: 8 }}
               />
+              <PasswordStrength validateResult={undefined} />
             </Box>
-            <Button
-              variant="contained"
-              disableElevation
-              fullWidth
-              tabIndex={10}
-              style={{ marginTop: '24px' }}
-              onClick={() => form.handleSubmit()}
-            >
+          </Grid>
+          <Grid xs={12} md={12} lg={12} className={classes.button__container}>
+            <Button variant="contained" disableElevation fullWidth tabIndex={10} onClick={() => form.handleSubmit()}>
               Create Account
             </Button>
-
-            <Button
-              variant="outlined"
-              disableElevation
-              fullWidth
-              style={{ marginTop: '24px' }}
-              component={Link}
-              to={'/login'}
-              tabIndex={11}
-            >
+            <Button variant="outlined" disableElevation fullWidth component={Link} to={'/login'} tabIndex={11}>
               Cancel to Log In
             </Button>
           </Grid>
