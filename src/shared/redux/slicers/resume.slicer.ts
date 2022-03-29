@@ -13,7 +13,32 @@ export interface IResumeState {
 }
 
 const initialState: IResumeState = {
-  sections: [],
+  sections: [
+    {
+      section_type: SectionType.TABLE,
+      title: 'Film',
+      values: [[]],
+      section_id: '',
+    },
+    {
+      section_type: SectionType.TABLE,
+      title: 'Television',
+      values: [[]],
+      section_id: '',
+    },
+    {
+      section_type: SectionType.TABLE,
+      title: 'Theater',
+      values: [[]],
+      section_id: '',
+    },
+    {
+      section_type: SectionType.TABLE,
+      title: 'Modeling',
+      values: [[]],
+      section_id: '',
+    },
+  ],
   isSectionShowYear: true,
 };
 export const resumeSlicer = createSlice({

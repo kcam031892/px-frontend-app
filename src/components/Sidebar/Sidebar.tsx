@@ -99,9 +99,7 @@ const Sidebar: React.FC<Props> = ({
   const drawer = (
     <div className={classes.drawerContainer}>
       <div className={classes.drawerHeader}>
-        <Link to={ROUTES.TALENT.PROFILE}>
-          <Logo />
-        </Link>
+        <Link to={ROUTES.TALENT.PROFILE}>{/* <Logo /> */}</Link>
       </div>
       <List
         className={classes.menuList}

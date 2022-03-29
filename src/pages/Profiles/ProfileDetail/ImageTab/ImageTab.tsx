@@ -12,6 +12,8 @@ import {
 } from 'react-beautiful-dnd';
 import ScrollContainer from 'react-indiana-drag-scroll';
 
+import { DndContext, closestCenter, MouseSensor, TouchSensor, DragOverlay, useSensor, useSensors } from '@dnd-kit/core';
+
 import ImageItem from './ImageItem/ImageItem';
 import { useStyles } from './ImageTab.styles';
 
@@ -37,30 +39,31 @@ const ImageTab = () => {
         </Box>
         <Box className={classes.selectedImages__imageList}>
           <DragDropContext onDragEnd={handleDragEnd}>
-            <Droppable droppableId="droppable" direction="horizontal">
+            <Droppable droppableId="droppable">
               {(provded: DroppableProvided) => (
-                <div
-                  ref={provded.innerRef}
-                  {...provded.droppableProps}
-                  className={classes.selectedImage__dragContainer}
-                >
+                <Grid ref={provded.innerRef} {...provded.droppableProps} container spacing={2}>
                   {Array.from({ length: 4 }).map((_, i) => (
                     <Draggable key={i.toString()} draggableId={i.toString()} index={i}>
                       {(providedDraggable: DraggableProvided, snapshot: DraggableStateSnapshot) => (
-                        <div
+                        <Grid
+                          xs={12}
+                          lg={4}
+                          item
+                          key={i}
+                          {...providedDraggable.draggableProps}
+                          {...providedDraggable.dragHandleProps}
                           ref={providedDraggable.innerRef}
-                          style={getItemStyle(snapshot.isDragging, providedDraggable.draggableProps.style)}
                         >
                           <ImageItem
                             providedDraggable={providedDraggable}
                             snapshot={snapshot}
                             handleEditImage={() => setIsEditorOpen(true)}
                           />
-                        </div>
+                        </Grid>
                       )}
                     </Draggable>
                   ))}
-                </div>
+                </Grid>
               )}
             </Droppable>
           </DragDropContext>

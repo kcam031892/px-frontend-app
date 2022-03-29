@@ -6,7 +6,7 @@ export const useStyles = makeStyles((theme) =>
     card: {
       padding: theme.spacing(2),
       paddingBottom: 0,
-      minWidth: 600,
+
       position: 'relative',
     },
     card__isDragging: {

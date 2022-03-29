@@ -52,9 +52,11 @@ const ProfileListItem: React.FC<Props> = ({ profile }) => {
               ? 'Freelance'
               : profile.attributes.agency_name}
           </Typography>
-          <Typography variant="body2" className={classes.agency__detail}>
-            {profile.attributes.agency_state} • {profile.attributes.agency_country}
-          </Typography>
+          {profile.attributes.agency_state && profile.attributes.agency_country && (
+            <Typography variant="body2" className={classes.agency__detail}>
+              {profile.attributes.agency_state} • {profile.attributes.agency_country}
+            </Typography>
+          )}
 
           <IconButton
             aria-label="more"

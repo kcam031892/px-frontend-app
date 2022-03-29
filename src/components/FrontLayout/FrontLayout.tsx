@@ -16,7 +16,7 @@ const FrontLayout: React.FC<Props> = ({ children, heading, subHeading, container
     <div className={classes.bodyContainer}>
       <Paper className={classes.mainContainer} style={{ width: containerWidth || 400 }}>
         <Box className={classes.header}>
-          <Avatar variant="square" className={classes.avatarStyle} src="/logo.png" />
+          {/* <Avatar variant="square" className={classes.avatarStyle} /> */}
           <Box style={{ marginLeft: '16px' }}>
             <Typography variant="body1">{heading ? heading : 'Welcome to'} </Typography>
             <Box style={{ display: 'flex' }}>
