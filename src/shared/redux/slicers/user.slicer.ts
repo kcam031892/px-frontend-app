@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { authDao } from 'shared/dao/authDao';
-import { ISignInRequestPayload, IUser } from 'shared/interfaces/IUser';
+import { ISignInRequestPayload, ISignUpRequestPayload, IUser } from 'shared/interfaces/IUser';
 import { ls } from 'shared/utils/ls';
 import { AppThunk, RootState } from '../store';
 
-const { loginWithGoogle, loginWithFacebook, logout, getUserProfile: getUserProfileService, login } = authDao();
+const { loginWithGoogle, loginWithFacebook, logout, getUserProfile: getUserProfileService, login, signup } = authDao();
 
 const { setLS, removeLS } = ls();
 
@@ -59,6 +59,28 @@ export const userLogin =
       const {
         data: { data: user, token },
       } = await login(payload);
+
+      setLS('auth_token', token);
+      setLS('user', JSON.stringify(user));
+      dispatch(setUser({ user }));
+      dispatch(setIsLoggedIn(true));
+      dispatch(setErrorMessage(null));
+      return user;
+    } catch (err: any) {
+      dispatch(setErrorMessage(err.response.data.message));
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  };
+export const userSignup =
+  (payload: ISignUpRequestPayload): AppThunk =>
+  async (dispatch) => {
+    try {
+      dispatch(setIsLoading(true));
+
+      const {
+        data: { data: user, token },
+      } = await signup(payload);
 
       setLS('auth_token', token);
       setLS('user', JSON.stringify(user));

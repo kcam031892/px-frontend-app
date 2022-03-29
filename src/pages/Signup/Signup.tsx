@@ -1,14 +1,17 @@
-import { Box, Button, FormControl, Grid, InputLabel } from '@material-ui/core';
+import { Box, Button, Grid } from '@material-ui/core';
 import { FrontLayout } from 'components';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import { ISignUpRequestPayload } from 'shared/interfaces/IUser';
 import { ContactInput, Input, InputPassword, Select } from 'themes/elements';
+import { selectUserState, userSignup } from 'shared/redux/slicers/user.slicer';
 import { useStyles } from './Signup.styles';
 import * as yup from 'yup';
 import { FormikProps, useFormik } from 'formik';
 import { getErrorMessage } from 'shared/utils/getErrorMessage';
 import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
+import { ROUTES } from 'shared/constants/ROUTES';
 import { PasswordPrinciple, validatePassword } from 'utils/passwordUtil';
 
 const NORMAL_SIZE = 456;
@@ -16,9 +19,19 @@ const FULL_SIZE = 800;
 
 const Signup = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [isFullModel, setIsFullModel] = useState<boolean>(false);
   const [passwordValidationResult, setPasswordValidationResult] = useState<PasswordPrinciple | null>(null);
   const toggleFullModel = () => setIsFullModel((curr) => !curr);
+
+  const { user, isLoading, errorMessage, isLoggedIn } = useSelector(selectUserState);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      history.push(ROUTES.APP.PROFILE);
+    }
+  }, [isLoggedIn, history]);
 
   const countries: IKeyValue[] = [
     {
@@ -62,10 +75,14 @@ const Signup = () => {
       }),
   });
 
+  const handleSignUpSubmit = async (values: ISignUpRequestPayload) => {
+    dispatch(userSignup(values));
+  };
+
   const form: FormikProps<ISignUpRequestPayload> = useFormik({
     initialValues,
     validationSchema: signUpValidationSchema,
-    onSubmit: (values) => console.log(values),
+    onSubmit: (values) => console.log(values), // handleSignUpSubmit(values)
   });
 
   return (
@@ -103,7 +120,12 @@ const Signup = () => {
               InputLabelProps={{ shrink: true }}
               inputProps={{ tabIndex: 2 }}
             />
-            <ContactInput />
+            <ContactInput
+              name="contact_number"
+              onChange={form.handleChange}
+              errorMessage={getErrorMessage(form.touched.contact_number, form.errors.contact_number)}
+              value={form.values.contact_number}
+            />
             <Input
               label={'Email Address'}
               name="email"
