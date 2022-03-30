@@ -12,13 +12,34 @@ import {
 } from 'react-beautiful-dnd';
 import ScrollContainer from 'react-indiana-drag-scroll';
 
-import { DndContext, closestCenter, MouseSensor, TouchSensor, DragOverlay, useSensor, useSensors } from '@dnd-kit/core';
+import {
+  DndContext,
+  closestCenter,
+  MouseSensor,
+  TouchSensor,
+  DragOverlay,
+  useSensor,
+  useSensors,
+  DragStartEvent,
+  DragEndEvent,
+} from '@dnd-kit/core';
+import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortable';
 
 import ImageItem from './ImageItem/ImageItem';
 import { useStyles } from './ImageTab.styles';
 
 const ImageTab = () => {
   const classes = useStyles();
+  const [items, setItems] = useState<any[]>(
+    Array.from({ length: 10 }).map((_, i) => {
+      return {
+        id: i.toString(),
+      };
+    }),
+  );
+
+  const [activeId, setActiveId] = useState<string | null>(null);
+
   const [isEditorOpen, setIsEditorOpen] = useState<boolean>(false);
   const handleDragEnd = (result: DropResult) => {};
   const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
@@ -29,6 +50,33 @@ const ImageTab = () => {
     // styles we need to apply on draggables
     ...draggableStyle,
   });
+
+  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+
+  const onDragStart = (event: DragStartEvent) => {
+    console.log('drag start');
+
+    setActiveId(event.active.id);
+  };
+  console.log(items);
+
+  const onDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (active && over) {
+      console.log(active.id, over.id);
+
+      if (active.id !== over.id) {
+        setItems((items: any) => {
+          const oldIndex = items.findIndex((x: any) => x.id === active.id);
+          const newIndex = items.findIndex((x: any) => x.id === over.id);
+
+          return arrayMove(items, oldIndex, newIndex);
+        });
+      }
+    }
+    setActiveId(null);
+  };
+
   return (
     <Box className={classes.imageTab}>
       {/* Selected Images */}
@@ -38,35 +86,30 @@ const ImageTab = () => {
           <Typography variant="caption">(2 of 16 hidden)</Typography>
         </Box>
         <Box className={classes.selectedImages__imageList}>
-          <DragDropContext onDragEnd={handleDragEnd}>
-            <Droppable droppableId="droppable">
-              {(provded: DroppableProvided) => (
-                <Grid ref={provded.innerRef} {...provded.droppableProps} container spacing={2}>
-                  {Array.from({ length: 4 }).map((_, i) => (
-                    <Draggable key={i.toString()} draggableId={i.toString()} index={i}>
-                      {(providedDraggable: DraggableProvided, snapshot: DraggableStateSnapshot) => (
-                        <Grid
-                          xs={12}
-                          lg={4}
-                          item
-                          key={i}
-                          {...providedDraggable.draggableProps}
-                          {...providedDraggable.dragHandleProps}
-                          ref={providedDraggable.innerRef}
-                        >
-                          <ImageItem
-                            providedDraggable={providedDraggable}
-                            snapshot={snapshot}
-                            handleEditImage={() => setIsEditorOpen(true)}
-                          />
-                        </Grid>
-                      )}
-                    </Draggable>
-                  ))}
-                </Grid>
-              )}
-            </Droppable>
-          </DragDropContext>
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+          >
+            <SortableContext items={items} strategy={rectSortingStrategy}>
+              <Grid container spacing={2}>
+                {items.map((item, i) => (
+                  <Grid xs={12} lg={4} item key={item.id}>
+                    <ImageItem item={item} handleEditImage={() => setIsEditorOpen(true)} />
+                  </Grid>
+                ))}
+              </Grid>
+              <DragOverlay>
+                {activeId ? (
+                  <ImageItem
+                    item={items.filter((item: any) => item.id === activeId)[0]}
+                    handleEditImage={() => setIsEditorOpen(true)}
+                  />
+                ) : null}
+              </DragOverlay>
+            </SortableContext>
+          </DndContext>
         </Box>
       </Box>
 
@@ -77,11 +120,13 @@ const ImageTab = () => {
           <Typography variant="caption">(2 of 16 hidden)</Typography>
         </Box>
         <Box className={classes.selectedImages__imageList}>
-          <ScrollContainer vertical={false} hideScrollbars={false} className={classes.selectedImage__scroll}>
-            {Array.from({ length: 32 }).map((_, i) => (
-              <ImageItem isHideImage handleEditImage={() => setIsEditorOpen(true)} />
+          <Grid container spacing={2}>
+            {items.map((item, i) => (
+              <Grid xs={12} lg={3} item key={item.id}>
+                <ImageItem item={item} handleEditImage={() => setIsEditorOpen(true)} />
+              </Grid>
             ))}
-          </ScrollContainer>
+          </Grid>
         </Box>
       </Box>
 

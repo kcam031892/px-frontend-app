@@ -2,7 +2,6 @@ import {
   Avatar,
   Box,
   Checkbox,
-  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -43,6 +42,7 @@ import { errorResponseToArray } from 'shared/utils/errorResponseToArray';
 import { Button, Input, useAlert } from 'themes/elements';
 import { useDebounce } from 'use-debounce';
 import * as yup from 'yup';
+import profileTypes from 'data/ProfileType.json';
 
 import { useStyles } from './NewProfileDialog.styles';
 
@@ -76,7 +76,7 @@ const NewProfileDialog: React.FC<Props> = ({ open, onClose, hasFreelance, profil
     note: '',
     agency_id: '',
     confirmed_agreement: false,
-    talent_type: 'Talent Agency',
+    profile_type: 'Actor',
   };
 
   const createProfileValidationSchema: yup.SchemaOf<IProfileCreatePayload> = yup.object().shape({
@@ -85,7 +85,7 @@ const NewProfileDialog: React.FC<Props> = ({ open, onClose, hasFreelance, profil
     note: yup.string(),
     agency_id: yup.string(),
     confirmed_agreement: yup.boolean().default(false),
-    talent_type: yup.string().default(''),
+    profile_type: yup.string().required(),
   });
 
   const handleSubmit = (values: IProfileCreatePayload) => {
@@ -95,10 +95,9 @@ const NewProfileDialog: React.FC<Props> = ({ open, onClose, hasFreelance, profil
         onClose();
         AlertOpen('success', 'Added new Profile');
       },
-      onError: (errors: any, variables, context) => {
+      onError: (errors) => {
         if (errors?.response?.data?.errors) {
-          const errorsData = errors?.response?.data?.errors as IErrorResponse;
-          const errorResponseArray = errorResponseToArray(errorsData);
+          const errorResponseArray = errorResponseToArray(errors.response.data.errors);
           AlertOpen('error', errorResponseArray.join(','));
         } else {
           AlertOpen('error', 'Something went wrong');
@@ -185,6 +184,7 @@ const NewProfileDialog: React.FC<Props> = ({ open, onClose, hasFreelance, profil
               </Select>
             </FormControl>
           </Grid>
+
           <Grid item xs={12} md={6}>
             <FormControl margin={'normal'} fullWidth>
               <InputLabel id="lblCountry" shrink>
@@ -205,6 +205,22 @@ const NewProfileDialog: React.FC<Props> = ({ open, onClose, hasFreelance, profil
                 </MenuItem>
               </Select>
             </FormControl>
+          </Grid>
+          <Grid item xs={12} lg={12}>
+            <Select
+              labelId={'lblType'}
+              disableUnderline
+              value={form.values.profile_type}
+              name="profile_type"
+              onChange={form.handleChange}
+              fullWidth
+            >
+              {profileTypes.map((profileType) => (
+                <MenuItem key={profileType.value} value={profileType.value}>
+                  {profileType.label}
+                </MenuItem>
+              ))}
+            </Select>
           </Grid>
           <Grid item xs={12}>
             {form.values.representation_type === RepresentationType.AGENCY_REPRESENTATION && (

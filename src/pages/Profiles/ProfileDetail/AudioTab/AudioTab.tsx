@@ -1,4 +1,16 @@
-import { Box, Dialog, DialogContent, Typography } from '@material-ui/core';
+import {
+  useSensors,
+  useSensor,
+  MouseSensor,
+  TouchSensor,
+  DragStartEvent,
+  DragEndEvent,
+  DndContext,
+  closestCenter,
+  DragOverlay,
+} from '@dnd-kit/core';
+import { arrayMove, rectSortingStrategy, SortableContext } from '@dnd-kit/sortable';
+import { Box, Dialog, DialogContent, Grid, Typography } from '@material-ui/core';
 import { AudioEditor } from 'components';
 import React, { useEffect, useState } from 'react';
 import {
@@ -22,16 +34,15 @@ const AudioTab = () => {
   const history = useHistory();
   const location = useLocation();
   const [isEditorOpen, setIsEditorOpen] = useState<boolean>(false);
-  const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
-    padding: 8 * 2,
-    paddingLeft: 0,
-    margin: `0 8px 0 0`,
+  const [items, setItems] = useState<any[]>(
+    Array.from({ length: 10 }).map((_, i) => {
+      return {
+        id: i.toString(),
+      };
+    }),
+  );
 
-    // styles we need to apply on draggables
-    ...draggableStyle,
-  });
-
-  const handleDragEnd = (result: DropResult) => {};
+  const [activeId, setActiveId] = useState<string | null>(null);
 
   useEffect(() => {
     if (location.search) {
@@ -59,6 +70,32 @@ const AudioTab = () => {
     });
   };
 
+  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+
+  const onDragStart = (event: DragStartEvent) => {
+    console.log('drag start');
+
+    setActiveId(event.active.id);
+  };
+  console.log(items);
+
+  const onDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (active && over) {
+      console.log(active.id, over.id);
+
+      if (active.id !== over.id) {
+        setItems((items: any) => {
+          const oldIndex = items.findIndex((x: any) => x.id === active.id);
+          const newIndex = items.findIndex((x: any) => x.id === over.id);
+
+          return arrayMove(items, oldIndex, newIndex);
+        });
+      }
+    }
+    setActiveId(null);
+  };
+
   return (
     <Box className={classes.audioTab}>
       {/* Selected Videos */}
@@ -68,34 +105,30 @@ const AudioTab = () => {
           <Typography variant="caption">(2 of 16 hidden)</Typography>
         </Box>
         <Box className={classes.selectedAudios__audioList}>
-          <DragDropContext onDragEnd={handleDragEnd}>
-            <Droppable droppableId="droppable" direction="horizontal">
-              {(provded: DroppableProvided) => (
-                <div
-                  ref={provded.innerRef}
-                  {...provded.droppableProps}
-                  className={classes.selectedAudios__dragContainer}
-                >
-                  {Array.from({ length: 4 }).map((_, i) => (
-                    <Draggable key={i.toString()} draggableId={i.toString()} index={i}>
-                      {(providedDraggable: DraggableProvided, snapshot: DraggableStateSnapshot) => (
-                        <div
-                          ref={providedDraggable.innerRef}
-                          style={getItemStyle(snapshot.isDragging, providedDraggable.draggableProps.style)}
-                        >
-                          <AudioItem
-                            providedDraggable={providedDraggable}
-                            snapshot={snapshot}
-                            handleEditAudio={() => handleEditAudio(EditorMode.VIEW)}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+          >
+            <SortableContext items={items} strategy={rectSortingStrategy}>
+              <Grid container spacing={2}>
+                {items.map((item, i) => (
+                  <Grid xs={12} lg={3} item key={item.id}>
+                    <AudioItem item={item} handleEditAudio={() => handleEditAudio(EditorMode.VIEW)} />
+                  </Grid>
+                ))}
+              </Grid>
+              <DragOverlay>
+                {activeId ? (
+                  <AudioItem
+                    item={items.filter((item: any) => item.id === activeId)[0]}
+                    handleEditAudio={() => handleEditAudio(EditorMode.VIEW)}
+                  />
+                ) : null}
+              </DragOverlay>
+            </SortableContext>
+          </DndContext>
         </Box>
       </Box>
 
@@ -106,11 +139,9 @@ const AudioTab = () => {
           <Typography variant="caption">(2 of 16 hidden)</Typography>
         </Box>
         <Box className={classes.selectedAudios__audioList}>
-          <ScrollContainer hideScrollbars={false} vertical={false} className={classes.selectedAudios__scroll}>
-            {Array.from({ length: 32 }).map((_, i) => (
-              <AudioItem isHideAudio handleEditAudio={() => handleEditAudio(EditorMode.VIEW)} />
-            ))}
-          </ScrollContainer>
+          {items.map((item, i) => (
+            <AudioItem item={item} isHideAudio handleEditAudio={() => handleEditAudio(EditorMode.VIEW)} />
+          ))}
         </Box>
       </Box>
 

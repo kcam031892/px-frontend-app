@@ -1,6 +1,6 @@
-import { Box, Grid, IconButton } from '@material-ui/core';
+import { Grid, IconButton } from '@material-ui/core';
 import { DeleteIcon, MoveIcon, ResumeMediaIcon } from 'components/Icons';
-import React, { useState } from 'react';
+import React from 'react';
 import {
   DragDropContext,
   Draggable,

@@ -10,7 +10,8 @@ export const useStyles = makeStyles((theme) =>
       position: 'relative',
     },
     card__isDragging: {
-      transform: 'scale(0.9)',
+      cursor: 'pointer',
+      background: 'red',
     },
     card__hideImage: {
       minWidth: 300,

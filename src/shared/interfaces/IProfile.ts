@@ -1,5 +1,6 @@
 import { RepresentationType } from 'shared/enums/RepresentationType';
 import { SectionType } from 'shared/enums/SectionType';
+import { ICommonCreateResponsePayload } from './ICommon';
 
 export interface ISection {
   section_type: SectionType;
@@ -42,5 +43,9 @@ export interface IProfileCreatePayload {
   note?: string;
   agency_id?: string;
   confirmed_agreement: boolean;
-  talent_type: string;
+  profile_type: string;
+}
+
+export interface IProfileCreateResponsePayload extends ICommonCreateResponsePayload {
+  data: IProfile;
 }

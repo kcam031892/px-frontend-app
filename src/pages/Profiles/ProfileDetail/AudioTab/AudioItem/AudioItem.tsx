@@ -1,22 +1,24 @@
+import { useSortable } from '@dnd-kit/sortable';
 import { Box, Card, CardContent, CardMedia, IconButton, Menu, MenuItem, Typography } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import clsx from 'clsx';
 import { MoveIcon } from 'components/Icons';
 import React, { useState } from 'react';
 import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
+import { CSS } from '@dnd-kit/utilities';
 
 import { useStyles } from './AudioItem.styles';
 
 type Props = {
   isHideAudio?: boolean;
-  providedDraggable?: DraggableProvided;
-  snapshot?: DraggableStateSnapshot;
-  isDragging?: boolean;
+  item: any;
   handleEditAudio: () => void;
 };
-const AudioItem: React.FC<Props> = ({ isHideAudio, providedDraggable, snapshot, isDragging, handleEditAudio }) => {
+const AudioItem: React.FC<Props> = ({ isHideAudio, handleEditAudio, item }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const sortable = useSortable({ id: item.id });
+  const { attributes, listeners, isDragging, setNodeRef, transform, transition } = sortable;
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -32,20 +34,26 @@ const AudioItem: React.FC<Props> = ({ isHideAudio, providedDraggable, snapshot, 
     handleCloseMenu();
     handleEditAudio();
   };
+
+  const style: React.CSSProperties = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.3 : 1,
+    cursor: 'grab',
+  };
+
   return (
     <Card
       className={clsx(classes.card, {
         [classes.card__hideImage]: isHideAudio,
-        [classes.card__isDragging]: snapshot?.isDragging,
       })}
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      style={style}
     >
-      {!isHideAudio && providedDraggable && snapshot && (
-        <div
-          className={classes.card__moveIcon}
-          {...providedDraggable.draggableProps}
-          {...providedDraggable.dragHandleProps}
-          style={getItemStyle(snapshot.isDragging, providedDraggable.draggableProps.style)}
-        >
+      {!isHideAudio && (
+        <div className={classes.card__moveIcon} ref={setNodeRef} {...attributes} {...listeners}>
           <IconButton>
             <MoveIcon viewBox="0 0 16 16" style={{ width: 16, height: 16 }} />
           </IconButton>

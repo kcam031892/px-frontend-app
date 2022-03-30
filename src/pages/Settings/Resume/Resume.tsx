@@ -6,7 +6,6 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControlLabel,
   Grid,
   IconButton,
   Menu,
@@ -14,8 +13,7 @@ import {
   Tab,
   Typography,
 } from '@material-ui/core';
-import { AddNewIcon } from 'components/Icons';
-import AddNew from 'components/Icons/AddNew';
+
 import React, { useState } from 'react';
 
 import { useStyles } from './Resume.styles';
@@ -71,6 +69,8 @@ const Resume = () => {
   const [galleryDialogOpen, setGalleryDialogOpen] = useState<boolean>(false);
   const [selectedGalleryTab, setSelectedGalleryTab] = useState<string>('images');
   const [isDragging, setIsDragging] = useState<boolean>(false);
+
+  console.log(sections);
 
   const handleOpenGalleryDialog = () => {
     setGalleryDialogOpen(true);
