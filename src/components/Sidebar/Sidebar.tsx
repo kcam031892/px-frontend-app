@@ -11,7 +11,6 @@ import {
   Drawer,
   List,
 } from '@material-ui/core';
-import { logOut } from 'app/appSlice';
 import { ExpandIcon, CollapseIcon } from 'components/Icons';
 import { Logo } from 'components/nav';
 
@@ -26,7 +25,6 @@ import { useMainListeItemStyle } from 'components/style';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { SIDEBAR_ITEMS } from 'shared/constants/SIDEBAR_ITEMS';
-import { MyAccountState } from 'features/settings/myAccount/myAccountTypes';
 import { useAuth } from 'shared/hooks/useAuth';
 import { tokenService } from 'shared/services/tokenService';
 import { selectUserState, userLogout } from 'shared/redux/slicers/user.slicer';
@@ -103,7 +101,7 @@ const Sidebar: React.FC<Props> = ({
   const drawer = (
     <div className={classes.drawerContainer}>
       <div className={classes.drawerHeader}>
-        <Link to={ROUTES.APP.PROFILE}>
+        <Link to={ROUTES.TALENT.PROFILE}>
           <Logo />
         </Link>
       </div>
@@ -163,7 +161,7 @@ const Sidebar: React.FC<Props> = ({
         </div>
         <div>
           <Box className={classes.myAccountContent}>
-            <Link to={`${ROUTES.APP.SETTINGS}/:tab`}>
+            <Link to={`${ROUTES.TALENT.SETTINGS}/:tab`}>
               {/* <Avatar
                 alt={myAccount.model.firstName + ' ' + myAccount.model.lastName}
                 src={displayImage()}
@@ -182,7 +180,7 @@ const Sidebar: React.FC<Props> = ({
                   [classes.hidden]: isDrawerCollapse,
                 })}
               >
-                <Link to={`${ROUTES.APP.SETTINGS}/myAccount`} style={{ textDecoration: 'none' }}>
+                <Link to={`${ROUTES.TALENT.SETTINGS}/myAccount`} style={{ textDecoration: 'none' }}>
                   <h4
                     style={{
                       margin: '0px 0px 0px 0px',
@@ -197,7 +195,7 @@ const Sidebar: React.FC<Props> = ({
                     {`${user?.attributes?.first_name || ''} ${user?.attributes?.last_name || ''}`}
                   </h4>
                 </Link>
-                <Link to={`${ROUTES.APP.SETTINGS}/myAccount`} style={{ textDecoration: 'none' }}>
+                <Link to={`${ROUTES.TALENT.SETTINGS}/myAccount`} style={{ textDecoration: 'none' }}>
                   <span
                     style={{
                       fontSize: '12px',

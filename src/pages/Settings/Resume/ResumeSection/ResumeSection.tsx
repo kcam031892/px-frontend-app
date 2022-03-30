@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { useStyles } from './ResumeSection.styles';
 
-import { Range } from 'utils/array';
 import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
 import { DeleteIcon, DownIcon, UpIcon } from 'components/Icons';
 import TableCard from '../TableCard/TableCard';
@@ -18,6 +17,7 @@ import {
   reorderSection,
   selectResumeState,
 } from 'shared/redux/slicers/resume.slicer';
+import { Range } from 'shared/utils/range';
 
 const rows: IKeyValue[] = Range(2, 10).map((value) => {
   return {
@@ -35,6 +35,7 @@ type Props = {
   handleReorderTable: (sectionIndex: number, sourceIndex: number, destinationIndex: number) => void;
   handleColumnChange: (arrayIndex: number, num: number) => void;
   handleRowChange: (arrayIndex: number, num: number) => void;
+  handleOpenGalleryDialog: () => void;
 };
 const ResumeSection: React.FC<Props> = ({
   isSelected,
@@ -44,6 +45,7 @@ const ResumeSection: React.FC<Props> = ({
   handleReorderTable,
   handleRowChange,
   handleColumnChange,
+  handleOpenGalleryDialog,
 }) => {
   const classes = useStyles();
   const [cardColumns, setCardColumns] = useState(section.values[0].length);
@@ -115,6 +117,7 @@ const ResumeSection: React.FC<Props> = ({
               handleReorderTable={handleReorderTable}
               handleColumnChange={handleColumnChange}
               handleRowChange={handleSelectRowChange}
+              handleOpenGalleryDialog={handleOpenGalleryDialog}
               index={index}
               cardColumns={cardColumns}
               cardRows={cardRows}

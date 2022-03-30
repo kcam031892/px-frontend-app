@@ -12,7 +12,7 @@ import { FormikProps, useFormik } from 'formik';
 import { getErrorMessage } from 'shared/utils/getErrorMessage';
 import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
 import { ROUTES } from 'shared/constants/ROUTES';
-import { PasswordPrinciple, validatePassword } from 'utils/passwordUtil';
+import { PasswordPrinciple, validatePassword } from 'shared/utils/passwordUtil';
 
 const NORMAL_SIZE = 456;
 const FULL_SIZE = 800;
@@ -29,7 +29,7 @@ const Signup = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      history.push(ROUTES.APP.PROFILE);
+      history.push(ROUTES.TALENT.PROFILE);
     }
   }, [isLoggedIn, history]);
 

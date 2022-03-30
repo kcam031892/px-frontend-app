@@ -41,7 +41,7 @@ const ProfileListItem: React.FC<Props> = ({ profile }) => {
         </span>
       </Box>
       <Card className={classes.card}>
-        <Link to={`${ROUTES.APP.PROFILE_DETAIL}/primary_image`}>
+        <Link to={`${ROUTES.TALENT.PROFILE_DETAIL}/primary_image`}>
           <CardMedia image={profile.attributes.agency_banner_url ?? ''} className={classes.card__media}>
             <Avatar src={profile.attributes.primary_image_url} className={classes.card__avatar} />
           </CardMedia>
@@ -84,9 +84,10 @@ const ProfileListItem: React.FC<Props> = ({ profile }) => {
               </Link>
             </MenuItem>
 
-            <MenuItem className={classes.action__item}>Make Primary</MenuItem>
+            {!profile.attributes.primary && <MenuItem className={classes.action__item}>Make Primary</MenuItem>}
 
             <MenuItem className={classes.action__item}>Change Rep</MenuItem>
+            {!profile.attributes.primary && <MenuItem className={classes.action__item}>Delete Primary</MenuItem>}
           </Menu>
         </CardContent>
       </Card>

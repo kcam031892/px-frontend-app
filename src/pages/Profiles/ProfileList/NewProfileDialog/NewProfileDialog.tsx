@@ -29,7 +29,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
 import { useStyles } from './NewProfileDialog.styles';
 import { SearchIcon } from 'components/Icons';
-import { Button, Input } from 'themes/elements';
+import { Button, Input, useAlert } from 'themes/elements';
 import { IProfile, IProfileCreatePayload } from 'shared/interfaces/IProfile';
 import { RepresentationType } from 'shared/enums/RepresentationType';
 import * as yup from 'yup';
@@ -40,6 +40,10 @@ import BackspaceIcon from '@material-ui/icons/Backspace';
 import { IAgency } from 'shared/interfaces/utils/IAgency';
 import { profileService } from 'shared/services/profileService';
 import { useQueryClient } from 'react-query';
+import { IAlertStatus } from 'shared/interfaces/utils/IAlert';
+import { AxiosError } from 'axios';
+import { IErrorResponse } from 'shared/interfaces/utils/IErrorResonse';
+import { errorResponseToArray } from 'shared/utils/errorResponseToArray';
 
 const VISIBLE_AGENCY_COUNT = 3;
 const VISIBLE_AGENCY_COUNT_LARGE = 6;
@@ -49,11 +53,12 @@ type Props = {
   onClose: () => void;
   hasFreelance: boolean;
   profiles: IProfile[];
+  AlertOpen: (success: IAlertStatus, message: string) => void;
 };
 
 const { searchAgency } = agencyService();
 const { createProfile } = profileService();
-const NewProfileDialog: React.FC<Props> = ({ open, onClose, hasFreelance, profiles }) => {
+const NewProfileDialog: React.FC<Props> = ({ open, onClose, hasFreelance, profiles, AlertOpen }) => {
   const classes = useStyles();
   const { mutate, isLoading: isMutationLoading } = createProfile();
   const queryClient = useQueryClient();
@@ -70,6 +75,7 @@ const NewProfileDialog: React.FC<Props> = ({ open, onClose, hasFreelance, profil
     note: '',
     agency_id: '',
     confirmed_agreement: false,
+    talent_type: 'Talent Agency',
   };
 
   const createProfileValidationSchema: yup.SchemaOf<IProfileCreatePayload> = yup.object().shape({
@@ -78,6 +84,7 @@ const NewProfileDialog: React.FC<Props> = ({ open, onClose, hasFreelance, profil
     note: yup.string(),
     agency_id: yup.string(),
     confirmed_agreement: yup.boolean().default(false),
+    talent_type: yup.string().default(''),
   });
 
   const handleSubmit = (values: IProfileCreatePayload) => {
@@ -85,9 +92,16 @@ const NewProfileDialog: React.FC<Props> = ({ open, onClose, hasFreelance, profil
       onSuccess: () => {
         queryClient.invalidateQueries('profiles');
         onClose();
+        AlertOpen('success', 'Added new Profile');
       },
-      onError: (error) => {
-        alert(error);
+      onError: (errors: any, variables, context) => {
+        if (errors?.response?.data?.errors) {
+          const errorsData = errors?.response?.data?.errors as IErrorResponse;
+          const errorResponseArray = errorResponseToArray(errorsData);
+          AlertOpen('error', errorResponseArray.join(','));
+        } else {
+          AlertOpen('error', 'Something went wrong');
+        }
       },
     });
   };
@@ -345,20 +359,32 @@ const NewProfileDialog: React.FC<Props> = ({ open, onClose, hasFreelance, profil
             Continue
           </Button>
         )}
-        {form.values.agency_id ||
-          (form.values.representation_type === RepresentationType.FREELANCE && (
-            <Button
-              color="primary"
-              variant="contained"
-              disableElevation
-              onClick={() => form.handleSubmit()}
-              disabled={
-                (form.values.representation_type === RepresentationType.FREELANCE && hasFreelance) || isMutationLoading
-              }
-            >
-              {isMutationLoading ? 'Submiting...' : 'Submit'}
-            </Button>
-          ))}
+        {form.values.agency_id && (
+          <Button
+            color="primary"
+            variant="contained"
+            disableElevation
+            onClick={() => form.handleSubmit()}
+            disabled={
+              (form.values.representation_type === RepresentationType.FREELANCE && hasFreelance) || isMutationLoading
+            }
+          >
+            {isMutationLoading ? 'Submiting...' : 'Submit'}
+          </Button>
+        )}
+        {form.values.representation_type === RepresentationType.FREELANCE && (
+          <Button
+            color="primary"
+            variant="contained"
+            disableElevation
+            onClick={() => form.handleSubmit()}
+            disabled={
+              (form.values.representation_type === RepresentationType.FREELANCE && hasFreelance) || isMutationLoading
+            }
+          >
+            {isMutationLoading ? 'Submiting...' : 'Submit'}
+          </Button>
+        )}
       </DialogActions>
     </Dialog>
   );
