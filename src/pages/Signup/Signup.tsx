@@ -13,6 +13,7 @@ import { getErrorMessage } from 'shared/utils/getErrorMessage';
 import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
 import { ROUTES } from 'shared/constants/ROUTES';
 import { PasswordPrinciple, validatePassword } from 'shared/utils/passwordUtil';
+import { PasswordStrength } from 'components/PasswordStrength';
 
 const NORMAL_SIZE = 456;
 const FULL_SIZE = 800;
@@ -182,7 +183,7 @@ const Signup = () => {
                 InputLabelProps={{ shrink: true }}
                 inputProps={{ tabIndex: 8 }}
               />
-              {/* <PasswordStrength validateResult={undefined} /> */}
+              <PasswordStrength />
             </Box>
           </Grid>
           <Grid xs={12} md={12} lg={12} className={classes.button__container}>
