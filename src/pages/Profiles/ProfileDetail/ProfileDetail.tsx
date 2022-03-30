@@ -64,7 +64,7 @@ const ProfileDetail = () => {
   }, [tab]);
 
   const handleTabChange = (event: React.ChangeEvent<{}>, newValue: string) => {
-    history.push(`${ROUTES.APP.PROFILE_DETAIL}/${newValue}`);
+    history.push(`${ROUTES.TALENT.PROFILE_DETAIL}/${newValue}`);
   };
   return (
     <Box>
