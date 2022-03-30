@@ -1,15 +1,19 @@
-import { Box, Dialog, DialogContent, Typography } from '@material-ui/core';
+import {
+  closestCenter,
+  DragEndEvent,
+  DragStartEvent,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+  DndContext,
+  DragOverlay,
+} from '@dnd-kit/core';
+import { arrayMove, rectSortingStrategy, SortableContext } from '@dnd-kit/sortable';
+import { Box, Dialog, DialogContent, Grid, Typography } from '@material-ui/core';
 import { VideoEditor } from 'components';
 import React, { useEffect, useState } from 'react';
-import {
-  DragDropContext,
-  Droppable,
-  DroppableProvided,
-  Draggable,
-  DraggableProvided,
-  DraggableStateSnapshot,
-  DropResult,
-} from 'react-beautiful-dnd';
+
 import ScrollContainer from 'react-indiana-drag-scroll';
 import { useHistory, useLocation } from 'react-router-dom';
 import { EditorMode } from 'shared/enums/EditorMode';
@@ -22,6 +26,14 @@ const VideoTab = () => {
   const history = useHistory();
   const location = useLocation();
   const [isEditorOpen, setIsEditorOpen] = useState<boolean>(false);
+  const [items, setItems] = useState<any[]>(
+    Array.from({ length: 10 }).map((_, i) => {
+      return {
+        id: i.toString(),
+      };
+    }),
+  );
+  const [activeId, setActiveId] = useState<string | null>(null);
   const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
     padding: 8 * 2,
     paddingLeft: 0,
@@ -57,7 +69,32 @@ const VideoTab = () => {
     });
   };
 
-  const handleDragEnd = (result: DropResult) => {};
+  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+
+  const onDragStart = (event: DragStartEvent) => {
+    console.log('drag start');
+
+    setActiveId(event.active.id);
+  };
+  console.log(items);
+
+  const onDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (active && over) {
+      console.log(active.id, over.id);
+
+      if (active.id !== over.id) {
+        setItems((items: any) => {
+          const oldIndex = items.findIndex((x: any) => x.id === active.id);
+          const newIndex = items.findIndex((x: any) => x.id === over.id);
+
+          return arrayMove(items, oldIndex, newIndex);
+        });
+      }
+    }
+    setActiveId(null);
+  };
+
   return (
     <Box className={classes.videoTab}>
       {/* Selected Videos */}
@@ -67,34 +104,30 @@ const VideoTab = () => {
           <Typography variant="caption">(2 of 16 hidden)</Typography>
         </Box>
         <Box className={classes.selectedVideos__videoList}>
-          <DragDropContext onDragEnd={handleDragEnd}>
-            <Droppable droppableId="droppable" direction="horizontal">
-              {(provded: DroppableProvided) => (
-                <div
-                  ref={provded.innerRef}
-                  {...provded.droppableProps}
-                  className={classes.selectedVideos__dragContainer}
-                >
-                  {Array.from({ length: 4 }).map((_, i) => (
-                    <Draggable key={i.toString()} draggableId={i.toString()} index={i}>
-                      {(providedDraggable: DraggableProvided, snapshot: DraggableStateSnapshot) => (
-                        <div
-                          ref={providedDraggable.innerRef}
-                          style={getItemStyle(snapshot.isDragging, providedDraggable.draggableProps.style)}
-                        >
-                          <VideoItem
-                            providedDraggable={providedDraggable}
-                            snapshot={snapshot}
-                            handleEditVideo={() => handleEditVideo(EditorMode.VIEW)}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+          >
+            <SortableContext items={items} strategy={rectSortingStrategy}>
+              <Grid container spacing={2}>
+                {items.map((item) => (
+                  <Grid xs={12} lg={3} item key={item.id}>
+                    <VideoItem item={item} handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
+                  </Grid>
+                ))}
+              </Grid>
+              <DragOverlay>
+                {activeId ? (
+                  <VideoItem
+                    item={items.filter((item: any) => item.id === activeId)[0]}
+                    handleEditVideo={() => handleEditVideo(EditorMode.VIEW)}
+                  />
+                ) : null}
+              </DragOverlay>
+            </SortableContext>
+          </DndContext>
         </Box>
       </Box>
 
@@ -105,11 +138,13 @@ const VideoTab = () => {
           <Typography variant="caption">(2 of 16 hidden)</Typography>
         </Box>
         <Box className={classes.selectedVideos__videoList}>
-          <ScrollContainer hideScrollbars={false} vertical={false} className={classes.selectedVideos__scroll}>
-            {Array.from({ length: 32 }).map((_, i) => (
-              <VideoItem isHideVideo handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
+          <Grid container spacing={2}>
+            {items.map((item, i) => (
+              <Grid xs={12} lg={3} item key={item.id}>
+                <VideoItem item={item} isHideVideo handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
+              </Grid>
             ))}
-          </ScrollContainer>
+          </Grid>
         </Box>
       </Box>
 

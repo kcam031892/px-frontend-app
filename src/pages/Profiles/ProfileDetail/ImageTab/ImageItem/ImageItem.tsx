@@ -1,3 +1,4 @@
+import { useSortable } from '@dnd-kit/sortable';
 import {
   Box,
   Card,
@@ -14,18 +15,22 @@ import clsx from 'clsx';
 import { MoveIcon } from 'components/Icons';
 import React, { useState } from 'react';
 import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
+import { CSS } from '@dnd-kit/utilities';
+
 import { useStyles } from './ImageItem.styles';
 
 type Props = {
   isHideImage?: boolean;
-  providedDraggable?: DraggableProvided;
-  snapshot?: DraggableStateSnapshot;
-  isDragging?: boolean;
+
   handleEditImage: () => void;
+
+  item: any;
 };
-const ImageItem: React.FC<Props> = ({ isHideImage, providedDraggable, isDragging, snapshot, handleEditImage }) => {
+const ImageItem: React.FC<Props> = ({ isHideImage, handleEditImage, item }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const sortable = useSortable({ id: item.id });
+  const { attributes, listeners, isDragging, setNodeRef, transform, transition } = sortable;
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -42,21 +47,25 @@ const ImageItem: React.FC<Props> = ({ isHideImage, providedDraggable, isDragging
     handleEditImage();
     handleCloseMenu();
   };
+  const style: React.CSSProperties = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.3 : 1,
+    cursor: 'grab',
+  };
 
   return (
     <Card
       className={clsx(classes.card, {
         [classes.card__hideImage]: isHideImage,
-        [classes.card__isDragging]: snapshot?.isDragging,
       })}
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      style={style}
     >
-      {!isHideImage && providedDraggable && snapshot && (
-        <div
-          className={classes.card__moveIcon}
-          {...providedDraggable.draggableProps}
-          {...providedDraggable.dragHandleProps}
-          style={getItemStyle(snapshot.isDragging, providedDraggable.draggableProps.style)}
-        >
+      {!isHideImage && (
+        <div className={classes.card__moveIcon} ref={setNodeRef} {...attributes} {...listeners}>
           <IconButton>
             <MoveIcon viewBox="0 0 16 16" style={{ width: 16, height: 16 }} />
           </IconButton>
@@ -79,7 +88,7 @@ const ImageItem: React.FC<Props> = ({ isHideImage, providedDraggable, isDragging
             Google G Logo
           </Typography>
           <Typography variant="subtitle1" className={classes.card__subtitle}>
-            5184 x 3546px
+            {item.id}
           </Typography>
           {!isHideImage && (
             <Typography variant="caption" className={classes.card__caption}>

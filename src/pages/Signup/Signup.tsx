@@ -1,15 +1,16 @@
-import { Box, Button, FormControl, Grid, InputLabel } from '@material-ui/core';
+import { Box, Button, Grid } from '@material-ui/core';
 import { FrontLayout } from 'components';
+import { FormikProps, useFormik } from 'formik';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ISignUpRequestPayload } from 'shared/interfaces/IUser';
-import { ContactInput, Input, InputPassword, Select } from 'themes/elements';
-import { useStyles } from './Signup.styles';
-import * as yup from 'yup';
-import { FormikProps, useFormik } from 'formik';
-import { getErrorMessage } from 'shared/utils/getErrorMessage';
 import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
+import { getErrorMessage } from 'shared/utils/getErrorMessage';
 import { PasswordPrinciple, validatePassword } from 'shared/utils/passwordUtil';
+import { ContactInput, Input, InputPassword, Select } from 'themes/elements';
+import * as yup from 'yup';
+
+import { useStyles } from './Signup.styles';
 
 const NORMAL_SIZE = 456;
 const FULL_SIZE = 800;

@@ -12,6 +12,7 @@ export const useStyles = makeStyles(() =>
       marginBottom: '16px',
       position: 'relative',
       overflow: 'visible',
+      transition: 'all 0.2s',
       '&:hover': {
         outline: '2px solid #A4A4A4',
       },

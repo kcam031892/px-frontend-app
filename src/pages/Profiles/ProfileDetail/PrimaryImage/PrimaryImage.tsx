@@ -1,27 +1,27 @@
 import {
   Box,
+  Button,
   Card,
   CardContent,
   CardMedia,
+  Chip,
   Grid,
+  InputAdornment,
   InputBase,
+  OutlinedInputProps,
+  Snackbar,
   TextField,
   Typography,
-  InputAdornment,
-  OutlinedInputProps,
-  Chip,
-  Button,
-  Snackbar,
 } from '@material-ui/core';
 import { Alert, Autocomplete, createFilterOptions } from '@material-ui/lab';
 import { FileUploadDialog, ImageCropper } from 'components';
-
 import { RemoveIcon, SearchIcon } from 'components/Icons';
 import { Guid } from 'guid-typescript';
 import React, { useState } from 'react';
 import { ImageQuanlityLevel } from 'shared/enums/ImageQualityLevel';
 import { Input } from 'themes/elements';
 import { useDebounce } from 'use-debounce';
+
 import { useStyles } from './PrimaryImage.styles';
 
 const PrimaryImage = () => {

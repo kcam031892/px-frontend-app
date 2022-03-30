@@ -1,4 +1,4 @@
-import { Box, TextField, TextFieldProps, Typography } from '@material-ui/core';
+import { TextField, TextFieldProps } from '@material-ui/core';
 import React from 'react';
 
 type Props = {

@@ -1,36 +1,34 @@
 import {
+  Avatar,
+  Box,
+  Drawer,
+  Hidden,
+  IconButton,
+  List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  IconButton,
-  Box,
-  Avatar,
   Menu,
   MenuItem,
-  Hidden,
-  Drawer,
-  List,
 } from '@material-ui/core';
-import { ExpandIcon, CollapseIcon } from 'components/Icons';
-import { Logo } from 'components/nav';
-
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { Link, useHistory } from 'react-router-dom';
-import theme from 'theme';
-import { useStyles } from './Sidebar.styles';
-import clsx from 'clsx';
-import { useMainListeItemStyle } from 'components/style';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-
+import clsx from 'clsx';
+import { CollapseIcon, ExpandIcon } from 'components/Icons';
+import { Logo } from 'components/nav';
+import { useMainListeItemStyle } from 'components/style';
+import React from 'react';
+import { useQueryClient } from 'react-query';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { ROUTES } from 'shared/constants/ROUTES';
 import { SIDEBAR_ITEMS } from 'shared/constants/SIDEBAR_ITEMS';
 import { useAuth } from 'shared/hooks/useAuth';
-import { tokenService } from 'shared/services/tokenService';
 import { selectUserState, userLogout } from 'shared/redux/slicers/user.slicer';
-import { ROUTES } from 'shared/constants/ROUTES';
+import { tokenService } from 'shared/services/tokenService';
+import theme from 'theme';
 import { Backdrop } from 'themes/elements';
-import { useQueryClient } from 'react-query';
+
+import { useStyles } from './Sidebar.styles';
 // import { RootState } from 'app/rootReducer';
 // import { PrimaryImageState } from 'features/talent/primaryImage/primaryImageTypes';
 // import { ProfileState } from 'features/talent/profileTypes';
@@ -101,9 +99,7 @@ const Sidebar: React.FC<Props> = ({
   const drawer = (
     <div className={classes.drawerContainer}>
       <div className={classes.drawerHeader}>
-        <Link to={ROUTES.TALENT.PROFILE}>
-          <Logo />
-        </Link>
+        <Link to={ROUTES.TALENT.PROFILE}>{/* <Logo /> */}</Link>
       </div>
       <List
         className={classes.menuList}

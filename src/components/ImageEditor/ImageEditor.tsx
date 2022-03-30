@@ -1,3 +1,5 @@
+import 'cropperjs/dist/cropper.css';
+
 import {
   Box,
   CircularProgress,
@@ -15,6 +17,8 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Visibility } from '@material-ui/icons';
+import CheckIcon from '@material-ui/icons/Check';
+import clsx from 'clsx';
 import {
   EditorBackIcon,
   EditorDeleteIcon,
@@ -28,16 +32,14 @@ import {
   RotateLeftIcon,
   RotateRightIcon,
 } from 'components/Icons';
-import CheckIcon from '@material-ui/icons/Check';
+import { Guid } from 'guid-typescript';
 import React, { useState } from 'react';
+import { Cropper } from 'react-cropper';
 import { EditorMode } from 'shared/enums/EditorMode';
 import { Button, ImageSlider, Input } from 'themes/elements';
-import { useStyles } from './ImageEditor.styles';
-import { Cropper } from 'react-cropper';
-import 'cropperjs/dist/cropper.css';
-import { Guid } from 'guid-typescript';
 import { v4 as uuidv4 } from 'uuid';
-import clsx from 'clsx';
+
+import { useStyles } from './ImageEditor.styles';
 
 type Props = {
   onCloseEditor: () => void;

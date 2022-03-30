@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { useStyles } from './ProfileList.styles';
 import { Box, Grid, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import NewProfileDialog from './NewProfileDialog/NewProfileDialog';
-import ProfileListItem from './ProfileListItem/ProfileListItem';
-import { Button, useAlert } from 'themes/elements';
-import { profileService } from 'shared/services/profileService';
+import React, { useState } from 'react';
 import { RepresentationType } from 'shared/enums/RepresentationType';
+import { profileService } from 'shared/services/profileService';
+import { Button, useAlert } from 'themes/elements';
+
+import NewProfileDialog from './NewProfileDialog/NewProfileDialog';
+import { useStyles } from './ProfileList.styles';
+import ProfileListItem from './ProfileListItem/ProfileListItem';
 
 const { getProfiles } = profileService();
 const ProfileList = () => {
@@ -29,7 +30,7 @@ const ProfileList = () => {
           New Profile
         </Button>
       </Box>
-      <Grid container spacing={3}>
+      <Grid container spacing={2}>
         {data &&
           data.data.length > 0 &&
           data.data.map((profile, index) => <ProfileListItem profile={profile} key={index} />)}

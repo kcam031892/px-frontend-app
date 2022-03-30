@@ -1,13 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AxiosError } from 'axios';
-import { ENDPOINTS } from 'shared/constants/ENDPOINTS';
-import { authDao } from 'shared/dao/authDao';
-import { useAxios } from 'shared/hooks/useAxios';
-import { ISignInRequestPayload, ISignInResponsePayload } from 'shared/interfaces/IUser';
 
-import { tokenService } from './tokenService';
-const { GET, POST, DELETE } = useAxios();
-const { getAuthToken } = tokenService();
+import { authDao } from 'shared/dao/authDao';
+
+import { ISignInRequestPayload, ISignInResponsePayload } from 'shared/interfaces/IUser';
 
 const { login: loginDao } = authDao();
 

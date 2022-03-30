@@ -1,30 +1,31 @@
 import {
   Box,
+  Chip,
+  Dialog,
+  DialogContent,
+  FormControlLabel,
   Grid,
-  Typography,
+  IconButton,
   ImageList,
   ImageListItem,
   InputAdornment,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  IconButton,
-  Chip,
   LinearProgress,
-  Dialog,
-  DialogContent,
+  Radio,
+  RadioGroup,
+  Typography,
 } from '@material-ui/core';
+import ClearIcon from '@material-ui/icons/Clear';
 import { useWindowSize } from '@react-hook/window-size';
-import { ImageSliderSmallIcon, ImageSliderLargeIcon, MediaUploadIcon, SearchIcon } from 'components/Icons';
+import { AudioEditor } from 'components';
+import { ImageSliderLargeIcon, ImageSliderSmallIcon, MediaUploadIcon, SearchIcon } from 'components/Icons';
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { EditorMode } from 'shared/enums/EditorMode';
 import { Button, Input } from 'themes/elements';
+
 import { ImageSizeSlider } from '../ImagesTab/ImageSizeSlider';
 import VideoItem from '../VideoTab/VideoItem/VideoItem';
 import { useStyles } from './AudioTab.styles';
-import ClearIcon from '@material-ui/icons/Clear';
-import { AudioEditor } from 'components';
 
 interface AudioListState {
   imageCol: number;
