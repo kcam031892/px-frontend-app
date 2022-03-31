@@ -1,6 +1,10 @@
 import { ENDPOINTS } from 'shared/constants/ENDPOINTS';
 import { useAxios } from 'shared/hooks/useAxios';
-import { IProfileCreatePayload, IProfileResponsePayload } from 'shared/interfaces/IProfile';
+import {
+  IProfileCreatePayload,
+  IProfileCreateResponsePayload,
+  IProfileResponsePayload,
+} from 'shared/interfaces/IProfile';
 import { authToken } from 'shared/utils/authToken';
 
 const { GET, POST } = useAxios();
@@ -19,7 +23,7 @@ export const profileDao = () => {
   };
 
   const createProfile = async (payload: IProfileCreatePayload) => {
-    const response = await POST({
+    const response = await POST<IProfileCreateResponsePayload>({
       url: `${ENDPOINTS.PROFILE}`,
       data: payload,
       headers: {

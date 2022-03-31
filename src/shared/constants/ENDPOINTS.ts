@@ -2,7 +2,7 @@ import { CONFIG } from 'shared/config';
 
 export const ENDPOINTS = {
   USERS: `${CONFIG.AUTH_API_URL}/users`,
-  ME: `${CONFIG.GENERAL_API_URL}/me`,
+  ME: `${CONFIG.GENERAL_API_URL}/talent/me`,
   PROFILE: `${CONFIG.GENERAL_API_URL}/profiles`,
   AGENCY: `${CONFIG.GENERAL_API_URL}/agencies`,
 };

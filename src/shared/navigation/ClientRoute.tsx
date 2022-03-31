@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, useHistory } from 'react-router';
 import { ROUTES } from 'shared/constants/ROUTES';
-import { getUserProfile, handleAuthExpired, selectUser, selectUserState } from 'shared/redux/slicers/user.slicer';
+import { getUserProfile, selectUserState } from 'shared/redux/slicers/user.slicer';
 import { tokenService } from 'shared/services/tokenService';
 
 type Props = {

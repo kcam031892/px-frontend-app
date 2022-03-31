@@ -1,5 +1,6 @@
+import { CircularProgress, Backdrop as MUIBackdrop } from '@material-ui/core';
 import React from 'react';
-import { Backdrop as MUIBackdrop, CircularProgress } from '@material-ui/core';
+
 import { useStyles } from './Backdrop.styles';
 
 type Props = {

@@ -6,7 +6,6 @@ import { Link, useHistory } from 'react-router-dom';
 import { ISignUpRequestPayload } from 'shared/interfaces/IUser';
 import { ContactInput, Input, InputPassword, Select } from 'themes/elements';
 import { selectUserState, userSignup } from 'shared/redux/slicers/user.slicer';
-import { useStyles } from './Signup.styles';
 import * as yup from 'yup';
 import { FormikProps, useFormik } from 'formik';
 import { getErrorMessage } from 'shared/utils/getErrorMessage';
@@ -14,6 +13,8 @@ import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
 import { ROUTES } from 'shared/constants/ROUTES';
 import { PasswordPrinciple, validatePassword } from 'shared/utils/passwordUtil';
 import { PasswordStrength } from 'components/PasswordStrength';
+
+import { useStyles } from './Signup.styles';
 
 const NORMAL_SIZE = 456;
 const FULL_SIZE = 800;

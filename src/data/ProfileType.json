@@ -1,0 +1,9 @@
+[
+  { "id": "0", "value": "Actor", "label": "Actor" },
+  { "id": "1", "value": "Singer", "label": "Singer" },
+  { "id": "2", "value": "Dancer", "label": "Dancer" },
+  { "id": "3", "value": "Voice Artist", "label": "Voice Artist" },
+  { "id": "4", "value": "Stunt Performer", "label": "Stunt Performer" },
+  { "id": "5", "value": "Model", "label": "Model" },
+  { "id": "6", "value": "Extra", "label": "Extra" }
+]

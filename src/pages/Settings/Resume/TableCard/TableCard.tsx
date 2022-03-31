@@ -1,18 +1,19 @@
-import { Box, Grid, IconButton } from '@material-ui/core';
+import { Grid, IconButton } from '@material-ui/core';
 import { DeleteIcon, MoveIcon, ResumeMediaIcon } from 'components/Icons';
-import React, { useState } from 'react';
+import React from 'react';
 import {
   DragDropContext,
   Draggable,
   DraggableProvided,
+  DropResult,
   Droppable,
   DroppableProvided,
-  DropResult,
 } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { ISection } from 'shared/interfaces/IProfile';
 import { changeTextValues, removeRow, selectResumeState } from 'shared/redux/slicers/resume.slicer';
 import { Input } from 'themes/elements';
+
 import { useStyles } from './TableCard.styles';
 
 type Props = {

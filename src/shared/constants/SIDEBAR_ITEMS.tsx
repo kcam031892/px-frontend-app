@@ -8,6 +8,7 @@ import {
   RepresentationIcon,
   ScheduleIcon,
 } from 'components/Icons';
+
 import { ROUTES } from './ROUTES';
 
 interface ISidebarItems {

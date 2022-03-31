@@ -1,8 +1,9 @@
 import { Box, Card, CardContent, IconButton, InputBase, Tooltip } from '@material-ui/core';
 import clsx from 'clsx';
-import { DownIcon, UpIcon, DeleteIcon } from 'components/Icons';
+import { DeleteIcon, DownIcon, UpIcon } from 'components/Icons';
 import React from 'react';
 import { Button } from 'themes/elements';
+
 import TableCard from '../TableCard/TableCard';
 import { useStyles } from './ResumeSection.styles';
 type Props = {

@@ -1,6 +1,7 @@
 import { Box } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
+
 import { useStyles } from './ImageItem.styles';
 
 type Props = {

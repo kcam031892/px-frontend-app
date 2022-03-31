@@ -2,15 +2,15 @@ import { createStyles, makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) =>
   createStyles({
-    imageTab: {
-      width: 'calc(100% + 42px)',
-    },
+    imageTab: {},
     titleContainer: {
       display: 'flex',
       alignItems: 'center',
       gap: '1rem',
     },
-    selectedImages: {},
+    selectedImages: {
+      minHeight: '60vh',
+    },
     selectedImages__imageList: {
       marginTop: theme.spacing(0.5),
     },
@@ -62,6 +62,11 @@ export const useStyles = makeStyles((theme) =>
       padding: '50px',
       margin: 'auto',
       overflow: 'visible',
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
     },
   }),
 );

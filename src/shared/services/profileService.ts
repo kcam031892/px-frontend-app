@@ -1,6 +1,12 @@
+import { AxiosError } from 'axios';
 import { useMutation, useQuery } from 'react-query';
 import { profileDao } from 'shared/dao/profileDao';
-import { IProfileCreatePayload, IProfileResponsePayload } from 'shared/interfaces/IProfile';
+import {
+  IProfileCreatePayload,
+  IProfileCreateResponsePayload,
+  IProfileResponsePayload,
+} from 'shared/interfaces/IProfile';
+import { IErrorResponse } from 'shared/interfaces/utils/IErrorResonse';
 
 const { getProfiles: getProfilesDao, createProfile: createProfileDao } = profileDao();
 export const profileService = () => {
@@ -9,7 +15,9 @@ export const profileService = () => {
   };
 
   const createProfile = () => {
-    return useMutation((payload: IProfileCreatePayload) => createProfileDao(payload));
+    return useMutation<IProfileCreateResponsePayload, AxiosError<IErrorResponse>, IProfileCreatePayload>(
+      (payload: IProfileCreatePayload) => createProfileDao(payload),
+    );
   };
 
   return {

@@ -2,9 +2,7 @@ import { createStyles, makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) =>
   createStyles({
-    videoTab: {
-      width: 'calc(100% + 42px)',
-    },
+    videoTab: {},
     titleContainer: {
       display: 'flex',
       alignItems: 'center',
