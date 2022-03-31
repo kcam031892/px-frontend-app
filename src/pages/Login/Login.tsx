@@ -18,9 +18,6 @@ import { ReactFacebookFailureResponse, ReactFacebookLoginInfo } from 'react-face
 import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { MyCheckBox } from 'components/textField';
-import * as yup from 'yup';
-import { useStyles } from './Login.styles';
 import { ROUTES } from 'shared/constants/ROUTES';
 import { ISignInRequestPayload } from 'shared/interfaces/IUser';
 import {

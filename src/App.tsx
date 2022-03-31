@@ -4,7 +4,6 @@ import 'fontsource-roboto/500.css';
 import 'fontsource-roboto/700.css';
 import 'fontsource-roboto/900.css';
 
-
 import { CssBaseline } from '@material-ui/core';
 import { ConfirmProvider } from 'material-ui-confirm';
 import { SnackbarProvider } from 'notistack';
@@ -17,8 +16,6 @@ import Routes from 'shared/navigation/Routes';
 import { selectUser } from 'shared/redux/slicers/user.slicer';
 import { store } from 'shared/redux/store';
 import { tokenService } from 'shared/services/tokenService';
-import { selectUser } from 'shared/redux/slicers/user.slicer';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import SwitchThemeProvider from 'themes/SwitchThemeProvider';
 
 const queryClient = new QueryClient({

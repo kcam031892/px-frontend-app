@@ -6,6 +6,3 @@ export { ContactInput, Input, InputPassword, Select } from './Input';
 export { Tab } from './Tab';
 export { Tabs } from './Tabs';
 export { VideoSlider } from './VideoSlider';
-export { Button } from './Button';
-export { useAlert } from './Alert';
-
