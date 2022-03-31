@@ -17,7 +17,7 @@ const ContactInput: React.FC<Props> = ({ errorMessage, ...props }) => {
       </InputLabel>
       <Box className={classes.inputContainer}>
         <MuiPhoneInput
-          defaultCountry="au"
+          defaultCountry="us"
           InputProps={{
             disableUnderline: true,
             readOnly: true,

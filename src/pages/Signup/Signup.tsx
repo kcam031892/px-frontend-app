@@ -145,6 +145,7 @@ const Signup = () => {
                     data={countries}
                     value={form.values.country}
                     onChange={(event) => form.setFieldValue('country', event.target.value)}
+                    errorMessage={getErrorMessage(form.touched.country, form.errors.country)}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -154,6 +155,7 @@ const Signup = () => {
                     data={countries}
                     value={form.values.state}
                     onChange={(event) => form.setFieldValue('state', event.target.value)}
+                    errorMessage={getErrorMessage(form.touched.state, form.errors.state)}
                   />
                 </Grid>
               </Grid>
