@@ -1,31 +1,31 @@
 import {
   Box,
-  Grid,
-  Typography,
-  InputAdornment,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  IconButton,
   Chip,
-  LinearProgress,
   Dialog,
   DialogContent,
+  FormControlLabel,
+  Grid,
+  IconButton,
   ImageList,
   ImageListItem,
+  InputAdornment,
+  LinearProgress,
+  Radio,
+  RadioGroup,
+  Typography,
 } from '@material-ui/core';
-
-import { ImageSliderSmallIcon, ImageSliderLargeIcon, MediaUploadIcon, SearchIcon } from 'components/Icons';
-import React, { useEffect, useState } from 'react';
-import { Button, Input } from 'themes/elements';
-import { ImageSizeSlider } from '../ImagesTab/ImageSizeSlider';
-import { useStyles } from './VideoTab.styles';
 import ClearIcon from '@material-ui/icons/Clear';
-import VideoItem from './VideoItem/VideoItem';
 import { useWindowSize } from '@react-hook/window-size';
-import { useHistory, useLocation } from 'react-router';
 import { VideoEditor } from 'components';
+import { ImageSliderLargeIcon, ImageSliderSmallIcon, MediaUploadIcon, SearchIcon } from 'components/Icons';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router';
 import { EditorMode } from 'shared/enums/EditorMode';
+import { Button, Input } from 'themes/elements';
+
+import { ImageSizeSlider } from '../ImagesTab/ImageSizeSlider';
+import VideoItem from './VideoItem/VideoItem';
+import { useStyles } from './VideoTab.styles';
 
 interface VideoListState {
   imageCol: number;

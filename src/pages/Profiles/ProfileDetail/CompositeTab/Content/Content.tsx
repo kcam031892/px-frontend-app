@@ -2,6 +2,7 @@ import { Box, Card, CardContent, Grid, IconButton, Typography } from '@material-
 import AddIcon from '@material-ui/icons/Add';
 import clsx from 'clsx';
 import React, { useMemo } from 'react';
+
 import { useStyles } from './Content.styles';
 
 type Props = {

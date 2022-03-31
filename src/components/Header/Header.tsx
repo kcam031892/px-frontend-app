@@ -1,9 +1,9 @@
-import React from 'react';
-import clsx from 'clsx';
 import { AppBar, Box, IconButton, InputBase, Toolbar } from '@material-ui/core';
-import { SearchIcon } from 'components/Icons';
+import { Theme, createStyles, makeStyles } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import clsx from 'clsx';
+import { SearchIcon } from 'components/Icons';
+import React from 'react';
 
 const drawerWidth = 248;
 const drawerCollapseWidth = 104;

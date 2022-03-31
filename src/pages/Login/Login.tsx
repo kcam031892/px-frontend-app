@@ -1,24 +1,28 @@
 import {
   Box,
   Button,
-  createStyles,
   FormControlLabel,
-  makeStyles,
   Snackbar,
   TextField,
   Theme,
   Typography,
+  createStyles,
+  makeStyles,
 } from '@material-ui/core';
-import React, { useEffect } from 'react';
-
-import { Link, useHistory } from 'react-router-dom';
-
-import { useDispatch, useSelector } from 'react-redux';
+import { Alert } from '@material-ui/lab';
+import { FacebookLogin, FrontLayout, GoogleLogin } from 'components';
 import { MyCheckBox } from 'components/textField';
-
+import { FormikProps, useFormik } from 'formik';
+import React, { useEffect } from 'react';
+import { ReactFacebookFailureResponse, ReactFacebookLoginInfo } from 'react-facebook-login';
+import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { MyCheckBox } from 'components/textField';
 import * as yup from 'yup';
 import { useStyles } from './Login.styles';
 import { ROUTES } from 'shared/constants/ROUTES';
+import { ISignInRequestPayload } from 'shared/interfaces/IUser';
 import {
   selectUserState,
   setErrorMessage,
@@ -26,16 +30,13 @@ import {
   userGoogleLogin,
   userLogin,
 } from 'shared/redux/slicers/user.slicer';
-import { FacebookLogin, FrontLayout, GoogleLogin } from 'components';
-import { ISignInRequestPayload } from 'shared/interfaces/IUser';
-import { FormikProps, useFormik } from 'formik';
-import { Backdrop, Input, InputPassword } from 'themes/elements';
-import { getErrorMessage } from 'shared/utils/getErrorMessage';
-import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
-import { Alert } from '@material-ui/lab';
-import { ReactFacebookFailureResponse, ReactFacebookLoginInfo } from 'react-facebook-login';
 import { authService } from 'shared/services/authService';
+import { getErrorMessage } from 'shared/utils/getErrorMessage';
 import { ls } from 'shared/utils/ls';
+import { Backdrop, Input, InputPassword } from 'themes/elements';
+import * as yup from 'yup';
+
+import { useStyles } from './Login.styles';
 
 interface LoginState {
   userName: string;

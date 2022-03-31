@@ -1,16 +1,15 @@
 import { Box, Card, CardContent, IconButton, InputBase, MenuItem, Select, Tooltip } from '@material-ui/core';
-import React, { useState } from 'react';
 import clsx from 'clsx';
 import { useStyles } from './ResumeSection.styles';
-
 import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
 import { DeleteIcon, DownIcon, UpIcon } from 'components/Icons';
-import TableCard from '../TableCard/TableCard';
-import SummaryCard from '../SummaryCard/SummaryCard';
-import { ISection } from 'shared/interfaces/IProfile';
-import { SectionType } from 'shared/enums/SectionType';
 import ProjectTypes from 'data/ProjectType.json';
+import React, { useState } from 'react';
+import { DraggableProvided } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
+import { SectionType } from 'shared/enums/SectionType';
+import { ISection } from 'shared/interfaces/IProfile';
+
 import {
   changeSectionTitle,
   removeSection,
@@ -19,12 +18,9 @@ import {
 } from 'shared/redux/slicers/resume.slicer';
 import { Range } from 'shared/utils/range';
 
-const rows: IKeyValue[] = Range(2, 10).map((value) => {
-  return {
-    key: value.toString(),
-    value,
-  };
-});
+import SummaryCard from '../SummaryCard/SummaryCard';
+import TableCard from '../TableCard/TableCard';
+import { useStyles } from './ResumeSection.styles';
 
 type Props = {
   isSelected?: boolean;
@@ -91,7 +87,14 @@ const ResumeSection: React.FC<Props> = ({
 
   return (
     <Card variant="outlined" className={classes.card} onClick={() => setSelected(index)}>
-      <CardContent>
+      <CardContent
+        data-rbd-drag-handle-context-id={providedDraggable.dragHandleProps?.['data-rbd-drag-handle-context-id']}
+        data-rbd-drag-handle-draggable-id="gibberish"
+        style={{
+          // When you set the data-rbd-drag-handle-context-id, RBD applies cursor: grab, so we need to revert that
+          cursor: 'auto',
+        }}
+      >
         {section.section_type === SectionType.TABLE ? (
           <Select
             fullWidth
@@ -101,7 +104,11 @@ const ResumeSection: React.FC<Props> = ({
             onChange={handleSectionChange}
           >
             {ProjectTypes.map((projectType) => (
-              <MenuItem key={projectType.key} value={projectType.key}>
+              <MenuItem
+                key={projectType.key}
+                value={projectType.key}
+                disabled={sections.some((section) => section.title === projectType.key)}
+              >
                 {projectType.value}
               </MenuItem>
             ))}

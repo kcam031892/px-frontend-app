@@ -1,4 +1,4 @@
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select as MUISelect, SelectProps } from '@material-ui/core';
+import { FormControl, FormHelperText, InputLabel, Select as MUISelect, MenuItem, SelectProps } from '@material-ui/core';
 import React from 'react';
 import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
 

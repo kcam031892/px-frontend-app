@@ -13,5 +13,16 @@ export const useStyles = makeStyles(() =>
       right: '-22px',
       cursor: 'pointer',
     },
+    button__container: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+      '& > button, & > a': {
+        marginTop: '20px',
+        maxWidth: '305px',
+      },
+    },
   }),
 );

@@ -3,6 +3,7 @@ import Signup from 'pages/Signup';
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 import { ROUTES } from 'shared/constants/ROUTES';
+
 import ClientRoute from './ClientRoute';
 import PublicRoute from './PublicRoute';
 

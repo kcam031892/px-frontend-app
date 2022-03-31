@@ -1,11 +1,12 @@
 import { Box, Card, CardActions, CardContent, IconButton } from '@material-ui/core';
+import clsx from 'clsx';
 import { CropIcon, FlipIcon, ResetIcon, RotateLeftIcon, RotateRightIcon } from 'components/Icons';
 import React, { useState } from 'react';
 import { Cropper } from 'react-cropper';
 import { ImageQuanlityLevel } from 'shared/enums/ImageQualityLevel';
-import { useStyles } from './ImageCropper.styles';
-import clsx from 'clsx';
 import { ImageSlider } from 'themes/elements';
+
+import { useStyles } from './ImageCropper.styles';
 
 const standardHeightPixel = 1500;
 const standardWidthPixel = 1125;

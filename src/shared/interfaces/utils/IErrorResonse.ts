@@ -1,3 +1,5 @@
 export interface IErrorResponse {
-  [key: string]: string[];
+  errors: {
+    [key: string]: string[];
+  };
 }

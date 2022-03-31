@@ -1,21 +1,24 @@
+import { useSortable } from '@dnd-kit/sortable';
 import { Box, Card, CardContent, CardMedia, IconButton, Menu, MenuItem, Typography } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import clsx from 'clsx';
 import { MoveIcon } from 'components/Icons';
 import React, { useState } from 'react';
 import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
+import { CSS } from '@dnd-kit/utilities';
+
 import { useStyles } from './VideoItem.styles';
 
 type Props = {
   isHideVideo?: boolean;
-  providedDraggable?: DraggableProvided;
-  snapshot?: DraggableStateSnapshot;
-  isDragging?: boolean;
   handleEditVideo: () => void;
+  item: any;
 };
-const VideoItem: React.FC<Props> = ({ isHideVideo, providedDraggable, isDragging, snapshot, handleEditVideo }) => {
+const VideoItem: React.FC<Props> = ({ handleEditVideo, isHideVideo, item }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const sortable = useSortable({ id: item.id });
+  const { attributes, listeners, isDragging, setNodeRef, transform, transition } = sortable;
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -32,20 +35,26 @@ const VideoItem: React.FC<Props> = ({ isHideVideo, providedDraggable, isDragging
     handleCloseMenu();
     handleEditVideo();
   };
+
+  const style: React.CSSProperties = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.3 : 1,
+    cursor: 'grab',
+  };
+
   return (
     <Card
       className={clsx(classes.card, {
         [classes.card__hideImage]: isHideVideo,
-        [classes.card__isDragging]: snapshot?.isDragging,
       })}
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      style={style}
     >
-      {!isHideVideo && providedDraggable && snapshot && (
-        <div
-          className={classes.card__moveIcon}
-          {...providedDraggable.draggableProps}
-          {...providedDraggable.dragHandleProps}
-          style={getItemStyle(snapshot.isDragging, providedDraggable.draggableProps.style)}
-        >
+      {!isHideVideo && (
+        <div className={classes.card__moveIcon} ref={setNodeRef} {...attributes} {...listeners}>
           <IconButton>
             <MoveIcon viewBox="0 0 16 16" style={{ width: 16, height: 16 }} />
           </IconButton>
@@ -66,7 +75,7 @@ const VideoItem: React.FC<Props> = ({ isHideVideo, providedDraggable, isDragging
             Google G Logo
           </Typography>
           <Typography variant="subtitle1" className={classes.card__subtitle}>
-            5184 x 3546px
+            {item.id}
           </Typography>
           {!isHideVideo && (
             <Typography variant="caption" className={classes.card__caption}>

@@ -1,5 +1,5 @@
-import React from 'react';
 import SvgIcon, { SvgIconProps } from '@material-ui/core/SvgIcon';
+import React from 'react';
 
 function ImageSliderSmall(props: SvgIconProps) {
   return (

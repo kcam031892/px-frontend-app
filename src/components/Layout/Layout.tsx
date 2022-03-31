@@ -1,10 +1,11 @@
-import React, { Suspense, useState } from 'react';
+import { useMediaQuery } from '@material-ui/core';
 import { Sidebar } from 'components';
 import { Header } from 'components/Header';
-import { useStyles } from './Layout.style';
-import { useMediaQuery } from '@material-ui/core';
+import React, { Suspense, useState } from 'react';
 import theme from 'theme';
 import { Backdrop } from 'themes/elements';
+
+import { useStyles } from './Layout.style';
 
 type Props = {
   children: React.ReactNode;
