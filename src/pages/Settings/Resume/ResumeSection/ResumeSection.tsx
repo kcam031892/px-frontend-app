@@ -1,7 +1,5 @@
 import { Box, Card, CardContent, IconButton, InputBase, MenuItem, Select, Tooltip } from '@material-ui/core';
 import clsx from 'clsx';
-import { useStyles } from './ResumeSection.styles';
-import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
 import { DeleteIcon, DownIcon, UpIcon } from 'components/Icons';
 import ProjectTypes from 'data/ProjectType.json';
 import React, { useState } from 'react';
@@ -16,7 +14,6 @@ import {
   reorderSection,
   selectResumeState,
 } from 'shared/redux/slicers/resume.slicer';
-import { Range } from 'shared/utils/range';
 
 import SummaryCard from '../SummaryCard/SummaryCard';
 import TableCard from '../TableCard/TableCard';
@@ -32,6 +29,7 @@ type Props = {
   handleColumnChange: (arrayIndex: number, num: number) => void;
   handleRowChange: (arrayIndex: number, num: number) => void;
   handleOpenGalleryDialog: () => void;
+  providedDraggable: DraggableProvided;
 };
 const ResumeSection: React.FC<Props> = ({
   isSelected,
@@ -42,6 +40,7 @@ const ResumeSection: React.FC<Props> = ({
   handleRowChange,
   handleColumnChange,
   handleOpenGalleryDialog,
+  providedDraggable,
 }) => {
   const classes = useStyles();
   const [cardColumns, setCardColumns] = useState(section.values[0].length);
