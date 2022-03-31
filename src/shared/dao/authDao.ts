@@ -1,6 +1,11 @@
 import { ENDPOINTS } from 'shared/constants/ENDPOINTS';
 import { useAxios } from 'shared/hooks/useAxios';
-import { ISignInRequestPayload, ISignInResponsePayload } from 'shared/interfaces/IUser';
+import {
+  ISignInRequestPayload,
+  ISignInResponsePayload,
+  ISignUpRequestPayload,
+  ISignUpResponsePayload,
+} from 'shared/interfaces/IUser';
 import { authToken } from 'shared/utils/authToken';
 
 const { GET, POST, DELETE } = useAxios();
@@ -10,6 +15,17 @@ export const authDao = () => {
   const login = async (payload: ISignInRequestPayload) => {
     const response = await POST<ISignInResponsePayload>({
       url: `${ENDPOINTS.USERS}/sign_in`,
+      data: payload,
+    });
+
+    return {
+      data: response?.data,
+    };
+  };
+
+  const signup = async (payload: ISignUpRequestPayload) => {
+    const response = await POST<ISignUpResponsePayload>({
+      url: `${ENDPOINTS.USERS}/sign_up`,
       data: payload,
     });
 
@@ -63,6 +79,7 @@ export const authDao = () => {
 
   return {
     login,
+    signup,
     loginWithGoogle,
     loginWithFacebook,
     getUserProfile,

@@ -1,14 +1,18 @@
 import { Box, Button, Grid } from '@material-ui/core';
 import { FrontLayout } from 'components';
-import { FormikProps, useFormik } from 'formik';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import { ISignUpRequestPayload } from 'shared/interfaces/IUser';
-import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
-import { getErrorMessage } from 'shared/utils/getErrorMessage';
-import { PasswordPrinciple, validatePassword } from 'shared/utils/passwordUtil';
 import { ContactInput, Input, InputPassword, Select } from 'themes/elements';
+import { selectUserState, userSignup } from 'shared/redux/slicers/user.slicer';
 import * as yup from 'yup';
+import { FormikProps, useFormik } from 'formik';
+import { getErrorMessage } from 'shared/utils/getErrorMessage';
+import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
+import { ROUTES } from 'shared/constants/ROUTES';
+import { PasswordPrinciple, validatePassword } from 'shared/utils/passwordUtil';
+import { PasswordStrength } from 'components/PasswordStrength';
 
 import { useStyles } from './Signup.styles';
 
@@ -17,9 +21,19 @@ const FULL_SIZE = 800;
 
 const Signup = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [isFullModel, setIsFullModel] = useState<boolean>(false);
   const [passwordValidationResult, setPasswordValidationResult] = useState<PasswordPrinciple | null>(null);
   const toggleFullModel = () => setIsFullModel((curr) => !curr);
+
+  const { user, isLoading, errorMessage, isLoggedIn } = useSelector(selectUserState);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      history.push(ROUTES.TALENT.PROFILE);
+    }
+  }, [isLoggedIn, history]);
 
   const countries: IKeyValue[] = [
     {
@@ -36,24 +50,24 @@ const Signup = () => {
   const initialValues: ISignUpRequestPayload = {
     first_name: '',
     last_name: '',
-    contact_number: '2',
+    contact_number: '',
     email: '',
-    country: 'PH',
-    state: 'AU',
+    country: '',
+    state: '',
     password: '',
   };
 
   const signUpValidationSchema: yup.SchemaOf<ISignUpRequestPayload> = yup.object({
-    first_name: yup.string().required('First Name is required'),
-    last_name: yup.string().required('Last Name is Required'),
-    contact_number: yup.string().required('Contact Number is Required'),
+    first_name: yup.string().required('First name is required'),
+    last_name: yup.string().required('Last name is required'),
+    contact_number: yup.string().required('Contact number is required'),
     email: yup.string().email('Must be a valid email').required('Email is required'),
-    country: yup.string().required('Country is Required'),
-    state: yup.string().required('State is Required'),
+    country: yup.string().required('Country is required'),
+    state: yup.string().required('State is required'),
     password: yup
       .string()
       .required('Password is required')
-      .test('passwordValidate', 'Invalid Password', (value: any) => {
+      .test('passwordValidate', 'Invalid password', (value: any) => {
         if (value) {
           const validatePasswordResult = validatePassword(value);
           setPasswordValidationResult(validatePasswordResult);
@@ -63,21 +77,21 @@ const Signup = () => {
       }),
   });
 
+  const handleSignUpSubmit = async (values: ISignUpRequestPayload) => {
+    dispatch(userSignup(values));
+  };
+
   const form: FormikProps<ISignUpRequestPayload> = useFormik({
     initialValues,
     validationSchema: signUpValidationSchema,
-    onSubmit: (values) => console.log(values),
+    onSubmit: (values) => console.log(values), // handleSignUpSubmit(values)
   });
 
   return (
-    <FrontLayout
-      heading="Let’s create your new"
-      subHeading="Account Now"
-      containerWidth={!isFullModel ? NORMAL_SIZE : FULL_SIZE}
-    >
+    <FrontLayout heading="Let’s create your new" subHeading="Account Now" containerWidth={FULL_SIZE}>
       <Box>
         <Grid container spacing={2}>
-          <Grid xs={12} lg={isFullModel ? 6 : 12} item>
+          <Grid xs={12} md={6} lg={6} item>
             <Input
               label={'First Name'}
               autoFocus
@@ -104,7 +118,12 @@ const Signup = () => {
               InputLabelProps={{ shrink: true }}
               inputProps={{ tabIndex: 2 }}
             />
-            <ContactInput />
+            <ContactInput
+              name="contact_number"
+              onChange={form.handleChange}
+              errorMessage={getErrorMessage(form.touched.contact_number, form.errors.contact_number)}
+              value={form.values.contact_number}
+            />
             <Input
               label={'Email Address'}
               name="email"
@@ -126,6 +145,7 @@ const Signup = () => {
                     data={countries}
                     value={form.values.country}
                     onChange={(event) => form.setFieldValue('country', event.target.value)}
+                    errorMessage={getErrorMessage(form.touched.country, form.errors.country)}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -135,10 +155,13 @@ const Signup = () => {
                     data={countries}
                     value={form.values.state}
                     onChange={(event) => form.setFieldValue('state', event.target.value)}
+                    errorMessage={getErrorMessage(form.touched.state, form.errors.state)}
                   />
                 </Grid>
               </Grid>
             </Box>
+          </Grid>
+          <Grid xs={12} md={6} lg={6} item>
             <Box className={classes.password__container}>
               <InputPassword
                 label={'New Password'}
@@ -152,9 +175,9 @@ const Signup = () => {
                 InputLabelProps={{ shrink: true }}
                 inputProps={{ tabIndex: 8 }}
               />
-              <span className={classes.password__helper} onClick={toggleFullModel}>
+              {/* <span className={classes.password__helper} onClick={toggleFullModel}>
                 (?)
-              </span>
+              </span> */}
               <InputPassword
                 label={'Repeat Password'}
                 margin={'normal'}
@@ -163,27 +186,14 @@ const Signup = () => {
                 InputLabelProps={{ shrink: true }}
                 inputProps={{ tabIndex: 8 }}
               />
+              <PasswordStrength />
             </Box>
-            <Button
-              variant="contained"
-              disableElevation
-              fullWidth
-              tabIndex={10}
-              style={{ marginTop: '24px' }}
-              onClick={() => form.handleSubmit()}
-            >
+          </Grid>
+          <Grid xs={12} md={12} lg={12} className={classes.button__container}>
+            <Button variant="contained" disableElevation fullWidth tabIndex={10} onClick={() => form.handleSubmit()}>
               Create Account
             </Button>
-
-            <Button
-              variant="outlined"
-              disableElevation
-              fullWidth
-              style={{ marginTop: '24px' }}
-              component={Link}
-              to={'/login'}
-              tabIndex={11}
-            >
+            <Button variant="outlined" disableElevation fullWidth component={Link} to={'/login'} tabIndex={11}>
               Cancel to Log In
             </Button>
           </Grid>

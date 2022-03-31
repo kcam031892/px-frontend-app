@@ -34,3 +34,9 @@ export interface ISignUpRequestPayload {
   state: string;
   password: string;
 }
+
+export interface ISignUpResponsePayload {
+  message: string;
+  data: IUser;
+  token: string;
+}
