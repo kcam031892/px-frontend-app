@@ -8,6 +8,9 @@ import { Button, useAlert } from 'themes/elements';
 import NewProfileDialog from './NewProfileDialog/NewProfileDialog';
 import { useStyles } from './ProfileList.styles';
 import ProfileListItem from './ProfileListItem/ProfileListItem';
+import { Button, useAlert } from 'themes/elements';
+import { profileService } from 'shared/services/profileService';
+import { RepresentationType } from 'shared/enums/RepresentationType';
 
 const { getProfiles } = profileService();
 const ProfileList = () => {

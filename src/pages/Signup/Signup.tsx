@@ -13,7 +13,6 @@ import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
 import { ROUTES } from 'shared/constants/ROUTES';
 import { PasswordPrinciple, validatePassword } from 'shared/utils/passwordUtil';
 import { PasswordStrength } from 'components/PasswordStrength';
-
 import { useStyles } from './Signup.styles';
 
 const NORMAL_SIZE = 456;

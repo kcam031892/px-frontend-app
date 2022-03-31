@@ -6,6 +6,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormControlLabel,
   Grid,
   IconButton,
   Menu,
@@ -68,10 +69,6 @@ const Resume = () => {
   const [anchorEl, setAnchorEl] = React.useState<any>(null);
   const [galleryDialogOpen, setGalleryDialogOpen] = useState<boolean>(false);
   const [selectedGalleryTab, setSelectedGalleryTab] = useState<string>('images');
-  const [isDragging, setIsDragging] = useState<boolean>(false);
-
-  console.log(sections);
-
   const handleOpenGalleryDialog = () => {
     setGalleryDialogOpen(true);
   };
@@ -223,8 +220,25 @@ const Resume = () => {
               </Droppable>
             </DragDropContext>
           </Box>
-
           <Box className={clsx(classes.actionContainer, { [classes.isDragging]: isDragging })}>
+          <Grid container spacing={2}>
+            {sections.map((section, index) => (
+              <Grid xs={12} item key={index}>
+                <ResumeSection
+                  section={section}
+                  index={index}
+                  setSelected={handleSetSelected}
+                  isSelected={isSectionSelected(index)}
+                  handleReorderTable={handleReorderTable}
+                  handleRowChange={handleRowChange}
+                  handleColumnChange={handleColumnChange}
+                  handleOpenGalleryDialog={handleOpenGalleryDialog}
+                />
+              </Grid>
+            ))}
+          </Grid>
+
+          <Box className={classes.actionContainer}>
             <Typography variant="body2">
               Note: No external URL’s are permitted in the Biography and will be auto removed when saved.
             </Typography>
