@@ -58,16 +58,16 @@ const Signup = () => {
   };
 
   const signUpValidationSchema: yup.SchemaOf<ISignUpRequestPayload> = yup.object({
-    first_name: yup.string().required('First Name is required'),
-    last_name: yup.string().required('Last Name is Required'),
-    contact_number: yup.string().required('Contact Number is Required'),
+    first_name: yup.string().required('First name is required'),
+    last_name: yup.string().required('Last name is required'),
+    contact_number: yup.string().required('Contact number is required'),
     email: yup.string().email('Must be a valid email').required('Email is required'),
-    country: yup.string().required('Country is Required'),
-    state: yup.string().required('State is Required'),
+    country: yup.string().required('Country is required'),
+    state: yup.string().required('State is required'),
     password: yup
       .string()
       .required('Password is required')
-      .test('passwordValidate', 'Invalid Password', (value: any) => {
+      .test('passwordValidate', 'Invalid password', (value: any) => {
         if (value) {
           const validatePasswordResult = validatePassword(value);
           setPasswordValidationResult(validatePasswordResult);
