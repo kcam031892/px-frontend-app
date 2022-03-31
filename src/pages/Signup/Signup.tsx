@@ -52,8 +52,8 @@ const Signup = () => {
     last_name: '',
     contact_number: '',
     email: '',
-    country: 'PH',
-    state: 'AU',
+    country: '',
+    state: '',
     password: '',
   };
 

@@ -30,6 +30,7 @@ const ContactInput: React.FC<Props> = ({ errorMessage, ...props }) => {
           InputProps={{ disableUnderline: true }}
           InputLabelProps={{ shrink: true }}
           style={{ flex: '1' }}
+          errorMessage={errorMessage}
           {...props}
         />
       </Box>
