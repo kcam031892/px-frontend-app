@@ -5,7 +5,7 @@ export const useStyles = makeStyles((theme) =>
     dialogPaper: {
       position: 'absolute',
       right: 16,
-      top: 160,
+      top: 40,
       width: 512,
       paddingBottom: theme.spacing(4),
     },
@@ -14,7 +14,7 @@ export const useStyles = makeStyles((theme) =>
       right: 16,
       top: 60,
       width: 512,
-      height: `calc(100% - 110px)`,
+      height: `calc(100% - 100px)`,
     },
     dialog__header: {
       '& .MuiTypography-root': {

@@ -21,6 +21,7 @@ import { ImageSliderLargeIcon, ImageSliderSmallIcon, MediaUploadIcon, SearchIcon
 import React, { useState } from 'react';
 import { EditorMode } from 'shared/enums/EditorMode';
 import { Button, Input } from 'themes/elements';
+
 import ImageItem from './ImageItem/ImageItem';
 import { ImageSizeSlider } from './ImageSizeSlider';
 import { useStyles } from './ImagesTab.styles';

@@ -1,6 +1,7 @@
 import { Box, Button, Card, CardContent, CardMedia, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
+
 import { useStyles } from './MediaGallery.styles';
 
 type Props = {

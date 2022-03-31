@@ -1,7 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { authDao } from 'shared/dao/authDao';
 import { ISignInRequestPayload, ISignUpRequestPayload, IUser } from 'shared/interfaces/IUser';
 import { ls } from 'shared/utils/ls';
+
 import { AppThunk, RootState } from '../store';
 
 const { loginWithGoogle, loginWithFacebook, logout, getUserProfile: getUserProfileService, login, signup } = authDao();

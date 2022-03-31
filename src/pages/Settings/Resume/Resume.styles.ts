@@ -32,5 +32,8 @@ export const useStyles = makeStyles(() =>
         maxWidth: 1000,
       },
     },
+    isDragging: {
+      display: 'none',
+    },
   }),
 );

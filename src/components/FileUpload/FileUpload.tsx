@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from '@material-ui/core';
 import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
+
 import { useStyles } from './FileUpload.styles';
 
 type Props = {

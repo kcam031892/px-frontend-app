@@ -1,5 +1,5 @@
+import { Tab as MUITab, TabProps } from '@material-ui/core';
 import React from 'react';
-import { ExtendButtonBase, Tab as MUITab, TabProps, TabTypeMap } from '@material-ui/core';
 
 const Tab: React.FC<TabProps> = ({ ...props }) => {
   return <MUITab {...props} />;

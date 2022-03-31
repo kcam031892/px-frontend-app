@@ -1,6 +1,7 @@
 import { Box, Button, Card, CardContent, Typography } from '@material-ui/core';
 import { RichEditor } from 'components';
 import React from 'react';
+
 import { useStyles } from './Biography.styles';
 
 const Biography = () => {

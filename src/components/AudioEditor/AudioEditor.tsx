@@ -1,33 +1,32 @@
 import {
-  Grid,
   Box,
-  IconButton,
   Button,
-  Typography,
+  Grid,
+  IconButton,
+  List,
   ListItem,
   ListItemIcon,
-  ListItemText,
   ListItemSecondaryAction,
-  List,
+  ListItemText,
   Switch,
+  Typography,
 } from '@material-ui/core';
 import { Visibility } from '@material-ui/icons';
 import {
   EditorBackIcon,
+  EditorDeleteIcon,
+  EditorDownloadIcon,
   EditorEditIcon,
   EditorShareIcon,
-  EditorDownloadIcon,
-  EditorDeleteIcon,
   ImageCancelIcon,
   ResetIcon,
 } from 'components/Icons';
 import Waveform from 'components/Waveform/Waveform';
-
 import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
-
 import { EditorMode } from 'shared/enums/EditorMode';
 import { Input, VideoSlider } from 'themes/elements';
+
 import { useStyles } from './AudioEditor.styles';
 
 type Props = {
