@@ -16,23 +16,31 @@ import {
 import { ContactInput, Input, InputPassword } from 'themes/elements';
 import { useStyles } from './MyAccount.styles';
 import { useCardContentStyle } from 'themes/styles/useCardContentStyle';
+import { IAccount } from 'shared/interfaces/IAccount';
 import gender from 'data/Gender.json';
 import country from 'data/Countries.json';
 import state from 'data/States.json';
 import age from 'data/Age.json';
+import talentTypes from 'data/TalentTypes.json';
+import { accountService } from 'shared/services/accountService';
+
+const { getAccount } = accountService();
 
 const MyAccount = () => {
+  const { data } = getAccount();
+
   const classes = useStyles();
   const cardContentStyle = useCardContentStyle();
 
-  const [selectValue, setSelectValue] = useState('');
+  const [selectAgeValue, setSelectAgeValue] = useState('');
+  const [selectCountryValue, setSelectCountryValue] = useState('');
 
   const selectAge = (event: React.ChangeEvent<{ value: any }>) => {
-    setSelectValue(event.target.value);
+    setSelectAgeValue(event.target.value);
   };
 
   const selectCountry = (event: React.ChangeEvent<{ value: any }>) => {
-    setSelectValue(event.target.value);
+    setSelectCountryValue(event.target.value);
   };
 
   return (
@@ -51,6 +59,7 @@ const MyAccount = () => {
                     fullWidth
                     InputProps={{ disableUnderline: true }}
                     InputLabelProps={{ shrink: true }}
+                    value={data?.data.attributes.first_name}
                   />
                 </Grid>
                 <Grid xs={12} md={6} item>
@@ -59,6 +68,7 @@ const MyAccount = () => {
                     fullWidth
                     InputProps={{ disableUnderline: true }}
                     InputLabelProps={{ shrink: true }}
+                    value={data?.data.attributes.last_name}
                   />
                 </Grid>
                 <Grid xs={12} md={6} item>
@@ -66,7 +76,7 @@ const MyAccount = () => {
                     <InputLabel id="lblType" shrink>
                       Gender
                     </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline defaultValue={gender[0].value}>
+                    <Select labelId={'lblType'} disableUnderline value={data?.data.attributes.gender}>
                       {gender.map((i) => (
                         <MenuItem key={i.key} value={i.value}>
                           {i.value}
@@ -93,6 +103,7 @@ const MyAccount = () => {
                     fullWidth
                     InputProps={{ disableUnderline: true }}
                     InputLabelProps={{ shrink: true }}
+                    value={data?.data.attributes.email}
                   />
                 </Grid>
                 <Grid xs={12} md={6} item>
@@ -103,12 +114,10 @@ const MyAccount = () => {
                     <InputLabel id="lblType" shrink>
                       Country of Residence
                     </InputLabel>
-                    <Select
-                      labelId={'lblType'}
-                      onChange={selectCountry}
-                      disableUnderline
-                      defaultValue={country[0].name}
-                    >
+                    <Select labelId={'lblType'} onChange={selectCountry} disableUnderline>
+                      <MenuItem key={'N/A'} value={''}>
+                        Select Country
+                      </MenuItem>
                       {country.map((i) => (
                         <MenuItem key={i.code} value={i.name}>
                           {i.name}
@@ -122,13 +131,19 @@ const MyAccount = () => {
                     <InputLabel id="lblType" shrink>
                       State/Region
                     </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline>
-                      {/* {state.countries.map((i) => (
-                        <MenuItem key={i} value={i.states}>
-                          {i.states}
-                        </MenuItem>
-                      ))} */}
-                    </Select>
+                    {state.countries
+                      .filter((country) => country.country === selectCountryValue)
+                      .map((i) => (
+                        <Select labelId={'lblType'} disableUnderline defaultValue={'Select State'}>
+                          {i.states
+                            .filter((state) => state != null)
+                            .map((j) => (
+                              <MenuItem key={j} value={j}>
+                                {j}
+                              </MenuItem>
+                            ))}
+                        </Select>
+                      ))}
                   </FormControl>
                 </Grid>
               </Grid>
@@ -147,13 +162,12 @@ const MyAccount = () => {
                     <InputLabel id="lblType" shrink>
                       Primary Talent Type
                     </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline>
-                      <MenuItem key={'ACTOR'} value={'ACTOR'}>
-                        Actor
-                      </MenuItem>
-                      <MenuItem key={'US'} value={'UNITED STATES'}>
-                        United States
-                      </MenuItem>
+                    <Select labelId={'lblType'} disableUnderline defaultValue={talentTypes[0].value}>
+                      {talentTypes.map((i) => (
+                        <MenuItem key={i.id} value={i.value}>
+                          {i.label}
+                        </MenuItem>
+                      ))}
                     </Select>
                   </FormControl>
                 </Grid>
@@ -171,7 +185,7 @@ const MyAccount = () => {
                     </Select>
                   </FormControl>
                 </Grid>
-                {selectValue === 'Minor' ? (
+                {selectAgeValue === 'Minor' ? (
                   <Grid xs={6} item>
                     <FormControl margin={'normal'} fullWidth>
                       <Grid container spacing={2} style={{ marginTop: -2 }}>
@@ -190,7 +204,7 @@ const MyAccount = () => {
                             </Select>
                           </FormControl>
                         </Grid>
-                        <Grid xs={3} style={{ paddingTop: '2px' }} item>
+                        <Grid lg={3} style={{ paddingTop: '2px' }} item>
                           <FormControl fullWidth>
                             <InputLabel id="lblAgeRange" shrink>
                               Age Range
@@ -205,7 +219,7 @@ const MyAccount = () => {
                             </Select>
                           </FormControl>
                         </Grid>
-                        <Grid xs={3} item>
+                        <Grid lg={3} md={6} xs={12} item>
                           <FormControl margin={'normal'} style={{ marginBottom: '0px' }} fullWidth>
                             <Select labelId={'lblType'} disableUnderline>
                               <MenuItem key={'ADULT'} value={'ADULT'}>
@@ -221,10 +235,10 @@ const MyAccount = () => {
                     </FormControl>
                   </Grid>
                 ) : (
-                  <Grid xs={6} item>
+                  <Grid lg={6} item>
                     <FormControl margin={'normal'} fullWidth>
                       <Grid container spacing={2} style={{ marginTop: -2 }}>
-                        <Grid xs={6} style={{ paddingTop: '2px' }} item>
+                        <Grid lg={6} style={{ paddingTop: '2px' }} item>
                           <FormControl fullWidth>
                             <InputLabel id="lblAgeRange" shrink>
                               Age Range
@@ -239,7 +253,7 @@ const MyAccount = () => {
                             </Select>
                           </FormControl>
                         </Grid>
-                        <Grid xs={6} item>
+                        <Grid lg={6} item>
                           <FormControl margin={'normal'} style={{ marginBottom: '0px' }} fullWidth>
                             <Select labelId={'lblType'} disableUnderline>
                               <MenuItem key={'ADULT'} value={'ADULT'}>
