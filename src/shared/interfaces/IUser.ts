@@ -32,8 +32,9 @@ export interface ISignUpRequestPayload {
   email: string;
   country: string;
   state: string;
-  password: string;
   user_type: string;
+  password: string;
+  password_confirmation: string;
 }
 
 export interface ISignUpResponsePayload {
