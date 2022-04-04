@@ -32,7 +32,7 @@ import {
   toggleShowYear,
 } from 'shared/redux/slicers/resume.slicer';
 import MediaGallery from './MediaGallery';
-import { Tabs, useAlert } from 'themes/elements';
+import { Backdrop, Tabs, useAlert } from 'themes/elements';
 import { useTabStyle } from 'components/style';
 import {
   DragDropContext,
@@ -44,6 +44,7 @@ import {
 } from 'react-beautiful-dnd';
 import clsx from 'clsx';
 import { talentService } from 'shared/services/talentService';
+import { useQueryClient } from 'react-query';
 
 const galleryTabs = [
   {
@@ -65,7 +66,8 @@ const Resume = () => {
   const tabStyle = useTabStyle();
   const { data, isLoading, isError } = getResume();
   const { mutate, isLoading: isUpdateLoading } = updateTalent();
-  const { isOpen: isAlertOpen, alertRef, AlertOpen } = useAlert({ autoHideDuration: 2000, horizontal: 'right' });
+  const queryClient = useQueryClient();
+  const { isOpen: isAlertOpen, alertRef, AlertOpen } = useAlert({ autoHideDuration: 2000, horizontal: 'center' });
   // const [sections, setSections] = useState<ISection[]>([]);
   const { sections, isSectionShowYear } = useSelector(selectResumeState);
   const dispatch = useDispatch();
@@ -92,7 +94,8 @@ const Resume = () => {
       { resume: sections },
       {
         onSuccess: () => {
-          AlertOpen('success', 'Updated Resume');
+          queryClient.invalidateQueries('talents/resume');
+          AlertOpen('success', 'Resume has been successfully updated.');
         },
       },
     );
@@ -207,7 +210,7 @@ const Resume = () => {
                   onChange={() => handleShowYear()}
                 />
                 <Typography variant="h6" style={{ fontSize: 16 }}>
-                  {isSectionShowYear ? 'Hide Year' : 'Show Year'}
+                  Show Year
                 </Typography>
               </Box>
               <Box mt={2}>
@@ -347,6 +350,7 @@ const Resume = () => {
           </Dialog>
         </>
       )}
+      <Backdrop isLoading={isLoading || isUpdateLoading} />
     </Box>
   );
 };

@@ -23,16 +23,14 @@ type Props = {
   handleRowChange: () => void;
   section: ISection;
   index: number;
-  cardRows: number;
-  cardColumns: number;
+
   handleOpenGalleryDialog: () => void;
 };
 const TableCard: React.FC<Props> = ({
   handleReorderTable,
   section,
   index,
-  cardRows,
-  cardColumns,
+
   handleRowChange,
   handleOpenGalleryDialog,
 }) => {
@@ -92,7 +90,7 @@ const TableCard: React.FC<Props> = ({
                           inputProps={{ tabIndex: rowIndex }}
                           InputProps={{ disableUnderline: true }}
                           InputLabelProps={{ shrink: true }}
-                          value={section.values[rowIndex][0]}
+                          value={section.values[rowIndex].fields[0]}
                           onChange={handleInputChange(rowIndex, 0)}
                           placeholder="Title"
                         />
@@ -105,7 +103,7 @@ const TableCard: React.FC<Props> = ({
                           InputProps={{ disableUnderline: true }}
                           InputLabelProps={{ shrink: true }}
                           onChange={handleInputChange(rowIndex, 1)}
-                          value={section.values[rowIndex][1]}
+                          value={section.values[rowIndex].fields[1]}
                           placeholder="Director"
                         />
                       </Grid>
@@ -117,7 +115,7 @@ const TableCard: React.FC<Props> = ({
                           InputProps={{ disableUnderline: true }}
                           InputLabelProps={{ shrink: true }}
                           onChange={handleInputChange(rowIndex, 2)}
-                          value={section.values[rowIndex][2]}
+                          value={section.values[rowIndex].fields[2]}
                           placeholder="Role"
                         />
                       </Grid>
@@ -130,7 +128,7 @@ const TableCard: React.FC<Props> = ({
                           InputProps={{ disableUnderline: true }}
                           InputLabelProps={{ shrink: true }}
                           onChange={handleInputChange(rowIndex, 3)}
-                          value={section.values[rowIndex][3]}
+                          value={section.values[rowIndex].fields[3]}
                           placeholder="Year"
                         />
                       </Grid>
@@ -142,7 +140,7 @@ const TableCard: React.FC<Props> = ({
                           InputProps={{ disableUnderline: true }}
                           InputLabelProps={{ shrink: true }}
                           onChange={handleInputChange(rowIndex, 4)}
-                          value={section.values[rowIndex][4]}
+                          value={section.values[rowIndex].fields[4]}
                         />
                       </Grid>
                       <Grid item xs>
@@ -154,7 +152,7 @@ const TableCard: React.FC<Props> = ({
                           InputLabelProps={{ shrink: true }}
                           onKeyPress={handleLastInputElement(rowIndex)}
                           onChange={handleInputChange(rowIndex, 5)}
-                          value={section.values[rowIndex][5]}
+                          value={section.values[rowIndex].fields[5]}
                         />
                       </Grid>
 
