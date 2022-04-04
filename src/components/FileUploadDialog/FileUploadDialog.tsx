@@ -8,9 +8,10 @@ import { useStyles } from './FileUploadDialog.styles';
 type Props = {
   open: boolean;
   onClose: () => void;
-  onFileSelected: (name: string, type: string, image: string) => void;
+  onFileSelected: (name: string, type: string, image: string, file?: File) => void;
+  handleSelectFromMedia?: () => void;
 };
-const FileUploadDialog: React.FC<Props> = ({ open, onClose, onFileSelected }) => {
+const FileUploadDialog: React.FC<Props> = ({ open, onClose, onFileSelected, handleSelectFromMedia }) => {
   const classes = useStyles();
   const handleClose = () => onClose();
   return (
@@ -28,7 +29,7 @@ const FileUploadDialog: React.FC<Props> = ({ open, onClose, onFileSelected }) =>
             <RemoveIcon width={19} height={18} viewBox="0 0 19 18" />
           </IconButton>
         </Box>
-        <FileUpload onFileSelected={onFileSelected} />
+        <FileUpload onFileSelected={onFileSelected} handleSelectFromMedia={handleSelectFromMedia} />
       </DialogContent>
     </Dialog>
   );

@@ -14,6 +14,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'shared/constants/ROUTES';
+import { ProfileStatus } from 'shared/enums/ProfileStatus';
 import { RepresentationType } from 'shared/enums/RepresentationType';
 import { IProfile } from 'shared/interfaces/IProfile';
 
@@ -35,13 +36,19 @@ const ProfileListItem: React.FC<Props> = ({ profile }) => {
 
   return (
     <Grid item lg={2} className={classes.container}>
-      <Box className={classes.profileFlag}>
-        <span style={{ textTransform: 'uppercase' }}>
-          {profile.attributes.primary ? 'PRIMARY' : profile.attributes.status}
-        </span>
-      </Box>
       <Card className={classes.card}>
-        <Link to={`${ROUTES.TALENT.PROFILE_DETAIL}/primary_image`}>
+        <Box className={classes.profileFlag}>
+          <span style={{ textTransform: 'uppercase' }}>
+            {profile.attributes.primary ? 'PRIMARY' : profile.attributes.status}
+          </span>
+        </Box>
+        <Link
+          to={
+            profile.attributes.status !== ProfileStatus.PENDING
+              ? `${ROUTES.TALENT.PROFILE_DETAIL}/${profile.id}/primary_image`
+              : '#'
+          }
+        >
           <CardMedia image={profile.attributes.agency_banner_url ?? ''} className={classes.card__media}>
             <Avatar src={profile.attributes.primary_image_url} className={classes.card__avatar} />
           </CardMedia>
@@ -64,6 +71,7 @@ const ProfileListItem: React.FC<Props> = ({ profile }) => {
             aria-haspopup="true"
             className={classes.profile__action__button}
             onClick={handleMenuOpen}
+            disabled={profile.attributes.status === ProfileStatus.PENDING}
           >
             <MoreVertIcon />
           </IconButton>
@@ -81,7 +89,7 @@ const ProfileListItem: React.FC<Props> = ({ profile }) => {
             }}
           >
             <MenuItem onClick={handleMenuClose} className={classes.action__item}>
-              <Link to={`/app/profiles/primaryImage`} className={classes.action__link}>
+              <Link to={`${ROUTES.TALENT.PROFILE_DETAIL}/${profile.id}/primary_image`} className={classes.action__link}>
                 View Profile
               </Link>
             </MenuItem>

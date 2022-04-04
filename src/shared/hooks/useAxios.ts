@@ -97,6 +97,17 @@ export const useAxios = () => {
     }
   };
 
+  const PATCH = async <P, B>(args: IAxios<P, B>): Promise<AxiosResponse> => {
+    try {
+      return await instance({
+        ...args,
+        method: 'PUT',
+      });
+    } catch (e) {
+      throw e;
+    }
+  };
+
   const DELETE = async <P, B>(args: IAxios<P, B>): Promise<AxiosResponse> => {
     try {
       return await instance({
@@ -113,6 +124,7 @@ export const useAxios = () => {
     GET,
     POST,
     PUT,
+    PATCH,
     DELETE,
   };
 };

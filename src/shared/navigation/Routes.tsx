@@ -20,7 +20,7 @@ const Routes = () => {
       <PublicRoute exact path={ROUTES.SIGNUP} component={Signup} />
       <ClientRoute exact path={ROUTES.TALENT.PROFILE} component={AsyncProfileList} />
       <ClientRoute exact path={ROUTES.TALENT.PROFILE_DETAIL} component={AsyncProfileDetail} />
-      <ClientRoute exact path={`${ROUTES.TALENT.PROFILE_DETAIL}/:tab`} component={AsyncProfileDetail} />s
+      <ClientRoute exact path={`${ROUTES.TALENT.PROFILE_DETAIL}/:profileId/:tab`} component={AsyncProfileDetail} />s
       <ClientRoute exact path={`${ROUTES.TALENT.MEDIA}/:tab`} component={AsyncMedia} />
       <ClientRoute exact path={`${ROUTES.TALENT.PROFILE_DETAIL}/:tab`} component={AsyncProfileDetail} />
       <ClientRoute exact path={ROUTES.TALENT.SETTINGS} component={AsyncSettings} />

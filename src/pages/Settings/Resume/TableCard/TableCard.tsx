@@ -10,7 +10,8 @@ import {
   DroppableProvided,
 } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { ISection } from 'shared/interfaces/IProfile';
+import { ISection } from 'shared/interfaces/ITalent';
+
 import { changeTextValues, removeRow, selectResumeState } from 'shared/redux/slicers/resume.slicer';
 import { Input } from 'themes/elements';
 

@@ -1,7 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { SectionType } from 'shared/enums/SectionType';
-import { ISection } from 'shared/interfaces/IProfile';
-import { createEmptyTableArray } from 'shared/utils/createEmptyTableArray';
+import { ISection } from 'shared/interfaces/ITalent';
+
+import { createEmptyColumnArray, createEmptyTableArray } from 'shared/utils/createEmptyTableArray';
 import { generateSectionId } from 'shared/utils/generateSectionId';
 import { swap2DArrayElement, swapArrayElement } from 'shared/utils/swapArrayElement';
 
@@ -17,25 +18,25 @@ const initialState: IResumeState = {
     {
       section_type: SectionType.TABLE,
       title: 'Film',
-      values: [[]],
+      values: [createEmptyColumnArray()],
       section_id: '',
     },
     {
       section_type: SectionType.TABLE,
       title: 'Television',
-      values: [[]],
+      values: [createEmptyColumnArray()],
       section_id: '',
     },
     {
       section_type: SectionType.TABLE,
       title: 'Theater',
-      values: [[]],
+      values: [createEmptyColumnArray()],
       section_id: '',
     },
     {
       section_type: SectionType.TABLE,
       title: 'Modeling',
-      values: [[]],
+      values: [createEmptyColumnArray()],
       section_id: '',
     },
   ],
@@ -45,6 +46,10 @@ export const resumeSlicer = createSlice({
   name: 'resume',
   initialState,
   reducers: {
+    setSection(state: IResumeState, action: PayloadAction<{ sections: ISection[] }>) {
+      const { sections } = action.payload;
+      state.sections = sections;
+    },
     createNewSection(state: IResumeState, action: PayloadAction<{ type: SectionType }>) {
       if (action.payload.type === SectionType.TABLE) {
         const emptyTextArray = createEmptyTableArray();
@@ -125,6 +130,8 @@ export const resumeSlicer = createSlice({
     ) {
       const { sectionIndex, rowIndex, columnIndex, value } = action.payload;
       const getSection = state.sections.filter((section, index) => index === sectionIndex)[0];
+      console.log('getsection', rowIndex, columnIndex, value);
+
       const getValues = getSection.values;
       const updatedValues = getValues.map((row, rIndex) => {
         return rowIndex !== rIndex
@@ -155,6 +162,7 @@ export const resumeSlicer = createSlice({
 export const selectResumeState = (state: RootState) => state.resume;
 
 export const {
+  setSection,
   createNewSection,
   removeSection,
   reorderSection,

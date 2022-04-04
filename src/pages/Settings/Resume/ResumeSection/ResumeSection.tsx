@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { DraggableProvided } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { SectionType } from 'shared/enums/SectionType';
-import { ISection } from 'shared/interfaces/IProfile';
+import { ISection } from 'shared/interfaces/ITalent';
 
 import {
   changeSectionTitle,

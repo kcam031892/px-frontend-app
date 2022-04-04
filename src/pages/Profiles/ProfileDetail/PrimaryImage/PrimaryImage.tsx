@@ -16,25 +16,35 @@ import {
 import { Alert, Autocomplete, createFilterOptions } from '@material-ui/lab';
 import { FileUploadDialog, ImageCropper } from 'components';
 import { RemoveIcon, SearchIcon } from 'components/Icons';
+import { ImageGallery } from 'components/ImageGallery';
 import { Guid } from 'guid-typescript';
 import React, { useState } from 'react';
+import { useParams } from 'react-router';
 import { ImageQuanlityLevel } from 'shared/enums/ImageQualityLevel';
+import { profileService } from 'shared/services/profileService';
 import { Input } from 'themes/elements';
 import { useDebounce } from 'use-debounce';
 
 import { useStyles } from './PrimaryImage.styles';
 
+const { getProfilePrimaryImage, setProfilePrimaryImage } = profileService();
 const PrimaryImage = () => {
+  const { profileId } = useParams() as { profileId: string };
   const classes = useStyles();
   const [tags, setTags] = useState<string[]>([]);
   const [autocompleteKey, setAutoCompleteKey] = useState<string>('');
   const [isFileDialogOpen, setIsFileDialogOpen] = useState<boolean>(false);
   const [autoCompleteValue] = useDebounce(autocompleteKey, 500);
-  const [cropData, setCropData] = useState<string>('https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png');
-  const [cropper, setCropper] = useState<any>();
+  const [cropData, setCropData] = useState<string>('/no-image-placeholder.svg');
+  const [cropper, setCropper] = useState<any>(null);
+  const [hasImage, setIsHasImage] = useState<boolean>(false);
   const [image, setImage] = useState<string>('');
+  const [fileImage, setFileImage] = useState<File | null>(null);
   const [isValidImage, setIsValidImage] = useState<string | null>(null);
   const [qualityLevel, setQualityLevel] = useState<ImageQuanlityLevel>(ImageQuanlityLevel.None);
+  const [isImageGalleryOpen, setIsImageGalleryOpen] = useState<boolean>(false);
+  const { data, isError, isLoading } = getProfilePrimaryImage(profileId);
+  const { mutate } = setProfilePrimaryImage();
 
   const onSelectTag = (newTag: string) => {
     if (!tags.includes(newTag)) {
@@ -53,12 +63,32 @@ const PrimaryImage = () => {
   const getCropData = () => {
     if (typeof cropper !== 'undefined') {
       setCropData(cropper.getCroppedCanvas().toDataURL());
+      setIsHasImage(true);
     }
   };
 
-  const onFileSelected = (name: string, type: string, image: string) => {
+  const onFileSelected = (name: string, type: string, image: string, file?: File) => {
     setImage(image);
+    if (file) {
+      setFileImage(file);
+    }
     closeFileDialog();
+  };
+
+  const handleImageGalleryClose = () => {
+    setIsImageGalleryOpen(false);
+  };
+  const handleImageGalleryOpen = () => {
+    setIsImageGalleryOpen(true);
+  };
+
+  const handleSave = () => {
+    const formData = new FormData();
+
+    if (fileImage) {
+      formData.set('attachment', fileImage);
+      mutate({ profileId, formData });
+    }
   };
 
   return (
@@ -69,12 +99,14 @@ const PrimaryImage = () => {
         </Typography>
 
         <Card className={classes.card}>
-          <CardMedia image={cropData} className={classes.card__media} />
-          <CardContent className={classes.card__content}>
-            <InputBase placeholder="Enter name here" fullWidth />
-            <Typography className={classes.card__text__pixels}>200 x 300 pixels</Typography>
-            <Typography className={classes.card__text__primaryImage}>PRIMARY IMAGE</Typography>
-          </CardContent>
+          <CardMedia image={data ? data.data?.attributes.attachment : cropData} className={classes.card__media} />
+          {(data || hasImage) && (
+            <CardContent className={classes.card__content}>
+              <InputBase placeholder="Enter name here" fullWidth />
+              <Typography className={classes.card__text__pixels}>200 x 300 pixels</Typography>
+              <Typography className={classes.card__text__primaryImage}>PRIMARY IMAGE</Typography>
+            </CardContent>
+          )}
         </Card>
 
         <Box>
@@ -161,7 +193,11 @@ const PrimaryImage = () => {
             <Button variant="outlined" onClick={openFileDialog}>
               Upload New Image
             </Button>
-            <Button variant="contained" disabled={qualityLevel === ImageQuanlityLevel.Reject}>
+            <Button
+              variant="contained"
+              disabled={qualityLevel === ImageQuanlityLevel.Reject}
+              onClick={() => handleSave()}
+            >
               Save
             </Button>
           </Box>
@@ -180,7 +216,13 @@ const PrimaryImage = () => {
           </Typography>
         </Box>
       </Grid>
-      <FileUploadDialog open={isFileDialogOpen} onClose={closeFileDialog} onFileSelected={onFileSelected} />
+      <FileUploadDialog
+        open={isFileDialogOpen}
+        onClose={closeFileDialog}
+        onFileSelected={onFileSelected}
+        handleSelectFromMedia={handleImageGalleryOpen}
+      />
+      <ImageGallery open={isImageGalleryOpen} handleClose={handleImageGalleryClose} />
 
       <Snackbar open={qualityLevel === ImageQuanlityLevel.Reject} autoHideDuration={6000 * 10}>
         <Alert variant="filled" severity="error">
