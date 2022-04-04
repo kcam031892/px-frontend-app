@@ -33,6 +33,7 @@ export interface ISignUpRequestPayload {
   country: string;
   state: string;
   password: string;
+  user_type: string;
 }
 
 export interface ISignUpResponsePayload {

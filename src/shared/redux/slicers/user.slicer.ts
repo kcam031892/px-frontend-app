@@ -82,7 +82,7 @@ export const userSignup =
       const {
         data: { data: user, token },
       } = await signup(payload);
-
+      debugger;
       setLS('auth_token', token);
       setLS('user', JSON.stringify(user));
       dispatch(setUser({ user }));

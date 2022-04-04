@@ -1,11 +1,12 @@
-import { Box, Button, Grid } from '@material-ui/core';
+import { Box, Button, Grid, Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import { FrontLayout } from 'components';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { ISignUpRequestPayload } from 'shared/interfaces/IUser';
-import { ContactInput, Input, InputPassword, Select } from 'themes/elements';
-import { selectUserState, userSignup } from 'shared/redux/slicers/user.slicer';
+import { ContactInput, Input, InputPassword, Select, Backdrop } from 'themes/elements';
+import { selectUserState, userSignup, setErrorMessage } from 'shared/redux/slicers/user.slicer';
 import * as yup from 'yup';
 import { FormikProps, useFormik } from 'formik';
 import { getErrorMessage } from 'shared/utils/getErrorMessage';
@@ -26,7 +27,7 @@ const Signup = () => {
   const [passwordValidationResult, setPasswordValidationResult] = useState<PasswordPrinciple | null>(null);
   const toggleFullModel = () => setIsFullModel((curr) => !curr);
 
-  const { user, isLoading, errorMessage, isLoggedIn } = useSelector(selectUserState);
+  const { isLoading, errorMessage, isLoggedIn } = useSelector(selectUserState);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -51,9 +52,10 @@ const Signup = () => {
     last_name: '',
     contact_number: '',
     email: '',
-    country: '',
+    country: 'US',
     state: '',
     password: '',
+    user_type: 'talent',
   };
 
   const signUpValidationSchema: yup.SchemaOf<ISignUpRequestPayload> = yup.object({
@@ -63,6 +65,7 @@ const Signup = () => {
     email: yup.string().email('Must be a valid email').required('Email is required'),
     country: yup.string().required('Country is required'),
     state: yup.string().required('State is required'),
+    user_type: yup.string().required('User type is required'),
     password: yup
       .string()
       .required('Password is required')
@@ -76,6 +79,10 @@ const Signup = () => {
       }),
   });
 
+  const handleSnackBarClose = () => {
+    dispatch(setErrorMessage(null));
+  };
+
   const handleSignUpSubmit = async (values: ISignUpRequestPayload) => {
     dispatch(userSignup(values));
   };
@@ -83,7 +90,7 @@ const Signup = () => {
   const form: FormikProps<ISignUpRequestPayload> = useFormik({
     initialValues,
     validationSchema: signUpValidationSchema,
-    onSubmit: (values) => console.log(values), // handleSignUpSubmit(values)
+    onSubmit: (values) => handleSignUpSubmit(values),
   });
 
   return (
@@ -195,6 +202,14 @@ const Signup = () => {
             <Button variant="outlined" disableElevation fullWidth component={Link} to={'/login'} tabIndex={11}>
               Cancel to Log In
             </Button>
+          </Grid>
+          <Grid xs={12} md={12} lg={12}>
+            <Snackbar open={!!errorMessage} autoHideDuration={6000} onClose={handleSnackBarClose}>
+              <Alert severity="error" onClose={handleSnackBarClose}>
+                {errorMessage && 'Sign up failed.'}
+              </Alert>
+            </Snackbar>
+            <Backdrop isLoading={isLoading} />
           </Grid>
         </Grid>
       </Box>
