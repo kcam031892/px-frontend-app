@@ -1,9 +1,10 @@
 import { Box, Tab } from '@material-ui/core';
 import React, { useMemo, useState } from 'react';
-import { Route, Link, Switch, useRouteMatch, useParams, Redirect, useLocation } from 'react-router-dom';
+import { Link, Redirect, Route, Switch, useLocation, useParams, useRouteMatch } from 'react-router-dom';
 import { ROUTES } from 'shared/constants/ROUTES';
 import { Tabs } from 'themes/elements';
 import { useTabStyle } from 'themes/styles/useTabStyle';
+
 import Biography from './Biography/Biography';
 import MyAccount from './MyAccount';
 import Resume from './Resume/Resume';

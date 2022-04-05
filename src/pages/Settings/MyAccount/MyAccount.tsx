@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Grid,
-  Typography,
+  Box,
+  Button,
   Card,
   CardContent,
-  Box,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormControlLabel,
   Checkbox,
-  Button,
   TextField,
+  FormControl,
+  FormControlLabel,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
 } from '@material-ui/core';
 import { useQueryClient } from 'react-query';
 import { IAlertStatus } from 'shared/interfaces/utils/IAlert';
@@ -20,7 +20,6 @@ import { AxiosError } from 'axios';
 import { IErrorResponse } from 'shared/interfaces/utils/IErrorResonse';
 import { errorResponseToArray } from 'shared/utils/errorResponseToArray';
 import { ContactInput, Input, InputPassword } from 'themes/elements';
-import { useStyles } from './MyAccount.styles';
 import { useCardContentStyle } from 'themes/styles/useCardContentStyle';
 import { IAccount, IAccountResponsePayload, IAccountUpdatePayload } from 'shared/interfaces/IAccount';
 import gender from 'data/Gender.json';
@@ -31,8 +30,11 @@ import talentTypes from 'data/TalentTypes.json';
 import { accountService } from 'shared/services/accountService';
 import * as yup from 'yup';
 import { FormikProps, useFormik } from 'formik';
+import { PasswordStrength } from 'components/PasswordStrength';
 
 const { getAccount, updateAccount } = accountService();
+
+import { useStyles } from './MyAccount.styles';
 
 const MyAccount = () => {
   const { data } = getAccount();
@@ -90,9 +92,9 @@ const MyAccount = () => {
       },
       onError: (errors: any, variables, context) => {
         if (errors?.response?.data?.errors) {
-          const errorsData = errors?.response?.data?.errors as IErrorResponse;
-          const errorResponseArray = errorResponseToArray(errorsData);
-          alert('error' + errorResponseArray.join(','));
+          // const errorsData = errors?.response?.data?.errors as IErrorResponse;
+          // const errorResponseArray = errorResponseToArray(errorsData);
+          // alert('error' + errorResponseToArray);
         } else {
           alert('Something went wrong');
         }
@@ -418,16 +420,7 @@ const MyAccount = () => {
                   </Grid>
                 </Grid>
                 <Grid xs={6} item className={classes.passwordPrinciples}>
-                  <Typography variant="subtitle2">
-                    Your password must be at least 8 characters in length and include:
-                  </Typography>
-                  <Typography variant="body2">• &nbsp;a minimum of 1 lower case letter [a-z] and</Typography>
-                  <Typography variant="body2">• &nbsp;a minimum of 1 upper case letter [A-Z] and</Typography>
-                  <Typography variant="body2">• &nbsp;a minimum of 1 numeric character [0-9] and</Typography>
-                  <Typography variant="body2">
-                    • &nbsp;a minimum of 1 special character: &nbsp;&nbsp;
-                    {'~`!@#$%^&*()-_+={}[]|;:"<>,./?'}
-                  </Typography>
+                  <PasswordStrength />
                 </Grid>
               </Grid>
             </CardContent>

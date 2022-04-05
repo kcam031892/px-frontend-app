@@ -1,5 +1,5 @@
-import React from 'react';
 import SvgIcon, { SvgIconProps } from '@material-ui/core/SvgIcon';
+import React from 'react';
 
 interface CircleProps extends SvgIconProps {
   fillColor: string | undefined;

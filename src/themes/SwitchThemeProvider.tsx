@@ -1,6 +1,7 @@
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
-import { getThemeByName } from '.';
 import React from 'react';
+
+import { getThemeByName } from '.';
 
 type Props = {
   children: React.ReactNode;

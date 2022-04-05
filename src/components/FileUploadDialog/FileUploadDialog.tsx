@@ -2,6 +2,7 @@ import { Box, Dialog, DialogContent, IconButton } from '@material-ui/core';
 import { FileUpload } from 'components/FileUpload';
 import { RemoveIcon } from 'components/Icons';
 import React from 'react';
+
 import { useStyles } from './FileUploadDialog.styles';
 
 type Props = {

@@ -1,14 +1,15 @@
 import { Box, Grid, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import {
-  DropResult,
   DragDropContext,
-  Droppable,
-  DroppableProvided,
   Draggable,
   DraggableProvided,
   DraggableStateSnapshot,
+  DropResult,
+  Droppable,
+  DroppableProvided,
 } from 'react-beautiful-dnd';
+
 import ImageItem from '../ImageTab/ImageItem/ImageItem';
 import ResumeSection from './ResumeSection/ResumeSection';
 import { useStyles } from './ResumeTab.styles';

@@ -1,8 +1,9 @@
-import { Box, IconButton, Menu, MenuItem, Typography, Divider } from '@material-ui/core';
-import React, { useState } from 'react';
-import { useStyles } from './VideoItem.styles';
+import { Box, Divider, IconButton, Menu, MenuItem, Typography } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { VideoPlayIcon } from 'components/Icons';
+import React, { useState } from 'react';
+
+import { useStyles } from './VideoItem.styles';
 
 type Props = {
   src: string;

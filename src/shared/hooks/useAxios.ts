@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import axios, { AxiosRequestHeaders, AxiosResponse } from 'axios';
 import { CONFIG } from 'shared/config';
-import { tokenService } from 'shared/services/tokenService';
+
 import { ls } from 'shared/utils/ls';
 
 export interface IAxios<P, B> {

@@ -8,8 +8,9 @@ import {
   ListItemText,
   Typography,
 } from '@material-ui/core';
-import { PhotoIcon, VideoIcon, AudioIcon, DocumentIcon } from 'components/Icons';
+import { AudioIcon, DocumentIcon, PhotoIcon, VideoIcon } from 'components/Icons';
 import React from 'react';
+
 import { useStyles } from './UsageData.styles';
 
 const UsageData = () => {

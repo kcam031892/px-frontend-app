@@ -1,10 +1,10 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { SectionType } from 'shared/enums/SectionType';
-
 import { ISection } from 'shared/interfaces/IProfile';
 import { createEmptyTableArray } from 'shared/utils/createEmptyTableArray';
 import { generateSectionId } from 'shared/utils/generateSectionId';
 import { swap2DArrayElement, swapArrayElement } from 'shared/utils/swapArrayElement';
+
 import { RootState } from '../store';
 
 export interface IResumeState {
@@ -13,7 +13,32 @@ export interface IResumeState {
 }
 
 const initialState: IResumeState = {
-  sections: [],
+  sections: [
+    {
+      section_type: SectionType.TABLE,
+      title: 'Film',
+      values: [[]],
+      section_id: '',
+    },
+    {
+      section_type: SectionType.TABLE,
+      title: 'Television',
+      values: [[]],
+      section_id: '',
+    },
+    {
+      section_type: SectionType.TABLE,
+      title: 'Theater',
+      values: [[]],
+      section_id: '',
+    },
+    {
+      section_type: SectionType.TABLE,
+      title: 'Modeling',
+      values: [[]],
+      section_id: '',
+    },
+  ],
   isSectionShowYear: true,
 };
 export const resumeSlicer = createSlice({

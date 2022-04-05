@@ -1,8 +1,9 @@
-import { convertToRaw, EditorState, ContentState } from 'draft-js';
+import { ContentState, EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import React, { useState } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
+
 import { useStyles } from './RichEditor.styles';
 type Props = {
   onChange: (text: string) => void;

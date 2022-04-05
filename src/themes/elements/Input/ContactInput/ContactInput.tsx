@@ -1,10 +1,14 @@
-import { Box, FormControl, InputLabel } from '@material-ui/core';
+import { Box, FormControl, InputLabel, TextFieldProps } from '@material-ui/core';
 import React from 'react';
 import MuiPhoneInput from 'material-ui-phone-number';
+
 import { Input } from '..';
 import { useStyles } from './ContactInput.styles';
 
-const ContactInput = () => {
+type Props = {
+  errorMessage?: string;
+} & TextFieldProps;
+const ContactInput: React.FC<Props> = ({ errorMessage, ...props }) => {
   const classes = useStyles();
   return (
     <FormControl fullWidth>
@@ -13,7 +17,7 @@ const ContactInput = () => {
       </InputLabel>
       <Box className={classes.inputContainer}>
         <MuiPhoneInput
-          defaultCountry="au"
+          defaultCountry="us"
           InputProps={{
             disableUnderline: true,
             readOnly: true,
@@ -26,6 +30,8 @@ const ContactInput = () => {
           InputProps={{ disableUnderline: true }}
           InputLabelProps={{ shrink: true }}
           style={{ flex: '1' }}
+          errorMessage={errorMessage}
+          {...props}
         />
       </Box>
     </FormControl>

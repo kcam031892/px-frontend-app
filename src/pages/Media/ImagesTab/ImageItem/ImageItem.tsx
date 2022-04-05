@@ -1,9 +1,10 @@
 import { Box, Divider, IconButton, Menu, MenuItem, Typography } from '@material-ui/core';
-import React, { useState } from 'react';
-import { useStyles } from './ImageItem.styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { ImageWarnIcon } from 'components/Icons';
 import clsx from 'clsx';
+import { ImageWarnIcon } from 'components/Icons';
+import React, { useState } from 'react';
+
+import { useStyles } from './ImageItem.styles';
 
 type Props = {
   src: string;

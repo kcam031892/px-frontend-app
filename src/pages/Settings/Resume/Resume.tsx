@@ -6,7 +6,6 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControlLabel,
   Grid,
   IconButton,
   Menu,
@@ -14,8 +13,7 @@ import {
   Tab,
   Typography,
 } from '@material-ui/core';
-import { AddNewIcon } from 'components/Icons';
-import AddNew from 'components/Icons/AddNew';
+
 import React, { useState } from 'react';
 
 import { useStyles } from './Resume.styles';
@@ -28,12 +26,22 @@ import {
   addNewRow,
   createNewSection,
   reorderRow,
+  reorderSection,
   selectResumeState,
   toggleShowYear,
 } from 'shared/redux/slicers/resume.slicer';
 import MediaGallery from './MediaGallery';
 import { Tabs } from 'themes/elements';
 import { useTabStyle } from 'components/style';
+import {
+  DragDropContext,
+  Draggable,
+  DraggableProvided,
+  Droppable,
+  DroppableProvided,
+  DropResult,
+} from 'react-beautiful-dnd';
+import clsx from 'clsx';
 
 const galleryTabs = [
   {
@@ -60,6 +68,9 @@ const Resume = () => {
   const [anchorEl, setAnchorEl] = React.useState<any>(null);
   const [galleryDialogOpen, setGalleryDialogOpen] = useState<boolean>(false);
   const [selectedGalleryTab, setSelectedGalleryTab] = useState<string>('images');
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+
+  console.log(sections);
 
   const handleOpenGalleryDialog = () => {
     setGalleryDialogOpen(true);
@@ -144,6 +155,16 @@ const Resume = () => {
     dispatch(toggleShowYear());
   };
 
+  const handleDragEnd = (result: DropResult) => {
+    setIsDragging(false);
+    if (!result.destination) {
+      return;
+    }
+    dispatch(reorderSection({ sourceIndex: result.source.index, destinationIndex: result.destination.index }));
+  };
+
+  const handleDragStart = () => setIsDragging(true);
+
   return (
     <Box className={classes.container}>
       {sections.length > 0 && (
@@ -160,25 +181,50 @@ const Resume = () => {
               {isSectionShowYear ? 'Hide Year' : 'Show Year'}
             </Typography>
           </Box>
+          <Box mt={2}>
+            <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
+              <Droppable droppableId="droppable">
+                {(provided: DroppableProvided) => (
+                  <Grid container spacing={2} ref={provided.innerRef} {...provided.droppableProps}>
+                    {sections.map((section, index) => (
+                      <Draggable
+                        key={index.toString()}
+                        draggableId={index.toString()}
+                        index={index}
+                        disableInteractiveElementBlocking={true}
+                      >
+                        {(providedDraggable: DraggableProvided) => (
+                          <Grid
+                            xs={12}
+                            lg={12}
+                            item
+                            key={index}
+                            {...providedDraggable.draggableProps}
+                            {...providedDraggable.dragHandleProps}
+                            ref={providedDraggable.innerRef}
+                          >
+                            <ResumeSection
+                              section={section}
+                              index={index}
+                              setSelected={handleSetSelected}
+                              isSelected={isSectionSelected(index)}
+                              handleReorderTable={handleReorderTable}
+                              handleRowChange={handleRowChange}
+                              handleColumnChange={handleColumnChange}
+                              handleOpenGalleryDialog={handleOpenGalleryDialog}
+                              providedDraggable={providedDraggable}
+                            />
+                          </Grid>
+                        )}
+                      </Draggable>
+                    ))}
+                  </Grid>
+                )}
+              </Droppable>
+            </DragDropContext>
+          </Box>
 
-          <Grid container spacing={2}>
-            {sections.map((section, index) => (
-              <Grid xs={12} item key={index}>
-                <ResumeSection
-                  section={section}
-                  index={index}
-                  setSelected={handleSetSelected}
-                  isSelected={isSectionSelected(index)}
-                  handleReorderTable={handleReorderTable}
-                  handleRowChange={handleRowChange}
-                  handleColumnChange={handleColumnChange}
-                  handleOpenGalleryDialog={handleOpenGalleryDialog}
-                />
-              </Grid>
-            ))}
-          </Grid>
-
-          <Box className={classes.actionContainer}>
+          <Box className={clsx(classes.actionContainer, { [classes.isDragging]: isDragging })}>
             <Typography variant="body2">
               Note: No external URL’s are permitted in the Biography and will be auto removed when saved.
             </Typography>
@@ -209,7 +255,12 @@ const Resume = () => {
         </>
       )}
 
-      <IconButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} className={classes.addIcon}>
+      <IconButton
+        aria-controls="simple-menu"
+        aria-haspopup="true"
+        onClick={handleClick}
+        className={clsx(classes.addIcon, { [classes.isDragging]: isDragging })}
+      >
         <AddIcon htmlColor="white" />
       </IconButton>
 

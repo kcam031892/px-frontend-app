@@ -24,6 +24,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { EditorMode } from 'shared/enums/EditorMode';
 import { Button, Input, VideoSlider } from 'themes/elements';
+
 import { useStyles } from './VideoEditor.styles';
 type Props = {
   onCloseEditor: () => void;

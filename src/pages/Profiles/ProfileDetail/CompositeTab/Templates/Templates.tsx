@@ -1,6 +1,7 @@
 import { Box, Card, CardContent, Grid, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
+
 import { useStyles } from './Templates.styles';
 
 type Props = {

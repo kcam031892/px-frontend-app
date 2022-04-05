@@ -10,14 +10,14 @@ import {
   MenuItem,
   Typography,
 } from '@material-ui/core';
-
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useStyles } from './ProfileListItem.styles';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { ROUTES } from 'shared/constants/ROUTES';
-import { IProfile } from 'shared/interfaces/IProfile';
 import { RepresentationType } from 'shared/enums/RepresentationType';
+import { IProfile } from 'shared/interfaces/IProfile';
+
+import { useStyles } from './ProfileListItem.styles';
 
 type Props = {
   profile: IProfile;
@@ -34,7 +34,7 @@ const ProfileListItem: React.FC<Props> = ({ profile }) => {
   };
 
   return (
-    <Grid item className={classes.container}>
+    <Grid item lg={2} className={classes.container}>
       <Box className={classes.profileFlag}>
         <span style={{ textTransform: 'uppercase' }}>
           {profile.attributes.primary ? 'PRIMARY' : profile.attributes.status}
@@ -52,9 +52,11 @@ const ProfileListItem: React.FC<Props> = ({ profile }) => {
               ? 'Freelance'
               : profile.attributes.agency_name}
           </Typography>
-          <Typography variant="body2" className={classes.agency__detail}>
-            {profile.attributes.agency_state} • {profile.attributes.agency_country}
-          </Typography>
+          {profile.attributes.agency_state && profile.attributes.agency_country && (
+            <Typography variant="body2" className={classes.agency__detail}>
+              {profile.attributes.agency_state} • {profile.attributes.agency_country}
+            </Typography>
+          )}
 
           <IconButton
             aria-label="more"

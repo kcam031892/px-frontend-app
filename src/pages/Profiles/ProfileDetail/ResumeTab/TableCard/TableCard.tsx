@@ -1,13 +1,13 @@
 import { Grid, IconButton } from '@material-ui/core';
-import { ResumeMediaIcon, MoveIcon, DeleteIcon } from 'components/Icons';
+import { DeleteIcon, MoveIcon, ResumeMediaIcon } from 'components/Icons';
 import React from 'react';
 import {
   DragDropContext,
-  Droppable,
-  DroppableProvided,
   Draggable,
   DraggableProvided,
   DropResult,
+  Droppable,
+  DroppableProvided,
 } from 'react-beautiful-dnd';
 import { Input } from 'themes/elements';
 

@@ -1,10 +1,11 @@
 import { Box, Tab } from '@material-ui/core';
 import React, { useMemo } from 'react';
-import { useParams, useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { ROUTES } from 'shared/constants/ROUTES';
 import { ITab } from 'shared/interfaces/utils/ITab';
 import { Tabs } from 'themes/elements';
 import { useTabStyle } from 'themes/styles/useTabStyle';
+
 import AudioTab from './AudioTab/AudioTab';
 import Dashboard from './Dashboard/Dashboard';
 import ImagesTab from './ImagesTab/ImagesTab';

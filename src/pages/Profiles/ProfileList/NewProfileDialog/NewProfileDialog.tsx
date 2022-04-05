@@ -2,7 +2,6 @@ import {
   Avatar,
   Box,
   Checkbox,
-  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -24,26 +23,27 @@ import {
   Select,
   Typography,
 } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import BackspaceIcon from '@material-ui/icons/Backspace';
 import ClearIcon from '@material-ui/icons/Clear';
 import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
-import { useStyles } from './NewProfileDialog.styles';
-import { SearchIcon } from 'components/Icons';
-import { Button, Input, useAlert } from 'themes/elements';
-import { IProfile, IProfileCreatePayload } from 'shared/interfaces/IProfile';
-import { RepresentationType } from 'shared/enums/RepresentationType';
-import * as yup from 'yup';
-import { FormikProps, useFormik } from 'formik';
-import { useDebounce } from 'use-debounce';
-import { agencyService } from 'shared/services/agencyService';
-import BackspaceIcon from '@material-ui/icons/Backspace';
-import { IAgency } from 'shared/interfaces/utils/IAgency';
-import { profileService } from 'shared/services/profileService';
-import { useQueryClient } from 'react-query';
-import { IAlertStatus } from 'shared/interfaces/utils/IAlert';
 import { AxiosError } from 'axios';
+import { SearchIcon } from 'components/Icons';
+import { FormikProps, useFormik } from 'formik';
+import React, { useEffect, useState } from 'react';
+import { useQueryClient } from 'react-query';
+import { RepresentationType } from 'shared/enums/RepresentationType';
+import { IProfile, IProfileCreatePayload } from 'shared/interfaces/IProfile';
+import { IAgency } from 'shared/interfaces/utils/IAgency';
+import { IAlertStatus } from 'shared/interfaces/utils/IAlert';
 import { IErrorResponse } from 'shared/interfaces/utils/IErrorResonse';
+import { agencyService } from 'shared/services/agencyService';
+import { profileService } from 'shared/services/profileService';
 import { errorResponseToArray } from 'shared/utils/errorResponseToArray';
+import { Button, Input, useAlert } from 'themes/elements';
+import { useDebounce } from 'use-debounce';
+import * as yup from 'yup';
+import profileTypes from 'data/ProfileType.json';
+import { useStyles } from './NewProfileDialog.styles';
 
 const VISIBLE_AGENCY_COUNT = 3;
 const VISIBLE_AGENCY_COUNT_LARGE = 6;
@@ -75,7 +75,7 @@ const NewProfileDialog: React.FC<Props> = ({ open, onClose, hasFreelance, profil
     note: '',
     agency_id: '',
     confirmed_agreement: false,
-    talent_type: 'Talent Agency',
+    profile_type: 'Actor',
   };
 
   const createProfileValidationSchema: yup.SchemaOf<IProfileCreatePayload> = yup.object().shape({
@@ -84,7 +84,7 @@ const NewProfileDialog: React.FC<Props> = ({ open, onClose, hasFreelance, profil
     note: yup.string(),
     agency_id: yup.string(),
     confirmed_agreement: yup.boolean().default(false),
-    talent_type: yup.string().default(''),
+    profile_type: yup.string().required(),
   });
 
   const handleSubmit = (values: IProfileCreatePayload) => {
@@ -94,10 +94,9 @@ const NewProfileDialog: React.FC<Props> = ({ open, onClose, hasFreelance, profil
         onClose();
         AlertOpen('success', 'Added new Profile');
       },
-      onError: (errors: any, variables, context) => {
+      onError: (errors) => {
         if (errors?.response?.data?.errors) {
-          const errorsData = errors?.response?.data?.errors as IErrorResponse;
-          const errorResponseArray = errorResponseToArray(errorsData);
+          const errorResponseArray = errorResponseToArray(errors.response.data.errors);
           AlertOpen('error', errorResponseArray.join(','));
         } else {
           AlertOpen('error', 'Something went wrong');
@@ -184,6 +183,7 @@ const NewProfileDialog: React.FC<Props> = ({ open, onClose, hasFreelance, profil
               </Select>
             </FormControl>
           </Grid>
+
           <Grid item xs={12} md={6}>
             <FormControl margin={'normal'} fullWidth>
               <InputLabel id="lblCountry" shrink>
@@ -204,6 +204,22 @@ const NewProfileDialog: React.FC<Props> = ({ open, onClose, hasFreelance, profil
                 </MenuItem>
               </Select>
             </FormControl>
+          </Grid>
+          <Grid item xs={12} lg={12}>
+            <Select
+              labelId={'lblType'}
+              disableUnderline
+              value={form.values.profile_type}
+              name="profile_type"
+              onChange={form.handleChange}
+              fullWidth
+            >
+              {profileTypes.map((profileType) => (
+                <MenuItem key={profileType.value} value={profileType.value}>
+                  {profileType.label}
+                </MenuItem>
+              ))}
+            </Select>
           </Grid>
           <Grid item xs={12}>
             {form.values.representation_type === RepresentationType.AGENCY_REPRESENTATION && (

@@ -14,12 +14,11 @@ export const useStyles = makeStyles(() =>
       fontWeight: 900,
       fontSize: 10,
       position: 'absolute',
-      top: 28,
-      left: 28,
+      top: 15,
+      left: 18,
       zIndex: 2,
     },
     card: {
-      width: '304px',
       height: '236px',
       position: 'relative',
       borderRadius: 12,
@@ -36,7 +35,7 @@ export const useStyles = makeStyles(() =>
       height: 96,
     },
     card__content: {
-      padding: '12px 16px',
+      padding: '12px 8px',
     },
 
     agency__type: {
@@ -44,7 +43,7 @@ export const useStyles = makeStyles(() =>
       fontSize: 16,
       lineHeight: '24px',
       color: '#25282A',
-      maxWidth: '220px',
+      maxWidth: '130px',
       textOverflow: 'ellipsis',
       overflow: 'hidden',
       whiteSpace: 'nowrap',

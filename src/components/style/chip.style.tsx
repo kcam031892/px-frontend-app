@@ -1,4 +1,4 @@
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 export const useChipStyle = makeStyles((theme: Theme) => {
   return createStyles({
     root: {
