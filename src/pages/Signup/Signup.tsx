@@ -49,7 +49,7 @@ const Signup = () => {
     last_name: '',
     contact_number: '',
     email: '',
-    country: 'US',
+    country: '',
     state: '',
     password: '',
     password_confirmation: '',
