@@ -10,56 +10,60 @@ import { RootState } from '../store';
 
 export interface IResumeState {
   sections: ISection[];
+  oldSections: ISection[];
   isSectionShowYear: boolean;
 }
 
+const initialSections: ISection[] = [
+  {
+    section_type: SectionType.TABLE,
+    title: 'Film',
+    values: [
+      {
+        fields: createEmptyColumnArray(),
+        attachments: [],
+      },
+    ],
+    section_id: '',
+  },
+  {
+    section_type: SectionType.TABLE,
+    title: 'Television',
+    values: [
+      {
+        fields: createEmptyColumnArray(),
+        attachments: [],
+      },
+    ],
+    section_id: '',
+  },
+  {
+    section_type: SectionType.TABLE,
+    title: 'Theater',
+    values: [
+      {
+        fields: createEmptyColumnArray(),
+        attachments: [],
+      },
+    ],
+    section_id: '',
+  },
+  {
+    section_type: SectionType.TABLE,
+    title: 'Modeling',
+    values: [
+      {
+        fields: createEmptyColumnArray(),
+        attachments: [],
+      },
+    ],
+    section_id: '',
+  },
+];
+
 const initialState: IResumeState = {
-  sections: [
-    {
-      section_type: SectionType.TABLE,
-      title: 'Film',
-      values: [
-        {
-          fields: createEmptyColumnArray(),
-          attachments: [],
-        },
-      ],
-      section_id: '',
-    },
-    {
-      section_type: SectionType.TABLE,
-      title: 'Television',
-      values: [
-        {
-          fields: createEmptyColumnArray(),
-          attachments: [],
-        },
-      ],
-      section_id: '',
-    },
-    {
-      section_type: SectionType.TABLE,
-      title: 'Theater',
-      values: [
-        {
-          fields: createEmptyColumnArray(),
-          attachments: [],
-        },
-      ],
-      section_id: '',
-    },
-    {
-      section_type: SectionType.TABLE,
-      title: 'Modeling',
-      values: [
-        {
-          fields: createEmptyColumnArray(),
-          attachments: [],
-        },
-      ],
-      section_id: '',
-    },
-  ],
+  sections: initialSections,
+  oldSections: initialSections,
   isSectionShowYear: true,
 };
 export const resumeSlicer = createSlice({
@@ -69,6 +73,10 @@ export const resumeSlicer = createSlice({
     setSection(state: IResumeState, action: PayloadAction<{ sections: ISection[] }>) {
       const { sections } = action.payload;
       state.sections = sections;
+      state.oldSections = sections;
+    },
+    resetSection(state: IResumeState) {
+      state.sections = state.oldSections;
     },
     createNewSection(state: IResumeState, action: PayloadAction<{ type: SectionType }>) {
       if (action.payload.type === SectionType.TABLE) {
@@ -191,6 +199,7 @@ export const selectResumeState = (state: RootState) => state.resume;
 
 export const {
   setSection,
+  resetSection,
   createNewSection,
   removeSection,
   reorderSection,

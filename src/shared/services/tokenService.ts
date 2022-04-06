@@ -10,6 +10,10 @@ export const tokenService = () => {
     return !!getAuthToken();
   };
 
+  const isCompletedPrimaryDetail = (): boolean => {
+    return getLS('is_completed_primary_details') === 'true';
+  };
+
   const getUser = (): IUser | null => {
     const userLS = getLS('user');
     if (userLS) {
@@ -22,5 +26,6 @@ export const tokenService = () => {
     getAuthToken,
     isAuthenticated,
     getUser,
+    isCompletedPrimaryDetail,
   };
 };

@@ -1,3 +1,4 @@
+import CompleteProfile from 'pages/CompleteProfile/CompleteProfile';
 import Login from 'pages/Login';
 import Signup from 'pages/Signup';
 import React from 'react';
@@ -18,6 +19,7 @@ const Routes = () => {
       <Route exact path={ROUTES.ROOT} component={() => <Redirect to={ROUTES.LOGIN} />} />
       <PublicRoute exact path={ROUTES.LOGIN} component={Login} />
       <PublicRoute exact path={ROUTES.SIGNUP} component={Signup} />
+      <Route exact path={ROUTES.COMPLETE_PROFILE} component={CompleteProfile} />
       <ClientRoute exact path={ROUTES.TALENT.PROFILE} component={AsyncProfileList} />
       <ClientRoute exact path={ROUTES.TALENT.PROFILE_DETAIL} component={AsyncProfileDetail} />
       <ClientRoute exact path={`${ROUTES.TALENT.PROFILE_DETAIL}/:profileId/:tab`} component={AsyncProfileDetail} />s

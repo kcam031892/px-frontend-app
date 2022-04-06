@@ -5,6 +5,7 @@ interface IAttributes {
   email: string;
   first_name: string;
   last_name: string;
+  completed_primary_details: boolean;
 }
 export interface IUser extends ICommon {
   id: string;
@@ -41,4 +42,16 @@ export interface ISignUpResponsePayload {
   message: string;
   data: IUser;
   token: string;
+}
+
+export interface IUserCompleteProfilePayload {
+  first_name: string;
+  last_name: string;
+  password: string;
+  password_confirmation: string;
+}
+
+export interface IUserCompleteProfileResponsePayload {
+  data: IUser;
+  message: string;
 }

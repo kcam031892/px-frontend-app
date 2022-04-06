@@ -5,13 +5,15 @@ import {
   ISignInResponsePayload,
   ISignUpRequestPayload,
   ISignUpResponsePayload,
+  IUserCompleteProfilePayload,
+  IUserCompleteProfileResponsePayload,
 } from 'shared/interfaces/IUser';
 import { authToken } from 'shared/utils/authToken';
 
-const { GET, POST, DELETE } = useAxios();
-const { getAuthToken } = authToken();
+const { GET, POST, DELETE, PATCH } = useAxios();
 
 export const authDao = () => {
+  const { getAuthToken } = authToken();
   const login = async (payload: ISignInRequestPayload) => {
     const response = await POST<ISignInResponsePayload>({
       url: `${ENDPOINTS.USERS}/sign_in`,
@@ -65,6 +67,17 @@ export const authDao = () => {
     };
   };
 
+  const setCompleteProfile = async (payload: IUserCompleteProfilePayload) => {
+    const response = await PATCH<IUserCompleteProfileResponsePayload>({
+      url: `${ENDPOINTS.PROVIDER_AUTHENTICATION}`,
+      data: payload,
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
+    return response.data;
+  };
+
   const logout = async () => {
     const response = await DELETE({
       url: `${ENDPOINTS.USERS}/sign_out`,
@@ -83,6 +96,7 @@ export const authDao = () => {
     loginWithGoogle,
     loginWithFacebook,
     getUserProfile,
+    setCompleteProfile,
     logout,
   };
 };

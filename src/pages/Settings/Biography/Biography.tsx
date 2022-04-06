@@ -1,10 +1,12 @@
 import { Box, Button, Card, CardContent, Typography } from '@material-ui/core';
 import { RichEditor } from 'components';
 import { FormikProps, useFormik } from 'formik';
+import { isEqual } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { ITalentUpdatePayload } from 'shared/interfaces/ITalent';
 import { talentService } from 'shared/services/talentService';
+import { convertContent } from 'shared/utils/convertContent';
 import { Backdrop, useAlert } from 'themes/elements';
 import * as yup from 'yup';
 
@@ -16,8 +18,15 @@ const Biography = () => {
   const { mutate, isLoading: isUpdateLoading } = updateTalent();
   const queryClient = useQueryClient();
   const { data, isLoading } = getBiography();
+  const [oldInitialValues, setOldInitialValues] = useState<ITalentUpdatePayload>({ biography: '' });
   const [initialValues, setInitialValues] = useState<ITalentUpdatePayload>({
     biography: '',
+  });
+  const [oldEditorState, setOldEditorState] = useState(() => {
+    return convertContent('');
+  });
+  const [editorState, setEditorState] = useState(() => {
+    return convertContent('');
   });
   const biographyValidationSchema: yup.SchemaOf<ITalentUpdatePayload> = yup.object().shape({
     resume: yup.array(),
@@ -45,10 +54,20 @@ const Biography = () => {
 
   useEffect(() => {
     if (data) {
-      setInitialValues(data.data.attributes);
+      if (data.data.attributes.biography) {
+        setInitialValues(data.data.attributes);
+        setOldInitialValues(data.data.attributes);
+        setEditorState(convertContent(data.data.attributes.biography || ''));
+        setOldEditorState(convertContent(data.data.attributes.biography || ''));
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
+
+  const handleReset = () => {
+    setEditorState(oldEditorState);
+    form.setFieldValue('biography', oldInitialValues.biography);
+  };
 
   return (
     <Box className={classes.container}>
@@ -60,9 +79,13 @@ const Biography = () => {
               <Typography variant="h6" className={classes.card__title}>
                 &nbsp; &nbsp;
               </Typography>
-              {form.values.biography && (
-                <RichEditor content={form.values.biography} onChange={handleContentChange} minHeight={540} />
-              )}
+
+              <RichEditor
+                editorState={editorState}
+                setEditorState={setEditorState}
+                onChange={handleContentChange}
+                minHeight={0}
+              />
             </CardContent>
           </Card>
           <Box className={classes.actionContainer}>
@@ -77,6 +100,7 @@ const Biography = () => {
                   marginRight: '16px',
                   textTransform: 'none',
                 }}
+                onClick={() => handleReset()}
               >
                 Cancel
               </Button>
@@ -84,7 +108,7 @@ const Biography = () => {
                 variant="contained"
                 color="primary"
                 disableElevation
-                disabled={isUpdateLoading}
+                disabled={isUpdateLoading || isEqual(form.values.biography, oldInitialValues.biography)}
                 onClick={() => form.handleSubmit()}
               >
                 Save

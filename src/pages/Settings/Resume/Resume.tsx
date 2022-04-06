@@ -27,6 +27,7 @@ import {
   createNewSection,
   reorderRow,
   reorderSection,
+  resetSection,
   selectResumeState,
   setSection,
   toggleShowYear,
@@ -45,6 +46,7 @@ import {
 import clsx from 'clsx';
 import { talentService } from 'shared/services/talentService';
 import { useQueryClient } from 'react-query';
+import { isEqual } from 'lodash';
 
 const galleryTabs = [
   {
@@ -69,7 +71,7 @@ const Resume = () => {
   const queryClient = useQueryClient();
   const { isOpen: isAlertOpen, alertRef, AlertOpen } = useAlert({ autoHideDuration: 2000, horizontal: 'center' });
   // const [sections, setSections] = useState<ISection[]>([]);
-  const { sections, isSectionShowYear } = useSelector(selectResumeState);
+  const { sections, isSectionShowYear, oldSections } = useSelector(selectResumeState);
   const dispatch = useDispatch();
   const [isSelected, setSelected] = useState<number>(-1);
   const [anchorEl, setAnchorEl] = React.useState<any>(null);
@@ -99,6 +101,10 @@ const Resume = () => {
         },
       },
     );
+  };
+
+  const handleReset = () => {
+    dispatch(resetSection());
   };
 
   const handleOpenGalleryDialog = () => {
@@ -268,6 +274,8 @@ const Resume = () => {
                       marginRight: '16px',
                       textTransform: 'none',
                     }}
+                    disabled={isEqual(sections, oldSections)}
+                    onClick={() => handleReset()}
                   >
                     Cancel
                   </Button>
@@ -276,9 +284,8 @@ const Resume = () => {
                     disableElevation
                     color="primary"
                     onClick={() => handleSave()}
-                    disabled={isUpdateLoading}
+                    disabled={isUpdateLoading || isEqual(sections, oldSections)}
                     style={{
-                      backgroundColor: '#2962FF',
                       textTransform: 'none',
                     }}
                   >

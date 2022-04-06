@@ -19,7 +19,7 @@ import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-lo
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { ROUTES } from 'shared/constants/ROUTES';
-import { ISignInRequestPayload } from 'shared/interfaces/IUser';
+import { ISignInRequestPayload, ISignInResponsePayload } from 'shared/interfaces/IUser';
 import {
   selectUserState,
   setErrorMessage,
@@ -68,8 +68,12 @@ const Login = () => {
     }),
   });
 
+  const asnycLogin = (values: ISignInRequestPayload): Promise<any> => Promise.resolve(dispatch(userLogin(values)));
   const handleLoginSubmit = async (values: ISignInRequestPayload) => {
-    dispatch(userLogin(values));
+    const response = await asnycLogin(values);
+    if (response) {
+      console.log('login success', response.attributes);
+    }
   };
 
   const form: FormikProps<ISignInRequestPayload> = useFormik({
