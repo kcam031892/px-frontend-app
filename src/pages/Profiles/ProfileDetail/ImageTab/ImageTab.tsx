@@ -63,8 +63,6 @@ const ImageTab = () => {
   const onDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (active && over) {
-      console.log(active.id, over.id);
-
       if (active.id !== over.id) {
         setItems((items: any) => {
           const oldIndex = items.findIndex((x: any) => x.id === active.id);

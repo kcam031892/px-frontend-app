@@ -47,6 +47,7 @@ import clsx from 'clsx';
 import { talentService } from 'shared/services/talentService';
 import { useQueryClient } from 'react-query';
 import { isEqual } from 'lodash';
+import { ConfirmDialog } from 'components';
 
 const galleryTabs = [
   {
@@ -67,6 +68,8 @@ const Resume = () => {
   const classes = useStyles();
   const tabStyle = useTabStyle();
   const { data, isLoading, isError } = getResume();
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  const [dialogType, setDialogType] = useState<string>('');
   const { mutate, isLoading: isUpdateLoading } = updateTalent();
   const queryClient = useQueryClient();
   const { isOpen: isAlertOpen, alertRef, AlertOpen } = useAlert({ autoHideDuration: 2000, horizontal: 'center' });
@@ -90,6 +93,11 @@ const Resume = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, data]);
+
+  const handleOpenDialog = (type: string) => {
+    setIsDialogOpen(true);
+    setDialogType(type);
+  };
 
   const handleSave = () => {
     mutate(
@@ -275,7 +283,7 @@ const Resume = () => {
                       textTransform: 'none',
                     }}
                     disabled={isEqual(sections, oldSections)}
-                    onClick={() => handleReset()}
+                    onClick={() => handleOpenDialog('cancel')}
                   >
                     Cancel
                   </Button>
@@ -283,7 +291,7 @@ const Resume = () => {
                     variant="contained"
                     disableElevation
                     color="primary"
-                    onClick={() => handleSave()}
+                    onClick={() => handleOpenDialog('save')}
                     disabled={isUpdateLoading || isEqual(sections, oldSections)}
                     style={{
                       textTransform: 'none',
@@ -357,6 +365,15 @@ const Resume = () => {
           </Dialog>
         </>
       )}
+
+      <ConfirmDialog
+        open={isDialogOpen}
+        handleClose={() => setIsDialogOpen(false)}
+        title="Confirmation"
+        onConfirm={() => (dialogType === 'save' ? handleSave() : handleReset())}
+      >
+        {dialogType === 'save' ? 'Are you sure you want to save this?' : 'Are you sure you want to cancel this?'}
+      </ConfirmDialog>
       <Backdrop isLoading={isLoading || isUpdateLoading} />
     </Box>
   );

@@ -158,6 +158,7 @@ export const getUserProfile = (): AppThunk => async (dispatch) => {
     const {
       data: { data },
     } = await getUserProfileService();
+    setLS('is_completed_primary_details', data.attributes.completed_primary_details);
     dispatch(setUser({ user: data }));
     dispatch(setIsLoggedIn(true));
   } catch (err: any) {
@@ -177,7 +178,6 @@ export const userLogout = (): AppThunk => async (dispatch) => {
     removeLS('auth_token');
     removeLS('user');
     removeLS('is_completed_primary_details');
-
     dispatch(setIsLoggedIn(false));
   } catch (err: any) {
     dispatch(setErrorMessage(err.response.data.message));

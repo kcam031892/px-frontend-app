@@ -1,5 +1,5 @@
 import { Box, Button, Card, CardContent, Typography } from '@material-ui/core';
-import { RichEditor } from 'components';
+import { ConfirmDialog, RichEditor } from 'components';
 import { FormikProps, useFormik } from 'formik';
 import { isEqual } from 'lodash';
 import React, { useEffect, useState } from 'react';
@@ -15,6 +15,8 @@ const { updateTalent, getBiography } = talentService();
 const Biography = () => {
   const classes = useStyles();
   const { isOpen: isAlertOpen, alertRef, AlertOpen } = useAlert({ autoHideDuration: 2000, horizontal: 'center' });
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  const [dialogType, setDialogType] = useState<string>('');
   const { mutate, isLoading: isUpdateLoading } = updateTalent();
   const queryClient = useQueryClient();
   const { data, isLoading } = getBiography();
@@ -64,9 +66,20 @@ const Biography = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
+  const handleOpenDialog = (type: string) => {
+    setIsDialogOpen(true);
+    setDialogType(type);
+  };
+
+  const handleSave = () => {
+    form.handleSubmit();
+    setIsDialogOpen(false);
+  };
+
   const handleReset = () => {
     setEditorState(oldEditorState);
     form.setFieldValue('biography', oldInitialValues.biography);
+    setIsDialogOpen(false);
   };
 
   return (
@@ -100,7 +113,8 @@ const Biography = () => {
                   marginRight: '16px',
                   textTransform: 'none',
                 }}
-                onClick={() => handleReset()}
+                disabled={isEqual(form.values.biography, oldInitialValues.biography)}
+                onClick={() => handleOpenDialog('reset')}
               >
                 Cancel
               </Button>
@@ -109,7 +123,7 @@ const Biography = () => {
                 color="primary"
                 disableElevation
                 disabled={isUpdateLoading || isEqual(form.values.biography, oldInitialValues.biography)}
-                onClick={() => form.handleSubmit()}
+                onClick={() => handleOpenDialog('save')}
               >
                 Save
               </Button>
@@ -117,6 +131,14 @@ const Biography = () => {
           </Box>
         </>
       )}
+      <ConfirmDialog
+        open={isDialogOpen}
+        handleClose={() => setIsDialogOpen(false)}
+        title="Confirmation"
+        onConfirm={() => (dialogType === 'save' ? handleSave() : handleReset())}
+      >
+        {dialogType === 'save' ? 'Are you sure you want to save this?' : 'Are you sure you want to cancel this?'}
+      </ConfirmDialog>
       <Backdrop isLoading={isLoading || isUpdateLoading} />
     </Box>
   );
