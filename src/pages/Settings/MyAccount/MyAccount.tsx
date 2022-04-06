@@ -35,6 +35,7 @@ import { PasswordStrength } from 'components/PasswordStrength';
 const { getAccount, updateAccount } = accountService();
 
 import { useStyles } from './MyAccount.styles';
+import { Type } from 'typescript';
 
 const MyAccount = () => {
   const { data } = getAccount();
@@ -45,7 +46,6 @@ const MyAccount = () => {
   const cardContentStyle = useCardContentStyle();
 
   const [selectAgeValue, setSelectAgeValue] = useState('');
-  const [selectCountryValue, setSelectCountryValue] = useState(data?.data.attributes.country_of_residence);
 
   const initialValues: IAccountUpdatePayload = {
     email: data ? data.data.attributes.email : '',
@@ -112,21 +112,13 @@ const MyAccount = () => {
     setSelectAgeValue(event.target.value);
   };
 
-  const selectCountry = (event: React.ChangeEvent<{ value: any }>) => {
-    if (data?.data.attributes.country_of_residence) {
-      setSelectCountryValue(data ? data.data.attributes.country_of_residence : '');
-    } else {
-      setSelectCountryValue(event.target.value);
-    }
-  };
-
   useEffect(() => {
     if (data) {
       form.setFieldValue('first_name', data.data.attributes.first_name);
       form.setFieldValue('last_name', data.data.attributes.last_name);
       form.setFieldValue('gender', data.data.attributes.gender);
       form.setFieldValue('email', data.data.attributes.email);
-      // form.setFieldValue('contact_no', data.data.attributes.contact_no);
+      form.setFieldValue('contact_no', data.data.attributes.contact_no);
       form.setFieldValue('country_of_residence', data.data.attributes.country_of_residence);
       form.setFieldValue('state_region', data.data.attributes.state_region);
       form.setFieldValue('primary_type', data.data.attributes.primary_type);
@@ -134,13 +126,6 @@ const MyAccount = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
-
-  const minorAgeRange = () => {
-    const range = [];
-    for (let i = 1; i <= 18; i++) {
-      return i;
-    }
-  };
 
   return (
     <Grid container spacing={0}>
@@ -160,6 +145,7 @@ const MyAccount = () => {
                     InputLabelProps={{ shrink: true }}
                     name="first_name"
                     value={form.values.first_name}
+                    onChange={form.handleChange}
                   />
                 </Grid>
                 <Grid xs={12} md={6} item>
@@ -170,6 +156,7 @@ const MyAccount = () => {
                     InputLabelProps={{ shrink: true }}
                     name="last_name"
                     value={form.values.last_name}
+                    onChange={form.handleChange}
                   />
                 </Grid>
                 <Grid xs={12} md={6} item>
@@ -177,7 +164,14 @@ const MyAccount = () => {
                     <InputLabel id="lblType" shrink>
                       Gender
                     </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline value={form.values.gender} name="gender">
+                    <Select
+                      labelId={'lblType'}
+                      disableUnderline
+                      // onChange={selectGender}
+                      onChange={form.handleChange}
+                      value={form.values.gender}
+                      name="gender"
+                    >
                       {gender.map((i) => (
                         <MenuItem key={i.key} value={i.value}>
                           {i.value}
@@ -206,10 +200,11 @@ const MyAccount = () => {
                     InputLabelProps={{ shrink: true }}
                     value={form.values.email}
                     name="email"
+                    onChange={form.handleChange}
                   />
                 </Grid>
                 <Grid xs={12} md={6} item>
-                  <ContactInput />
+                  <ContactInput value={form.values.contact_no} onChange={form.handleChange} />
                 </Grid>
                 <Grid xs={12} md={6} item>
                   <FormControl margin={'normal'} fullWidth>
@@ -218,10 +213,10 @@ const MyAccount = () => {
                     </InputLabel>
                     <Select
                       labelId={'lblType'}
-                      onChange={selectCountry}
                       disableUnderline
                       value={form.values.country_of_residence}
                       name="country_of_residence"
+                      onChange={form.handleChange}
                     >
                       {country.map((i) => (
                         <MenuItem key={i.code} value={i.name}>
@@ -236,11 +231,17 @@ const MyAccount = () => {
                     <InputLabel id="lblType" shrink>
                       State/Region
                     </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline name="state_region" value={form.values.state_region}>
+                    <Select
+                      labelId={'lblType'}
+                      disableUnderline
+                      name="state_region"
+                      value={form.values.state_region}
+                      onChange={form.handleChange}
+                    >
                       {state.countries
-                        .filter((country) => country.country === selectCountryValue)
+                        .filter((country) => country.country === form.values.country_of_residence)
                         .map((i) => (
-                          <div>
+                          <>
                             {i.states
                               .filter((state) => state != null)
                               .map((j) => (
@@ -248,7 +249,7 @@ const MyAccount = () => {
                                   {j}
                                 </MenuItem>
                               ))}
-                          </div>
+                          </>
                         ))}
                     </Select>
                   </FormControl>
@@ -269,7 +270,13 @@ const MyAccount = () => {
                     <InputLabel id="lblType" shrink>
                       Primary Talent Type
                     </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline name="primary_type" value={form.values.primary_type}>
+                    <Select
+                      labelId={'lblType'}
+                      disableUnderline
+                      name="primary_type"
+                      value={form.values.primary_type}
+                      onChange={form.handleChange}
+                    >
                       {talentTypes.map((i) => (
                         <MenuItem key={i.id} value={i.value}>
                           {i.label}
@@ -284,11 +291,11 @@ const MyAccount = () => {
                       Adult/Minor
                     </InputLabel>
                     <Select
-                      onChange={selectAge}
                       labelId={'lblType'}
                       disableUnderline
                       name="adult_minor"
                       value={form.values.adult_minor}
+                      onChange={form.handleChange}
                     >
                       {age.map((i) => (
                         <MenuItem key={i.key} value={i.value}>
