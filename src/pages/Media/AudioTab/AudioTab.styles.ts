@@ -3,6 +3,11 @@ import { createStyles, makeStyles } from '@material-ui/core';
 export const useStyles = makeStyles(() =>
   createStyles({
     container: {},
+    grid__flex: {
+      display: 'flex',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+    },
     header: {
       display: 'flex',
       justifyContent: 'space-between',

@@ -22,6 +22,11 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { EditorMode } from 'shared/enums/EditorMode';
 import { Button, Input } from 'themes/elements';
+import { ENDPOINTS } from 'shared/constants/ENDPOINTS';
+import { authToken } from 'shared/utils/authToken';
+import { useAxios } from 'shared/hooks/useAxios';
+import qs from 'query-string';
+import IMedia, { IMediaResponse } from 'shared/interfaces/utils/IMedia';
 
 import { ImageSizeSlider } from '../ImagesTab/ImageSizeSlider';
 import VideoItem from './VideoItem/VideoItem';
@@ -46,9 +51,13 @@ const VideoTab = () => {
     imageCol: Math.floor(((width - 240) * 8) / 12 / 180),
     imageHeight: Math.floor(180 * 1.25),
   };
+  const { getAuthToken } = authToken();
+  const { GET } = useAxios();
+
   const [videoListState, setVideoListState] = useState<VideoListState>(initialVideoListState);
   const [sliderValue, setSliderValue] = useState<number>(6);
   const [isEditorOpen, setIsEditorOpen] = useState<boolean>(false);
+  const [videos, setVideos] = useState<IMedia[]>([]);
 
   const handleSliderValueChange = (event: React.ChangeEvent<{}>, value: number | number[]) => {
     if (typeof value === 'number') {
@@ -64,13 +73,20 @@ const VideoTab = () => {
     }
   };
 
-  useEffect(() => {
-    if (location.search) {
-      if (location.search === '?edit' || location.search === '?view') {
-        setIsEditorOpen(true);
-      }
-    }
-  }, [location.search]);
+  const getVideos = async () => {
+    const params = qs.stringify({
+      file_type: 'video',
+    });
+
+    const response = await GET<IMediaResponse>({
+      url: `${ENDPOINTS.MEDIA}?${params}`,
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
+
+    return response.data;
+  };
 
   const handleEditVideo = (mode: EditorMode) => {
     if (mode === EditorMode.VIEW) {
@@ -89,6 +105,22 @@ const VideoTab = () => {
       search: '',
     });
   };
+
+  useEffect(() => {
+    if (location.search) {
+      if (location.search === '?edit' || location.search === '?view') {
+        setIsEditorOpen(true);
+      }
+    }
+  }, [location.search]);
+
+  useEffect(() => {
+    getVideos().then((videos) => {
+      if (!videos?.data.length) return;
+
+      setVideos(videos.data);
+    });
+  }, []); // eslint-disable-line
 
   return (
     <Box>
@@ -128,21 +160,11 @@ const VideoTab = () => {
         {/* Video List */}
         <Grid item xs={12} lg={8}>
           <ImageList rowHeight={IMAGE_HEIGHT} cols={IMAGE_COL} gap={8} className={classes.videoList}>
-            <ImageListItem cols={1 * videoListState.ratio}>
-              <VideoItem src="https://picsum.photos/200/300" handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
-            </ImageListItem>
-            <ImageListItem cols={2 * videoListState.ratio}>
-              <VideoItem src="https://picsum.photos/200/300" handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
-            </ImageListItem>
-            <ImageListItem cols={2 * videoListState.ratio}>
-              <VideoItem src="https://picsum.photos/200/300" handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
-            </ImageListItem>
-            <ImageListItem cols={2 * videoListState.ratio}>
-              <VideoItem src="https://picsum.photos/200/300" handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
-            </ImageListItem>
-            <ImageListItem cols={2 * videoListState.ratio}>
-              <VideoItem src="https://picsum.photos/200/300" handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
-            </ImageListItem>
+            {videos.map((video: IMedia) => (
+              <ImageListItem cols={1 * videoListState.ratio} key={video.id}>
+                <video width="100%" height="auto" src={video.attributes.attachment_url} controls />
+              </ImageListItem>
+            ))}
           </ImageList>
         </Grid>
         {/* Filter / Searching */}

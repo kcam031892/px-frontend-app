@@ -6,8 +6,6 @@ import {
   FormControlLabel,
   Grid,
   IconButton,
-  ImageList,
-  ImageListItem,
   InputAdornment,
   LinearProgress,
   Radio,
@@ -22,9 +20,13 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { EditorMode } from 'shared/enums/EditorMode';
 import { Button, Input } from 'themes/elements';
+import { ENDPOINTS } from 'shared/constants/ENDPOINTS';
+import { authToken } from 'shared/utils/authToken';
+import { useAxios } from 'shared/hooks/useAxios';
+import qs from 'query-string';
+import IMedia, { IMediaResponse } from 'shared/interfaces/utils/IMedia';
 
 import { ImageSizeSlider } from '../ImagesTab/ImageSizeSlider';
-import VideoItem from '../VideoTab/VideoItem/VideoItem';
 import { useStyles } from './AudioTab.styles';
 
 interface AudioListState {
@@ -39,17 +41,19 @@ const AudioTab = () => {
   const history = useHistory();
   const location = useLocation();
   const [width] = useWindowSize();
-  const IMAGE_COL = Math.floor(((width - 240) * 8) / 12 / 180);
-  const IMAGE_HEIGHT = Math.floor(180 * 1.25);
   const initialAudioListState: AudioListState = {
     imageSlider: 6,
     ratio: 1,
     imageCol: Math.floor(((width - 240) * 8) / 12 / 180),
     imageHeight: Math.floor(180 * 1.25),
   };
+  const { getAuthToken } = authToken();
+  const { GET } = useAxios();
+
   const [audioListState, setAudioListState] = useState<AudioListState>(initialAudioListState);
   const [sliderValue, setSliderValue] = useState<number>(6);
   const [isEditorOpen, setIsEditorOpen] = useState<boolean>(false);
+  const [audios, setAudios] = useState<IMedia[]>([]);
 
   const handleSliderValueChange = (event: React.ChangeEvent<{}>, value: number | number[]) => {
     if (typeof value === 'number') {
@@ -65,6 +69,27 @@ const AudioTab = () => {
     }
   };
 
+  const getAudios = async () => {
+    const params = qs.stringify({
+      file_type: 'audio',
+    });
+
+    const response = await GET<IMediaResponse>({
+      url: `${ENDPOINTS.MEDIA}?${params}`,
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
+
+    return response.data;
+  };
+
+  const handleOnCloseEditor = () => {
+    history.push({
+      search: '',
+    });
+  };
+
   useEffect(() => {
     if (location.search) {
       if (location.search === '?edit' || location.search === '?view') {
@@ -73,23 +98,14 @@ const AudioTab = () => {
     }
   }, [location.search]);
 
-  const handleEditVideo = (mode: EditorMode) => {
-    if (mode === EditorMode.VIEW) {
-      history.push({
-        search: '?view',
-      });
-    } else {
-      history.push({
-        search: '?edit',
-      });
-    }
-  };
+  useEffect(() => {
+    getAudios().then((audios) => {
+      if (!audios?.data.length) return;
 
-  const handleOnCloseEditor = () => {
-    history.push({
-      search: '',
+      setAudios(audios.data);
     });
-  };
+  }, []); // eslint-disable-line
+
   return (
     <Box>
       {/* Top */}
@@ -98,19 +114,6 @@ const AudioTab = () => {
         <Grid item xs={12} lg={8}>
           <Box className={classes.header}>
             <Typography className={classes.header__title}>Audios</Typography>
-            <Box className={classes.header__sliderContainer}>
-              <ImageSliderSmallIcon width="16" height="16" viewBox="0 0 16 16" style={{ fontSize: 16 }} />
-              <ImageSizeSlider
-                aria-labelledby="continuous-slider"
-                style={{ width: 96, margin: '0 16px' }}
-                step={2}
-                min={2}
-                max={10}
-                value={sliderValue}
-                onChange={handleSliderValueChange}
-              />
-              <ImageSliderLargeIcon width="24" height="24" viewBox="0 0 24 24" style={{ fontSize: 24 }} />
-            </Box>
           </Box>
         </Grid>
         {/* Button */}
@@ -127,23 +130,13 @@ const AudioTab = () => {
       <Grid container spacing={10} style={{ marginTop: '2rem' }}>
         {/* Video List */}
         <Grid item xs={12} lg={8}>
-          <ImageList rowHeight={IMAGE_HEIGHT} cols={IMAGE_COL} gap={8} className={classes.audioList}>
-            <ImageListItem cols={1 * audioListState.ratio}>
-              <VideoItem src="https://picsum.photos/200/300" handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
-            </ImageListItem>
-            <ImageListItem cols={2 * audioListState.ratio}>
-              <VideoItem src="https://picsum.photos/200/300" handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
-            </ImageListItem>
-            <ImageListItem cols={2 * audioListState.ratio}>
-              <VideoItem src="https://picsum.photos/200/300" handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
-            </ImageListItem>
-            <ImageListItem cols={2 * audioListState.ratio}>
-              <VideoItem src="https://picsum.photos/200/300" handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
-            </ImageListItem>
-            <ImageListItem cols={2 * audioListState.ratio}>
-              <VideoItem src="https://picsum.photos/200/300" handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
-            </ImageListItem>
-          </ImageList>
+          <div className={classes.grid__flex}>
+            {audios.map((audio: IMedia) => (
+              <div style={{ marginBottom: '10px', marginRight: '15px' }} key={audio.id}>
+                <audio src={audio.attributes.attachment_url} controls />
+              </div>
+            ))}
+          </div>
         </Grid>
         {/* Filter / Searching */}
         <Grid item xs={12} lg={4}>
