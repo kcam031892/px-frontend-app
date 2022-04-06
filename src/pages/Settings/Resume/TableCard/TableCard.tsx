@@ -1,4 +1,4 @@
-import { Grid, IconButton } from '@material-ui/core';
+import { Box, Grid, IconButton } from '@material-ui/core';
 import { DeleteIcon, MoveIcon, ResumeMediaIcon } from 'components/Icons';
 import React from 'react';
 import {
@@ -19,20 +19,19 @@ import { useStyles } from './TableCard.styles';
 
 type Props = {
   handleReorderTable: (sectionIndex: number, sourceIndex: number, destinationIndex: number) => void;
-  handleColumnChange: (arrayIndex: number, num: number) => void;
   handleRowChange: () => void;
   section: ISection;
   index: number;
-
   handleOpenGalleryDialog: () => void;
+  setIsTableDragging: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const TableCard: React.FC<Props> = ({
   handleReorderTable,
   section,
   index,
-
   handleRowChange,
   handleOpenGalleryDialog,
+  setIsTableDragging,
 }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -42,11 +41,14 @@ const TableCard: React.FC<Props> = ({
   //   if (!result.destination) {
   //     return;
   // };
+  const handleDragStart = () => {
+    setIsTableDragging(true);
+  };
   const handleDragEnd = (result: DropResult) => {
+    setIsTableDragging(false);
     if (!result.destination) {
       return;
     }
-
     handleReorderTable(index, result.source.index, result.destination.index);
   };
 
@@ -67,12 +69,11 @@ const TableCard: React.FC<Props> = ({
   };
 
   return (
-    <>
-      <DragDropContext onDragEnd={handleDragEnd}>
+    <Box mt={1}>
+      <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
         <Droppable droppableId="droppable">
           {(provided: DroppableProvided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
-              {provided.placeholder}
               {Array.from({ length: section.values.length }).map((_, rowIndex) => (
                 <Draggable key={rowIndex.toString()} draggableId={rowIndex.toString()} index={rowIndex}>
                   {(providedDraggable: DraggableProvided) => (
@@ -183,7 +184,7 @@ const TableCard: React.FC<Props> = ({
           )}
         </Droppable>
       </DragDropContext>
-    </>
+    </Box>
   );
 };
 

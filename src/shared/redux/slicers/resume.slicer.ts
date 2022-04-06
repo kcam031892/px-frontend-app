@@ -1,10 +1,10 @@
+import { arrayMove } from '@dnd-kit/sortable';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { SectionType } from 'shared/enums/SectionType';
 import { ISection, ISectionValues } from 'shared/interfaces/ITalent';
 
 import { createEmptyColumnArray, createEmptyTableArray } from 'shared/utils/createEmptyTableArray';
 import { generateSectionId } from 'shared/utils/generateSectionId';
-import { swap2DArrayElement, swapArrayElement, swapSectionElement } from 'shared/utils/swapArrayElement';
 
 import { RootState } from '../store';
 
@@ -80,7 +80,6 @@ export const resumeSlicer = createSlice({
     },
     createNewSection(state: IResumeState, action: PayloadAction<{ type: SectionType }>) {
       if (action.payload.type === SectionType.TABLE) {
-        const emptyTextArray = createEmptyTableArray();
         state.sections.push({
           section_type: SectionType.TABLE,
           sequence: state.sections.length + 1,
@@ -106,7 +105,7 @@ export const resumeSlicer = createSlice({
     reorderSection(state: IResumeState, action: PayloadAction<{ sourceIndex: number; destinationIndex: number }>) {
       const { sourceIndex, destinationIndex } = action.payload;
       const sections = state.sections;
-      const swappedArray = swapArrayElement<ISection>(sections, sourceIndex, destinationIndex);
+      const swappedArray = arrayMove(sections, sourceIndex, destinationIndex);
       state.sections = swappedArray;
     },
     addNewRow(state: IResumeState, action: PayloadAction<{ index: number }>) {
@@ -148,7 +147,7 @@ export const resumeSlicer = createSlice({
       const getSection = state.sections.filter((section, index) => index === sectionIndex)[0];
       if (getSection.values) {
         const arrayText = getSection.values;
-        const swappedArray = swapSectionElement(arrayText, sourceIndex, destinationIndex);
+        const swappedArray = arrayMove(arrayText, sourceIndex, destinationIndex);
         const updatedSection: ISection = { ...getSection, values: swappedArray };
         const updatedSections = state.sections.map((section, index) => {
           return index === sectionIndex ? updatedSection : section;

@@ -31,7 +31,7 @@ const ClientRoute: React.FC<Props> = ({ component: Component, exact, path }) => 
         component={() => {
           if (isAuthenticated() && isCompletedPrimaryDetail()) {
             return <Component />;
-          } else if (!isCompletedPrimaryDetail()) {
+          } else if (isAuthenticated() && !isCompletedPrimaryDetail()) {
             return <Redirect to={ROUTES.COMPLETE_PROFILE} />;
           } else {
             return <Redirect to={ROUTES.LOGIN} />;

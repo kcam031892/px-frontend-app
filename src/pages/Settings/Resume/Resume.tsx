@@ -73,7 +73,7 @@ const Resume = () => {
   const { mutate, isLoading: isUpdateLoading } = updateTalent();
   const queryClient = useQueryClient();
   const { isOpen: isAlertOpen, alertRef, AlertOpen } = useAlert({ autoHideDuration: 2000, horizontal: 'center' });
-  // const [sections, setSections] = useState<ISection[]>([]);
+
   const { sections, isSectionShowYear, oldSections } = useSelector(selectResumeState);
   const dispatch = useDispatch();
   const [isSelected, setSelected] = useState<number>(-1);
@@ -81,7 +81,6 @@ const Resume = () => {
   const [galleryDialogOpen, setGalleryDialogOpen] = useState<boolean>(false);
   const [selectedGalleryTab, setSelectedGalleryTab] = useState<string>('images');
   const [isDragging, setIsDragging] = useState<boolean>(false);
-  console.log('sections', sections);
 
   useEffect(() => {
     if (!isError && data) {
@@ -109,10 +108,12 @@ const Resume = () => {
         },
       },
     );
+    setIsDialogOpen(false);
   };
 
   const handleReset = () => {
     dispatch(resetSection());
+    setIsDialogOpen(false);
   };
 
   const handleOpenGalleryDialog = () => {
@@ -153,45 +154,6 @@ const Resume = () => {
 
   const handleReorderTable = (sectionIndex: number, sourceIndex: number, destinationIndex: number) => {
     dispatch(reorderRow({ sectionIndex, sourceIndex, destinationIndex }));
-  };
-
-  const handleColumnChange = (arrayIndex: number, num: number) => {
-    // const section = sections.filter((_, index) => index === arrayIndex)[0];
-    // if (section.values) {
-    //   const arrayText = section.values;
-    //   if (arrayText[0].length === num) return;
-    //   const updatedArrayText = arrayText.map((arrText) => {
-    //     if (arrText.length > num) {
-    //       return arrText.slice(0, -(arrText.length - num));
-    //     }
-    //     return [...arrText, ...createEmptyColumnArray()];
-    //   });
-    //   const updatedSection: ISection = { ...section, values: updatedArrayText };
-    //   const updatedSections = sections.map((section, index) => {
-    //     return index === arrayIndex ? updatedSection : section;
-    //   });
-    //   setSections(updatedSections);
-    // }
-  };
-
-  const handleRowChange = (arrayIndex: number, num: number) => {
-    dispatch(addNewRow({ index: arrayIndex }));
-    // const section = sections.filter((_, index) => index === arrayIndex)[0];
-    // if (section.values) {
-    //   let arrayText = section.values;
-    //   // if (arrayText.length === num) return;
-    //   // if (arrayText.length > num) {
-    //   //   arrayText = arrayText.slice(0, -(arrayText.length - num));
-    //   // } else {
-    //   // }
-    //   const emptyTextArray = createEmptyTableArray();
-    //   arrayText = [...emptyTextArray, ...arrayText];
-    //   const updatedSection: ISection = { ...section, values: arrayText };
-    //   const updatedSections = sections.map((section, index) => {
-    //     return index === arrayIndex ? updatedSection : section;
-    //   });
-    //   setSections(updatedSections);
-    // }
   };
 
   const handleShowYear = () => {
@@ -255,8 +217,6 @@ const Resume = () => {
                                   setSelected={handleSetSelected}
                                   isSelected={isSectionSelected(index)}
                                   handleReorderTable={handleReorderTable}
-                                  handleRowChange={handleRowChange}
-                                  handleColumnChange={handleColumnChange}
                                   handleOpenGalleryDialog={handleOpenGalleryDialog}
                                   providedDraggable={providedDraggable}
                                 />
