@@ -51,8 +51,9 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
   const classes = useStyles();
   const cardContentStyle = useCardContentStyle();
 
-  const [selectAgeValue, setSelectAgeValue] = useState('');
+  const [selectAgeValue, setSelectAgeValue] = useState(data ? data.data.attributes.adult_minor : '');
   const [isTrue, setIsTrue] = useState(data ? data.data.attributes.representation : false);
+  const [selectCountryValue, setSelectCountryVaue] = useState(data ? data.data.attributes.country : '');
 
   const initialValues: IAccountUpdatePayload = {
     email: data ? data.data.attributes.email : '',
@@ -61,9 +62,10 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
     last_name: data ? data.data.attributes.last_name : '',
     gender: data ? data.data.attributes.gender : '',
     contact_no: data ? data.data.attributes.contact_no : '',
-    country_of_residence: data ? data.data.attributes.country_of_residence : 'United States',
+    country: data ? data.data.attributes.country : '',
+    country_code: data ? data.data.attributes.country_code : '',
     primary_type: data ? data.data.attributes.primary_type : '',
-    adult_minor: data ? data.data.attributes.adult_minor : '',
+    adult_minor: data ? data.data.attributes.adult_minor : 'Adult',
     state_region: data ? data.data.attributes.state_region : '',
     age_range_from: data ? data.data.attributes.age_range_from : '',
     age_range_to: data ? data.data.attributes.age_range_to : '',
@@ -79,7 +81,8 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
     last_name: yup.string().required(),
     gender: yup.string().required(),
     contact_no: yup.string().required(),
-    country_of_residence: yup.string().required(),
+    country: yup.string().required(),
+    country_code: yup.string().required(),
     primary_type: yup.string(),
     adult_minor: yup.string().required(),
     state_region: yup.string().required(),
@@ -94,8 +97,7 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
     mutate(values, {
       onSuccess: () => {
         queryClient.invalidateQueries('accounts');
-        AlertOpen('success', 'Profile has been updated');
-        console.log(values);
+        AlertOpen('success', 'Account has been updated');
       },
       onError: (errors: any, variables, context) => {
         if (errors?.response?.data?.errors) {
@@ -118,6 +120,13 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
     setSelectAgeValue(event.target.value);
   };
 
+  const selectCountry = (e: React.ChangeEvent<{ value: any }>) => {
+    const value = country.filter(function (item) {
+      return item.name == e.target.value;
+    });
+    form.setFieldValue('country_code', value[0].code);
+  };
+
   useEffect(() => {
     if (data) {
       form.setFieldValue('first_name', data.data.attributes.first_name);
@@ -125,11 +134,14 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
       form.setFieldValue('gender', data.data.attributes.gender);
       form.setFieldValue('email', data.data.attributes.email);
       form.setFieldValue('contact_no', data.data.attributes.contact_no);
-      form.setFieldValue('country_of_residence', data.data.attributes.country_of_residence);
+      form.setFieldValue('country', data.data.attributes.country);
+      form.setFieldValue('country_code', data.data.attributes.country_code);
       form.setFieldValue('primary_type', data.data.attributes.primary_type);
       form.setFieldValue('adult_minor', data.data.attributes.adult_minor);
       form.setFieldValue('representation', data.data.attributes.representation);
       form.setFieldValue('state_region', data.data.attributes.state_region);
+      form.setFieldValue('age_range_from', data.data.attributes.age_range_from);
+      form.setFieldValue('age_range_to', data.data.attributes.age_range_to);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
@@ -225,9 +237,12 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
                     <Select
                       labelId={'lblType'}
                       disableUnderline
-                      value={form.values.country_of_residence}
-                      name="country_of_residence"
-                      onChange={form.handleChange}
+                      value={form.values.country}
+                      name="country"
+                      onChange={(e) => {
+                        form.handleChange(e);
+                        selectCountry(e);
+                      }}
                     >
                       {country.map((i) => (
                         <MenuItem key={i.code} value={i.name}>
@@ -235,6 +250,13 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
                         </MenuItem>
                       ))}
                     </Select>
+                    <input
+                      id="country_code"
+                      value={form.values.country_code}
+                      name="country_code"
+                      onChange={form.handleChange}
+                      type="hidden"
+                    ></input>
                   </FormControl>
                 </Grid>
                 <Grid xs={12} md={6} item>
@@ -250,7 +272,7 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
                       onChange={form.handleChange}
                     >
                       {state
-                        .filter((state) => state.countryCode === form.values.country_of_residence)
+                        .filter((state) => state.countryCode === form.values.country_code)
                         .map((i) => (
                           <MenuItem key={i.id} value={i.name}>
                             {i.name}
@@ -341,7 +363,13 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
                             <InputLabel id="lblAgeRange" shrink>
                               Age Range From
                             </InputLabel>
-                            <Select labelId={'lblType'} disableUnderline>
+                            <Select
+                              labelId={'lblType'}
+                              value={form.values.age_range_from}
+                              onChange={form.handleChange}
+                              name="age_range_from"
+                              disableUnderline
+                            >
                               {(() => {
                                 const ageRange = [];
 
@@ -363,7 +391,13 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
                             <InputLabel id="lblAgeRange" shrink>
                               Age Range To
                             </InputLabel>
-                            <Select labelId={'lblType'} disableUnderline>
+                            <Select
+                              labelId={'lblType'}
+                              value={form.values.age_range_to}
+                              onChange={form.handleChange}
+                              name="age_range_to"
+                              disableUnderline
+                            >
                               {(() => {
                                 const ageRange = [];
 
@@ -474,8 +508,8 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
         </Grid>
       </Grid>
       <Box mt={3}>
-        <Button variant="contained" disableElevation onClick={() => form.handleSubmit()}>
-          Save Changes
+        <Button variant="contained" disableElevation onClick={() => form.handleSubmit()} disabled={isMutationLoading}>
+          {isMutationLoading ? 'Saving Changes...' : 'Save Changes'}
         </Button>
       </Box>
     </Grid>
