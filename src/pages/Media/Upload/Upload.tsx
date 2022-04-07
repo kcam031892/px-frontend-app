@@ -1,12 +1,13 @@
 import { Box, Button, Grid, Typography } from '@material-ui/core';
 import { FileUpload, UsageData } from 'components';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ENDPOINTS } from 'shared/constants/ENDPOINTS';
 import { authToken } from 'shared/utils/authToken';
 import { useAxios } from 'shared/hooks/useAxios';
-import IMedia from 'shared/interfaces/utils/IMedia';
+import IMedia, { IMediaAggregatesResponse, IAggregates } from 'shared/interfaces/utils/IMedia';
 import { PhotoIcon, VideoIcon, AudioIcon } from 'components/Icons';
 import { useStyles } from './Upload.styles';
+import { formatBytes } from 'shared/utils/formatBytes';
 
 interface UploadedFile extends IMedia {
   isCompleted?: boolean;
@@ -15,9 +16,10 @@ interface UploadedFile extends IMedia {
 const Upload = () => {
   const classes = useStyles();
   const { getAuthToken } = authToken();
-  const { POST } = useAxios();
+  const { GET, POST } = useAxios();
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [progress, setProgress] = useState(0);
+  const [aggregates, setAggregates] = useState<IAggregates>();
 
   function dataURLtoFile(dataurl: string, filename: string) {
     const arr = dataurl.split(','),
@@ -38,6 +40,17 @@ const Upload = () => {
     image.src = url;
 
     image.addEventListener('load', () => callback(image));
+  };
+
+  const getMediaAggregates = async () => {
+    const response = await GET<IMediaAggregatesResponse>({
+      url: `${ENDPOINTS.MEDIA}_aggregates`,
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
+
+    return response.data;
   };
 
   const sendFile = async (data: FormData) => {
@@ -66,6 +79,11 @@ const Upload = () => {
           return uploadedFile;
         }),
       );
+      getMediaAggregates().then((aggregates) => {
+        if (!aggregates?.data) return;
+
+        setAggregates(aggregates.data);
+      });
     });
   };
 
@@ -132,15 +150,13 @@ const Upload = () => {
     setUploadedFiles((prevFiles) => prevFiles.filter((_, fileIndex) => fileIndex !== idx));
   };
 
-  const formatBytes = (bytes: number) => {
-    if (bytes === 0) return '0 Bytes';
+  useEffect(() => {
+    getMediaAggregates().then((aggregates) => {
+      if (!aggregates?.data) return;
 
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-  };
+      setAggregates(aggregates.data);
+    });
+  }, []); // eslint-disable-line
 
   return (
     <Box>
@@ -200,7 +216,7 @@ const Upload = () => {
         </Grid>
         {/* Usage Data */}
         <Grid item xs={12} lg={4}>
-          <UsageData />
+          <UsageData data={aggregates} />
         </Grid>
       </Grid>
     </Box>

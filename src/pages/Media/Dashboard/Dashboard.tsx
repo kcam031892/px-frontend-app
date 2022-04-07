@@ -8,7 +8,7 @@ import { ENDPOINTS } from 'shared/constants/ENDPOINTS';
 import { authToken } from 'shared/utils/authToken';
 import { useAxios } from 'shared/hooks/useAxios';
 import qs from 'query-string';
-import IMedia, { IMediaResponse } from 'shared/interfaces/utils/IMedia';
+import IMedia, { IMediaResponse, IMediaAggregatesResponse, IAggregates } from 'shared/interfaces/utils/IMedia';
 
 import { useStyles } from './Dashboard.styles';
 
@@ -22,6 +22,7 @@ const Dashboard = () => {
   const [images, setImages] = useState<IMedia[]>([]);
   const [videos, setVideos] = useState<IMedia[]>([]);
   const [audios, setAudios] = useState<IMedia[]>([]);
+  const [aggregates, setAggregates] = useState<IAggregates>();
 
   const getFiles = async (type: string) => {
     const params = qs.stringify({
@@ -30,6 +31,17 @@ const Dashboard = () => {
 
     const response = await GET<IMediaResponse>({
       url: `${ENDPOINTS.MEDIA}?${params}`,
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
+
+    return response.data;
+  };
+
+  const getMediaAggregates = async () => {
+    const response = await GET<IMediaAggregatesResponse>({
+      url: `${ENDPOINTS.MEDIA}_aggregates`,
       headers: {
         Authorization: `Bearer ${getAuthToken()}`,
       },
@@ -55,6 +67,12 @@ const Dashboard = () => {
       if (!audio?.data.length) return;
 
       setAudios(audio.data);
+    });
+
+    getMediaAggregates().then((aggregates) => {
+      if (!aggregates?.data) return;
+
+      setAggregates(aggregates.data);
     });
   }, []); // eslint-disable-line
 
@@ -123,7 +141,7 @@ const Dashboard = () => {
 
         {/* Usage Data */}
         <Grid item xs={12} lg={4}>
-          <UsageData />
+          <UsageData data={aggregates} />
         </Grid>
       </Grid>
     </Box>
