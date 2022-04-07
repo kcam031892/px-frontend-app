@@ -1,0 +1,36 @@
+[
+    {
+      "category": "Skills",
+      "values": [
+        {
+            "key": "Novice",
+            "value": "Novice"
+        },
+        {
+            "key": "Intermediate",
+            "value": "Intermediate"
+        },
+        {
+            "key": "Expert/Professional",
+            "value": "Expert/Professional"
+        }
+      ]
+    },
+    {
+        "category": "Language",
+        "values": [
+          {
+              "key": "Novice",
+              "value": "Novice"
+          },
+          {
+              "key": "Conversational",
+              "value": "Conversational"
+          },
+          {
+              "key": "Fluent",
+              "value": "Fluent"
+          }
+        ]
+      }
+]

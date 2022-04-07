@@ -1,0 +1,666 @@
+[
+    {
+      "category": "Accents",
+      "subgroup": "North American",
+      "skills": [
+            {
+                "key": "American - Californian",
+                "value": "American - Californian"
+            },
+            {
+                "key": "American - Midwest",
+                "value": "American - Midwest"
+            },
+            {
+                "key": "American - New England",
+                "value": "American - New England"
+            },
+            {
+                "key": "American - New York",
+                "value": "American - New York"
+            },
+            {
+                "key": "American - Southern States",
+                "value": "American - Southern States"
+            },
+            {
+                "key": "American - Standard",
+                "value": "American - Standard"
+            },
+            {
+                "key": "American - Urban",
+                "value": "American - Urban"
+            },
+            {
+                "key": "American - Western States",
+                "value": "American - Western States"
+            },
+            {
+                "key": "Canadian",
+                "value": "Canadian"
+            },
+            {
+                "key": "Caribbean",
+                "value": "Caribbean"
+            }
+        ]
+    },
+    {
+        "category": "Accents",
+        "subgroup": "South American",
+        "skills": [
+            {
+                "key": "Latin American",
+                "value": "Latin American"
+            },
+            {
+                "key": "Mexican",
+                "value": "Mexican"
+            },
+            {
+                "key": "Portuguese",
+                "value": "Portuguese"
+            },
+            {
+                "key": "Latin Spanish",
+                "value": "Latin Spanish"
+            }
+        ]
+    },
+    {
+        "category": "Accents",
+        "subgroup": "Asian",
+        "skills": [
+            {
+                "key": "Chinese",
+                "value": "Chinese"
+            },
+            {
+                "key": "Indonesian",
+                "value": "Indonesian"
+            },
+            {
+                "key": "Japanese",
+                "value": "Japanese"
+            },
+            {
+                "key": "Korean",
+                "value": "Korean"
+            },
+            {
+                "key": "Malay",
+                "value": "Malay"
+            },
+            {
+                "key": "Filipino - Tagalog",
+                "value": "Filipino - Tagalog"
+            },
+            {
+                "key": "Filipino - Cebuano",
+                "value": "Filipino - Cebuano"
+            },
+            {
+                "key": "Singaporean",
+                "value": "Singaporean"
+            },
+            {
+                "key": "Thai",
+                "value": "Thai"
+            },
+            {
+                "key": "Vietnamese",
+                "value": "Vietnamese"
+            },
+            {
+                "key": "Taiwanese",
+                "value": "Taiwanese"
+            },
+            {
+                "key": "South Korean",
+                "value": "South Korean"
+            },
+            {
+                "key": "Mongolian",
+                "value": "Mongolian"
+            },
+            {
+                "key": "Indian",
+                "value": "Indian"
+            }
+        ]
+    },
+    {
+        "category": "Accents",
+        "subgroup": "Australia/New Zealand",
+        "skills": [
+            {
+                "key": "Australian",
+                "value": "Australian"
+            },
+            {
+                "key": "Aboriginal/ Torres Straight",
+                "value": "Aboriginal/ Torres Straight"
+            },
+            {
+                "key": "New Zealand",
+                "value": "New Zealand"
+            },
+            {
+                "key": "New Zealand Maori",
+                "value": "New Zealand Maori"
+            }
+        ]
+    },
+    {
+        "category": "Accents",
+        "subgroup": "English",
+        "skills": [
+            {
+                "key": "English Standard",
+                "value": "English Standard"
+            },
+            {
+                "key": "Cornwall",
+                "value": "Cornwall"
+            },
+            {
+                "key": "Yorkshire",
+                "value": "Yorkshire"
+            },
+            {
+                "key": "Manchester",
+                "value": "Manchester"
+            },
+            {
+                "key": "Liverpool",
+                "value": "Liverpool"
+            },
+            {
+                "key": "Midlands",
+                "value": "Midlands"
+            },
+            {
+                "key": "Cockney",
+                "value": "Cockney"
+            },
+            {
+                "key": "Irish",
+                "value": "Irish"
+            },
+            {
+                "key": "Scottish",
+                "value": "Scottish"
+            },
+            {
+                "key": "North England",
+                "value": "North England"
+            },
+            {
+                "key": "South England",
+                "value": "South England"
+            },
+            {
+                "key": "London",
+                "value": "London"
+            },
+            {
+                "key": "London (East End)",
+                "value": "London (East End)"
+            },
+            {
+                "key": "Newcastle",
+                "value": "Newcastle"
+            },
+            {
+                "key": "Norfolk",
+                "value": "Norfolk"
+            },
+            {
+                "key": "Welsh",
+                "value": "Welsh"
+            }
+        ]
+    },
+    {
+        "category": "Accents",
+        "subgroup": "Other European",
+        "skills": [
+            {
+                "key": "Danish",
+                "value": "Danish"
+            },
+            {
+                "key": "Dutch",
+                "value": "Dutch"
+            },
+            {
+                "key": "East European",
+                "value": "East European"
+            },
+            {
+                "key": "French",
+                "value": "French"
+            },
+            {
+                "key": "German",
+                "value": "German"
+            },
+            {
+                "key": "Greek",
+                "value": "Greek"
+            },
+            {
+                "key": "Italian",
+                "value": "Italian"
+            },
+            {
+                "key": "Polish",
+                "value": "Polish"
+            },
+            {
+                "key": "Russian",
+                "value": "Russian"
+            },
+            {
+                "key": "Spanish",
+                "value": "Spanish"
+            },
+            {
+                "key": "Scandinavian",
+                "value": "Scandinavian"
+            }
+        ]
+    },
+    {
+        "category": "Accents",
+        "subgroup": "African",
+        "skills": [
+            {
+                "key": "South African",
+                "value": "South African"
+            },
+            {
+                "key": "Afrikaans",
+                "value": "Afrikaans"
+            },
+            {
+                "key": "Boer",
+                "value": "Boer"
+            }
+        ]
+    },
+    {
+        "category": "Accents",
+        "subgroup": "Other Accents",
+        "skills": [
+            {
+                "key": "Arabic",
+                "value": "Arabic"
+            },
+            {
+                "key": "Indian",
+                "value": "Indian"
+            },
+            {
+                "key": "Middle Eastern",
+                "value": "Middle Eastern"
+            },
+            {
+                "key": "Pakistani",
+                "value": "Pakistani"
+            },
+            {
+                "key": "Polynesian",
+                "value": "Polynesian"
+            },{
+                "key": "Samoan",
+                "value": "Samoan"
+            },
+            {
+                "key": "Tongan",
+                "value": "Tongan"
+            },
+            {
+                "key": "Figiian",
+                "value": "Figiian"
+            }
+        ]
+    },
+    {
+        "category": "Languages",
+        "subgroup": "English",
+        "skills": [
+            {
+                "key": "English",
+                "value": "English"
+            }
+        ]
+    },
+    {
+        "category": "Languages",
+        "subgroup": "Aborigine/ Island",
+        "skills": [
+            {
+                "key": "Australian Aboriginal",
+                "value": "Australian Aboriginal"
+            },
+            {
+                "key": "Inuit",
+                "value": "Inuit"
+            },
+            {
+                "key": "New Zealand Maori",
+                "value": "New Zealand Maori"
+            },
+            {
+                "key": "Native American",
+                "value": "Native American"
+            },
+            {
+                "key": "Samoan",
+                "value": "Samoan"
+            },
+            {
+                "key": "Tongan",
+                "value": "Tongan"
+            },
+            {
+                "key": "Fijiian",
+                "value": "Fijiian"
+            }
+        ]
+    },
+    {
+        "category": "Languages",
+        "subgroup": "African",
+        "skills": [
+            {
+                "key": "Senegalese",
+                "value": "Senegalese"
+            },
+            {
+                "key": "Swaheli",
+                "value": "Swaheli"
+            },
+            {
+                "key": "Afrikaans",
+                "value": "Afrikaans"
+            },
+            {
+                "key": "Zulu",
+                "value": "Zulu"
+            }
+        ]
+    },
+    {
+        "category": "Languages",
+        "subgroup": "Asian",
+        "skills": [
+            {
+                "key": "Cantonese",
+                "value": "Cantonese"
+            },
+            {
+                "key": "Indonesian",
+                "value": "Indonesian"
+            },
+            {
+                "key": "Japanese",
+                "value": "Japanese"
+            },
+            {
+                "key": "Korean",
+                "value": "Korean"
+            },
+            {
+                "key": "Malay",
+                "value": "Malay"
+            },
+            {
+                "key": "Mandarin",
+                "value": "Mandarin"
+            },
+            {
+                "key": "Filipino - Tagalog",
+                "value": "Filipino - Tagalog"
+            },
+            {
+                "key": "Filipino - Cebuano",
+                "value": "Filipino - Cebuano"
+            },
+            {
+                "key": "Singaporean",
+                "value": "Singaporean"
+            },
+            {
+                "key": "Thai",
+                "value": "Thai"
+            }
+        ]
+    },
+    {
+        "category": "Languages",
+        "subgroup": "Eastern",
+        "skills": [
+            {
+                "key": "Arabic",
+                "value": "Arabic"
+            },
+            {
+                "key": "Bengali",
+                "value": "Bengali"
+            },
+            {
+                "key": "Farsi",
+                "value": "Farsi"
+            },
+            {
+                "key": "Fukien",
+                "value": "Fukien"
+            },
+            {
+                "key": "Gujarati",
+                "value": "Gujarati"
+            },
+            {
+                "key": "Hebrew",
+                "value": "Hebrew"
+            },
+            {
+                "key": "Hindi",
+                "value": "Hindi"
+            },
+            {
+                "key": "Kurdish",
+                "value": "Kurdish"
+            },
+            {
+                "key": "Punjabi",
+                "value": "Punjabi"
+            },
+            {
+                "key": "Sinhalese",
+                "value": "Sinhalese"
+            },
+            {
+                "key": "Turkish",
+                "value": "Turkish"
+            },
+            {
+                "key": "Urdu",
+                "value": "Urdu"
+            }
+        ]
+    },
+    {
+        "category": "Languages",
+        "subgroup": "European",
+        "skills": [
+            {
+                "key": "Danish",
+                "value": "Danish"
+            },
+            {
+                "key": "Dutch",
+                "value": "Dutch"
+            },
+            {
+                "key": "French",
+                "value": "French"
+            },
+            {
+                "key": "German",
+                "value": "German"
+            },
+            {
+                "key": "Greek",
+                "value": "Greek"
+            },
+            {
+                "key": "Italian",
+                "value": "Italian"
+            },
+            {
+                "key": "Portuguese",
+                "value": "Portuguese"
+            },
+            {
+                "key": "Russian",
+                "value": "Russian"
+            },
+            {
+                "key": "Scandanavian",
+                "value": "Scandanavian"
+            },
+            {
+                "key": "Spanish",
+                "value": "Spanish"
+            }
+        ]
+    },
+    {
+        "category": "Languages",
+        "subgroup": "Other European",
+        "skills": [
+            {
+                "key": "Armenian",
+                "value": "Armenian"
+            },
+            {
+                "key": "Bulgarian",
+                "value": "Bulgarian"
+            },
+            {
+                "key": "Cornish",
+                "value": "Cornish"
+            },
+            {
+                "key": "Croatian",
+                "value": "Croatian"
+            },
+            {
+                "key": "Czech",
+                "value": "Czech"
+            },
+            {
+                "key": "Esperanto",
+                "value": "Esperanto"
+            },
+            {
+                "key": "Finnish",
+                "value": "Finnish"
+            },
+            {
+                "key": "Flemish",
+                "value": "Flemish"
+            },
+            {
+                "key": "Gaelic",
+                "value": "Gaelic"
+            },
+            {
+                "key": "Hungarian",
+                "value": "Hungarian"
+            },
+            {
+                "key": "Icelandic",
+                "value": "Icelandic"
+            },
+            {
+                "key": "Latvian",
+                "value": "Latvian"
+            },
+            {
+                "key": "Lithuanian",
+                "value": "Lithuanian"
+            },
+            {
+                "key": "Macedonian",
+                "value": "Macedonian"
+            },
+            {
+                "key": "Maltese",
+                "value": "Maltese"
+            },
+            {
+                "key": "Polish",
+                "value": "Polish"
+            },
+            {
+                "key": "Romanian",
+                "value": "Romanian"
+            },
+            {
+                "key": "Serbian",
+                "value": "Serbian"
+            },
+            {
+                "key": "Serbo-Croat",
+                "value": "Serbo-Croat"
+            },
+            {
+                "key": "Slavonic",
+                "value": "Slavonic"
+            },
+            {
+                "key": "Welsh",
+                "value": "Welsh"
+            },
+            {
+                "key": "Yiddish",
+                "value": "Yiddish"
+            },
+            {
+                "key": "Patios",
+                "value": "Patios"
+            }
+            ,
+            {
+                "key": "Romany",
+                "value": "Romany"
+            }
+        ]
+    },
+    {
+        "category": "Languages",
+        "subgroup": "Other Languages",
+        "skills": [
+            {
+                "key": "Sign Language",
+                "value": "Sign Language"
+            },
+            {
+                "key": "Tahitian",
+                "value": "Tahitian"
+            },
+            {
+                "key": "Up in Aborigine/Island",
+                "value": "Up in Aborigine/Island"
+            },
+            {
+                "key": "Brazilian - Portuguese",
+                "value": "Brazilian - Portuguese"
+            }
+        ]
+    }
+]
