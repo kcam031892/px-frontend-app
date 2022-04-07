@@ -39,8 +39,16 @@ export const profileService = () => {
   };
 
   const setProfilePrimaryImage = () => {
-    return useMutation(({ profileId, formData }: { profileId: string; formData: FormData }) =>
-      setProfilePrimaryImageDao(profileId, formData),
+    return useMutation(
+      ({
+        profileId,
+        formData,
+        onProgress,
+      }: {
+        profileId: string;
+        formData: FormData;
+        onProgress: (current: number) => void;
+      }) => setProfilePrimaryImageDao(profileId, formData, onProgress),
     );
   };
 

@@ -10,10 +10,12 @@ import {
   DroppableProvided,
 } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
+import { GENERATE_DATES } from 'shared/constants/GENERATE_DATES';
 import { ISection } from 'shared/interfaces/ITalent';
+import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
 
 import { changeTextValues, removeRow, selectResumeState } from 'shared/redux/slicers/resume.slicer';
-import { Input } from 'themes/elements';
+import { Input, Select } from 'themes/elements';
 
 import { useStyles } from './TableCard.styles';
 
@@ -62,6 +64,10 @@ const TableCard: React.FC<Props> = ({
 
   const handleInputChange = (rowIndex: number, columnIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(changeTextValues({ sectionIndex: index, rowIndex, columnIndex, value: event.target.value }));
+  };
+
+  const handleDateChange = (rowIndex: number, columnIndex: number, value: string) => {
+    dispatch(changeTextValues({ sectionIndex: index, rowIndex, columnIndex, value }));
   };
 
   const handleRemoveRow = (rowIndex: number) => {
@@ -121,17 +127,34 @@ const TableCard: React.FC<Props> = ({
                         />
                       </Grid>
                       <Grid item xs>
-                        <Input
-                          type={isSectionShowYear ? 'text' : 'hidden'}
-                          fullWidth
-                          margin={'normal'}
-                          inputProps={{ tabIndex: rowIndex }}
-                          InputProps={{ disableUnderline: true }}
-                          InputLabelProps={{ shrink: true }}
-                          onChange={handleInputChange(rowIndex, 3)}
-                          value={section.values[rowIndex].fields[3]}
-                          placeholder="Year"
-                        />
+                        {isSectionShowYear ? (
+                          <Select
+                            data={GENERATE_DATES}
+                            fullWidth
+                            MenuProps={{
+                              anchorOrigin: {
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                              },
+                              getContentAnchorEl: null,
+                            }}
+                            value={section.values[rowIndex].fields[3]}
+                            onChange={(e) => handleDateChange(rowIndex, 3, e.target.value as string)}
+                          />
+                        ) : (
+                          <Input
+                            type={isSectionShowYear ? 'number' : 'hidden'}
+                            fullWidth
+                            margin={'normal'}
+                            inputProps={{ tabIndex: rowIndex }}
+                            InputProps={{
+                              disableUnderline: true,
+                            }}
+                            InputLabelProps={{ shrink: true }}
+                            value={section.values[rowIndex].fields[3]}
+                            placeholder="Year"
+                          />
+                        )}
                       </Grid>
                       <Grid item xs>
                         <Input

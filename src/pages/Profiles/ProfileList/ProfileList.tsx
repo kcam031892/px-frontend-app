@@ -35,7 +35,7 @@ const ProfileList = () => {
         {isLoading ? (
           <>
             {Array.from({ length: 18 }).map((_, i) => (
-              <Grid item lg={2}>
+              <Grid item lg={2} key={i}>
                 <ProfileSkeleton />
               </Grid>
             ))}

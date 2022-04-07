@@ -9,7 +9,7 @@ const Input: React.FC<Props> = ({ errorMessage, ...props }) => {
     <>
       <TextField
         error={!!errorMessage}
-        type={'text'}
+        type={props.type || 'text'}
         {...props}
         inputProps={{
           ...props.inputProps,

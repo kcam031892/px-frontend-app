@@ -54,6 +54,9 @@ export interface IProfilePrimaryImage {
     medium_id: string;
     medium_type: string;
     medium_tag_list: string[];
+    medium_height: number;
+    medium_width: number;
+    medium_name: string;
   };
 }
 export interface IProfilePrimaryImageResponsePayload extends ICommonCreateResponsePayload {

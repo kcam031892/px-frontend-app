@@ -56,10 +56,17 @@ export const profileDao = () => {
     return response.data;
   };
 
-  const setProfilePrimaryImage = async (profileId: string, formData: FormData) => {
+  const setProfilePrimaryImage = async (
+    profileId: string,
+    formData: FormData,
+    onProgress: (current: number) => void,
+  ) => {
     const response = await POST<IProfilePrimaryImageResponsePayload>({
       url: `${ENDPOINTS.PROFILE}/${profileId}/primary_image`,
       data: formData,
+      onUploadProgress: (progressEvent) => {
+        onProgress((progressEvent.loaded / progressEvent.total) * 100);
+      },
       headers: {
         Authorization: `Bearer ${getAuthToken()}`,
       },
