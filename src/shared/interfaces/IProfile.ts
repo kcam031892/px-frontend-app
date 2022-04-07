@@ -1,14 +1,7 @@
+import { ProfileStatus } from 'shared/enums/ProfileStatus';
 import { RepresentationType } from 'shared/enums/RepresentationType';
 import { SectionType } from 'shared/enums/SectionType';
 import { ICommonCreateResponsePayload } from './ICommon';
-
-export interface ISection {
-  section_type: SectionType;
-  sequence?: number;
-  title: string;
-  values: string[][];
-  section_id: string;
-}
 
 export interface IProfile {
   id: string;
@@ -16,7 +9,7 @@ export interface IProfile {
   attributes: {
     representation_type: RepresentationType;
     primary: boolean;
-    status: string | null;
+    status: ProfileStatus | null;
     country: string;
     note: string;
     confirmed_agreement: boolean;
@@ -28,6 +21,7 @@ export interface IProfile {
     agency_country: string | null;
     agency_logo_url: string | null;
     agency_banner_url: string | null;
+    profile_type: string;
     created_at: number;
     updated_at: number;
   };
@@ -37,6 +31,10 @@ export interface IProfileResponsePayload {
   data: IProfile[];
 }
 
+export interface ISingleProfileResponsePayload {
+  data: IProfile;
+}
+
 export interface IProfileCreatePayload {
   representation_type: RepresentationType;
   country: string;
@@ -44,6 +42,22 @@ export interface IProfileCreatePayload {
   agency_id?: string;
   confirmed_agreement: boolean;
   profile_type: string;
+}
+
+export interface IProfilePrimaryImage {
+  id: string;
+  type: string;
+  attributes: {
+    primary: boolean;
+    profile_id: string;
+    attachment: string;
+    medium_id: string;
+    medium_type: string;
+    medium_tag_list: string[];
+  };
+}
+export interface IProfilePrimaryImageResponsePayload extends ICommonCreateResponsePayload {
+  data: IProfilePrimaryImage;
 }
 
 export interface IProfileCreateResponsePayload extends ICommonCreateResponsePayload {

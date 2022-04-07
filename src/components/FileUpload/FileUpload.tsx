@@ -6,17 +6,23 @@ import { useStyles } from './FileUpload.styles';
 
 type Props = {
   showDefaultText?: boolean;
-  onFileSelected: (name: string, type: string, image: string) => void;
+  onFileSelected: (name: string, type: string, image: string, file?: File) => void;
   variant?: 'primaryImage' | 'uploader';
+  handleSelectFromMedia?: () => void;
 };
-const FileUpload: React.FC<Props> = ({ showDefaultText, onFileSelected, variant = 'primaryImage' }) => {
+const FileUpload: React.FC<Props> = ({
+  showDefaultText,
+  onFileSelected,
+  variant = 'primaryImage',
+  handleSelectFromMedia,
+}) => {
   const classes = useStyles();
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       acceptedFiles.forEach((file) => {
         const reader = new FileReader();
         reader.onload = () => {
-          onFileSelected(file.name, file.type, reader.result as string);
+          onFileSelected(file.name, file.type, reader.result as string, file);
         };
         reader.readAsDataURL(file);
       });
@@ -24,10 +30,17 @@ const FileUpload: React.FC<Props> = ({ showDefaultText, onFileSelected, variant 
     [onFileSelected],
   );
 
+  const _handleSelectFromMedia = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    if (handleSelectFromMedia) {
+      handleSelectFromMedia();
+    }
+  };
+
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
   return (
     <Box {...getRootProps()} className={classes.container}>
-      <input {...getInputProps()} id="contained-button-file" />
+      <input {...getInputProps()} id="contained-button-file" accept="image/png, image/jpeg" />
       <Box>
         <img src="/download.png" alt="File" />
       </Box>
@@ -51,7 +64,7 @@ const FileUpload: React.FC<Props> = ({ showDefaultText, onFileSelected, variant 
             <Button variant="outlined" style={{ marginRight: '24px', textTransform: 'none' }}>
               Browse On Device
             </Button>
-            <Button variant="outlined" style={{ textTransform: 'none' }}>
+            <Button variant="outlined" style={{ textTransform: 'none' }} onClick={_handleSelectFromMedia}>
               Select from media
             </Button>
           </Box>

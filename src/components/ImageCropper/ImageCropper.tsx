@@ -39,6 +39,7 @@ const ImageCropper: React.FC<Props> = ({ src, cropper, setCropper, handleCrop, s
 
   const handleImageReady = (e: Cropper.ReadyEvent<HTMLImageElement>) => {
     const imageData = e.currentTarget.cropper.getImageData();
+
     const minSliderZoom = imageData.width / imageData.naturalWidth;
     const maxSliderZoom =
       Math.min.apply([imageData.naturalWidth / standardWidthPixel, imageData.naturalHeight / standardHeightPixel]) || 1;
