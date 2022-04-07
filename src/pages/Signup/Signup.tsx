@@ -206,7 +206,7 @@ const Signup = () => {
           <Grid xs={12} md={12} lg={12}>
             <Snackbar open={!!errorMessage} autoHideDuration={6000} onClose={handleSnackBarClose}>
               <Alert severity="error" onClose={handleSnackBarClose}>
-                {errorMessage && 'Sign up failed.'}
+                {errorMessage && 'Something went wrong. Sign up failed.'}
               </Alert>
             </Snackbar>
             <Backdrop isLoading={isLoading} />
