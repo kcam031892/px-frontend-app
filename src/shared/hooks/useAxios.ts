@@ -101,7 +101,7 @@ export const useAxios = () => {
     try {
       return await instance({
         ...args,
-        method: 'PUT',
+        method: 'PATCH',
       });
     } catch (e) {
       throw e;

@@ -25,7 +25,7 @@ export const authDao = () => {
 
   const signup = async (payload: ISignUpRequestPayload) => {
     const response = await POST<ISignUpResponsePayload>({
-      url: `${ENDPOINTS.USERS}/sign_up`,
+      url: `${ENDPOINTS.USERS}`,
       data: payload,
     });
 

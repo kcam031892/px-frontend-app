@@ -11,9 +11,11 @@ import {
 import { AudioIcon, DocumentIcon, PhotoIcon, VideoIcon } from 'components/Icons';
 import React from 'react';
 
+import { formatBytes } from 'shared/utils/formatBytes';
 import { useStyles } from './UsageData.styles';
 
-const UsageData = () => {
+const UsageData = (props: any) => {
+  const { data = {} } = props;
   const classes = useStyles();
   return (
     <Box>
@@ -26,7 +28,7 @@ const UsageData = () => {
             </ListItemIcon>
             <ListItemText primary="Images" />
             <ListItemSecondaryAction>
-              <Typography>12 / 15</Typography>
+              <Typography>{data.images_count} / Unlimited</Typography>
             </ListItemSecondaryAction>
           </ListItem>
           <ListItem disableGutters>
@@ -35,7 +37,7 @@ const UsageData = () => {
             </ListItemIcon>
             <ListItemText primary="Video" />
             <ListItemSecondaryAction>
-              <Typography>{Math.floor(23 / 60)} / 5 min</Typography>
+              <Typography>{data.videos_count} / Unlimited</Typography>
             </ListItemSecondaryAction>
           </ListItem>
           <ListItem disableGutters>
@@ -44,7 +46,7 @@ const UsageData = () => {
             </ListItemIcon>
             <ListItemText primary="Audio" />
             <ListItemSecondaryAction>
-              <Typography>Unlimited</Typography>
+              <Typography>{data.audios_count} / Unlimited</Typography>
             </ListItemSecondaryAction>
           </ListItem>
           <ListItem disableGutters>
@@ -62,13 +64,13 @@ const UsageData = () => {
         <Typography variant="h6">Storage</Typography>
         <Box className={classes.progressBar}>
           <Typography variant="subtitle2" style={{ fontWeight: 700, color: '#25282A' }}>
-            1.93 GB of 3 GB used
+            {formatBytes(data.storage_size_used)} used
           </Typography>
-          <Typography variant="body2" style={{ color: '#707372' }}>
+          {/* <Typography variant="body2" style={{ color: '#707372' }}>
             64%
-          </Typography>
+          </Typography> */}
         </Box>
-        <LinearProgress variant="determinate" value={40} className={classes.linearProgress} />
+        {/* <LinearProgress variant="determinate" value={40} className={classes.linearProgress} /> */}
       </Box>
     </Box>
   );

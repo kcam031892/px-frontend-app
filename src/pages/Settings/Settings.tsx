@@ -10,6 +10,7 @@ import MyAccount from './MyAccount';
 import Resume from './Resume/Resume';
 import { useStyles } from './Settings.styles';
 import Statistics from './Statistics';
+import Skills from './Skills';
 
 const tabs = [
   {
@@ -27,7 +28,7 @@ const tabs = [
   {
     name: 'skills',
     header: 'Skills',
-    component: <div>Skills</div>,
+    component: <Skills />,
     disabled: false,
   },
   {
