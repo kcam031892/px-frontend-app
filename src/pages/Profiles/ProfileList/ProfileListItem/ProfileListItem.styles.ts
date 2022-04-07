@@ -14,8 +14,8 @@ export const useStyles = makeStyles(() =>
       fontWeight: 900,
       fontSize: 10,
       position: 'absolute',
-      top: 15,
-      left: 18,
+      top: 5,
+      left: 10,
       zIndex: 2,
     },
     card: {
@@ -36,6 +36,7 @@ export const useStyles = makeStyles(() =>
     },
     card__content: {
       padding: '12px 8px',
+      position: 'relative',
     },
 
     agency__type: {
@@ -57,7 +58,7 @@ export const useStyles = makeStyles(() =>
     profile__action__button: {
       position: 'absolute',
       right: '0px',
-      bottom: '20px',
+      top: '5px',
       '& .MuiIconButton-label .MuiSvgIcon-root': {
         fontSize: 16,
       },

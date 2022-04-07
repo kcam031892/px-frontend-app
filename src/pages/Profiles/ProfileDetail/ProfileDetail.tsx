@@ -1,9 +1,11 @@
 import { Box, Tab } from '@material-ui/core';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { ROUTES } from 'shared/constants/ROUTES';
 import { ITab } from 'shared/interfaces/utils/ITab';
-import { Tabs } from 'themes/elements';
+import { profileService } from 'shared/services/profileService';
+import { isShowCompositeCard } from 'shared/utils/isShowCompositeCard';
+import { Backdrop, Tabs } from 'themes/elements';
 import { useTabStyle } from 'themes/styles/useTabStyle';
 
 import AudioTab from './AudioTab/AudioTab';
@@ -53,27 +55,64 @@ const tabs: ITab[] = [
   },
 ];
 
+const { getSingleProfile } = profileService();
 const ProfileDetail = () => {
-  const { tab } = useParams() as { tab: string };
+  const { tab, profileId } = useParams() as { tab: string; profileId: string };
   const history = useHistory();
+
+  const { data, isError, isLoading } = getSingleProfile(profileId);
 
   const classes = useStyles();
   const tabStyle = useTabStyle();
+
+  useEffect(() => {
+    if (isError) {
+      history.push(`${ROUTES.TALENT.PROFILE}`);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isError, history]);
+
+  useEffect(() => {
+    if (!profileId) {
+      history.push(`${ROUTES.TALENT.PROFILE}`);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profileId, history]);
+
   const getActiveTab = useMemo(() => {
     return tabs.find((_tab) => _tab.name === tab)?.component;
   }, [tab]);
 
   const handleTabChange = (event: React.ChangeEvent<{}>, newValue: string) => {
-    history.push(`${ROUTES.TALENT.PROFILE_DETAIL}/${newValue}`);
+    if (tab !== newValue) {
+      history.push(`${ROUTES.TALENT.PROFILE_DETAIL}/${profileId}/${newValue}`);
+    }
   };
   return (
     <Box>
-      <Tabs value={tab} onChange={handleTabChange}>
-        {tabs.map((tab, index) => (
-          <Tab key={index} label={tab.header} disabled={tab.disabled} value={tab.name} classes={tabStyle} />
-        ))}
-      </Tabs>
-      <Box className={classes.tabContainer}>{getActiveTab}</Box>
+      {data && (
+        <>
+          <Tabs value={tab} onChange={handleTabChange}>
+            {tabs.map((tab, index) =>
+              tab.name === 'composite_card' ? (
+                <Tab
+                  key={index}
+                  label={tab.header}
+                  disabled={tab.disabled || !isShowCompositeCard(data.data.attributes.profile_type)}
+                  value={tab.name}
+                  classes={tabStyle}
+                />
+              ) : (
+                <Tab key={index} label={tab.header} disabled={tab.disabled} value={tab.name} classes={tabStyle} />
+              ),
+            )}
+          </Tabs>
+          <Box className={classes.tabContainer}>{getActiveTab}</Box>
+        </>
+      )}
+      <Backdrop isLoading={isLoading} />
     </Box>
   );
 };

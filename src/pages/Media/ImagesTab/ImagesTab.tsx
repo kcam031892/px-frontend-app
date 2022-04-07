@@ -18,9 +18,13 @@ import ClearIcon from '@material-ui/icons/Clear';
 import { useWindowSize } from '@react-hook/window-size';
 import { ImageEditor } from 'components';
 import { ImageSliderLargeIcon, ImageSliderSmallIcon, MediaUploadIcon, SearchIcon } from 'components/Icons';
-import React, { useState } from 'react';
-import { EditorMode } from 'shared/enums/EditorMode';
+import React, { useState, useEffect } from 'react';
 import { Button, Input } from 'themes/elements';
+import { ENDPOINTS } from 'shared/constants/ENDPOINTS';
+import { authToken } from 'shared/utils/authToken';
+import { useAxios } from 'shared/hooks/useAxios';
+import qs from 'query-string';
+import IMedia, { IMediaResponse, IMeta } from 'shared/interfaces/utils/IMedia';
 
 import ImageItem from './ImageItem/ImageItem';
 import { ImageSizeSlider } from './ImageSizeSlider';
@@ -44,10 +48,14 @@ const ImagesTab = () => {
     imageCol: Math.floor(((width - 240) * 8) / 12 / 180),
     imageHeight: Math.floor(180 * 1.25),
   };
+  const { getAuthToken } = authToken();
+  const { GET } = useAxios();
 
   const [imageSliderValue, setImageSliderValue] = useState<number>(6);
   const [imageListState, setImageListState] = useState<ImageListState>(initialImageListState);
   const [isEditorOpen, setIsEditorOpen] = useState<boolean>(false);
+  const [images, setImages] = useState<IMedia[]>([]);
+  const [meta, setMeta] = useState<IMeta>();
 
   const handleImageSliderChange = (event: React.ChangeEvent<{}>, value: number | number[]) => {
     if (typeof value === 'number') {
@@ -62,6 +70,30 @@ const ImagesTab = () => {
       }
     }
   };
+
+  const getImages = async () => {
+    const params = qs.stringify({
+      file_type: 'image',
+    });
+
+    const response = await GET<IMediaResponse>({
+      url: `${ENDPOINTS.MEDIA}?${params}`,
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
+
+    return response.data;
+  };
+
+  useEffect(() => {
+    getImages().then((images) => {
+      if (!images?.data.length) return;
+
+      setImages(images.data);
+      setMeta(images.meta);
+    });
+  }, []); // eslint-disable-line
 
   return (
     <Box>
@@ -101,26 +133,19 @@ const ImagesTab = () => {
         {/* Image List */}
         <Grid item xs={12} lg={8}>
           <ImageList rowHeight={IMAGE_HEIGHT} cols={IMAGE_COL} gap={8} className={classes.imageList}>
-            <ImageListItem cols={1 * imageListState.ratio}>
-              <ImageItem
-                src="https://picsum.photos/200/300"
-                isBadQuality
-                handleEditImage={() => setIsEditorOpen(true)}
-              />
-            </ImageListItem>
-            <ImageListItem cols={2 * imageListState.ratio}>
-              <ImageItem src="https://picsum.photos/200/300" handleEditImage={() => setIsEditorOpen(true)} />
-            </ImageListItem>
-            <ImageListItem cols={2 * imageListState.ratio}>
-              <ImageItem src="https://picsum.photos/200/300" handleEditImage={() => setIsEditorOpen(true)} />
-            </ImageListItem>
-            <ImageListItem cols={2 * imageListState.ratio}>
-              <ImageItem src="https://picsum.photos/200/300" handleEditImage={() => setIsEditorOpen(true)} />
-            </ImageListItem>
-            <ImageListItem cols={2 * imageListState.ratio}>
-              <ImageItem src="https://picsum.photos/200/300" handleEditImage={() => setIsEditorOpen(true)} />
-            </ImageListItem>
+            {images.map((image: IMedia) => (
+              <ImageListItem cols={2 * imageListState.ratio} key={image.id}>
+                <ImageItem src={image.attributes.attachment_url} handleEditImage={() => setIsEditorOpen(true)} />
+              </ImageListItem>
+            ))}
           </ImageList>
+          {images.length === 0 && (
+            <div className={classes.emptyImageList}>
+              <span>
+                <em>No images found.</em>
+              </span>
+            </div>
+          )}
         </Grid>
 
         {/* Filter / Searching */}
@@ -158,20 +183,29 @@ const ImagesTab = () => {
               </IconButton>
             </Box>
             <Box style={{ marginTop: 16 }}>
-              <Chip label="actors" size="small" className={classes.filters__tag} />
+              {meta?.tags.map((tag: IMeta, i) => (
+                <Chip label={tag} size="small" className={classes.filters__tag} key={i} />
+              ))}
+              {meta?.tags.length === 0 && (
+                <div>
+                  <span>
+                    <em>No tags found.</em>
+                  </span>
+                </div>
+              )}
             </Box>
           </Box>
           {/* Allowance Progress */}
           <Box style={{ marginTop: 24 }}>
             <Box className={classes.filters__progressBar}>
               <Typography variant="subtitle2" style={{ fontWeight: 700, color: '#25282A' }}>
-                10/10 files uploaded
+                {meta?.total} files uploaded
               </Typography>
-              <Typography variant="body2" style={{ color: '#707372' }}>
+              {/* <Typography variant="body2" style={{ color: '#707372' }}>
                 24%
-              </Typography>
+              </Typography> */}
             </Box>
-            <LinearProgress variant="determinate" value={40} className={classes.filters__linearProgress} />
+            {/* <LinearProgress variant="determinate" value={40} className={classes.filters__linearProgress} /> */}
           </Box>
         </Grid>
       </Grid>

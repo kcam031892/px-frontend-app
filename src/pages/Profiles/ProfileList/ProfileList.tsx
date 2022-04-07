@@ -1,5 +1,6 @@
 import { Box, Grid, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import { ProfileSkeleton } from 'components';
 import React, { useState } from 'react';
 import { RepresentationType } from 'shared/enums/RepresentationType';
 import { profileService } from 'shared/services/profileService';
@@ -11,7 +12,7 @@ import ProfileListItem from './ProfileListItem/ProfileListItem';
 
 const { getProfiles } = profileService();
 const ProfileList = () => {
-  const { data } = getProfiles();
+  const { data, isLoading } = getProfiles();
   const { isOpen: isAlertOpen, alertRef, AlertOpen } = useAlert({ autoHideDuration: 2000, horizontal: 'right' });
 
   const classes = useStyles();
@@ -31,9 +32,21 @@ const ProfileList = () => {
         </Button>
       </Box>
       <Grid container spacing={2}>
-        {data &&
-          data.data.length > 0 &&
-          data.data.map((profile, index) => <ProfileListItem profile={profile} key={index} />)}
+        {isLoading ? (
+          <>
+            {Array.from({ length: 18 }).map((_, i) => (
+              <Grid item lg={2}>
+                <ProfileSkeleton />
+              </Grid>
+            ))}
+          </>
+        ) : (
+          <>
+            {data &&
+              data.data.length > 0 &&
+              data.data.map((profile, index) => <ProfileListItem profile={profile} key={index} />)}
+          </>
+        )}
       </Grid>
 
       {data && (
