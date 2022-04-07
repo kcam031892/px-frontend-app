@@ -49,6 +49,7 @@ export const useStyles = makeStyles(() =>
       fontSize: '16px',
       fontWeight: 'bold',
       margin: 0,
+      minWidth: '200px',
     },
     uploadCard__fileSize: {
       margin: 0,

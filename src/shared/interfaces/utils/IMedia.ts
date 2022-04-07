@@ -3,6 +3,10 @@ export interface IAttributes {
   file_type: 'image' | 'video' | 'audio';
   id: string;
   tag_list: string[];
+  file_name: string;
+  file_size: number;
+  width?: string;
+  height?: string;
 }
 
 export interface IMediaResponse {

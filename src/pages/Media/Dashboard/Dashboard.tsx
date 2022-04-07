@@ -77,6 +77,13 @@ const Dashboard = () => {
                 </ImageListItem>
               ))}
             </ImageList>
+            {images.length === 0 && (
+              <div style={{ marginTop: '5px' }}>
+                <span>
+                  <em>No images found.</em>
+                </span>
+              </div>
+            )}
           </Box>
           <Box style={{ marginTop: 20, marginBottom: 20 }}>
             <Typography className={classes.sectionTitle}>Videos</Typography>
@@ -85,16 +92,32 @@ const Dashboard = () => {
                 <video width="100%" height="auto" src={video.attributes.attachment_url} controls />
               ))}
             </ImageList>
+            {videos.length === 0 && (
+              <div style={{ marginTop: '5px' }}>
+                <span>
+                  <em>No videos found.</em>
+                </span>
+              </div>
+            )}
           </Box>
           <Box>
             <Typography className={classes.sectionTitle}>Audio</Typography>
             <Grid item xs={12} lg={8}>
-              {audios.map((audio: IMedia) => (
-                <div style={{ marginBottom: '10px' }} key={audio.id}>
-                  <audio src={audio.attributes.attachment_url} controls />
-                </div>
-              ))}
+              <div className={classes.grid__flex}>
+                {audios.map((audio: IMedia) => (
+                  <div style={{ marginBottom: '10px', marginRight: '10px' }} key={audio.id}>
+                    <audio src={audio.attributes.attachment_url} controls />
+                  </div>
+                ))}
+              </div>
             </Grid>
+            {audios.length === 0 && (
+              <div style={{ marginTop: '5px' }}>
+                <span>
+                  <em>No audios found.</em>
+                </span>
+              </div>
+            )}
           </Box>
         </Grid>
 

@@ -137,6 +137,13 @@ const ImagesTab = () => {
               </ImageListItem>
             ))}
           </ImageList>
+          {images.length === 0 && (
+            <div className={classes.emptyImageList}>
+              <span>
+                <em>No images found.</em>
+              </span>
+            </div>
+          )}
         </Grid>
 
         {/* Filter / Searching */}

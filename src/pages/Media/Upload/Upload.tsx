@@ -6,14 +6,17 @@ import { authToken } from 'shared/utils/authToken';
 import { useAxios } from 'shared/hooks/useAxios';
 import IMedia from 'shared/interfaces/utils/IMedia';
 import { PhotoIcon, VideoIcon, AudioIcon } from 'components/Icons';
-
 import { useStyles } from './Upload.styles';
+
+interface UploadedFile extends IMedia {
+  isCompleted?: boolean;
+}
 
 const Upload = () => {
   const classes = useStyles();
   const { getAuthToken } = authToken();
   const { POST } = useAxios();
-  const [files, setFiles] = useState<IMedia[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [progress, setProgress] = useState(0);
 
   function dataURLtoFile(dataurl: string, filename: string) {
@@ -30,30 +33,15 @@ const Upload = () => {
     return new File([u8arr], filename, { type: mime });
   }
 
-  const handleUpload = (name: string, type: string, file: string) => {
-    const [file_type, extension] = type.split('/') as [file_type: 'audio' | 'video' | 'image', extension: string];
-    const data = new FormData();
+  const extractImageData = (url: string, callback: Function) => {
+    const image = new Image();
+    image.src = url;
 
-    data.append('attachment', dataURLtoFile(file, `${name}.${extension}`));
-    data.append('file_type', file_type);
-    data.append('tag_list', '');
+    image.addEventListener('load', () => callback(image));
+  };
 
-    // add to upload list
-    setFiles((prevFiles) => [
-      ...prevFiles,
-      {
-        id: `${prevFiles.length + 1}`,
-        type: '',
-        attributes: {
-          id: '',
-          file_type,
-          attachment_url: '',
-          tag_list: [],
-        },
-      },
-    ]);
-
-    POST<{ data: IMedia }>({
+  const sendFile = async (data: FormData) => {
+    return POST<{ data: IMedia }>({
       url: `${ENDPOINTS.MEDIA}`,
       headers: {
         Authorization: `Bearer ${getAuthToken()}`,
@@ -63,11 +51,68 @@ const Upload = () => {
       onUploadProgress: (progressEvent) => {
         setProgress((progressEvent.loaded / progressEvent.total) * 100);
       },
-    }).then(() => {
-      // TODO:
-      // update the file from the "files" state with the response
-      // setFiles(<new-file>);
+    }).then((response) => {
+      const { data: file } = response.data;
+
+      setUploadedFiles((prevUploadedFiles) =>
+        prevUploadedFiles.map((uploadedFile) => {
+          if (uploadedFile.attributes.file_name === file.attributes.file_name) {
+            return {
+              ...uploadedFile,
+              isCompleted: true,
+            };
+          }
+
+          return uploadedFile;
+        }),
+      );
     });
+  };
+
+  const handleUpload = async (name: string, type: string, url: string) => {
+    const [file_type, extension] = type.split('/') as [file_type: 'audio' | 'video' | 'image', extension: string];
+    const data = new FormData();
+    const file = dataURLtoFile(url, name);
+    let width, height;
+
+    // add to upload list
+    setUploadedFiles((prevFiles) => [
+      ...prevFiles,
+      {
+        id: `${prevFiles.length + 1}`,
+        type: '',
+        attributes: {
+          id: '',
+          file_type,
+          attachment_url: '',
+          tag_list: [],
+          file_name: name,
+          file_size: file.size,
+        },
+      },
+    ]);
+
+    // Payload
+    data.append('attachment', dataURLtoFile(url, `${name}.${extension}`));
+    data.append('file_type', file_type);
+    data.append('file_name', name);
+    data.append('file_size', file.size.toString());
+    data.append('tag_list', '');
+
+    // For images, store the width and height
+    if (file_type === 'image') {
+      return extractImageData(url, (image: HTMLImageElement) => {
+        width = image.width;
+        height = image.height;
+
+        data.append('file_width', width.toString());
+        data.append('file_height', height.toString());
+
+        sendFile(data);
+      });
+    }
+
+    sendFile(data);
   };
 
   const displayIcon = (type: string) => {
@@ -84,7 +129,17 @@ const Upload = () => {
   };
 
   const removeFile = (idx: number) => {
-    setFiles((prevFiles) => prevFiles.filter((_, fileIndex) => fileIndex !== idx));
+    setUploadedFiles((prevFiles) => prevFiles.filter((_, fileIndex) => fileIndex !== idx));
+  };
+
+  const formatBytes = (bytes: number) => {
+    if (bytes === 0) return '0 Bytes';
+
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
   return (
@@ -104,21 +159,25 @@ const Upload = () => {
                 Uploads
               </Typography>
               <Box>
-                <Button variant="outlined" style={{ marginRight: 16, borderRadius: 40 }}>
+                <Button
+                  variant="outlined"
+                  style={{ marginRight: 16, borderRadius: 40 }}
+                  onClick={() => setUploadedFiles([])}
+                >
                   Clear list
                 </Button>
               </Box>
             </Box>
             <Grid>
-              {files.map((file: IMedia, index) => (
+              {uploadedFiles.map((file: UploadedFile, index) => (
                 <div className={classes.uploadCard} key={file.id}>
                   <div className={classes.uploadCard__icon}>{displayIcon(file.attributes.file_type)}</div>
                   <div className={classes.uploadCard__info}>
-                    <p className={classes.uploadCard__fileName}>Amazing.png</p>
-                    <p className={classes.uploadCard__fileSize}>4.6kb</p>
+                    <p className={classes.uploadCard__fileName}>{file.attributes.file_name}</p>
+                    <p className={classes.uploadCard__fileSize}>{formatBytes(file.attributes.file_size)}</p>
                   </div>
                   <div className={classes.uploadCard__progress}>
-                    {progress === 100 ? (
+                    {progress === 100 || file.isCompleted ? (
                       <p className={classes.uploadCard__progressCompleted}>Completed 100%</p>
                     ) : (
                       <div style={{ width: `${progress}%` }} className={classes.uploadCard__progressBar}></div>
@@ -129,6 +188,13 @@ const Upload = () => {
                   </Button>
                 </div>
               ))}
+              {uploadedFiles.length === 0 && (
+                <div style={{ marginTop: '15px' }}>
+                  <span>
+                    <em>No files uploaded found.</em>
+                  </span>
+                </div>
+              )}
             </Grid>
           </Box>
         </Grid>

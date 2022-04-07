@@ -132,11 +132,18 @@ const AudioTab = () => {
         <Grid item xs={12} lg={8}>
           <div className={classes.grid__flex}>
             {audios.map((audio: IMedia) => (
-              <div style={{ marginBottom: '10px', marginRight: '15px' }} key={audio.id}>
+              <div style={{ marginBottom: '10px', marginRight: '10px' }} key={audio.id}>
                 <audio src={audio.attributes.attachment_url} controls />
               </div>
             ))}
           </div>
+          {audios.length === 0 && (
+            <div className={classes.emptyImageList}>
+              <span>
+                <em>No audios found.</em>
+              </span>
+            </div>
+          )}
         </Grid>
         {/* Filter / Searching */}
         <Grid item xs={12} lg={4}>

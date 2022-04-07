@@ -70,5 +70,10 @@ export const useStyles = makeStyles(() =>
       margin: 'auto',
       overflow: 'visible',
     },
+    emptyImageList: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+    },
   }),
 );

@@ -166,6 +166,13 @@ const VideoTab = () => {
               </ImageListItem>
             ))}
           </ImageList>
+          {videos.length === 0 && (
+            <div className={classes.emptyImageList}>
+              <span>
+                <em>No videos found.</em>
+              </span>
+            </div>
+          )}
         </Grid>
         {/* Filter / Searching */}
         <Grid item xs={12} lg={4}>
