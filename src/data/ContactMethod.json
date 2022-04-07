@@ -1,0 +1,14 @@
+[
+    {
+      "key": "Email",
+      "value": "Email"
+    },
+    {
+      "key": "SMS",
+      "value": "SMS"
+    },
+    {
+      "key": "Either",
+      "value": "Either"
+    }
+]

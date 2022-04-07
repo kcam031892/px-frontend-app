@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import {
   Grid,
   CardContent,
@@ -12,8 +13,7 @@ import {
   Box,
   Button,
 } from '@material-ui/core';
-import React, { useState } from 'react';
-import { Input } from 'themes/elements';
+import { Input, InputNumber } from 'themes/elements';
 import { useStyles } from './Statistics.styles';
 import { Autocomplete } from '@material-ui/lab';
 import age from 'data/Age.json';
@@ -23,11 +23,24 @@ import metric from 'data/Metric.json';
 import hairColor from 'data/HairColor.json';
 import eyeColor from 'data/EyeColor.json';
 import complexion from 'data/Complexion.json';
+import { IStatistics, IStatisticsResponsePayload } from 'shared/interfaces/IStatistics';
+import { statisticsService } from 'shared/services/statisticsService';
+import * as yup from 'yup';
+import { FormikProps, useFormik } from 'formik';
+
+import { useQueryClient } from 'react-query';
+import { IAlertStatus } from 'shared/interfaces/utils/IAlert';
+import { AxiosError } from 'axios';
+import { IErrorResponse } from 'shared/interfaces/utils/IErrorResonse';
+import { errorResponseToArray } from 'shared/utils/errorResponseToArray';
+
+const { getStatistics } = statisticsService();
+
+const [selectValue, setSelectValue] = useState('');
 
 const Statistics = () => {
   const classes = useStyles();
-
-  const [selectValue, setSelectValue] = useState('');
+  const { data } = getStatistics();
 
   const selectRegion = (event: React.ChangeEvent<{ value: any }>) => {
     setSelectValue(event.target.value);
@@ -160,14 +173,14 @@ const Statistics = () => {
                   <FormControl margin={'normal'} fullWidth>
                     <Grid container spacing={2}>
                       <Grid xs={6} md={6} item>
-                        <Input
+                        <InputNumber
                           label={'Height'}
                           InputProps={{ disableUnderline: true }}
                           InputLabelProps={{ shrink: true }}
                         />
                       </Grid>
                       <Grid xs={6} md={6} item>
-                        <Input label={' '} InputProps={{ disableUnderline: true }} />
+                        <InputNumber label={' '} InputProps={{ disableUnderline: true }} />
                       </Grid>
                     </Grid>
                   </FormControl>
@@ -176,7 +189,7 @@ const Statistics = () => {
                   <FormControl margin={'normal'} fullWidth>
                     <Grid container spacing={2}>
                       <Grid xs={6} md={6} item>
-                        <Input
+                        <InputNumber
                           label={'Waist Size'}
                           InputProps={{ disableUnderline: true }}
                           InputLabelProps={{ shrink: true }}
@@ -303,9 +316,15 @@ const Statistics = () => {
               <Grid spacing={2} container>
                 <Grid xs={12} md={6} lg={6} item>
                   <Input label={'Ethnicities'} fullWidth margin={'normal'} InputLabelProps={{ shrink: true }} />
+                  <Button id="viewAllEthnicities" variant="contained" color="default" disableElevation>
+                    View All
+                  </Button>
                 </Grid>
                 <Grid xs={12} md={6} lg={6} item>
                   <Input label={'Other Talent Types'} fullWidth margin={'normal'} InputLabelProps={{ shrink: true }} />
+                  <Button id="viewAllOtherTalentTypes" variant="contained" color="default" disableElevation>
+                    View All
+                  </Button>
                 </Grid>
               </Grid>
             </CardContent>
