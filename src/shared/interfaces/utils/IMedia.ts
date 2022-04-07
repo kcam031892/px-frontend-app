@@ -11,12 +11,18 @@ export interface IAttributes {
 
 export interface IMediaResponse {
   data: IMedia[];
+  meta: IMeta;
 }
 
 interface IMedia {
   attributes: IAttributes;
   id: string;
   type: string;
+}
+
+export interface IMeta {
+  tags: [];
+  total: number;
 }
 
 export default IMedia;

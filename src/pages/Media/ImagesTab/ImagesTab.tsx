@@ -24,7 +24,7 @@ import { ENDPOINTS } from 'shared/constants/ENDPOINTS';
 import { authToken } from 'shared/utils/authToken';
 import { useAxios } from 'shared/hooks/useAxios';
 import qs from 'query-string';
-import IMedia, { IMediaResponse } from 'shared/interfaces/utils/IMedia';
+import IMedia, { IMediaResponse, IMeta } from 'shared/interfaces/utils/IMedia';
 
 import ImageItem from './ImageItem/ImageItem';
 import { ImageSizeSlider } from './ImageSizeSlider';
@@ -55,6 +55,7 @@ const ImagesTab = () => {
   const [imageListState, setImageListState] = useState<ImageListState>(initialImageListState);
   const [isEditorOpen, setIsEditorOpen] = useState<boolean>(false);
   const [images, setImages] = useState<IMedia[]>([]);
+  const [meta, setMeta] = useState<IMeta>();
 
   const handleImageSliderChange = (event: React.ChangeEvent<{}>, value: number | number[]) => {
     if (typeof value === 'number') {
@@ -90,6 +91,7 @@ const ImagesTab = () => {
       if (!images?.data.length) return;
 
       setImages(images.data);
+      setMeta(images.meta);
     });
   }, []); // eslint-disable-line
 
@@ -181,20 +183,29 @@ const ImagesTab = () => {
               </IconButton>
             </Box>
             <Box style={{ marginTop: 16 }}>
-              <Chip label="actors" size="small" className={classes.filters__tag} />
+              {meta?.tags.map((tag: IMeta, i) => (
+                <Chip label={tag} size="small" className={classes.filters__tag} key={i} />
+              ))}
+              {meta?.tags.length === 0 && (
+                <div>
+                  <span>
+                    <em>No tags found.</em>
+                  </span>
+                </div>
+              )}
             </Box>
           </Box>
           {/* Allowance Progress */}
           <Box style={{ marginTop: 24 }}>
             <Box className={classes.filters__progressBar}>
               <Typography variant="subtitle2" style={{ fontWeight: 700, color: '#25282A' }}>
-                10/10 files uploaded
+                {meta?.total} files uploaded
               </Typography>
-              <Typography variant="body2" style={{ color: '#707372' }}>
+              {/* <Typography variant="body2" style={{ color: '#707372' }}>
                 24%
-              </Typography>
+              </Typography> */}
             </Box>
-            <LinearProgress variant="determinate" value={40} className={classes.filters__linearProgress} />
+            {/* <LinearProgress variant="determinate" value={40} className={classes.filters__linearProgress} /> */}
           </Box>
         </Grid>
       </Grid>
