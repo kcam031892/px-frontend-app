@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   Grid,
   CardContent,
@@ -11,9 +12,11 @@ import {
   Divider,
   Box,
   Button,
+  InputAdornment,
 } from '@material-ui/core';
-import React, { useState } from 'react';
-import { Input } from 'themes/elements';
+import ClearIcon from '@material-ui/icons/Clear';
+import { SearchIcon } from 'components/Icons';
+import { Input, InputNumber } from 'themes/elements';
 import { useStyles } from './Statistics.styles';
 import { Autocomplete } from '@material-ui/lab';
 import age from 'data/Age.json';
@@ -23,11 +26,26 @@ import metric from 'data/Metric.json';
 import hairColor from 'data/HairColor.json';
 import eyeColor from 'data/EyeColor.json';
 import complexion from 'data/Complexion.json';
+import { IStatistics, IStatisticsResponsePayload } from 'shared/interfaces/IStatistics';
+import { statisticsService } from 'shared/services/statisticsService';
+import * as yup from 'yup';
+import { FormikProps, useFormik } from 'formik';
+import { useDebounce } from 'use-debounce';
+import { useQueryClient } from 'react-query';
+import { IAlertStatus } from 'shared/interfaces/utils/IAlert';
+import { AxiosError } from 'axios';
+import { IErrorResponse } from 'shared/interfaces/utils/IErrorResonse';
+import { errorResponseToArray } from 'shared/utils/errorResponseToArray';
+
+const { getStatistics } = statisticsService();
 
 const Statistics = () => {
   const classes = useStyles();
+  const { data } = getStatistics();
 
   const [selectValue, setSelectValue] = useState('');
+  const [query, setQuery] = useState<string>('');
+  const [queryValue] = useDebounce(query, 500);
 
   const selectRegion = (event: React.ChangeEvent<{ value: any }>) => {
     setSelectValue(event.target.value);
@@ -78,7 +96,7 @@ const Statistics = () => {
                 <Grid xs={12} md={6} lg={3} item>
                   <FormControl margin={'normal'} fullWidth>
                     <InputLabel id="labelSizeUnit" shrink>
-                      Imperial/ Metric
+                      Imperial/Metric
                     </InputLabel>
                     <Select labelId={'lblType'} disableUnderline defaultValue={metric[0].value}>
                       {metric.map((i) => (
@@ -160,14 +178,14 @@ const Statistics = () => {
                   <FormControl margin={'normal'} fullWidth>
                     <Grid container spacing={2}>
                       <Grid xs={6} md={6} item>
-                        <Input
+                        <InputNumber
                           label={'Height'}
                           InputProps={{ disableUnderline: true }}
                           InputLabelProps={{ shrink: true }}
                         />
                       </Grid>
                       <Grid xs={6} md={6} item>
-                        <Input label={' '} InputProps={{ disableUnderline: true }} />
+                        <InputNumber label={' '} InputProps={{ disableUnderline: true }} />
                       </Grid>
                     </Grid>
                   </FormControl>
@@ -176,7 +194,7 @@ const Statistics = () => {
                   <FormControl margin={'normal'} fullWidth>
                     <Grid container spacing={2}>
                       <Grid xs={6} md={6} item>
-                        <Input
+                        <InputNumber
                           label={'Waist Size'}
                           InputProps={{ disableUnderline: true }}
                           InputLabelProps={{ shrink: true }}
@@ -302,10 +320,36 @@ const Statistics = () => {
               <Divider style={{ margin: '24px 0px' }} />
               <Grid spacing={2} container>
                 <Grid xs={12} md={6} lg={6} item>
-                  <Input label={'Ethnicities'} fullWidth margin={'normal'} InputLabelProps={{ shrink: true }} />
+                  <Input
+                    label={'Ethnicities'}
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    fullWidth
+                    margin={'normal'}
+                    InputProps={{
+                      disableUnderline: true,
+                      endAdornment: (
+                        <InputAdornment position="end" style={{ cursor: 'pointer' }} onClick={() => setQuery('')}>
+                          <ClearIcon width="24" height="24" viewBox="0 0 24 24" />
+                        </InputAdornment>
+                      ),
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon width="24" height="24" viewBox="0 0 24 24" />
+                        </InputAdornment>
+                      ),
+                    }}
+                    InputLabelProps={{ shrink: true }}
+                  />
+                  <Button id="viewAllEthnicities" variant="contained" color="default" disableElevation>
+                    View All
+                  </Button>
                 </Grid>
                 <Grid xs={12} md={6} lg={6} item>
                   <Input label={'Other Talent Types'} fullWidth margin={'normal'} InputLabelProps={{ shrink: true }} />
+                  <Button id="viewAllOtherTalentTypes" variant="contained" color="default" disableElevation>
+                    View All
+                  </Button>
                 </Grid>
               </Grid>
             </CardContent>
