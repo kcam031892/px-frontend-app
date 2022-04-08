@@ -5,4 +5,6 @@ export const ENDPOINTS = {
   ME: `${CONFIG.GENERAL_API_URL}/talent/me`,
   PROFILE: `${CONFIG.GENERAL_API_URL}/profiles`,
   AGENCY: `${CONFIG.GENERAL_API_URL}/agencies`,
+  MEDIA: `${CONFIG.UPLOAD_API_URL}/media`,
+  TALENTS: `${CONFIG.GENERAL_API_URL}/talents`,
 };

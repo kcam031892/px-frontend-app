@@ -1,9 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { SectionType } from 'shared/enums/SectionType';
-import { ISection } from 'shared/interfaces/IProfile';
-import { createEmptyTableArray } from 'shared/utils/createEmptyTableArray';
+import { ISection, ISectionValues } from 'shared/interfaces/ITalent';
+
+import { createEmptyColumnArray, createEmptyTableArray } from 'shared/utils/createEmptyTableArray';
 import { generateSectionId } from 'shared/utils/generateSectionId';
-import { swap2DArrayElement, swapArrayElement } from 'shared/utils/swapArrayElement';
+import { swap2DArrayElement, swapArrayElement, swapSectionElement } from 'shared/utils/swapArrayElement';
 
 import { RootState } from '../store';
 
@@ -17,25 +18,45 @@ const initialState: IResumeState = {
     {
       section_type: SectionType.TABLE,
       title: 'Film',
-      values: [[]],
+      values: [
+        {
+          fields: createEmptyColumnArray(),
+          attachments: [],
+        },
+      ],
       section_id: '',
     },
     {
       section_type: SectionType.TABLE,
       title: 'Television',
-      values: [[]],
+      values: [
+        {
+          fields: createEmptyColumnArray(),
+          attachments: [],
+        },
+      ],
       section_id: '',
     },
     {
       section_type: SectionType.TABLE,
       title: 'Theater',
-      values: [[]],
+      values: [
+        {
+          fields: createEmptyColumnArray(),
+          attachments: [],
+        },
+      ],
       section_id: '',
     },
     {
       section_type: SectionType.TABLE,
       title: 'Modeling',
-      values: [[]],
+      values: [
+        {
+          fields: createEmptyColumnArray(),
+          attachments: [],
+        },
+      ],
       section_id: '',
     },
   ],
@@ -45,13 +66,17 @@ export const resumeSlicer = createSlice({
   name: 'resume',
   initialState,
   reducers: {
+    setSection(state: IResumeState, action: PayloadAction<{ sections: ISection[] }>) {
+      const { sections } = action.payload;
+      state.sections = sections;
+    },
     createNewSection(state: IResumeState, action: PayloadAction<{ type: SectionType }>) {
       if (action.payload.type === SectionType.TABLE) {
         const emptyTextArray = createEmptyTableArray();
         state.sections.push({
           section_type: SectionType.TABLE,
           sequence: state.sections.length + 1,
-          values: emptyTextArray,
+          values: [{ fields: createEmptyColumnArray(), attachments: [] }],
           title: '',
           section_id: generateSectionId(),
         });
@@ -61,7 +86,7 @@ export const resumeSlicer = createSlice({
           sequence: state.sections.length + 1,
           title: '',
           section_id: generateSectionId(),
-          values: [['']],
+          values: [{ fields: [], attachments: [] }],
         });
       }
     },
@@ -80,14 +105,18 @@ export const resumeSlicer = createSlice({
       const { index } = action.payload;
       const getSection = state.sections.filter((_, i) => i === index)[0];
       if (getSection.values) {
-        const emptyTextArray = createEmptyTableArray();
+        const newValues: ISectionValues[] = [
+          {
+            fields: createEmptyColumnArray(),
+            attachments: [],
+          },
+        ];
+        const updatedValues = [...newValues, ...getSection.values];
 
-        const arrayText = [...emptyTextArray, ...getSection.values];
-        const updatedSection: ISection = { ...getSection, values: arrayText };
+        const updatedSection: ISection = { ...getSection, values: updatedValues };
         const updatedSections = state.sections.map((section, i) => {
           return i === index ? updatedSection : section;
         });
-
         state.sections = updatedSections;
       }
     },
@@ -111,7 +140,7 @@ export const resumeSlicer = createSlice({
       const getSection = state.sections.filter((section, index) => index === sectionIndex)[0];
       if (getSection.values) {
         const arrayText = getSection.values;
-        const swappedArray = swap2DArrayElement(arrayText, sourceIndex, destinationIndex);
+        const swappedArray = swapSectionElement(arrayText, sourceIndex, destinationIndex);
         const updatedSection: ISection = { ...getSection, values: swappedArray };
         const updatedSections = state.sections.map((section, index) => {
           return index === sectionIndex ? updatedSection : section;
@@ -125,13 +154,19 @@ export const resumeSlicer = createSlice({
     ) {
       const { sectionIndex, rowIndex, columnIndex, value } = action.payload;
       const getSection = state.sections.filter((section, index) => index === sectionIndex)[0];
+
       const getValues = getSection.values;
-      const updatedValues = getValues.map((row, rIndex) => {
-        return rowIndex !== rIndex
-          ? row
-          : row.map((col, colIndex) => {
-              return colIndex !== columnIndex ? col : value;
-            });
+      const updatedValues: ISectionValues[] = getValues.map((row, rIndex) => {
+        if (rowIndex !== rIndex) {
+          return row;
+        }
+        const newFields = row.fields.map((col, colIndex) => {
+          return colIndex !== columnIndex ? col : value;
+        });
+        return {
+          ...row,
+          fields: newFields,
+        };
       });
       const updatedSection: ISection = { ...getSection, values: updatedValues };
       const updatedSections = state.sections.map((section, index) => {
@@ -155,6 +190,7 @@ export const resumeSlicer = createSlice({
 export const selectResumeState = (state: RootState) => state.resume;
 
 export const {
+  setSection,
   createNewSection,
   removeSection,
   reorderSection,

@@ -1,0 +1,22 @@
+[
+    {
+      "key": "US",
+      "value": "United States"
+    },
+    {
+      "key": "AU",
+      "value": "Australian"
+    },
+    {
+      "key": "NZ",
+      "value": "New Zealand"
+    },
+    {
+      "key": "EU",
+      "value": "Europe"
+    },
+    {
+      "key": "UK",
+      "value": "United Kingdom"
+    }
+]

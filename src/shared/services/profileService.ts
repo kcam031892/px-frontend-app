@@ -4,14 +4,26 @@ import { profileDao } from 'shared/dao/profileDao';
 import {
   IProfileCreatePayload,
   IProfileCreateResponsePayload,
+  IProfilePrimaryImageResponsePayload,
   IProfileResponsePayload,
+  ISingleProfileResponsePayload,
 } from 'shared/interfaces/IProfile';
 import { IErrorResponse } from 'shared/interfaces/utils/IErrorResonse';
 
-const { getProfiles: getProfilesDao, createProfile: createProfileDao } = profileDao();
+const {
+  getProfiles: getProfilesDao,
+  getSingleProfile: getSingleProfileDao,
+  createProfile: createProfileDao,
+  getProfilePrimaryImage: getProfilePrimaryImageDao,
+  setProfilePrimaryImage: setProfilePrimaryImageDao,
+} = profileDao();
 export const profileService = () => {
   const getProfiles = () => {
     return useQuery<IProfileResponsePayload, Error>(['profiles'], () => getProfilesDao());
+  };
+
+  const getSingleProfile = (id: string) => {
+    return useQuery<ISingleProfileResponsePayload, Error>(['profile', id], () => getSingleProfileDao(id));
   };
 
   const createProfile = () => {
@@ -20,8 +32,23 @@ export const profileService = () => {
     );
   };
 
+  const getProfilePrimaryImage = (profileId: string) => {
+    return useQuery<IProfilePrimaryImageResponsePayload>(['profile_primary_image', profileId], () =>
+      getProfilePrimaryImageDao(profileId),
+    );
+  };
+
+  const setProfilePrimaryImage = () => {
+    return useMutation(({ profileId, formData }: { profileId: string; formData: FormData }) =>
+      setProfilePrimaryImageDao(profileId, formData),
+    );
+  };
+
   return {
     getProfiles,
+    getSingleProfile,
     createProfile,
+    getProfilePrimaryImage,
+    setProfilePrimaryImage,
   };
 };

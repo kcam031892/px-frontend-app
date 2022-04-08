@@ -5,7 +5,7 @@ export const useStyles = makeStyles(() =>
     card: {
       padding: '16px',
       width: '296px',
-      height: '456px',
+
       borderRadius: '8px',
       marginTop: '16px',
     },

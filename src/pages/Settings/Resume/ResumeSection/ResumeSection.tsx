@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { DraggableProvided } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { SectionType } from 'shared/enums/SectionType';
-import { ISection } from 'shared/interfaces/IProfile';
+import { ISection } from 'shared/interfaces/ITalent';
 
 import {
   changeSectionTitle,
@@ -43,14 +43,13 @@ const ResumeSection: React.FC<Props> = ({
   providedDraggable,
 }) => {
   const classes = useStyles();
-  const [cardColumns, setCardColumns] = useState(section.values[0].length);
+
   const [cardRows, setCardRows] = useState(section.values.length);
   const dispatch = useDispatch();
   const { sections } = useSelector(selectResumeState);
 
   const handleSelectColumnChange = (value: number) => {
     handleColumnChange(index, value);
-    setCardColumns(value);
   };
 
   const handleSelectRowChange = () => {
@@ -125,8 +124,6 @@ const ResumeSection: React.FC<Props> = ({
               handleRowChange={handleSelectRowChange}
               handleOpenGalleryDialog={handleOpenGalleryDialog}
               index={index}
-              cardColumns={cardColumns}
-              cardRows={cardRows}
             />
           ) : (
             <SummaryCard />

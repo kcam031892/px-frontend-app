@@ -1,13 +1,13 @@
 import { ContentState, EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 
 import { useStyles } from './RichEditor.styles';
 type Props = {
   onChange: (text: string) => void;
-  content?: string;
+  content: string;
   minHeight?: number;
 };
 const RichEditor: React.FC<Props> = ({ onChange, content, minHeight }) => {
@@ -25,7 +25,7 @@ const RichEditor: React.FC<Props> = ({ onChange, content, minHeight }) => {
   };
 
   const [editorState, setEditorState] = useState(() => {
-    return convertContent(content || '');
+    return convertContent(content);
   });
 
   const handleEditStateChange = (changed: EditorState) => {

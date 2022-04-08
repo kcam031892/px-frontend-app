@@ -2,8 +2,12 @@ import { Box, Dialog, DialogActions, DialogContent, Grid, IconButton, Typography
 import { CloseOutlined } from '@material-ui/icons';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import React, { RefObject, useRef, useState } from 'react';
+import React, { RefObject, useEffect, useRef, useState } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
+import { useHistory, useParams } from 'react-router';
+import { ROUTES } from 'shared/constants/ROUTES';
+import { profileService } from 'shared/services/profileService';
+import { isShowCompositeCard } from 'shared/utils/isShowCompositeCard';
 import { Button } from 'themes/elements';
 
 import { useStyles } from './CompositeTab.styles';
@@ -11,13 +15,25 @@ import Content from './Content/Content';
 import ImageItem from './ImageItem/ImageItem';
 import Templates from './Templates/Templates';
 
+const { getSingleProfile } = profileService();
 const CompositeTab = () => {
   const classes = useStyles();
+  const { profileId } = useParams() as { profileId: string };
+  const history = useHistory();
+  const { data, isError, isLoading } = getSingleProfile(profileId);
   const [templateId, setTemplateId] = useState<number>(1);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isEditorOpen, setIsEditorOpen] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<number>(-1);
   const scrollRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (data) {
+      if (!isShowCompositeCard(data.data.attributes.profile_type)) {
+        history.push(ROUTES.TALENT.PROFILE);
+      }
+    }
+  }, [data, history]);
 
   const handleSelectTemplate = (newTemplateId: number) => {
     setTemplateId(newTemplateId);
