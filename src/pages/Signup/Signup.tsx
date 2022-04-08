@@ -14,6 +14,8 @@ import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
 import { ROUTES } from 'shared/constants/ROUTES';
 import { PasswordPrinciple, validatePassword } from 'shared/utils/passwordUtil';
 import { PasswordStrength } from 'components/PasswordStrength';
+import countriesList from 'data/Countries.json';
+import statesList from 'data/States.json';
 import { useStyles } from './Signup.styles';
 
 const FULL_SIZE = 800;
@@ -23,6 +25,7 @@ const Signup = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [passwordValidationResult, setPasswordValidationResult] = useState<PasswordPrinciple | null>(null);
+  const [states, setStates] = useState<any>([]);
 
   const { isLoading, errorMessage, isLoggedIn } = useSelector(selectUserState);
 
@@ -31,17 +34,6 @@ const Signup = () => {
       history.push(ROUTES.TALENT.PROFILE);
     }
   }, [isLoggedIn, history]);
-
-  const countries: IKeyValue[] = [
-    {
-      key: 'Australia',
-      value: 'AU',
-    },
-    {
-      key: 'Philippines',
-      value: 'PH',
-    },
-  ];
 
   // Forms
   const initialValues: ISignUpRequestPayload = {
@@ -55,6 +47,8 @@ const Signup = () => {
     password_confirmation: '',
     user_type: 'talent',
   };
+
+  const countries = countriesList.map((country) => ({ key: country.name, value: country.code }));
 
   const signUpValidationSchema: yup.SchemaOf<ISignUpRequestPayload> = yup.object({
     first_name: yup.string().required('First name is required'),
@@ -77,6 +71,12 @@ const Signup = () => {
       }),
     password_confirmation: yup.string().required('Password confirmation is required.'),
   });
+
+  const handleSetCountryStates = (countryCode: any) => {
+    const filteredStates = statesList.filter((state) => state.countryCode === countryCode);
+    const newStates = filteredStates.map((state) => ({ key: state.name, value: state.name }));
+    setStates(newStates);
+  };
 
   const handleSnackBarClose = () => {
     dispatch(setErrorMessage(null));
@@ -149,7 +149,10 @@ const Signup = () => {
                     fullWidth
                     data={countries}
                     value={form.values.country}
-                    onChange={(event) => form.setFieldValue('country', event.target.value)}
+                    onChange={(event) => {
+                      form.setFieldValue('country', event.target.value);
+                      handleSetCountryStates(event.target.value);
+                    }}
                     errorMessage={getErrorMessage(form.touched.country, form.errors.country)}
                   />
                 </Grid>
@@ -157,7 +160,7 @@ const Signup = () => {
                   <Select
                     label=" "
                     fullWidth
-                    data={countries}
+                    data={states}
                     value={form.values.state}
                     onChange={(event) => form.setFieldValue('state', event.target.value)}
                     errorMessage={getErrorMessage(form.touched.state, form.errors.state)}
