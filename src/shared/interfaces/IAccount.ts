@@ -9,7 +9,8 @@ export interface IAccount {
         last_name: string;
         gender: string;
         contact_no: string;
-        country_of_residence: string;
+        country: string;
+        country_code: string;
         state_region: string;
         primary_type: string;
         adult_minor: string;
@@ -34,7 +35,8 @@ export interface IAccountUpdatePayload {
     last_name: string;
     gender: string;
     contact_no: string;
-    country_of_residence: string;
+    country: string;
+    country_code: string;
     state_region: string;
     primary_type?: string;
     adult_minor?: string;
