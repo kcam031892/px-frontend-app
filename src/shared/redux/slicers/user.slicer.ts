@@ -1,3 +1,4 @@
+import hS from 'humanize-string';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { authDao } from 'shared/dao/authDao';
 import { ISignInRequestPayload, ISignUpRequestPayload, IUser } from 'shared/interfaces/IUser';
@@ -93,7 +94,7 @@ export const userSignup =
       const errMsg = [];
       for (const key in errors) {
         const errArr = errors[key];
-        errMsg.push(`${key} ${errArr.join('. ')}`);
+        errMsg.push(`${hS(key)} ${errArr.join('. ')}`);
       }
       dispatch(setErrorMessage(`${errMsg.join('. ')}.`));
     } finally {
