@@ -89,7 +89,13 @@ export const userSignup =
       dispatch(setErrorMessage(null));
       return user;
     } catch (err: any) {
-      dispatch(setErrorMessage('Failed to Sign up'));
+      const { errors = {} } = err.response.data;
+      const errMsg = [];
+      for (const key in errors) {
+        const errArr = errors[key];
+        errMsg.push(`${key} ${errArr.join('. ')}`);
+      }
+      dispatch(setErrorMessage(`${errMsg.join('. ')}.`));
     } finally {
       dispatch(setIsLoading(false));
     }
