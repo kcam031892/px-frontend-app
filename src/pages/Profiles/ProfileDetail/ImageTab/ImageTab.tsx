@@ -1,6 +1,6 @@
 import { Box, Dialog, DialogContent, Grid, Typography } from '@material-ui/core';
 import { ImageEditor } from 'components';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   DragDropContext,
   Draggable,
@@ -27,44 +27,58 @@ import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortab
 
 import ImageItem from './ImageItem/ImageItem';
 import { useStyles } from './ImageTab.styles';
+import { profileService } from 'shared/services/profileService';
+import { useParams } from 'react-router-dom';
+import { mediaService } from 'shared/services/mediaService';
+import HiddenImage from './ImageItem/HiddenImage';
+import { IProfileMedia, IProfileMediaSetSelectPayload } from 'shared/interfaces/IProfile';
+import { useQueryClient } from 'react-query';
+import { errorResponseToArray } from 'shared/utils/errorResponseToArray';
+import { useAlert } from 'themes/elements';
+import ImageOverlay from './ImageItem/ImageOverlay';
+import { debounce } from 'lodash';
 
+const { getMediaProfile, setSelectProfileMedia, unSelectProfileMedia } = profileService();
+const { getMediaList } = mediaService();
 const ImageTab = () => {
+  const { profileId } = useParams() as { profileId: string };
   const classes = useStyles();
-  const [items, setItems] = useState<any[]>(
-    Array.from({ length: 10 }).map((_, i) => {
-      return {
-        id: i.toString(),
-      };
-    }),
-  );
+  const [items, setItems] = useState<IProfileMedia[]>([]);
+  const { data: mediaProfileData, isLoading: isMediaProfileLoading } = getMediaProfile(profileId, {
+    file_type: 'image',
+  });
+  const { data: mediaData, isLoading: isMediaLoading } = getMediaList({ file_type: 'image' });
+  const { isOpen: isAlertOpen, alertRef, AlertOpen } = useAlert({ autoHideDuration: 2000, horizontal: 'right' });
+  const { mutate } = setSelectProfileMedia();
+  const { mutate: unselectMutate } = unSelectProfileMedia();
+  const queryClient = useQueryClient();
 
   const [activeId, setActiveId] = useState<string | null>(null);
 
   const [isEditorOpen, setIsEditorOpen] = useState<boolean>(false);
-  const handleDragEnd = (result: DropResult) => {};
-  const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
-    padding: 8 * 2,
-    paddingLeft: 0,
-    margin: `0 8px 0 0`,
-
-    // styles we need to apply on draggables
-    ...draggableStyle,
-  });
 
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
-  const onDragStart = (event: DragStartEvent) => {
-    console.log('drag start');
+  useEffect(() => {
+    if (mediaProfileData) {
+      setItems(mediaProfileData.data);
+    }
+  }, [mediaProfileData]);
 
+  const filteredMedia = useMemo(() => {
+    const items = mediaData && mediaProfileData ? mediaData.data : [];
+    return items.filter(
+      (item) => !mediaProfileData?.data.some((profileItem) => profileItem.attributes.medium_id === item.id),
+    );
+  }, [mediaData, mediaProfileData]);
+
+  const onDragStart = (event: DragStartEvent) => {
     setActiveId(event.active.id);
   };
-  console.log(items);
 
-  const onDragEnd = (event: DragEndEvent) => {
+  const onDragOver = (event: DragEndEvent) => {
     const { active, over } = event;
     if (active && over) {
-      console.log(active.id, over.id);
-
       if (active.id !== over.id) {
         setItems((items: any) => {
           const oldIndex = items.findIndex((x: any) => x.id === active.id);
@@ -74,61 +88,129 @@ const ImageTab = () => {
         });
       }
     }
+  };
+
+  const onDragEnd = () => {
     setActiveId(null);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedDragOver = useCallback(
+    debounce(onDragOver, 40, {
+      trailing: false,
+      leading: true,
+    }),
+    [],
+  );
+
+  const handleSetSelectMedia = (payload: IProfileMediaSetSelectPayload) => {
+    mutate(
+      { profileId, payload },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries(['profile_media', profileId, { file_type: 'image' }]);
+        },
+        onError: (errors) => {
+          if (errors?.response?.data?.errors) {
+            const errorResponseArray = errorResponseToArray(errors.response.data.errors);
+            AlertOpen('error', errorResponseArray.join(','));
+          } else {
+            AlertOpen('error', 'Something went wrong');
+          }
+        },
+      },
+    );
+  };
+
+  const handleUnselectMedia = (profileMediaId: string) => {
+    unselectMutate(
+      { profileId, profileMediaId },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries(['profile_media', profileId, { file_type: 'image' }]);
+        },
+        onError: (errors) => {
+          if (errors?.response?.data?.errors) {
+            const errorResponseArray = errorResponseToArray(errors.response.data.errors);
+            AlertOpen('error', errorResponseArray.join(','));
+          } else {
+            AlertOpen('error', 'Something went wrong');
+          }
+        },
+      },
+    );
+  };
+
+  const isLoading = useMemo(() => isMediaLoading || isMediaProfileLoading, [isMediaLoading, isMediaProfileLoading]);
+
   return (
     <Box className={classes.imageTab}>
-      {/* Selected Images */}
-      <Box className={classes.selectedImages}>
-        <Box className={classes.titleContainer}>
-          <Typography variant="h6">Selected Images</Typography>
-          <Typography variant="caption">(2 of 16 hidden)</Typography>
-        </Box>
-        <Box className={classes.selectedImages__imageList}>
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragStart={onDragStart}
-            onDragEnd={onDragEnd}
-          >
-            <SortableContext items={items} strategy={rectSortingStrategy}>
-              <Grid container spacing={2}>
-                {items.map((item, i) => (
-                  <Grid xs={12} lg={4} item key={item.id}>
-                    <ImageItem item={item} handleEditImage={() => setIsEditorOpen(true)} />
+      {!isLoading && (
+        <>
+          {/* Selected Images */}
+          <Box className={classes.selectedImages}>
+            <Box className={classes.titleContainer}>
+              <Typography variant="h6">Selected Images</Typography>
+              <Typography variant="caption">{`(${items.length} of ${mediaData?.data.length} selected)`}</Typography>
+            </Box>
+            <Box className={classes.selectedImages__imageList}>
+              <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragStart={onDragStart}
+                onDragOver={onDragOver}
+                onDragEnd={onDragEnd}
+                onDragCancel={onDragEnd}
+              >
+                <SortableContext items={items} strategy={rectSortingStrategy}>
+                  <Grid container spacing={2}>
+                    {mediaProfileData &&
+                      items.map((item, i) => (
+                        <Grid
+                          xs={12}
+                          lg={item.attributes.medium_width > item.attributes.medium_height ? 6 : 3}
+                          item
+                          key={item.id}
+                        >
+                          <ImageItem
+                            item={item}
+                            handleEditImage={() => setIsEditorOpen(true)}
+                            handleUnselectMedia={handleUnselectMedia}
+                          />
+                        </Grid>
+                      ))}
                   </Grid>
-                ))}
-              </Grid>
-              <DragOverlay>
-                {activeId ? (
-                  <ImageItem
-                    item={items.filter((item: any) => item.id === activeId)[0]}
-                    handleEditImage={() => setIsEditorOpen(true)}
-                  />
-                ) : null}
-              </DragOverlay>
-            </SortableContext>
-          </DndContext>
-        </Box>
-      </Box>
+                  <DragOverlay>
+                    {activeId ? <ImageOverlay item={items.filter((item: any) => item.id === activeId)[0]} /> : null}
+                  </DragOverlay>
+                </SortableContext>
+              </DndContext>
+            </Box>
+          </Box>
 
-      {/* Other Images */}
-      <Box className={classes.otherImages}>
-        <Box className={classes.titleContainer}>
-          <Typography variant="h6">Other Image Images</Typography>
-          <Typography variant="caption">(2 of 16 hidden)</Typography>
-        </Box>
-        <Box className={classes.selectedImages__imageList}>
-          <Grid container spacing={2}>
-            {items.map((item, i) => (
-              <Grid xs={12} lg={3} item key={item.id}>
-                <ImageItem item={item} handleEditImage={() => setIsEditorOpen(true)} />
+          {/* Other Images */}
+          <Box className={classes.otherImages}>
+            <Box className={classes.titleContainer}>
+              <Typography variant="h6">Other Images</Typography>
+              <Typography variant="caption">{`(${filteredMedia.length} of ${mediaData?.data.length} hidden)`}</Typography>
+            </Box>
+            <Box className={classes.selectedImages__imageList}>
+              <Grid container spacing={2}>
+                {mediaData &&
+                  filteredMedia.map((item, i) => (
+                    <Grid xs={12} lg={3} item key={item.id}>
+                      <HiddenImage
+                        item={item}
+                        handleEditImage={() => setIsEditorOpen(true)}
+                        handleSetSelect={handleSetSelectMedia}
+                      />
+                    </Grid>
+                  ))}
               </Grid>
-            ))}
-          </Grid>
-        </Box>
-      </Box>
+            </Box>
+          </Box>
+        </>
+      )}
 
       {/* Dialog / Edit Image */}
       <Dialog
@@ -142,6 +224,7 @@ const ImageTab = () => {
           <ImageEditor onCloseEditor={() => setIsEditorOpen(false)} />
         </DialogContent>
       </Dialog>
+      {isAlertOpen && alertRef}
     </Box>
   );
 };

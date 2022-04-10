@@ -9,6 +9,7 @@ import { SectionType } from 'shared/enums/SectionType';
 import { ISection } from 'shared/interfaces/ITalent';
 
 import {
+  addNewRow,
   changeSectionTitle,
   removeSection,
   reorderSection,
@@ -24,10 +25,7 @@ type Props = {
   setSelected: (index: number) => void;
   index: number;
   section: ISection;
-
   handleReorderTable: (sectionIndex: number, sourceIndex: number, destinationIndex: number) => void;
-  handleColumnChange: (arrayIndex: number, num: number) => void;
-  handleRowChange: (arrayIndex: number, num: number) => void;
   handleOpenGalleryDialog: () => void;
   providedDraggable: DraggableProvided;
 };
@@ -37,25 +35,21 @@ const ResumeSection: React.FC<Props> = ({
   index,
   section,
   handleReorderTable,
-  handleRowChange,
-  handleColumnChange,
+
   handleOpenGalleryDialog,
   providedDraggable,
 }) => {
   const classes = useStyles();
-
-  const [cardRows, setCardRows] = useState(section.values.length);
   const dispatch = useDispatch();
   const { sections } = useSelector(selectResumeState);
+  const [isTableDragging, setIsTableDragging] = useState<boolean>(false);
 
-  const handleSelectColumnChange = (value: number) => {
-    handleColumnChange(index, value);
+  const handleRowChange = (index: number) => {
+    dispatch(addNewRow({ index }));
   };
 
   const handleSelectRowChange = () => {
-    console.log('handleRowChange');
-
-    handleRowChange(index, 1);
+    handleRowChange(index);
   };
 
   const handleSectionChange = (e: React.ChangeEvent<{ value: any }>) => {
@@ -84,12 +78,15 @@ const ResumeSection: React.FC<Props> = ({
   };
 
   return (
-    <Card variant="outlined" className={classes.card} onClick={() => setSelected(index)}>
+    <Card
+      variant="outlined"
+      className={clsx(classes.card, isTableDragging ? 'card__drag' : '')}
+      onClick={() => setSelected(index)}
+    >
       <CardContent
         data-rbd-drag-handle-context-id={providedDraggable.dragHandleProps?.['data-rbd-drag-handle-context-id']}
         data-rbd-drag-handle-draggable-id="gibberish"
         style={{
-          // When you set the data-rbd-drag-handle-context-id, RBD applies cursor: grab, so we need to revert that
           cursor: 'auto',
         }}
       >
@@ -120,10 +117,10 @@ const ResumeSection: React.FC<Props> = ({
             <TableCard
               section={section}
               handleReorderTable={handleReorderTable}
-              handleColumnChange={handleColumnChange}
               handleRowChange={handleSelectRowChange}
               handleOpenGalleryDialog={handleOpenGalleryDialog}
               index={index}
+              setIsTableDragging={setIsTableDragging}
             />
           ) : (
             <SummaryCard />

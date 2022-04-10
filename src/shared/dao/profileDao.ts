@@ -3,13 +3,16 @@ import { useAxios } from 'shared/hooks/useAxios';
 import {
   IProfileCreatePayload,
   IProfileCreateResponsePayload,
+  IProfileMediaResponsePayload,
+  IProfileMediaSetSelectPayload,
   IProfilePrimaryImageResponsePayload,
   IProfileResponsePayload,
   ISingleProfileResponsePayload,
 } from 'shared/interfaces/IProfile';
+import { IMediaFileType } from 'shared/interfaces/utils/IMediaFileType';
 import { authToken } from 'shared/utils/authToken';
 
-const { GET, POST } = useAxios();
+const { GET, POST, DELETE } = useAxios();
 
 export const profileDao = () => {
   const { getAuthToken } = authToken();
@@ -56,10 +59,50 @@ export const profileDao = () => {
     return response.data;
   };
 
-  const setProfilePrimaryImage = async (profileId: string, formData: FormData) => {
+  const setProfilePrimaryImage = async (
+    profileId: string,
+    formData: FormData,
+    onProgress: (current: number) => void,
+  ) => {
     const response = await POST<IProfilePrimaryImageResponsePayload>({
       url: `${ENDPOINTS.PROFILE}/${profileId}/primary_image`,
       data: formData,
+      onUploadProgress: (progressEvent) => {
+        onProgress((progressEvent.loaded / progressEvent.total) * 100);
+      },
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
+    return response.data;
+  };
+
+  const getProfileMedia = async (profileId: string, fileType: IMediaFileType) => {
+    const response = await GET<IProfileMediaResponsePayload>({
+      url: `${ENDPOINTS.PROFILE}/${profileId}/medium_attachments`,
+      params: fileType,
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
+
+    return response.data;
+  };
+
+  const setSelectProfileMedia = async (profileId: string, payload: IProfileMediaSetSelectPayload) => {
+    const response = await POST<IProfileResponsePayload>({
+      url: `${ENDPOINTS.PROFILE}/${profileId}/medium_attachments`,
+      data: payload,
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
+    return response.data;
+  };
+
+  const unSelectProfileMedia = async (profileId: string, profileMediaId: string) => {
+    const response = await DELETE<IProfileResponsePayload>({
+      url: `${ENDPOINTS.PROFILE}/${profileId}/medium_attachments/${profileMediaId}`,
       headers: {
         Authorization: `Bearer ${getAuthToken()}`,
       },
@@ -73,5 +116,8 @@ export const profileDao = () => {
     createProfile,
     getProfilePrimaryImage,
     setProfilePrimaryImage,
+    getProfileMedia,
+    setSelectProfileMedia,
+    unSelectProfileMedia,
   };
 };

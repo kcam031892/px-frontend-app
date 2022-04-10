@@ -7,33 +7,23 @@ import { Editor } from 'react-draft-wysiwyg';
 import { useStyles } from './RichEditor.styles';
 type Props = {
   onChange: (text: string) => void;
-  content: string;
+
   minHeight?: number;
+  setEditorState: React.Dispatch<React.SetStateAction<EditorState>>;
+  editorState: EditorState;
 };
-const RichEditor: React.FC<Props> = ({ onChange, content, minHeight }) => {
+const RichEditor: React.FC<Props> = ({ onChange, minHeight, editorState, setEditorState }) => {
   const classes = useStyles();
   const [isToolbarHidden, setIsToolbarHidden] = useState<boolean>(true);
-  const convertContent = (content: string) => {
-    if (content) {
-      const contentBlock = htmlToDraft(content);
-      if (contentBlock) {
-        const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-        return EditorState.createWithContent(contentState);
-      }
-    }
-    return EditorState.createEmpty();
+
+  const replacetags = (string: string) => {
+    return string.replaceAll('\n', '');
   };
-
-  const [editorState, setEditorState] = useState(() => {
-    return convertContent(content);
-  });
-
   const handleEditStateChange = (changed: EditorState) => {
     setEditorState(changed);
     const htmlContent = draftToHtml(convertToRaw(editorState.getCurrentContent()));
-    if (onChange && htmlContent !== content) {
-      onChange(htmlContent);
-    }
+
+    onChange(htmlContent);
   };
 
   return (

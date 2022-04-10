@@ -11,10 +11,10 @@ type Props = {
   exact?: boolean;
   path: string;
 };
-const { isAuthenticated } = tokenService();
-
+const { getAuthToken, isAuthenticated, isCompletedPrimaryDetail } = tokenService();
 const ClientRoute: React.FC<Props> = ({ component: Component, exact, path }) => {
-  const { getAuthToken } = tokenService();
+  // isAuthenticated() ? <Component /> : <Redirect to={ROUTES.LOGIN} />
+
   const authToken = getAuthToken();
   const dispatch = useDispatch();
   const { isLoggedIn, errorMessage } = useSelector(selectUserState);
@@ -24,10 +24,19 @@ const ClientRoute: React.FC<Props> = ({ component: Component, exact, path }) => 
       dispatch(getUserProfile());
     }
   }, [authToken, isLoggedIn, dispatch]);
+
   return (
     <Layout>
       <Route
-        component={() => (isAuthenticated() ? <Component /> : <Redirect to={ROUTES.LOGIN} />)}
+        component={() => {
+          if (isAuthenticated() && isCompletedPrimaryDetail()) {
+            return <Component />;
+          } else if (isAuthenticated() && !isCompletedPrimaryDetail()) {
+            return <Redirect to={ROUTES.COMPLETE_PROFILE} />;
+          } else {
+            return <Redirect to={ROUTES.LOGIN} />;
+          }
+        }}
         exact={exact}
         path={path}
       />
