@@ -29,6 +29,7 @@
     "formik": "^2.2.9",
     "guid-typescript": "^1.0.9",
     "html-to-draftjs": "^1.5.0",
+    "humanize-string": "^3.0.0",
     "immutable": "^4.0.0-rc.12",
     "luxon": "^2.0.2",
     "material-ui-confirm": "^2.1.1",
