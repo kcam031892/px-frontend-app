@@ -131,6 +131,7 @@ const TableCard: React.FC<Props> = ({
                           <Select
                             data={GENERATE_DATES}
                             fullWidth
+                            placeholder="Year"
                             MenuProps={{
                               anchorOrigin: {
                                 vertical: 'bottom',

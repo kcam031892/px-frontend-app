@@ -59,10 +59,37 @@ export interface IProfilePrimaryImage {
     medium_name: string;
   };
 }
+
+export interface IProfileMedia {
+  id: string;
+  type: string;
+  attributes: {
+    primary: boolean;
+    profile_id: string;
+    attachment: string;
+    medium_name: string;
+    medium_id: string;
+    medium_type: string;
+    medium_tag_list: string[];
+    medium_height: number;
+    medium_width: number;
+    medium_size: number;
+    sort: number;
+  };
+}
 export interface IProfilePrimaryImageResponsePayload extends ICommonCreateResponsePayload {
   data: IProfilePrimaryImage;
 }
 
 export interface IProfileCreateResponsePayload extends ICommonCreateResponsePayload {
   data: IProfile;
+}
+
+export interface IProfileMediaResponsePayload extends ICommonCreateResponsePayload {
+  data: IProfileMedia[];
+}
+
+export interface IProfileMediaSetSelectPayload {
+  medium_id: string;
+  sort?: number;
 }

@@ -19,17 +19,18 @@ import { FileUploadDialog, ImageCropper } from 'components';
 import { RemoveIcon, SearchIcon } from 'components/Icons';
 import { ImageGallery } from 'components/ImageGallery';
 import { Guid } from 'guid-typescript';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router';
 import { ImageQuanlityLevel } from 'shared/enums/ImageQualityLevel';
 import { profileService } from 'shared/services/profileService';
-import { Input } from 'themes/elements';
+import { Backdrop, Input } from 'themes/elements';
 import { useDebounce } from 'use-debounce';
 
 import { useStyles } from './PrimaryImage.styles';
 import b64toBlob from 'b64-to-blob';
 import { base64ToBlob, blobToBase64 } from 'base64-blob';
 import { dataUrlToFile } from 'shared/utils/dataUrlToFile';
+import { useQueryClient } from 'react-query';
 
 const { getProfilePrimaryImage, setProfilePrimaryImage } = profileService();
 const PrimaryImage = () => {
@@ -45,12 +46,12 @@ const PrimaryImage = () => {
   const [image, setImage] = useState<string>('');
   const [fileImage, setFileImage] = useState<File | null>(null);
   const [fileName, setFileName] = useState<string>('');
-  const [isValidImage, setIsValidImage] = useState<string | null>(null);
   const [qualityLevel, setQualityLevel] = useState<ImageQuanlityLevel>(ImageQuanlityLevel.None);
   const [isImageGalleryOpen, setIsImageGalleryOpen] = useState<boolean>(false);
-  const { data, isError, isLoading } = getProfilePrimaryImage(profileId);
+  const { data, isError, isLoading: isLoadingPrimaryImage } = getProfilePrimaryImage(profileId);
   const { mutate, isLoading: isSaving } = setProfilePrimaryImage();
   const [uploadProgress, setUploadProgress] = useState<number>(0);
+  const queryClient = useQueryClient();
 
   const onSelectTag = (newTag: string) => {
     if (!tags.includes(newTag)) {
@@ -97,29 +98,40 @@ const PrimaryImage = () => {
     setIsImageGalleryOpen(true);
   };
 
-  const handleSave = async () => {
+  const handleSave = async (mediaId?: string) => {
     const formData = new FormData();
 
     if (fileImage) {
-      const width = cropper.canvasData.width;
-      const height = cropper.canvasData.height;
+      const width = Math.floor(cropper.canvasData.width);
+      const height = Math.floor(cropper.canvasData.height);
       const convertedFile = await base64ToBlob(cropData);
       const fileSize = convertedFile.size;
 
       formData.set('attachment', convertedFile);
-      formData.set('file_width', width);
-      formData.set('file_height', height);
+      formData.set('file_width', width.toString());
+      formData.set('file_height', height.toString());
       formData.set('file_name', fileName);
       formData.set('file_size', fileSize.toString());
-
-      mutate(
-        { profileId, formData, onProgress: (number) => setUploadProgress(number) },
-        {
-          onSuccess: () => {},
-        },
-      );
+    } else if (mediaId) {
+      formData.set('medium_id', mediaId);
     }
+    setIsImageGalleryOpen(false);
+    setIsFileDialogOpen(false);
+    mutate(
+      { profileId, formData, onProgress: (number) => setUploadProgress(number) },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries(['profile_primary_image', profileId]);
+
+          setUploadProgress(0);
+        },
+      },
+    );
   };
+
+  const isLoading = useMemo(() => {
+    return isSaving || isLoadingPrimaryImage;
+  }, [isSaving, isLoadingPrimaryImage]);
 
   return (
     <Grid container spacing={0}>
@@ -128,7 +140,7 @@ const PrimaryImage = () => {
           <LinearProgress variant="determinate" value={uploadProgress} />
         </Grid>
       )}
-      {!isLoading && (
+      {!isLoadingPrimaryImage && (
         <>
           <Grid item md={12} lg={4} xl={3}>
             <Typography variant="h6" gutterBottom>
@@ -264,7 +276,7 @@ const PrimaryImage = () => {
             onFileSelected={onFileSelected}
             handleSelectFromMedia={handleImageGalleryOpen}
           />
-          <ImageGallery open={isImageGalleryOpen} handleClose={handleImageGalleryClose} />
+          <ImageGallery handleSave={handleSave} open={isImageGalleryOpen} handleClose={handleImageGalleryClose} />
 
           <Snackbar open={qualityLevel === ImageQuanlityLevel.Reject} autoHideDuration={6000 * 10}>
             <Alert variant="filled" severity="error">

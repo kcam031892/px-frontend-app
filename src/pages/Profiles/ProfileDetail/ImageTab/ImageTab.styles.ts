@@ -8,9 +8,7 @@ export const useStyles = makeStyles((theme) =>
       alignItems: 'center',
       gap: '1rem',
     },
-    selectedImages: {
-      minHeight: '60vh',
-    },
+    selectedImages: {},
     selectedImages__imageList: {
       marginTop: theme.spacing(0.5),
     },

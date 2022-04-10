@@ -4,11 +4,13 @@ import { profileDao } from 'shared/dao/profileDao';
 import {
   IProfileCreatePayload,
   IProfileCreateResponsePayload,
+  IProfileMediaSetSelectPayload,
   IProfilePrimaryImageResponsePayload,
   IProfileResponsePayload,
   ISingleProfileResponsePayload,
 } from 'shared/interfaces/IProfile';
 import { IErrorResponse } from 'shared/interfaces/utils/IErrorResonse';
+import { IMediaFileType } from 'shared/interfaces/utils/IMediaFileType';
 
 const {
   getProfiles: getProfilesDao,
@@ -16,6 +18,9 @@ const {
   createProfile: createProfileDao,
   getProfilePrimaryImage: getProfilePrimaryImageDao,
   setProfilePrimaryImage: setProfilePrimaryImageDao,
+  getProfileMedia: getProfileMediaDao,
+  setSelectProfileMedia: setSelectProfileMediaDao,
+  unSelectProfileMedia: unSelectProfileMediaDao,
 } = profileDao();
 export const profileService = () => {
   const getProfiles = () => {
@@ -52,11 +57,38 @@ export const profileService = () => {
     );
   };
 
+  const getMediaProfile = (profileId: string, fileType: IMediaFileType) => {
+    return useQuery(['profile_media', profileId, fileType], () => getProfileMediaDao(profileId, fileType));
+  };
+
+  const setSelectProfileMedia = () => {
+    return useMutation<
+      IProfileResponsePayload,
+      AxiosError<IErrorResponse>,
+      { profileId: string; payload: IProfileMediaSetSelectPayload }
+    >(({ profileId, payload }: { profileId: string; payload: IProfileMediaSetSelectPayload }) =>
+      setSelectProfileMediaDao(profileId, payload),
+    );
+  };
+
+  const unSelectProfileMedia = () => {
+    return useMutation<
+      IProfileResponsePayload,
+      AxiosError<IErrorResponse>,
+      { profileId: string; profileMediaId: string }
+    >(({ profileId, profileMediaId }: { profileId: string; profileMediaId: string }) =>
+      unSelectProfileMediaDao(profileId, profileMediaId),
+    );
+  };
+
   return {
     getProfiles,
     getSingleProfile,
     createProfile,
     getProfilePrimaryImage,
     setProfilePrimaryImage,
+    getMediaProfile,
+    setSelectProfileMedia,
+    unSelectProfileMedia,
   };
 };

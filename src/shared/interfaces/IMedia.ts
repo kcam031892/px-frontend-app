@@ -5,6 +5,8 @@ export interface IAttributes {
   tag_list: string[];
   file_name: string;
   file_size: number;
+  file_width: string;
+  file_height: string;
   width?: string;
   height?: string;
 }
