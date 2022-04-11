@@ -69,7 +69,10 @@ const Signup = () => {
         }
         return false;
       }),
-    password_confirmation: yup.string().required('Password confirmation is required.'),
+    password_confirmation: yup
+      .string()
+      .required('Password confirmation is required')
+      .oneOf([yup.ref('password')], 'Your passwords do not match.'),
   });
 
   const handleSetCountryStates = (countryCode: any) => {
