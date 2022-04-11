@@ -41,7 +41,6 @@ const Accents = () => {
                 <div>
                   <Chip
                     label="Canadian"
-                    onClick={handleOpenProfeciencyDialog}
                     onDelete={() => {}}
                     avatar={<span className={skillStyle.badgeStyle}>I</span>}
                   />
@@ -49,7 +48,6 @@ const Accents = () => {
                 <div>
                   <Chip
                     label="Caribbean"
-                    onClick={handleOpenProfeciencyDialog}
                     onDelete={() => {}}
                     avatar={<span className={skillStyle.badgeStyle}>E</span>}
                   />
