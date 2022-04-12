@@ -12,7 +12,7 @@ import {
 import { IMediaFileType } from 'shared/interfaces/utils/IMediaFileType';
 import { authToken } from 'shared/utils/authToken';
 
-const { GET, POST, DELETE } = useAxios();
+const { GET, POST, DELETE, PATCH } = useAxios();
 
 export const profileDao = () => {
   const { getAuthToken } = authToken();
@@ -62,13 +62,15 @@ export const profileDao = () => {
   const setProfilePrimaryImage = async (
     profileId: string,
     formData: FormData,
-    onProgress: (current: number) => void,
+    onProgress?: (current: number) => void,
   ) => {
     const response = await POST<IProfilePrimaryImageResponsePayload>({
       url: `${ENDPOINTS.PROFILE}/${profileId}/primary_image`,
       data: formData,
       onUploadProgress: (progressEvent) => {
-        onProgress((progressEvent.loaded / progressEvent.total) * 100);
+        if (onProgress) {
+          onProgress((progressEvent.loaded / progressEvent.total) * 100);
+        }
       },
       headers: {
         Authorization: `Bearer ${getAuthToken()}`,
@@ -110,6 +112,19 @@ export const profileDao = () => {
     return response.data;
   };
 
+  const updateProfileMediaSort = async (profileId: string, sort: { id: string; sort: number }[]) => {
+    const response = await PATCH<IProfileResponsePayload>({
+      url: `${ENDPOINTS.PROFILE}/${profileId}/medium_attachments/sort`,
+      data: {
+        sorted_medium_attachments: sort,
+      },
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
+    return response.data;
+  };
+
   return {
     getProfiles,
     getSingleProfile,
@@ -119,5 +134,6 @@ export const profileDao = () => {
     getProfileMedia,
     setSelectProfileMedia,
     unSelectProfileMedia,
+    updateProfileMediaSort,
   };
 };

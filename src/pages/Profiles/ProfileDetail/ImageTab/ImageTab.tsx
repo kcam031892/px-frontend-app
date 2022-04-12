@@ -38,8 +38,10 @@ import { useAlert } from 'themes/elements';
 import ImageOverlay from './ImageItem/ImageOverlay';
 import { debounce } from 'lodash';
 
-const { getMediaProfile, setSelectProfileMedia, unSelectProfileMedia } = profileService();
+const { getMediaProfile, setSelectProfileMedia, unSelectProfileMedia, updateProfileMediaSort, setProfilePrimaryImage } =
+  profileService();
 const { getMediaList } = mediaService();
+
 const ImageTab = () => {
   const { profileId } = useParams() as { profileId: string };
   const classes = useStyles();
@@ -51,6 +53,8 @@ const ImageTab = () => {
   const { isOpen: isAlertOpen, alertRef, AlertOpen } = useAlert({ autoHideDuration: 2000, horizontal: 'right' });
   const { mutate } = setSelectProfileMedia();
   const { mutate: unselectMutate } = unSelectProfileMedia();
+  const { mutate: updateSortMutate, isLoading: isLoadingUpdateSort } = updateProfileMediaSort();
+  const { mutate: primaryImageMutate, isLoading: isSaving } = setProfilePrimaryImage();
   const queryClient = useQueryClient();
 
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -80,17 +84,29 @@ const ImageTab = () => {
     const { active, over } = event;
     if (active && over) {
       if (active.id !== over.id) {
-        setItems((items: any) => {
-          const oldIndex = items.findIndex((x: any) => x.id === active.id);
-          const newIndex = items.findIndex((x: any) => x.id === over.id);
+        setItems((items: IProfileMedia[]) => {
+          const oldIndex = items.findIndex((x: IProfileMedia) => x.id === active.id);
+          const newIndex = items.findIndex((x: IProfileMedia) => x.id === over.id);
 
-          return arrayMove(items, oldIndex, newIndex);
+          const movedItems = arrayMove(items, oldIndex, newIndex);
+          return movedItems;
         });
       }
     }
   };
 
   const onDragEnd = () => {
+    const updatedItems = items.map((item, i) => {
+      return {
+        id: item.id,
+        sort: i,
+      };
+    });
+    setTimeout(() => {
+      updateSortMutate({ profileId, sort: updatedItems });
+    }, 500);
+
+    queryClient.setQueriesData(['profile_media', profileId, { file_type: 'image' }], { data: items });
     setActiveId(null);
   };
 
@@ -105,7 +121,7 @@ const ImageTab = () => {
 
   const handleSetSelectMedia = (payload: IProfileMediaSetSelectPayload) => {
     mutate(
-      { profileId, payload },
+      { profileId, payload: { ...payload, sort: mediaProfileData ? mediaProfileData.data.length : 0 } },
       {
         onSuccess: () => {
           queryClient.invalidateQueries(['profile_media', profileId, { file_type: 'image' }]);
@@ -141,6 +157,21 @@ const ImageTab = () => {
     );
   };
 
+  const handleMakePrimary = (mediaId: string) => {
+    const formData = new FormData();
+    formData.set('medium_id', mediaId);
+
+    primaryImageMutate(
+      { profileId, formData },
+      {
+        onSuccess: () => {
+          queryClient.removeQueries('profiles');
+          queryClient.invalidateQueries(['profile_primary_image', profileId]);
+        },
+      },
+    );
+  };
+
   const isLoading = useMemo(() => isMediaLoading || isMediaProfileLoading, [isMediaLoading, isMediaProfileLoading]);
 
   return (
@@ -164,24 +195,40 @@ const ImageTab = () => {
               >
                 <SortableContext items={items} strategy={rectSortingStrategy}>
                   <Grid container spacing={2}>
-                    {mediaProfileData &&
-                      items.map((item, i) => (
-                        <Grid
-                          xs={12}
-                          lg={item.attributes.medium_width > item.attributes.medium_height ? 6 : 3}
-                          item
-                          key={item.id}
-                        >
-                          <ImageItem
-                            item={item}
-                            handleEditImage={() => setIsEditorOpen(true)}
-                            handleUnselectMedia={handleUnselectMedia}
-                          />
-                        </Grid>
-                      ))}
+                    <Box className={classes.profileContainer}>
+                      {mediaProfileData &&
+                        items.map((item, i) => (
+                          <Box
+                            style={{
+                              minWidth: (item.attributes.medium_width * 150) / item.attributes.medium_height - 150,
+                              maxWidth: (item.attributes.medium_width * 150) / item.attributes.medium_height,
+                              height: 150,
+                            }}
+                            key={item.id}
+                          >
+                            <ImageItem
+                              item={item}
+                              handleEditImage={() => setIsEditorOpen(true)}
+                              handleUnselectMedia={handleUnselectMedia}
+                              handleMakePrimary={handleMakePrimary}
+                            />
+                          </Box>
+                        ))}
+                    </Box>
                   </Grid>
                   <DragOverlay>
-                    {activeId ? <ImageOverlay item={items.filter((item: any) => item.id === activeId)[0]} /> : null}
+                    {activeId ? (
+                      <Box
+                        style={{
+                          maxWidth:
+                            (items.filter((item: any) => item.id === activeId)[0].attributes.medium_width * 150) /
+                            items.filter((item: any) => item.id === activeId)[0].attributes.medium_height,
+                          height: 150,
+                        }}
+                      >
+                        <ImageOverlay item={items.filter((item: any) => item.id === activeId)[0]} />
+                      </Box>
+                    ) : null}
                   </DragOverlay>
                 </SortableContext>
               </DndContext>
@@ -195,18 +242,25 @@ const ImageTab = () => {
               <Typography variant="caption">{`(${filteredMedia.length} of ${mediaData?.data.length} hidden)`}</Typography>
             </Box>
             <Box className={classes.selectedImages__imageList}>
-              <Grid container spacing={2}>
+              <Box className={classes.profileContainer}>
                 {mediaData &&
                   filteredMedia.map((item, i) => (
-                    <Grid xs={12} lg={3} item key={item.id}>
+                    <Box
+                      style={{
+                        minWidth: (item.attributes.file_width * 150) / item.attributes.file_height - 150,
+                        maxWidth: (item.attributes.file_width * 150) / item.attributes.file_height,
+                        height: 150,
+                      }}
+                      key={item.id}
+                    >
                       <HiddenImage
                         item={item}
                         handleEditImage={() => setIsEditorOpen(true)}
                         handleSetSelect={handleSetSelectMedia}
                       />
-                    </Grid>
+                    </Box>
                   ))}
-              </Grid>
+              </Box>
             </Box>
           </Box>
         </>
