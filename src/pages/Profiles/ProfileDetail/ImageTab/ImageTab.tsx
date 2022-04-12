@@ -166,7 +166,8 @@ const ImageTab = () => {
       {
         onSuccess: () => {
           queryClient.removeQueries('profiles');
-          queryClient.invalidateQueries(['profile_primary_image', profileId]);
+          queryClient.removeQueries(['profile_primary_image', profileId]);
+          queryClient.invalidateQueries(['profile_media', profileId, { file_type: 'image' }]);
         },
       },
     );
@@ -200,8 +201,7 @@ const ImageTab = () => {
                         items.map((item, i) => (
                           <Box
                             style={{
-                              minWidth: (item.attributes.medium_width * 150) / item.attributes.medium_height - 150,
-                              maxWidth: (item.attributes.medium_width * 150) / item.attributes.medium_height,
+                              maxWidth: (item.attributes.medium_width * 250) / item.attributes.medium_height,
                               height: 150,
                             }}
                             key={item.id}
@@ -221,7 +221,7 @@ const ImageTab = () => {
                       <Box
                         style={{
                           maxWidth:
-                            (items.filter((item: any) => item.id === activeId)[0].attributes.medium_width * 150) /
+                            (items.filter((item: any) => item.id === activeId)[0].attributes.medium_width * 250) /
                             items.filter((item: any) => item.id === activeId)[0].attributes.medium_height,
                           height: 150,
                         }}
@@ -247,8 +247,7 @@ const ImageTab = () => {
                   filteredMedia.map((item, i) => (
                     <Box
                       style={{
-                        minWidth: (item.attributes.file_width * 150) / item.attributes.file_height - 150,
-                        maxWidth: (item.attributes.file_width * 150) / item.attributes.file_height,
+                        maxWidth: (item.attributes.file_width * 250) / item.attributes.file_height,
                         height: 150,
                       }}
                       key={item.id}

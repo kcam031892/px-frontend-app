@@ -122,6 +122,7 @@ const PrimaryImage = () => {
       {
         onSuccess: () => {
           queryClient.removeQueries('profiles');
+          queryClient.removeQueries(['profile_media', profileId, { file_type: 'image' }]);
           queryClient.invalidateQueries(['profile_primary_image', profileId]);
 
           setUploadProgress(0);
