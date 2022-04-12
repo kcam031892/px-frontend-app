@@ -54,7 +54,7 @@ const Signup = () => {
     first_name: yup.string().required('First name is required'),
     last_name: yup.string().required('Last name is required'),
     contact_number: yup.string().required('Contact number is required'),
-    email: yup.string().email('Must be a valid email').required('Email is required'),
+    email: yup.string().email('Wrong email format').required('Email is required'),
     country: yup.string().required('Country is required'),
     state: yup.string().required('State is required'),
     user_type: yup.string().required('User type is required'),
@@ -105,9 +105,11 @@ const Signup = () => {
               autoFocus
               name="first_name"
               onChange={(e) => {
-                form.setFieldTouched('first_name');
-                form.validateField('first_name');
-                form.handleChange(e);
+                if (form.errors.first_name && !form.touched.first_name) {
+                  form.setFieldTouched('first_name');
+                  form.validateField('first_name');
+                }
+                return form.handleChange(e);
               }}
               errorMessage={getErrorMessage(form.touched.first_name, form.errors.first_name)}
               value={form.values.first_name}
@@ -122,9 +124,11 @@ const Signup = () => {
               label={'Last Name'}
               name="last_name"
               onChange={(e) => {
-                form.setFieldTouched('last_name');
-                form.validateField('last_name');
-                form.handleChange(e);
+                if (form.errors.last_name && !form.touched.last_name) {
+                  form.setFieldTouched('last_name');
+                  form.validateField('last_name');
+                }
+                return form.handleChange(e);
               }}
               errorMessage={getErrorMessage(form.touched.last_name, form.errors.last_name)}
               value={form.values.last_name}
@@ -137,9 +141,11 @@ const Signup = () => {
             <ContactInput
               name="contact_number"
               onChange={(e) => {
-                form.setFieldTouched('contact_number');
-                form.validateField('contact_number');
-                form.handleChange(e);
+                if (form.errors.contact_number && !form.touched.contact_number) {
+                  form.setFieldTouched('contact_number');
+                  form.validateField('contact_number');
+                }
+                return form.handleChange(e);
               }}
               errorMessage={getErrorMessage(form.touched.contact_number, form.errors.contact_number)}
               value={form.values.contact_number}
@@ -148,9 +154,11 @@ const Signup = () => {
               label={'Email Address'}
               name="email"
               onChange={(e) => {
-                form.setFieldTouched('email');
-                form.validateField('email');
-                form.handleChange(e);
+                if (form.errors.email && !form.touched.email) {
+                  form.setFieldTouched('email');
+                  form.validateField('email');
+                }
+                return form.handleChange(e);
               }}
               errorMessage={getErrorMessage(form.touched.email, form.errors.email)}
               value={form.values.email}
@@ -195,9 +203,11 @@ const Signup = () => {
                 margin={'normal'}
                 name="password"
                 onChange={(e) => {
-                  form.setFieldTouched('password');
-                  form.validateField('password');
-                  form.handleChange(e);
+                  if (form.errors.password && !form.touched.password) {
+                    form.setFieldTouched('password');
+                    form.validateField('password');
+                  }
+                  return form.handleChange(e);
                 }}
                 errorMessage={getErrorMessage(form.touched.password, form.errors.password)}
                 value={form.values.password}
@@ -212,9 +222,11 @@ const Signup = () => {
                 name="password_confirmation"
                 fullWidth
                 onChange={(e) => {
-                  form.setFieldTouched('password_confirmation');
-                  form.validateField('password_confirmation');
-                  form.handleChange(e);
+                  if (form.errors.password_confirmation && !form.touched.password_confirmation) {
+                    form.setFieldTouched('password_confirmation');
+                    form.validateField('password_confirmation');
+                  }
+                  return form.handleChange(e);
                 }}
                 errorMessage={getErrorMessage(form.touched.password_confirmation, form.errors.password_confirmation)}
                 value={form.values.password_confirmation}
