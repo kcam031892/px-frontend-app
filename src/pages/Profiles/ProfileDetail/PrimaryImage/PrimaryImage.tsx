@@ -121,6 +121,7 @@ const PrimaryImage = () => {
       { profileId, formData, onProgress: (number) => setUploadProgress(number) },
       {
         onSuccess: () => {
+          queryClient.removeQueries('profiles');
           queryClient.invalidateQueries(['profile_primary_image', profileId]);
 
           setUploadProgress(0);
@@ -245,7 +246,7 @@ const PrimaryImage = () => {
               </Typography>
               <Box className={classes.action__buttonContainer}>
                 <Button variant="outlined" onClick={openFileDialog}>
-                  Upload New Image
+                  Upload Image
                 </Button>
                 <Button
                   variant="contained"
