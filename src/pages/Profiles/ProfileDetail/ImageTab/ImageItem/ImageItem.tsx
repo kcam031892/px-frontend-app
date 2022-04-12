@@ -25,8 +25,9 @@ type Props = {
   handleEditImage: () => void;
   item: IProfileMedia;
   handleUnselectMedia: (profileMediaId: string) => void;
+  handleMakePrimary: (mediaId: string) => void;
 };
-const ImageItem: React.FC<Props> = ({ handleEditImage, item, handleUnselectMedia }) => {
+const ImageItem: React.FC<Props> = ({ handleEditImage, item, handleUnselectMedia, handleMakePrimary }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -50,6 +51,11 @@ const ImageItem: React.FC<Props> = ({ handleEditImage, item, handleUnselectMedia
     handleUnselectMedia(item.id);
   };
 
+  const handleClickMakePrimary = () => {
+    handleMakePrimary(item.attributes.medium_id);
+    handleCloseMenu();
+  };
+
   const style: React.CSSProperties = {
     transform: CSS.Transform.toString(transform),
     transition,
@@ -59,8 +65,8 @@ const ImageItem: React.FC<Props> = ({ handleEditImage, item, handleUnselectMedia
   return (
     <Card className={clsx(classes.card)} ref={setNodeRef} style={style}>
       <div className={classes.card__moveIcon} {...attributes} {...listeners}>
-        <IconButton>
-          <MoveIcon viewBox="0 0 16 16" style={{ width: 16, height: 16 }} />
+        <IconButton color="primary" style={{ background: '#fff', padding: 8 }}>
+          <MoveIcon viewBox="0 0 16 16" style={{ width: 12, height: 12 }} />
         </IconButton>
       </div>
       <Box className={classes.card__media} {...attributes} {...listeners}>
@@ -68,30 +74,16 @@ const ImageItem: React.FC<Props> = ({ handleEditImage, item, handleUnselectMedia
           component="img"
           image={item.attributes.attachment}
           title={item.attributes.medium_name}
-          height="300"
-          width="100%"
-          style={{ objectFit: 'contain', maxHeight: 300 }}
+          alt=""
+          height={150}
+          width={'100%'}
+          style={{ objectFit: 'contain' }}
         />
       </Box>
 
-      <CardContent className={classes.card__content} {...attributes} {...listeners}>
-        <Box>
-          <Typography variant="h6" className={classes.card__title}>
-            {item.attributes.medium_name}
-          </Typography>
-          <Typography variant="subtitle1" className={classes.card__subtitle}>
-            {`${Math.floor(item.attributes.medium_width)}x${Math.floor(item.attributes.medium_height)}`}
-          </Typography>
-
-          <Typography variant="caption" className={classes.card__caption}>
-            {item.attributes.primary ? 'Primary' : 'Selected'}
-          </Typography>
-        </Box>
-      </CardContent>
-
       <Box className={classes.card__actions}>
-        <IconButton onClick={handleOpenMenu}>
-          <MoreVert />
+        <IconButton onClick={handleOpenMenu} style={{ background: '#fff', padding: 6 }}>
+          <MoreVert style={{ width: 16, height: 16 }} />
         </IconButton>
         <Menu
           id="long-menu"
@@ -105,6 +97,7 @@ const ImageItem: React.FC<Props> = ({ handleEditImage, item, handleUnselectMedia
             },
           }}
         >
+          {!item.attributes.primary && <MenuItem onClick={handleClickMakePrimary}>Make Primary</MenuItem>}
           <MenuItem style={{ height: 40 }} onClick={handleUnselect}>
             Hide Image
           </MenuItem>

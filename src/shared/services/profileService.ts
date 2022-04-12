@@ -21,6 +21,7 @@ const {
   getProfileMedia: getProfileMediaDao,
   setSelectProfileMedia: setSelectProfileMediaDao,
   unSelectProfileMedia: unSelectProfileMediaDao,
+  updateProfileMediaSort: updateProfileMediaSortDao,
 } = profileDao();
 export const profileService = () => {
   const getProfiles = () => {
@@ -52,7 +53,7 @@ export const profileService = () => {
       }: {
         profileId: string;
         formData: FormData;
-        onProgress: (current: number) => void;
+        onProgress?: (current: number) => void;
       }) => setProfilePrimaryImageDao(profileId, formData, onProgress),
     );
   };
@@ -81,6 +82,12 @@ export const profileService = () => {
     );
   };
 
+  const updateProfileMediaSort = () => {
+    return useMutation(({ profileId, sort }: { profileId: string; sort: { id: string; sort: number }[] }) =>
+      updateProfileMediaSortDao(profileId, sort),
+    );
+  };
+
   return {
     getProfiles,
     getSingleProfile,
@@ -90,5 +97,6 @@ export const profileService = () => {
     getMediaProfile,
     setSelectProfileMedia,
     unSelectProfileMedia,
+    updateProfileMediaSort,
   };
 };
