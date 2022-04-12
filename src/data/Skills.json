@@ -1161,11 +1161,1071 @@
     },
     {
         "category": "Dance",
-        "subgroup": "Latin/Rhythm",
+        "subgroup": "Ballroom",
         "skills": [
             {
-                "key": "Rumba",
-                "value": "Rumba"
+                "key": "Waltz",
+                "value": "Waltz"
+            },
+            {
+                "key": "Foxtrot",
+                "value": "Foxtrot"
+            },
+            {
+                "key": "Tango",
+                "value": "Tango"
+            },
+            {
+                "key": "Cha Cha",
+                "value": "Cha Cha"
+            },
+            {
+                "key": "Quick Step",
+                "value": "Quick Step"
+            },
+            {
+                "key": "Hustle",
+                "value": "Hustle"
+            },
+            {
+                "key": "Viennese Waltz",
+                "value": "Viennese Waltz"
+            },
+            {
+                "key": "Paso Doble",
+                "value": "Paso Doble"
+            },
+            {
+                "key": "Night Club 2 Step",
+                "value": "Night Club 2 Step"
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Country",
+        "skills": [
+            {
+                "key": "Country",
+                "value": "Country"
+            },
+            {
+                "key": "Line Dancing",
+                "value": "Line Dancing"
+            },
+            {
+                "key": "Square Dancing",
+                "value": "Square Dancing"
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Other",
+        "skills": [
+            {
+                "key": "Aerobics",
+                "value": "Aerobics"
+            },
+            {
+                "key": "Cabaret",
+                "value": "Cabaret"
+            },
+            {
+                "key": "Choreography",
+                "value": "Choreography"
+            },
+            {
+                "key": "Pole dancing",
+                "value": "Pole dancing"
+            },
+            {
+                "key": "Rock n Roll",
+                "value": "Rock n Roll"
+            },
+            {
+                "key": "Burlesque",
+                "value": "Burlesque"
+            },
+            {
+                "key": "Strip Tease",
+                "value": "Strip Tease"
+            },
+            {
+                "key": "Drag Show",
+                "value": "Drag Show"
+            }
+        ]
+    },
+    {
+        "category": "Vocal",
+        "subgroup": "General",
+        "skills": [
+            {
+                "key": "Ballad",
+                "value": "Ballad"
+            },
+            {
+                "key": "Blues",
+                "value": "Blues"
+            },
+            {
+                "key": "Cabaret",
+                "value": "Cabaret"
+            },
+            {
+                "key": "Choral",
+                "value": "Choral"
+            },
+            {
+                "key": "Country & Western",
+                "value": "Country & Western"
+            },
+            {
+                "key": "Folk",
+                "value": "Folk"
+            },
+            {
+                "key": "Musical",
+                "value": "Musical"
+            },
+            {
+                "key": "Jazz",
+                "value": "Jazz"
+            },
+            {
+                "key": "Popular",
+                "value": "Popular"
+            },
+            {
+                "key": "Rock",
+                "value": "Rock"
+            },
+            {
+                "key": "Show",
+                "value": "Show"
+            },
+            {
+                "key": "Rap",
+                "value": "Rap"
+            },
+            {
+                "key": "Beat Box",
+                "value": "Beat Box"
+            },
+            {
+                "key": "Arcapella",
+                "value": "Arcapella"
+            },
+            {
+                "key": "Pop",
+                "value": "Pop"
+            }
+        ]
+    },
+    {
+        "category": "Vocal",
+        "subgroup": "Opera",
+        "skills": [
+            {
+                "key": "Alto",
+                "value": "Alto"
+            },
+            {
+                "key": "Baritone",
+                "value": "Baritone"
+            },
+            {
+                "key": "Bass",
+                "value": "Bass"
+            },
+            {
+                "key": "Bass - Baritone",
+                "value": "Bass - Baritone"
+            },
+            {
+                "key": "C. Soprano",
+                "value": "C. Soprano"
+            },
+            {
+                "key": "Contralto",
+                "value": "Contralto"
+            },
+            {
+                "key": "Counter Tenor",
+                "value": "Counter Tenor"
+            },
+            {
+                "key": "Female Tenor",
+                "value": "Female Tenor"
+            },
+            {
+                "key": "Lyric Soprano",
+                "value": "Lyric Soprano"
+            },
+            {
+                "key": "Mezzo",
+                "value": "Mezzo"
+            },
+            {
+                "key": "Mezzo Soprano",
+                "value": "Mezzo Soprano"
+            },
+            {
+                "key": "Soprano",
+                "value": "Soprano"
+            },
+            {
+                "key": "Tenor",
+                "value": "Tenor"
+            }
+        ]
+    },
+    {
+        "category": "Circus",
+        "subgroup": "Circus",
+        "skills": [
+            {
+                "key": "Acrobatics",
+                "value": "Acrobatics"
+            },
+            {
+                "key": "Animal Handling",
+                "value": "Animal Handling"
+            },
+            {
+                "key": "Balancer",
+                "value": "Balancer"
+            },
+            {
+                "key": "Clown",
+                "value": "Clown"
+            },
+            {
+                "key": "Contortionist",
+                "value": "Contortionist"
+            },
+            {
+                "key": "Croupier",
+                "value": "Croupier"
+            },
+            {
+                "key": "Fire Eater",
+                "value": "Fire Eater"
+            },
+            {
+                "key": "Impersonation",
+                "value": "Impersonation"
+            },
+            {
+                "key": "Juggler",
+                "value": "Juggler"
+            },
+            {
+                "key": "Magician",
+                "value": "Magician"
+            },
+            {
+                "key": "Mime",
+                "value": "Mime"
+            },
+            {
+                "key": "Puppetry",
+                "value": "Puppetry"
+            },
+            {
+                "key": "Stage Combat",
+                "value": "Stage Combat"
+            },
+            {
+                "key": "Stilt Walker",
+                "value": "Stilt Walker"
+            },
+            {
+                "key": "Unicycle",
+                "value": "Unicycle"
+            },
+            {
+                "key": "Ventriloquist",
+                "value": "Ventriloquist"
+            },
+            {
+                "key": "Balloon twisting",
+                "value": "Balloon twisting"
+            },
+            {
+                "key": "Face painting",
+                "value": "Face painting"
+            },
+            {
+                "key": "Arial Silks & Lyra",
+                "value": "Arial Silks & Lyra"
+            },
+            {
+                "key": "Trapeze",
+                "value": "Trapeze"
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Martial Arts",
+        "skills": [
+            {
+                "key": "Aikido",
+                "value": "Aikido"
+            },
+            {
+                "key": "Archery",
+                "value": "Archery"
+            },
+            {
+                "key": "Boxing",
+                "value": "Boxing"
+            },
+            {
+                "key": "Brazilian Jiu-Jitsu",
+                "value": "Brazilian Jiu-Jitsu"
+            },
+            {
+                "key": "Capoeira",
+                "value": "Capoeira"
+            },
+            {
+                "key": "Chi-Quong",
+                "value": "Chi-Quong"
+            },
+            {
+                "key": "Fencing",
+                "value": "Fencing"
+            },
+            {
+                "key": "Filipino Martial Arts",
+                "value": "Filipino Martial Arts"
+            },
+            {
+                "key": "Judo",
+                "value": "Judo"
+            },
+            {
+                "key": "Karate",
+                "value": "Karate"
+            },
+            {
+                "key": "Krav Maga",
+                "value": "Krav Maga"
+            },
+            {
+                "key": "Kun Khmer",
+                "value": "Kun Khmer"
+            },
+            {
+                "key": "Kick Boxing",
+                "value": "Kick Boxing"
+            },
+            {
+                "key": "Kung Fu",
+                "value": "Kung Fu"
+            },
+            {
+                "key": "Lethwei",
+                "value": "Lethwei"
+            },
+            {
+                "key": "Mixed Martial Arts",
+                "value": "Mixed Martial Arts"
+            },
+            {
+                "key": "Muay Thai",
+                "value": "Muay Thai"
+            },
+            {
+                "key": "Ninjitsu",
+                "value": "Ninjitsu"
+            },
+            {
+                "key": "Sanda (Wushu)",
+                "value": "Sanda (Wushu)"
+            },
+            {
+                "key": "Sumo Wrestling",
+                "value": "Sumo Wrestling"
+            },
+            {
+                "key": "Taekwondo",
+                "value": "Taekwondo"
+            },
+            {
+                "key": "Thai Chi",
+                "value": "Thai Chi"
+            },
+            {
+                "key": "Tricking",
+                "value": "Tricking"
+            },
+            {
+                "key": "Weapons",
+                "value": "Weapons"
+            },
+            {
+                "key": "Wrestling",
+                "value": "Wrestling"
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Ball Sports",
+        "skills": [
+            {
+                "key": "AFL Football",
+                "value": "AFL Football"
+            },
+            {
+                "key": "Cricket",
+                "value": "Cricket"
+            },
+            {
+                "key": "Soccer",
+                "value": "Soccer"
+            },
+            {
+                "key": "Rugby",
+                "value": "Rugby"
+            },
+            {
+                "key": "Rugby League",
+                "value": "Rugby League"
+            },
+            {
+                "key": "Grid Iron",
+                "value": "Grid Iron"
+            },
+            {
+                "key": "Tennis",
+                "value": "Tennis"
+            },
+            {
+                "key": "Squash",
+                "value": "Squash"
+            },
+            {
+                "key": "Badminton",
+                "value": "Badminton"
+            },
+            {
+                "key": "Baseball",
+                "value": "Baseball"
+            },
+            {
+                "key": "Basketball",
+                "value": "Basketball"
+            },
+            {
+                "key": "Golf",
+                "value": "Golf"
+            },
+            {
+                "key": "Netball",
+                "value": "Netball"
+            },
+            {
+                "key": "Touch Rugby",
+                "value": "Touch Rugby"
+            },
+            {
+                "key": "Hockey",
+                "value": "Hockey"
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Road/Ramp",
+        "skills": [
+            {
+                "key": "Cycling",
+                "value": "Cycling"
+            },
+            {
+                "key": "BMX",
+                "value": "BMX"
+            },
+            {
+                "key": "Motor Cycling",
+                "value": "Motor Cycling"
+            },
+            {
+                "key": "Mountain Biking",
+                "value": "Mountain Biking"
+            },
+            {
+                "key": "Roller Blading",
+                "value": "Roller Blading"
+            },
+            {
+                "key": "Scooter",
+                "value": "Scooter"
+            },
+            {
+                "key": "Skateboarding",
+                "value": "Skateboarding"
+            },
+            {
+                "key": "Motor racing",
+                "value": "Motor racing"
+            },
+            {
+                "key": "Motorcross",
+                "value": "Motorcross"
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Snow/Ice",
+        "skills": [
+            {
+                "key": "Skiing",
+                "value": "Skiing"
+            },
+            {
+                "key": "Snowboarding",
+                "value": "Snowboarding"
+            },
+            {
+                "key": "Ski Racing",
+                "value": "Ski Racing"
+            },
+            {
+                "key": "Half Pipe",
+                "value": "Half Pipe"
+            },
+            {
+                "key": "Trick Park",
+                "value": "Trick Park"
+            },
+            {
+                "key": "Ice Hockey",
+                "value": "Ice Hockey"
+            },
+            {
+                "key": "Ice Skating",
+                "value": "Ice Skating"
+            },
+            {
+                "key": "Snow Sled",
+                "value": "Snow Sled"
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Professional Stunts",
+        "skills": [
+            {
+                "key": "Body Control",
+                "value": "Body Control"
+            },
+            {
+                "key": "Heights",
+                "value": "Heights"
+            },
+            {
+                "key": "Vehicles",
+                "value": "Vehicles"
+            },
+            {
+                "key": "Animals",
+                "value": "Animals"
+            },
+            {
+                "key": "Water",
+                "value": "Water"
+            },
+            {
+                "key": "Fire",
+                "value": "Fire"
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Water",
+        "skills": [
+            {
+                "key": "Diving",
+                "value": "Diving"
+            },
+            {
+                "key": "Fly Fishing",
+                "value": "Fly Fishing"
+            },
+            {
+                "key": "Kayak",
+                "value": "Kayak"
+            },
+            {
+                "key": "Sailing",
+                "value": "Sailing"
+            },
+            {
+                "key": "Scuba Diving",
+                "value": "Scuba Diving"
+            },
+            {
+                "key": "Free Diving",
+                "value": "Free Diving"
+            },
+            {
+                "key": "Surfing",
+                "value": "Surfing"
+            },
+            {
+                "key": "Swimming",
+                "value": "Swimming"
+            },
+            {
+                "key": "Rowing",
+                "value": "Rowing"
+            },
+            {
+                "key": "Water Skiing",
+                "value": "Water Skiing"
+            },
+            {
+                "key": "Wind Surfing",
+                "value": "Wind Surfing"
+            },
+            {
+                "key": "Surf Life saving",
+                "value": "Surf Life saving"
+            },
+            {
+                "key": "Para sailing",
+                "value": "Para sailing"
+            },
+            {
+                "key": "Paddle Board",
+                "value": "Paddle Board"
+            },
+            {
+                "key": "Jetski",
+                "value": "Jetski"
+            },
+            {
+                "key": "Kite / Wing Surfing",
+                "value": "Kite / Wing Surfing"
+            },
+            {
+                "key": "Foilboarding",
+                "value": "Foilboarding"
+            },
+            {
+                "key": "Yachting",
+                "value": "Yachting"
+            },
+            {
+                "key": "Iron Man",
+                "value": "Iron Man"
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Horse Riding",
+        "skills": [
+            {
+                "key": "Dressage",
+                "value": "Dressage"
+            },
+            {
+                "key": "Jockey",
+                "value": "Jockey"
+            },
+            {
+                "key": "Western",
+                "value": "Western"
+            },
+            {
+                "key": "Rodeo",
+                "value": "Rodeo"
+            },
+            {
+                "key": "Show Jumping",
+                "value": "Show Jumping"
+            },
+            {
+                "key": "Bareback",
+                "value": "Bareback"
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Athletics",
+        "skills": [
+            {
+                "key": "Running Long Distance",
+                "value": "Running Long Distance"
+            },
+            {
+                "key": "Running medium Distance",
+                "value": "Running medium Distance"
+            },
+            {
+                "key": "Sprinting",
+                "value": "Sprinting"
+            },
+            {
+                "key": "Hurdles",
+                "value": "Hurdles"
+            },
+            {
+                "key": "High Jump",
+                "value": "High Jump"
+            },
+            {
+                "key": "Long Jump",
+                "value": "Long Jump"
+            },
+            {
+                "key": "Triple Jump",
+                "value": "Triple Jump"
+            },
+            {
+                "key": "Shotput",
+                "value": "Shotput"
+            },
+            {
+                "key": "Javelin",
+                "value": "Javelin"
+            },
+            {
+                "key": "Pole Vault",
+                "value": "Pole Vault"
+            },
+            {
+                "key": "Discus",
+                "value": "Discus"
+            },
+            {
+                "key": "Pentathlon",
+                "value": "Pentathlon"
+            },
+            {
+                "key": "Heptathlon",
+                "value": "Heptathlon"
+            },
+            {
+                "key": "Decathlon",
+                "value": "Decathlon"
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Gymnastics",
+        "skills": [
+            {
+                "key": "Vault",
+                "value": "Vault"
+            },
+            {
+                "key": "Uneven Bars",
+                "value": "Uneven Bars"
+            },
+            {
+                "key": "Balance Beam",
+                "value": "Balance Beam"
+            },
+            {
+                "key": "Floor",
+                "value": "Floor"
+            },
+            {
+                "key": "High Bar",
+                "value": "High Bar"
+            },
+            {
+                "key": "Pommel Horse",
+                "value": "Pommel Horse"
+            },
+            {
+                "key": "Rings",
+                "value": "Rings"
+            },
+            {
+                "key": "Parallel Bars",
+                "value": "Parallel Bars"
+            },
+            {
+                "key": "Rythmic Gymnastics",
+                "value": "Rythmic Gymnastics"
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Yoga/Pilates",
+        "skills": [
+            {
+                "key": "Vinyasa Yoga",
+                "value": "Vinyasa Yoga"
+            },
+            {
+                "key": "Hatha Yoga",
+                "value": "Hatha Yoga"
+            },
+            {
+                "key": "Ashtanga Yoga",
+                "value": "Ashtanga Yoga"
+            },
+            {
+                "key": "Yin Yoga",
+                "value": "Yin Yoga"
+            },
+            {
+                "key": "Restorative Yoga",
+                "value": "Restorative Yoga"
+            },
+            {
+                "key": "Bikram Yoga",
+                "value": "Bikram Yoga"
+            },
+            {
+                "key": "Yogilates",
+                "value": "Yogilates"
+            },
+            {
+                "key": "Kids Yoga",
+                "value": "Kids Yoga"
+            },
+            {
+                "key": "Breath Work",
+                "value": "Breath Work"
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Other",
+        "skills": [
+            {
+                "key": "Rock Climbing",
+                "value": "Rock Climbing"
+            },
+            {
+                "key": "Parachuting",
+                "value": "Parachuting"
+            },
+            {
+                "key": "Hang gliding",
+                "value": "Hang gliding"
+            },
+            {
+                "key": "Cheer Leading",
+                "value": "Cheer Leading"
+            },
+            {
+                "key": "Weight Lifting",
+                "value": "Weight Lifting"
+            },
+            {
+                "key": "Body Building",
+                "value": "Body Building"
+            },
+            {
+                "key": "Strongman",
+                "value": "Strongman"
+            },
+            {
+                "key": "Pilates",
+                "value": "Pilates"
+            },
+            {
+                "key": "Parkour",
+                "value": "Parkour"
+            },
+            {
+                "key": "Rip Stick",
+                "value": "Rip Stick"
+            }
+        ]
+    },
+    {
+        "category": "Performance Skills",
+        "subgroup": "Modeling",
+        "skills": [
+            {
+                "key": "Runway",
+                "value": "Runway"
+            },
+            {
+                "key": "Body Work",
+                "value": "Body Work"
+            },
+            {
+                "key": "Editorial",
+                "value": "Editorial"
+            },
+            {
+                "key": "Showings",
+                "value": "Showings"
+            },
+            {
+                "key": "Nude",
+                "value": "Nude"
+            },
+            {
+                "key": "Lingere/Swimwear",
+                "value": "Lingere/Swimwear"
+            },
+            {
+                "key": "Hand/Feet",
+                "value": "Hand/Feet"
+            }
+        ]
+    },
+    {
+        "category": "Performance Skills",
+        "subgroup": "General",
+        "skills": [
+            {
+                "key": "After Dinner Speaking",
+                "value": "After Dinner Speaking"
+            },
+            {
+                "key": "Comedy",
+                "value": "Comedy"
+            },
+            {
+                "key": "Master of Ceremonies",
+                "value": "Master of Ceremonies"
+            },
+            {
+                "key": "Musical Comedy",
+                "value": "Musical Comedy"
+            },
+            {
+                "key": "Professional Musician",
+                "value": "Professional Musician"
+            },
+            {
+                "key": "Professional Singer",
+                "value": "Professional Singer"
+            },
+            {
+                "key": "Stand Up Comic",
+                "value": "Stand Up Comic"
+            },
+            {
+                "key": "TV Presenting",
+                "value": "TV Presenting"
+            },
+            {
+                "key": "Children's entertainer",
+                "value": "Children's entertainer"
+            },
+            {
+                "key": "Musical Theatre",
+                "value": "Musical Theatre"
+            },
+            {
+                "key": "Professional Theatre",
+                "value": "Professional Theatre"
+            },
+            {
+                "key": "Web Presenter",
+                "value": "Web Presenter"
+            },
+            {
+                "key": "Live promotional",
+                "value": "Live promotional"
+            },
+            {
+                "key": "Improvised role play",
+                "value": "Improvised role play"
+            },
+            {
+                "key": "Face Painting",
+                "value": "Face Painting"
+            }
+        ]
+    },
+    {
+        "category": "Performance Skills",
+        "subgroup": "Voice Over",
+        "skills": [
+            {
+                "key": "Voicing for Animation",
+                "value": "Voicing for Animation"
+            },
+            {
+                "key": "Video game voicing",
+                "value": "Video game voicing"
+            },
+            {
+                "key": "Character",
+                "value": "Character"
+            },
+            {
+                "key": "Accents",
+                "value": "Accents"
+            },
+            {
+                "key": "Cartoon",
+                "value": "Cartoon"
+            }
+        ]
+    },
+    {
+        "category": "Performance Skills",
+        "subgroup": "Voice",
+        "skills": [
+            {
+                "key": "Commentating",
+                "value": "Commentating"
+            },
+            {
+                "key": "Disc Jockey",
+                "value": "Disc Jockey"
+            },
+            {
+                "key": "Radio Presenting",
+                "value": "Radio Presenting"
+            },
+            {
+                "key": "Talkback Host",
+                "value": "Talkback Host"
+            },
+            {
+                "key": "Narrator",
+                "value": "Narrator"
+            },
+            {
+                "key": "Story teller",
+                "value": "Story teller"
+            },
+            {
+                "key": "Lip Syncing",
+                "value": "Lip Syncing"
+            },
+            {
+                "key": "Radio Drama",
+                "value": "Radio Drama"
+            },
+            {
+                "key": "Looping",
+                "value": "Looping"
+            },
+            {
+                "key": "Auto cue",
+                "value": "Auto cue"
+            },
+            {
+                "key": "Commercial",
+                "value": "Commercial"
             }
         ]
     }
