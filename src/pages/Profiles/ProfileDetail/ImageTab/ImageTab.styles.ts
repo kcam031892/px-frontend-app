@@ -66,5 +66,13 @@ export const useStyles = makeStyles((theme) =>
       textAlign: 'center',
       color: theme.palette.text.secondary,
     },
+    profileContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      width: '100%',
+      gap: 16,
+      flexWrap: 'wrap',
+      marginTop: 12,
+    },
   }),
 );

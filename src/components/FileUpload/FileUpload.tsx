@@ -40,7 +40,7 @@ const FileUpload: React.FC<Props> = ({
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
   return (
     <Box className={classes.container}>
-      <input {...getInputProps()} id="contained-button-file" accept="image/png, image/jpeg" />
+      <input {...getInputProps()} id="contained-button-file" accept="image/png, image/jpeg, image/jpg, .webp, .heif" />
       <Box {...getRootProps()}>
         <img src="/download.png" alt="File" />
       </Box>
@@ -53,7 +53,7 @@ const FileUpload: React.FC<Props> = ({
       {variant === 'primaryImage' && (
         <>
           <Typography variant="body2" gutterBottom>
-            Drop your .png .jpg or other image file here to begin.
+            Drop your .png .jpg or .jpeg.
           </Typography>
           <Typography variant="body2" gutterBottom style={{ marginTop: '20px', textAlign: 'center', color: '#2962FF' }}>
             <b>IMPORTANT: </b>
@@ -65,7 +65,7 @@ const FileUpload: React.FC<Props> = ({
               Browse On Device
             </Button>
             <Button variant="outlined" style={{ textTransform: 'none' }} onClick={_handleSelectFromMedia}>
-              Select from media
+              Select from Media
             </Button>
           </Box>
         </>

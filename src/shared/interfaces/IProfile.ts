@@ -50,6 +50,7 @@ export interface IProfilePrimaryImage {
   attributes: {
     primary: boolean;
     profile_id: string;
+    modified_attachment: string;
     attachment: string;
     medium_id: string;
     medium_type: string;
@@ -67,6 +68,7 @@ export interface IProfileMedia {
     primary: boolean;
     profile_id: string;
     attachment: string;
+    modified_attachment: string;
     medium_name: string;
     medium_id: string;
     medium_type: string;

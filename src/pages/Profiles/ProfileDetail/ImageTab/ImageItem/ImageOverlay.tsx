@@ -14,8 +14,8 @@ const ImageOverlay = forwardRef<any, Props>(({ item }, ref) => {
   return (
     <Card className={classes.card} ref={ref}>
       <div className={classes.card__moveIcon}>
-        <IconButton>
-          <MoveIcon viewBox="0 0 16 16" style={{ width: 16, height: 16 }} />
+        <IconButton color="primary" style={{ background: '#fff', padding: 8 }}>
+          <MoveIcon viewBox="0 0 16 16" style={{ width: 12, height: 12 }} />
         </IconButton>
       </div>
       <Box className={classes.card__media}>
@@ -23,30 +23,16 @@ const ImageOverlay = forwardRef<any, Props>(({ item }, ref) => {
           component="img"
           image={item.attributes.attachment}
           title={item.attributes.medium_name}
-          height="300"
-          width="100%"
-          style={{ objectFit: 'contain', maxHeight: 300 }}
+          alt=""
+          height={150}
+          width={'100%'}
+          style={{ objectFit: 'contain' }}
         />
       </Box>
 
-      <CardContent className={classes.card__content}>
-        <Box>
-          <Typography variant="h6" className={classes.card__title}>
-            {item.attributes.medium_name}
-          </Typography>
-          <Typography variant="subtitle1" className={classes.card__subtitle}>
-            {`${Math.floor(item.attributes.medium_width)}x${Math.floor(item.attributes.medium_height)}`}
-          </Typography>
-
-          <Typography variant="caption" className={classes.card__caption}>
-            {item.attributes.primary ? 'Primary' : 'Selected'}
-          </Typography>
-        </Box>
-      </CardContent>
-
       <Box className={classes.card__actions}>
-        <IconButton>
-          <MoreVert />
+        <IconButton style={{ background: '#fff', padding: 6 }}>
+          <MoreVert style={{ width: 16, height: 16 }} />
         </IconButton>
       </Box>
     </Card>

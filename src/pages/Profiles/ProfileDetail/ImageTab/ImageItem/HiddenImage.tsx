@@ -39,44 +39,35 @@ const HiddenImage: React.FC<Props> = ({ item, handleEditImage, handleSetSelect }
           component="img"
           image={item.attributes.attachment_url}
           title={item.attributes.file_name}
-          height="250"
-          width="100%"
-          style={{ objectFit: 'contain', maxHeight: 250 }}
+          alt=""
+          height={150}
+          width={'100%'}
+          style={{ objectFit: 'contain' }}
         />
       </Box>
 
-      <CardContent className={classes.card__content}>
-        <Box>
-          <Typography variant="h6" className={classes.card__title}>
-            {item.attributes.file_name}
-          </Typography>
-          <Typography variant="subtitle1" className={classes.card__subtitle}>
-            {`${item.attributes.file_width}x${item.attributes.file_height}`}
-          </Typography>
-        </Box>
-        <Box className={classes.card__actions}>
-          <IconButton onClick={handleOpenMenu}>
-            <MoreVert />
-          </IconButton>
-          <Menu
-            id="long-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleCloseMenu}
-            PaperProps={{
-              style: {
-                width: 256,
-              },
-            }}
-          >
-            <MenuItem style={{ height: 40 }} onClick={() => handleSelectImage()}>
-              Select Image
-            </MenuItem>
-            <MenuItem onClick={() => handleEdit()}>Edit Image</MenuItem>
-          </Menu>
-        </Box>
-      </CardContent>
+      <Box className={classes.card__actions}>
+        <IconButton onClick={handleOpenMenu} style={{ background: '#fff', padding: 6 }}>
+          <MoreVert style={{ width: 16, height: 16 }} />
+        </IconButton>
+        <Menu
+          id="long-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleCloseMenu}
+          PaperProps={{
+            style: {
+              width: 256,
+            },
+          }}
+        >
+          <MenuItem style={{ height: 40 }} onClick={() => handleSelectImage()}>
+            Select Image
+          </MenuItem>
+          <MenuItem onClick={() => handleEdit()}>Edit Image</MenuItem>
+        </Menu>
+      </Box>
     </Card>
   );
 };

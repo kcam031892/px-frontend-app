@@ -4,10 +4,9 @@ import { grey } from '@material-ui/core/colors';
 export const useStyles = makeStyles((theme) =>
   createStyles({
     card: {
-      padding: theme.spacing(2),
-      paddingBottom: 24,
+      // paddingBottom: 24,
       height: '100%',
-
+      boxShadow: '6px 6px 6px rgba(0,0,0,0.1)',
       position: 'relative',
     },
     card__isDragging: {
@@ -16,13 +15,14 @@ export const useStyles = makeStyles((theme) =>
     },
     card__hideImage: {},
     card__media: {
-      paddingTop: theme.spacing(3),
+      // paddingTop: theme.spacing(4),
       // maxHeight: 300,
     },
     card__content: {
-      padding: 0,
-      paddingTop: theme.spacing(2),
+      // padding: theme.spacing(2),
       paddingBottom: '0 !important',
+      maxWidth: '100px !important',
+      width: 100,
     },
 
     card__title: {
@@ -38,13 +38,13 @@ export const useStyles = makeStyles((theme) =>
     },
     card__moveIcon: {
       position: 'absolute',
-      right: 0,
-      top: 0,
+      right: 2,
+      top: 2,
     },
     card__actions: {
       position: 'absolute',
-      bottom: 0,
-      right: 0,
+      bottom: 2,
+      right: 2,
     },
   }),
 );
