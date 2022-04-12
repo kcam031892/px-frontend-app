@@ -69,7 +69,10 @@ const Signup = () => {
         }
         return false;
       }),
-    password_confirmation: yup.string().required('Password confirmation is required.'),
+    password_confirmation: yup
+      .string()
+      .required('Password confirmation is required')
+      .oneOf([yup.ref('password')], 'Your passwords do not match.'),
   });
 
   const handleSetCountryStates = (countryCode: any) => {
@@ -101,7 +104,11 @@ const Signup = () => {
               label={'First Name'}
               autoFocus
               name="first_name"
-              onChange={form.handleChange}
+              onChange={(e) => {
+                form.setFieldTouched('first_name');
+                form.validateField('first_name');
+                form.handleChange(e);
+              }}
               errorMessage={getErrorMessage(form.touched.first_name, form.errors.first_name)}
               value={form.values.first_name}
               fullWidth
@@ -114,7 +121,11 @@ const Signup = () => {
             <Input
               label={'Last Name'}
               name="last_name"
-              onChange={form.handleChange}
+              onChange={(e) => {
+                form.setFieldTouched('last_name');
+                form.validateField('last_name');
+                form.handleChange(e);
+              }}
               errorMessage={getErrorMessage(form.touched.last_name, form.errors.last_name)}
               value={form.values.last_name}
               fullWidth
@@ -125,14 +136,22 @@ const Signup = () => {
             />
             <ContactInput
               name="contact_number"
-              onChange={form.handleChange}
+              onChange={(e) => {
+                form.setFieldTouched('contact_number');
+                form.validateField('contact_number');
+                form.handleChange(e);
+              }}
               errorMessage={getErrorMessage(form.touched.contact_number, form.errors.contact_number)}
               value={form.values.contact_number}
             />
             <Input
               label={'Email Address'}
               name="email"
-              onChange={form.handleChange}
+              onChange={(e) => {
+                form.setFieldTouched('email');
+                form.validateField('email');
+                form.handleChange(e);
+              }}
               errorMessage={getErrorMessage(form.touched.email, form.errors.email)}
               value={form.values.email}
               fullWidth
@@ -175,7 +194,11 @@ const Signup = () => {
                 label={'New Password'}
                 margin={'normal'}
                 name="password"
-                onChange={form.handleChange}
+                onChange={(e) => {
+                  form.setFieldTouched('password');
+                  form.validateField('password');
+                  form.handleChange(e);
+                }}
                 errorMessage={getErrorMessage(form.touched.password, form.errors.password)}
                 value={form.values.password}
                 fullWidth
@@ -188,7 +211,11 @@ const Signup = () => {
                 margin={'normal'}
                 name="password_confirmation"
                 fullWidth
-                onChange={form.handleChange}
+                onChange={(e) => {
+                  form.setFieldTouched('password_confirmation');
+                  form.validateField('password_confirmation');
+                  form.handleChange(e);
+                }}
                 errorMessage={getErrorMessage(form.touched.password_confirmation, form.errors.password_confirmation)}
                 value={form.values.password_confirmation}
                 InputProps={{ disableUnderline: true }}
