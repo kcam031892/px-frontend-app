@@ -662,5 +662,511 @@
                 "value": "Brazilian - Portuguese"
             }
         ]
+    },
+    {
+        "category": "Instrumental",
+        "subgroup": "Brass",
+        "skills": [
+            {
+                "key": "Horn",
+                "value": "Horn"
+            },
+            {
+                "key": "Trombone",
+                "value": "Trombone"
+            },
+            {
+                "key": "Trumpet",
+                "value": "Trumpet"
+            },
+            {
+                "key": "Tuba",
+                "value": "Tuba"
+            },
+            {
+                "key": "Euphonium",
+                "value": "Euphonium"
+            },
+            {
+                "key": "French Horn",
+                "value": "French Horn"
+            }
+        ]
+    },
+    {
+        "category": "Instrumental",
+        "subgroup": "String",
+        "skills": [
+            {
+                "key": "Mandolin",
+                "value": "Mandolin"
+            },
+            {
+                "key": "Sitar",
+                "value": "Sitar"
+            },
+            {
+                "key": "Banjo",
+                "value": "Banjo"
+            },
+            {
+                "key": "Cello",
+                "value": "Cello"
+            },
+            {
+                "key": "Double Bass",
+                "value": "Double Bass"
+            },
+            {
+                "key": "Ukulele",
+                "value": "Ukulele"
+            },
+            {
+                "key": "Viola",
+                "value": "Viola"
+            },
+            {
+                "key": "Violin",
+                "value": "Violin"
+            },
+            {
+                "key": "Harp",
+                "value": "Harp"
+            },
+            {
+                "key": "Zither",
+                "value": "Zither"
+            },
+            {
+                "key": "Electric Bass",
+                "value": "Electric Bass"
+            },
+            {
+                "key": "Electric Guitar",
+                "value": "Electric Guitar"
+            },
+            {
+                "key": "Accoustic Guitar",
+                "value": "Accoustic Guitar"
+            },
+            {
+                "key": "Flamenco Guitar",
+                "value": "Flamenco Guitar"
+            }
+        ]
+    },
+    {
+        "category": "Instrumental",
+        "subgroup": "Woodwind",
+        "skills": [
+            {
+                "key": "Oboe",
+                "value": "Oboe"
+            },
+            {
+                "key": "Piccolo",
+                "value": "Piccolo"
+            },
+            {
+                "key": "Recorder",
+                "value": "Recorder"
+            },
+            {
+                "key": "Saxophone",
+                "value": "Saxophone"
+            },
+            {
+                "key": "Bagpipes",
+                "value": "Bagpipes"
+            },
+            {
+                "key": "Bassoon",
+                "value": "Bassoon"
+            },
+            {
+                "key": "Clarinet",
+                "value": "Clarinet"
+            },
+            {
+                "key": "Flute",
+                "value": "Flute"
+            }
+        ]
+    },
+    {
+        "category": "Instrumental",
+        "subgroup": "Percussion",
+        "skills": [
+            {
+                "key": "Drums",
+                "value": "Drums"
+            },
+            {
+                "key": "Bongos",
+                "value": "Bongos"
+            },
+            {
+                "key": "Cajon",
+                "value": "Cajon"
+            }
+        ]
+    },
+    {
+        "category": "Instrumental",
+        "subgroup": "Keys",
+        "skills": [
+            {
+                "key": "Keyboard",
+                "value": "Keyboard"
+            },
+            {
+                "key": "Organ",
+                "value": "Organ"
+            },
+            {
+                "key": "Piano",
+                "value": "Piano"
+            },
+            {
+                "key": "Piano Accordian",
+                "value": "Piano Accordian"
+            },
+            {
+                "key": "Concertina",
+                "value": "Concertina"
+            }
+        ]
+    },
+    {
+        "category": "Instrumental",
+        "subgroup": "Other",
+        "skills": [
+            {
+                "key": "Harmonica",
+                "value": "Harmonica"
+            },
+            {
+                "key": "Accordian",
+                "value": "Accordian"
+            },
+            {
+                "key": "Didgerdoo",
+                "value": "Didgerdoo"
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Ballet",
+        "skills": [
+            {
+                "key": "Classical Ballet",
+                "value": "Classical Ballet"
+            },
+            {
+                "key": "Neo Classical Ballet",
+                "value": "Neo Classical Ballet"
+            },
+            {
+                "key": "Modern/Contemporary",
+                "value": "Modern/Contemporary"
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Tap",
+        "skills": [
+            {
+                "key": "Rhythm/Jazz",
+                "value": "Rhythm/Jazz"
+            },
+            {
+                "key": "Classical",
+                "value": "Classical"
+            },
+            {
+                "key": "Broadway",
+                "value": "Broadway"
+            },
+            {
+                "key": "Post Modern",
+                "value": "Post Modern"
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Jazz",
+        "skills": [
+            {
+                "key": "Cake Walk",
+                "value": "Cake Walk"
+            },
+            {
+                "key": "Charleston",
+                "value": "Charleston"
+            },
+            {
+                "key": "Broadway Jazz",
+                "value": "Broadway Jazz"
+            },
+            {
+                "key": "Afro-Jazz",
+                "value": "Afro-Jazz"
+            },
+            {
+                "key": "Jazz-Pop",
+                "value": "Jazz-Pop"
+            },
+            {
+                "key": "Latino - Jazz",
+                "value": "Latino - Jazz"
+            },
+            {
+                "key": "Jazz Contemporary",
+                "value": "Jazz Contemporary"
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Swing",
+        "skills": [
+            {
+                "key": "Lindy Hop",
+                "value": "Lindy Hop"
+            },
+            {
+                "key": "Jitterbug",
+                "value": "Jitterbug"
+            },
+            {
+                "key": "Modern Jive",
+                "value": "Modern Jive"
+            },
+            {
+                "key": "Jive",
+                "value": "Jive"
+            },
+            {
+                "key": "Balboa",
+                "value": "Balboa"
+            },
+            {
+                "key": "Bal-Swing",
+                "value": "Bal-Swing"
+            },
+            {
+                "key": "Lindy Charleston",
+                "value": "Lindy Charleston"
+            },
+            {
+                "key": "Rodeo Swing",
+                "value": "Rodeo Swing"
+            },
+            {
+                "key": "East Coast Swing",
+                "value": "East Coast Swing"
+            },
+            {
+                "key": "West Coast Swing",
+                "value": "West Coast Swing"
+            },
+            {
+                "key": "DC Hand Dance",
+                "value": "DC Hand Dance"
+            },
+            {
+                "key": "Carolina Shag",
+                "value": "Carolina Shag"
+            },
+            {
+                "key": "Collegiate Shag",
+                "value": "Collegiate Shag"
+            },
+            {
+                "key": "St. Louis Shag",
+                "value": "St. Louis Shag"
+            },
+            {
+                "key": "Neo-Swing",
+                "value": "Neo-Swing"
+            },
+            {
+                "key": "Ceroc",
+                "value": "Ceroc"
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Traditional/Cultural",
+        "skills": [
+            {
+                "key": "Kapa Haka",
+                "value": "Kapa Haka"
+            },
+            {
+                "key": "Tongan Dance",
+                "value": "Tongan Dance"
+            },
+            {
+                "key": "Cook Island Dance",
+                "value": "Cook Island Dance"
+            },
+            {
+                "key": "Samoan Dance",
+                "value": "Samoan Dance"
+            },
+            {
+                "key": "Indian Dance",
+                "value": "Indian Dance"
+            },
+            {
+                "key": "Belly",
+                "value": "Belly"
+            },
+            {
+                "key": "Greek",
+                "value": "Greek"
+            },
+            {
+                "key": "Highland",
+                "value": "Highland"
+            },
+            {
+                "key": "Irish Step",
+                "value": "Irish Step"
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Hip Hop",
+        "skills": [
+            {
+                "key": "B-Boying/ Breakdancing",
+                "value": "B-Boying/ Breakdancing"
+            },
+            {
+                "key": "Krumping",
+                "value": "Krumping"
+            },
+            {
+                "key": "Popping and Locking",
+                "value": "Popping and Locking"
+            },
+            {
+                "key": "Funk/Jazz",
+                "value": "Funk/Jazz"
+            },
+            {
+                "key": "Up Rock",
+                "value": "Up Rock"
+            },
+            {
+                "key": "Liquid Dance",
+                "value": "Liquid Dance"
+            },
+            {
+                "key": "Boogaloo",
+                "value": "Boogaloo"
+            },
+            {
+                "key": "Reggae",
+                "value": "Reggae"
+            },
+            {
+                "key": "Lyrical",
+                "value": "Lyrical"
+            },
+            {
+                "key": "Stepping",
+                "value": "Stepping"
+            },
+            {
+                "key": "New Style",
+                "value": "New Style"
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Folk",
+        "skills": [
+            {
+                "key": "Flamenco (Spain)",
+                "value": "Flamenco (Spain)"
+            },
+            {
+                "key": "Hula (Hawaii)",
+                "value": "Hula (Hawaii)"
+            },
+            {
+                "key": "Samba (Brazil)",
+                "value": "Samba (Brazil)"
+            },
+            {
+                "key": "Bharatanatyam (India)",
+                "value": "Bharatanatyam (India)"
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Latin/Rhythm",
+        "skills": [
+            {
+                "key": "Rumba",
+                "value": "Rumba"
+            },
+            {
+                "key": "Samba",
+                "value": "Samba"
+            },
+            {
+                "key": "Salsa",
+                "value": "Salsa"
+            },
+            {
+                "key": "Merengue",
+                "value": "Merengue"
+            },
+            {
+                "key": "Bachata",
+                "value": "Bachata"
+            },
+            {
+                "key": "Mambo",
+                "value": "Mambo"
+            },
+            {
+                "key": "Cuban Bolero",
+                "value": "Cuban Bolero"
+            },
+            {
+                "key": "Spanish Bolero",
+                "value": "Spanish Bolero"
+            },
+            {
+                "key": "Jive",
+                "value": "Jive"
+            },
+            {
+                "key": "Zumba",
+                "value": "Zumba"
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Latin/Rhythm",
+        "skills": [
+            {
+                "key": "Rumba",
+                "value": "Rumba"
+            }
+        ]
     }
 ]
