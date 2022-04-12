@@ -20,6 +20,7 @@ const ContactInput: React.FC<Props> = ({ errorMessage, ...props }) => {
           defaultCountry="us"
           InputProps={{
             disableUnderline: true,
+            readOnly: true,
             style: { width: 130, marginRight: 10 },
           }}
           inputProps={{ tabIndex: 3 }}
