@@ -187,6 +187,7 @@ const Signup = () => {
                     value={form.values.country}
                     onChange={(event) => {
                       form.setFieldValue('country', event.target.value);
+                      form.setFieldValue('state', '');
                       handleSetCountryStates(event.target.value);
                     }}
                     errorMessage={getErrorMessage(form.touched.country, form.errors.country)}
