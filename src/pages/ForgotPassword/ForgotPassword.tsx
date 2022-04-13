@@ -81,7 +81,7 @@ const Signup = () => {
             Send Email
           </Button>
           <Button variant="outlined" disableElevation fullWidth component={Link} to={'/login'} tabIndex={11}>
-            Back
+            Cancel
           </Button>
         </Grid>
         <Grid xs={12} md={12} lg={12}>

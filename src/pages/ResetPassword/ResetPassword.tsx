@@ -117,7 +117,7 @@ const Signup = () => {
               Update Password
             </Button>
             <Button variant="outlined" disableElevation fullWidth component={Link} to={'/login'} tabIndex={11}>
-              Back
+              Cancel
             </Button>
           </Grid>
           <Grid>
