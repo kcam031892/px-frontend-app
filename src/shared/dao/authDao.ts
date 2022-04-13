@@ -1,6 +1,8 @@
 import { ENDPOINTS } from 'shared/constants/ENDPOINTS';
 import { useAxios } from 'shared/hooks/useAxios';
 import {
+  IForgotPasswordRequestPayload,
+  IForgotPasswordResponsePayload,
   ISignInRequestPayload,
   ISignInResponsePayload,
   ISignUpRequestPayload,
@@ -28,6 +30,17 @@ export const authDao = () => {
   const signup = async (payload: ISignUpRequestPayload) => {
     const response = await POST<ISignUpResponsePayload>({
       url: `${ENDPOINTS.USERS}`,
+      data: payload,
+    });
+
+    return {
+      data: response?.data,
+    };
+  };
+
+  const sendEmail = async (payload: IForgotPasswordRequestPayload) => {
+    const response = await POST<IForgotPasswordResponsePayload>({
+      url: `${ENDPOINTS.FORGOT_PASSWORD}`,
       data: payload,
     });
 
@@ -93,6 +106,7 @@ export const authDao = () => {
   return {
     login,
     signup,
+    sendEmail,
     loginWithGoogle,
     loginWithFacebook,
     getUserProfile,

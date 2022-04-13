@@ -26,6 +26,14 @@ export interface ISignInResponsePayload {
   token: string;
 }
 
+export interface IForgotPasswordRequestPayload {
+  email: string;
+}
+
+export interface IForgotPasswordResponsePayload {
+  message: string;
+}
+
 export interface ISignUpRequestPayload {
   first_name: string;
   last_name: string;

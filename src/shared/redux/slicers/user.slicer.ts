@@ -1,12 +1,12 @@
 import hS from 'humanize-string';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { authDao } from 'shared/dao/authDao';
-import { ISignInRequestPayload, ISignUpRequestPayload, IUser } from 'shared/interfaces/IUser';
+import { IForgotPasswordRequestPayload, ISignInRequestPayload, ISignUpRequestPayload, IUser } from 'shared/interfaces/IUser';
 import { ls } from 'shared/utils/ls';
 
 import { AppThunk, RootState } from '../store';
 
-const { loginWithGoogle, loginWithFacebook, logout, getUserProfile: getUserProfileService, login, signup } = authDao();
+const { loginWithGoogle, loginWithFacebook, logout, getUserProfile: getUserProfileService, login, signup, sendEmail } = authDao();
 
 const { setLS, removeLS } = ls();
 
@@ -103,6 +103,30 @@ export const userSignup =
       dispatch(setIsLoggedIn(true));
       dispatch(setErrorMessage(null));
       return user;
+    } catch (err: any) {
+      const { errors = {} } = err.response.data;
+      const errMsg = [];
+      for (const key in errors) {
+        const errArr = errors[key];
+        errMsg.push(`${hS(key)} ${errArr.join('. ')}`);
+      }
+      dispatch(setErrorMessage(`${errMsg.join('. ')}.`));
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  };
+export const userSendEmail =
+  (payload: IForgotPasswordRequestPayload): AppThunk =>
+  async (dispatch) => {
+    try {
+      dispatch(setIsLoading(true));
+
+      const {
+        data: { message },
+      } = await sendEmail(payload);
+
+      dispatch(setErrorMessage(message));
+      return message;
     } catch (err: any) {
       const { errors = {} } = err.response.data;
       const errMsg = [];
