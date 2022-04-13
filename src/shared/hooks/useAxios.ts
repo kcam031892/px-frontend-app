@@ -97,7 +97,7 @@ export const useAxios = () => {
     }
   };
 
-  const PATCH = async <P, B>(args: IAxios<P, B>): Promise<AxiosResponse> => {
+  const PATCH = async <P, B = unknown>(args: IAxios<P, B>): Promise<AxiosResponse> => {
     try {
       return await instance({
         ...args,
@@ -108,7 +108,7 @@ export const useAxios = () => {
     }
   };
 
-  const DELETE = async <P, B>(args: IAxios<P, B>): Promise<AxiosResponse> => {
+  const DELETE = async <P, B = unknown>(args: IAxios<P, B>): Promise<AxiosResponse> => {
     try {
       return await instance({
         ...args,

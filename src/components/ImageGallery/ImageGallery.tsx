@@ -1,14 +1,35 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
+import IMedia from 'shared/interfaces/IMedia';
+import { mediaService } from 'shared/services/mediaService';
+import { profileService } from 'shared/services/profileService';
 import { useStyles } from './ImageGallery.styles';
 import ImageGalleryItem from './ImageGalleryItem';
 
 type Props = {
   open: boolean;
   handleClose: () => void;
+  handleSave: (mediaId?: string) => void;
 };
-const ImageGallery: React.FC<Props> = ({ open, handleClose }) => {
+const { getMediaList } = mediaService();
+
+const ImageGallery: React.FC<Props> = ({ open, handleClose, handleSave }) => {
+  const [selectedMediaImage, setSelectedMediaImage] = useState<IMedia | null>(null);
+  const { data } = getMediaList({ file_type: 'image' });
   const classes = useStyles();
+
+  const handleSelectedMedia = (media: IMedia) => {
+    if (media !== selectedMediaImage) {
+      setSelectedMediaImage(media);
+    } else {
+      setSelectedMediaImage(null);
+    }
+  };
+
+  const onSave = () => {
+    handleSave(selectedMediaImage?.id);
+    setSelectedMediaImage(null);
+  };
 
   return (
     <Dialog
@@ -24,21 +45,16 @@ const ImageGallery: React.FC<Props> = ({ open, handleClose }) => {
       <DialogContent>
         <Box>
           <Grid container spacing={2}>
-            <Grid item lg={3}>
-              <ImageGalleryItem />
-            </Grid>
-            <Grid item lg={3}>
-              <ImageGalleryItem />
-            </Grid>
-            <Grid item lg={3}>
-              <ImageGalleryItem />
-            </Grid>
-            <Grid item lg={3}>
-              <ImageGalleryItem />
-            </Grid>
-            <Grid item lg={3}>
-              <ImageGalleryItem />
-            </Grid>
+            {data &&
+              data.data.map((media) => (
+                <Grid item lg={3} key={media.id}>
+                  <ImageGalleryItem
+                    item={media}
+                    isSelected={selectedMediaImage?.id === media.id}
+                    handleSelectedMedia={handleSelectedMedia}
+                  />
+                </Grid>
+              ))}
           </Grid>
         </Box>
       </DialogContent>
@@ -46,7 +62,13 @@ const ImageGallery: React.FC<Props> = ({ open, handleClose }) => {
         <Button variant="outlined" disableElevation onClick={handleClose}>
           Cancel
         </Button>
-        <Button variant="contained" color="primary" disableElevation>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => onSave()}
+          disableElevation
+          disabled={!selectedMediaImage}
+        >
           Save Selected Image
         </Button>
       </DialogActions>

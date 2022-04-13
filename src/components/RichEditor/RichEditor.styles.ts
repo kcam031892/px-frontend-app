@@ -5,11 +5,9 @@ export const useStyles = makeStyles(() =>
     wrapper: {
       position: 'relative',
       fontSize: '16px',
-      '&:focus-within': {
-        padding: '0px 16px',
-        border: 'solid 1px #2962FF',
-        borderRadius: 6,
-      },
+      padding: '0px 16px',
+      border: 'solid 1px #2962FF',
+      borderRadius: 6,
     },
     toolbar: {
       position: 'absolute',

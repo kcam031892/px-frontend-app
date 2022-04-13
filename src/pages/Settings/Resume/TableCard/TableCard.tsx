@@ -1,4 +1,4 @@
-import { Grid, IconButton } from '@material-ui/core';
+import { Box, Grid, IconButton } from '@material-ui/core';
 import { DeleteIcon, MoveIcon, ResumeMediaIcon } from 'components/Icons';
 import React from 'react';
 import {
@@ -10,29 +10,30 @@ import {
   DroppableProvided,
 } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
+import { GENERATE_DATES } from 'shared/constants/GENERATE_DATES';
 import { ISection } from 'shared/interfaces/ITalent';
+import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
 
 import { changeTextValues, removeRow, selectResumeState } from 'shared/redux/slicers/resume.slicer';
-import { Input } from 'themes/elements';
+import { Input, Select } from 'themes/elements';
 
 import { useStyles } from './TableCard.styles';
 
 type Props = {
   handleReorderTable: (sectionIndex: number, sourceIndex: number, destinationIndex: number) => void;
-  handleColumnChange: (arrayIndex: number, num: number) => void;
   handleRowChange: () => void;
   section: ISection;
   index: number;
-
   handleOpenGalleryDialog: () => void;
+  setIsTableDragging: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const TableCard: React.FC<Props> = ({
   handleReorderTable,
   section,
   index,
-
   handleRowChange,
   handleOpenGalleryDialog,
+  setIsTableDragging,
 }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -42,11 +43,14 @@ const TableCard: React.FC<Props> = ({
   //   if (!result.destination) {
   //     return;
   // };
+  const handleDragStart = () => {
+    setIsTableDragging(true);
+  };
   const handleDragEnd = (result: DropResult) => {
+    setIsTableDragging(false);
     if (!result.destination) {
       return;
     }
-
     handleReorderTable(index, result.source.index, result.destination.index);
   };
 
@@ -62,17 +66,20 @@ const TableCard: React.FC<Props> = ({
     dispatch(changeTextValues({ sectionIndex: index, rowIndex, columnIndex, value: event.target.value }));
   };
 
+  const handleDateChange = (rowIndex: number, columnIndex: number, value: string) => {
+    dispatch(changeTextValues({ sectionIndex: index, rowIndex, columnIndex, value }));
+  };
+
   const handleRemoveRow = (rowIndex: number) => {
     dispatch(removeRow({ sectionIndex: index, rowIndex }));
   };
 
   return (
-    <>
-      <DragDropContext onDragEnd={handleDragEnd}>
+    <Box mt={1}>
+      <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
         <Droppable droppableId="droppable">
           {(provided: DroppableProvided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
-              {provided.placeholder}
               {Array.from({ length: section.values.length }).map((_, rowIndex) => (
                 <Draggable key={rowIndex.toString()} draggableId={rowIndex.toString()} index={rowIndex}>
                   {(providedDraggable: DraggableProvided) => (
@@ -120,17 +127,35 @@ const TableCard: React.FC<Props> = ({
                         />
                       </Grid>
                       <Grid item xs>
-                        <Input
-                          type={isSectionShowYear ? 'text' : 'hidden'}
-                          fullWidth
-                          margin={'normal'}
-                          inputProps={{ tabIndex: rowIndex }}
-                          InputProps={{ disableUnderline: true }}
-                          InputLabelProps={{ shrink: true }}
-                          onChange={handleInputChange(rowIndex, 3)}
-                          value={section.values[rowIndex].fields[3]}
-                          placeholder="Year"
-                        />
+                        {isSectionShowYear ? (
+                          <Select
+                            data={GENERATE_DATES}
+                            fullWidth
+                            placeholder="Year"
+                            MenuProps={{
+                              anchorOrigin: {
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                              },
+                              getContentAnchorEl: null,
+                            }}
+                            value={section.values[rowIndex].fields[3]}
+                            onChange={(e) => handleDateChange(rowIndex, 3, e.target.value as string)}
+                          />
+                        ) : (
+                          <Input
+                            type={isSectionShowYear ? 'number' : 'hidden'}
+                            fullWidth
+                            margin={'normal'}
+                            inputProps={{ tabIndex: rowIndex }}
+                            InputProps={{
+                              disableUnderline: true,
+                            }}
+                            InputLabelProps={{ shrink: true }}
+                            value={section.values[rowIndex].fields[3]}
+                            placeholder="Year"
+                          />
+                        )}
                       </Grid>
                       <Grid item xs>
                         <Input
@@ -183,7 +208,7 @@ const TableCard: React.FC<Props> = ({
           )}
         </Droppable>
       </DragDropContext>
-    </>
+    </Box>
   );
 };
 

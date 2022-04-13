@@ -9,14 +9,20 @@ export const useStyles = makeStyles(() =>
       borderRadius: '4px',
       background: '#FFFFFF',
       padding: '24px',
+      paddingBottom: 24,
       marginBottom: '16px',
       position: 'relative',
       overflow: 'visible',
-      transition: 'all 0.2s',
+      transition: 'all 0.2s ease-in',
+
       '&:hover': {
         outline: '2px solid #A4A4A4',
       },
+      '&.card__drag': {
+        paddingBottom: 120,
+      },
     },
+
     actionContainer: {
       backgroundColor: '#FFFFFF',
       boxShadow:
