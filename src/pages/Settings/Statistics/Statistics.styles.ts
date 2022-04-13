@@ -12,5 +12,20 @@ export const useStyles = makeStyles(() =>
         flexBasis: '20%',
       },
     },
+    autocompleteContainer: {
+      marginTop: '10px',
+      '& > * + *': {
+        marginTop: 2,
+      },
+      '& .MuiAutocomplete-tag': {
+        height: '23px',
+      },
+      '& .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"]': {
+        padding: '5px',
+      },
+      '& .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input': {
+        padding: 0,
+      },
+    },
   }),
 );
