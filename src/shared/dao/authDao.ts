@@ -3,6 +3,8 @@ import { useAxios } from 'shared/hooks/useAxios';
 import {
   IForgotPasswordRequestPayload,
   IForgotPasswordResponsePayload,
+  IResetPasswordRequestPayload,
+  IResetPasswordResponsePayload,
   ISignInRequestPayload,
   ISignInResponsePayload,
   ISignUpRequestPayload,
@@ -41,6 +43,17 @@ export const authDao = () => {
   const sendEmail = async (payload: IForgotPasswordRequestPayload) => {
     const response = await POST<IForgotPasswordResponsePayload>({
       url: `${ENDPOINTS.FORGOT_PASSWORD}`,
+      data: payload,
+    });
+
+    return {
+      data: response?.data,
+    };
+  };
+
+  const resetPassword = async (payload: IResetPasswordRequestPayload) => {
+    const response = await POST<IResetPasswordResponsePayload>({
+      url: `${ENDPOINTS.RESET_PASSWORD}`,
       data: payload,
     });
 
@@ -107,6 +120,7 @@ export const authDao = () => {
     login,
     signup,
     sendEmail,
+    resetPassword,
     loginWithGoogle,
     loginWithFacebook,
     getUserProfile,

@@ -3,6 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { authDao } from 'shared/dao/authDao';
 import {
   IForgotPasswordRequestPayload,
+  IResetPasswordRequestPayload,
   ISignInRequestPayload,
   ISignUpRequestPayload,
   IUser,
@@ -19,6 +20,7 @@ const {
   login,
   signup,
   sendEmail,
+  resetPassword,
 } = authDao();
 
 const { setLS, removeLS } = ls();
@@ -137,6 +139,30 @@ export const userSendEmail =
       const {
         data: { message },
       } = await sendEmail(payload);
+
+      dispatch(setErrorMessage(message));
+      return message;
+    } catch (err: any) {
+      const { errors = {} } = err.response.data;
+      const errMsg = [];
+      for (const key in errors) {
+        const errArr = errors[key];
+        errMsg.push(`${hS(key)} ${errArr.join('. ')}`);
+      }
+      dispatch(setErrorMessage(`${errMsg.join('. ')}.`));
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  };
+export const userResetPassword =
+  (payload: IResetPasswordRequestPayload): AppThunk =>
+  async (dispatch) => {
+    try {
+      dispatch(setIsLoading(true));
+
+      const {
+        data: { message },
+      } = await resetPassword(payload);
 
       dispatch(setErrorMessage(message));
       return message;

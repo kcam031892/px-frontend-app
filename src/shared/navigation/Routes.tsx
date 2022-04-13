@@ -2,6 +2,7 @@ import CompleteProfile from 'pages/CompleteProfile/CompleteProfile';
 import Login from 'pages/Login';
 import Signup from 'pages/Signup';
 import ForgotPassword from 'pages/ForgotPassword';
+import ResetPassword from 'pages/ResetPassword';
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 import { ROUTES } from 'shared/constants/ROUTES';
@@ -21,6 +22,7 @@ const Routes = () => {
       <PublicRoute exact path={ROUTES.LOGIN} component={Login} />
       <PublicRoute exact path={ROUTES.SIGNUP} component={Signup} />
       <PublicRoute exact path={ROUTES.FORGOT_PASSWORD} component={ForgotPassword} />
+      <PublicRoute exact path={ROUTES.RESET_PASSWORD} component={ResetPassword} />
       <Route exact path={ROUTES.COMPLETE_PROFILE} component={CompleteProfile} />
       <ClientRoute exact path={ROUTES.TALENT.PROFILE} component={AsyncProfileList} />
       <ClientRoute exact path={ROUTES.TALENT.PROFILE_DETAIL} component={AsyncProfileDetail} />
