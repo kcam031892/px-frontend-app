@@ -43,6 +43,7 @@ const Signup = () => {
     contact_number: '',
     email: '',
     country: '',
+    country_code: '1',
     state: '',
     password: '',
     password_confirmation: '',
@@ -61,6 +62,7 @@ const Signup = () => {
     contact_number: yup.string().required('Contact number is required'),
     email: yup.string().email('Wrong email format').required('Email is required'),
     country: yup.string().required('Country is required'),
+    country_code: yup.string().required('Country code is required'),
     state: yup.string().when('country', {
       is: (val: any) => handleStateLessCountries(val),
       then: yup.string().notRequired(),
@@ -149,6 +151,9 @@ const Signup = () => {
             />
             <ContactInput
               name="contact_number"
+              handleCodeChange={(val: any) => {
+                form.setFieldValue('country_code', val);
+              }}
               onChange={(e) => {
                 if (form.errors.contact_number && !form.touched.contact_number) {
                   form.setFieldTouched('contact_number');

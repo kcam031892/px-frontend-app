@@ -32,6 +32,7 @@ export interface ISignUpRequestPayload {
   contact_number: string;
   email: string;
   country: string;
+  country_code: string;
   state: string | undefined;
   user_type: string;
   password: string;
