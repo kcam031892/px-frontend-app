@@ -1,12 +1,25 @@
 import hS from 'humanize-string';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { authDao } from 'shared/dao/authDao';
-import { IForgotPasswordRequestPayload, ISignInRequestPayload, ISignUpRequestPayload, IUser } from 'shared/interfaces/IUser';
+import {
+  IForgotPasswordRequestPayload,
+  ISignInRequestPayload,
+  ISignUpRequestPayload,
+  IUser,
+} from 'shared/interfaces/IUser';
 import { ls } from 'shared/utils/ls';
 
 import { AppThunk, RootState } from '../store';
 
-const { loginWithGoogle, loginWithFacebook, logout, getUserProfile: getUserProfileService, login, signup, sendEmail } = authDao();
+const {
+  loginWithGoogle,
+  loginWithFacebook,
+  logout,
+  getUserProfile: getUserProfileService,
+  login,
+  signup,
+  sendEmail,
+} = authDao();
 
 const { setLS, removeLS } = ls();
 
