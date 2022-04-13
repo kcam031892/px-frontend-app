@@ -27,5 +27,23 @@ export const useStyles = makeStyles(() =>
         padding: 0,
       },
     },
+    autoCompleteGrid: {
+      textAlign: 'right',
+      position: 'relative',
+      '& .MuiTypography-root': {
+        cursor: 'pointer',
+        position: 'absolute',
+        zIndex: '2',
+        color: '#212121',
+        top: '-25px',
+        right: '0',
+      },
+    },
+    chipContainer: {
+      margin: '10px 0 0',
+      '& .MuiChip-root': {
+        marginRight: '5px',
+      },
+    },
   }),
 );

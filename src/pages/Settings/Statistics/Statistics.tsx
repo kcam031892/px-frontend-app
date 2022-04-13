@@ -15,6 +15,7 @@ import {
   Button,
   InputAdornment,
   TextField,
+  Link,
 } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import { SearchIcon } from 'components/Icons';
@@ -30,9 +31,14 @@ import eyeColor from 'data/EyeColor.json';
 import complexion from 'data/Complexion.json';
 import ethnicity from 'data/Ethnicities.json';
 import talentTypes from 'data/TalentTypes.json';
+import tshirtSize from 'data/TShirtSize.json';
 import chestSize from 'data/ChestSize.json';
-import { IStatistics, IStatisticsResponsePayload } from 'shared/interfaces/IStatistics';
-import { statisticsService } from 'shared/services/statisticsService';
+
+import EthnicityDialog from './EthnicityDialog/EthnicityDialog';
+import ConfirmationDialog from './ConfirmationDialog/ConfirmationDialog';
+
+import { IStatistics, ITalentStatisticsResponsePayload, ITalentUpdatePayload } from 'shared/interfaces/ITalent';
+import { talentService } from 'shared/services/talentService';
 import * as yup from 'yup';
 import { FormikProps, useFormik } from 'formik';
 import { useDebounce } from 'use-debounce';
@@ -41,8 +47,9 @@ import { IAlertStatus } from 'shared/interfaces/utils/IAlert';
 import { AxiosError } from 'axios';
 import { IErrorResponse } from 'shared/interfaces/utils/IErrorResonse';
 import { errorResponseToArray } from 'shared/utils/errorResponseToArray';
+import _ from 'lodash';
 
-const { getStatistics } = statisticsService();
+const { getStatistics, updateTalent } = talentService();
 
 const ethnicityOptions = ethnicity.map((i) => i);
 const talentTypesOptions = talentTypes.map((i) => i);
@@ -51,19 +58,73 @@ const Statistics = () => {
   const classes = useStyles();
   const { data } = getStatistics();
 
+  const [ethnicityChipValue, setEthnicityChipValue] = useState<any[]>([]);
+  const [talentChipValue, setTalentChipValue] = useState<any[]>([]);
+
+  const onEthnicityChipDelete = (name: any) => () => {
+    setEthnicityChipValue((value) => value.filter((v) => v.name !== name));
+  };
+
+  const onTalentChipDelete = (name: any) => () => {
+    setTalentChipValue((value) => value.filter((v) => v.value !== value));
+  };
+
   const [selectValue, setSelectValue] = useState('');
   // const [ethnicityValue, setEthnicityValue] = React.useState<string | null>(ethnicityOptions[0]);
   // const [inputEthnicityValue, setEthnicityInputValue] = React.useState('');
   // const [talentTypeValue, setTalentTypeValue] = React.useState<string | null>(talentTypesOptions[0]);
   // const [inputTalentTypeValue, setInputTalentTypeValue] = React.useState('');
 
+  const [regionValue, setRegionValue] = useState('');
+  const [ageValue, setAgeValue] = useState('');
+  const [metricValue, setMetricValue] = useState(metric[0].value);
+  const [genderValue, setGenderValue] = useState('');
+
   const selectRegion = (event: React.ChangeEvent<{ value: any }>) => {
-    setSelectValue(event.target.value);
+    setRegionValue(event.target.value);
+    if (event.target.value === 'United States' || event.target.value === 'United Kingdom') {
+      setMetricValue('Imperial/Metric');
+    } else {
+      setMetricValue('Metric');
+    }
+  };
+
+  const selectAge = (event: React.ChangeEvent<{ value: any }>) => {
+    setAgeValue(event.target.value);
+  };
+
+  const selectMetric = (event: React.ChangeEvent<{ value: any }>) => {
+    setMetricValue(event.target.value);
   };
 
   const selectGender = (event: React.ChangeEvent<{ value: any }>) => {
-    setSelectValue(event.target.value);
+    setGenderValue(event.target.value);
   };
+
+  const [isEthnicityDialogOpen, setIsEthnicityDialogOpen] = useState<boolean>(false);
+  const handleOpenEthnicityDialog = () => setIsEthnicityDialogOpen(true);
+  const handleCloseEthnicityDialog = () => setIsEthnicityDialogOpen(false);
+
+  const [isConfirmationDialog, setIsConfirmationDialog] = useState<boolean>(false);
+  const handleOpenConfirmationDialog = () => setIsConfirmationDialog(true);
+  const handleCloseConfirmationDialog = () => setIsConfirmationDialog(false);
+
+  // const initialValues: ITalentUpdatePayload = {
+  //   statistics: {},
+  // };
+
+  // const statisticsValidationScheme: yup.SchemaOf<ITalentUpdatePayload> = yup.object().shape({
+  //   statistics: yup.array(),
+  // });
+
+  const { mutate, isLoading: isUpdateLoading } = updateTalent();
+
+  // const form: FormikProps<ITalentUpdatePayload> = useFormik({
+  //   initialValues,
+  //   validationSchema: statisticsValidationScheme,
+  //   onSubmit: (values) => handleSubmit(values),
+  //   enableReinitialize: true,
+  // });
 
   return (
     <Grid container spacing={0}>
@@ -80,7 +141,15 @@ const Statistics = () => {
                     <InputLabel id="labelCountry" shrink>
                       Region
                     </InputLabel>
-                    <Select labelId={'lblType'} onChange={selectRegion} disableUnderline defaultValue={region[0].value}>
+                    <Select
+                      labelId={'lblType'}
+                      onChange={(e) => {
+                        handleOpenConfirmationDialog();
+                        selectRegion(e);
+                      }}
+                      disableUnderline
+                      defaultValue={region[0].value}
+                    >
                       {region.map((i) => (
                         <MenuItem key={i.key} value={i.value}>
                           {i.value}
@@ -94,7 +163,15 @@ const Statistics = () => {
                     <InputLabel id="labelAgeType" shrink>
                       Adult/Minor
                     </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline defaultValue={age[0].value}>
+                    <Select
+                      labelId={'lblType'}
+                      disableUnderline
+                      defaultValue={age[0].value}
+                      onChange={(e) => {
+                        handleOpenConfirmationDialog();
+                        selectAge(e);
+                      }}
+                    >
                       {age.map((i) => (
                         <MenuItem key={i.key} value={i.value}>
                           {i.value}
@@ -108,7 +185,16 @@ const Statistics = () => {
                     <InputLabel id="labelSizeUnit" shrink>
                       Imperial/Metric
                     </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline defaultValue={metric[0].value}>
+                    <Select
+                      labelId={'lblType'}
+                      disableUnderline
+                      onChange={(e) => {
+                        handleOpenConfirmationDialog();
+                        selectMetric(e);
+                      }}
+                      value={metricValue}
+                      defaultValue={metric[0].value}
+                    >
                       {metric.map((i) => (
                         <MenuItem key={i.key} value={i.value}>
                           {i.value}
@@ -122,7 +208,15 @@ const Statistics = () => {
                     <InputLabel id="labelGender" shrink>
                       Gender
                     </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline defaultValue={gender[0].value}>
+                    <Select
+                      labelId={'lblType'}
+                      disableUnderline
+                      onChange={(e) => {
+                        handleOpenConfirmationDialog();
+                        selectGender(e);
+                      }}
+                      defaultValue={gender[0].value}
+                    >
                       {gender.map((i) => (
                         <MenuItem key={i.key} value={i.value}>
                           {i.value}
@@ -135,208 +229,711 @@ const Statistics = () => {
             </CardContent>
           </Card>
         </Grid>
+
         <Grid xs={12} md={12} item>
           <Card variant="outlined">
             <CardContent>
               <Typography variant="h6" gutterBottom>
                 Profile
               </Typography>
-              <Grid container className={classes.profileItemsContainer} spacing={2}>
-                <Grid xs={12} md={6} lg={2} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <InputLabel id="labelCountry" shrink>
-                      Hair Colour
-                    </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline defaultValue={hairColor[0].value}>
-                      {hairColor.map((i) => (
-                        <MenuItem key={i.key} value={i.value}>
-                          {i.value}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid xs={12} md={6} lg={2} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <InputLabel id="labelAgeType" shrink>
-                      Eye Colour
-                    </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline defaultValue={eyeColor[0].value}>
-                      {eyeColor.map((i) => (
-                        <MenuItem key={i.key} value={i.value}>
-                          {i.value}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid xs={12} md={6} lg={2} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <InputLabel id="labelSizeUnit" shrink>
-                      Complexion
-                    </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline defaultValue={complexion[0].value}>
-                      {complexion.map((i) => (
-                        <MenuItem key={i.key} value={i.value}>
-                          {i.value}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid xs={12} md={6} lg={2} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <Grid container spacing={2}>
-                      <Grid xs={6} md={6} item>
-                        <InputNumber
-                          label={'Height'}
-                          InputProps={{
-                            disableUnderline: true,
-                            endAdornment: <InputAdornment position="end">cm</InputAdornment>,
-                          }}
-                          InputLabelProps={{ shrink: true }}
-                        />
-                      </Grid>
-                      <Grid xs={6} md={6} item>
-                        <InputNumber
-                          label={' '}
-                          InputProps={{
-                            disableUnderline: true,
-                            endAdornment: <InputAdornment position="end">in</InputAdornment>,
-                          }}
-                        />
-                      </Grid>
+
+              {ageValue === 'Minor' ? (
+                <Grid>
+                  <Grid container className={classes.profileItemsContainer} spacing={2}>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        <InputLabel id="labelCountry" shrink>
+                          Hair Color
+                        </InputLabel>
+                        <Select labelId={'lblType'} disableUnderline defaultValue={hairColor[0].value}>
+                          {hairColor.map((i) => (
+                            <MenuItem key={i.key} value={i.value}>
+                              {i.value}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
                     </Grid>
-                  </FormControl>
-                </Grid>
-                <Grid xs={12} md={6} lg={2} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <Grid container spacing={2}>
-                      <Grid xs={6} md={6} item>
-                        <InputNumber
-                          label={'Waist Size'}
-                          InputLabelProps={{ shrink: true }}
-                          InputProps={{
-                            disableUnderline: true,
-                            endAdornment: <InputAdornment position="end">kg</InputAdornment>,
-                          }}
-                        />
-                      </Grid>
-                      <Grid xs={6} md={6} item>
-                        <Input
-                          label={' '}
-                          InputProps={{
-                            disableUnderline: true,
-                            endAdornment: <InputAdornment position="end">lb</InputAdornment>,
-                          }}
-                        />
-                      </Grid>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        <InputLabel id="labelAgeType" shrink>
+                          Eye Colour
+                        </InputLabel>
+                        <Select labelId={'lblType'} disableUnderline defaultValue={eyeColor[0].value}>
+                          {eyeColor.map((i) => (
+                            <MenuItem key={i.key} value={i.value}>
+                              {i.value}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
                     </Grid>
-                  </FormControl>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        <InputLabel id="labelSizeUnit" shrink>
+                          Complexion
+                        </InputLabel>
+                        <Select labelId={'lblType'} disableUnderline defaultValue={complexion[0].value}>
+                          {complexion.map((i) => (
+                            <MenuItem key={i.key} value={i.value}>
+                              {i.value}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        {metricValue === 'Imperial/Metric' ? (
+                          <Grid container spacing={2}>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={'Height'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={' '}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">in</InputAdornment>,
+                                }}
+                              />
+                            </Grid>
+                          </Grid>
+                        ) : (
+                          <Grid container spacing={2}>
+                            <Grid xs={12} md={12} item>
+                              <InputNumber
+                                label={'Height'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                          </Grid>
+                        )}
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        {metricValue === 'Imperial/Metric' ? (
+                          <Grid container spacing={2}>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={'Waist Size'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={' '}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">in</InputAdornment>,
+                                }}
+                              />
+                            </Grid>
+                          </Grid>
+                        ) : (
+                          <Grid container spacing={2}>
+                            <Grid xs={12} md={12} item>
+                              <InputNumber
+                                label={'Waist Size'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                          </Grid>
+                        )}
+                      </FormControl>
+                    </Grid>
+                  </Grid>
+                  <Grid container className={classes.profileItemsContainer} spacing={2}>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        {metricValue === 'Imperial/Metric' ? (
+                          <Grid container spacing={2}>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={'Hat Size'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={' '}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">in</InputAdornment>,
+                                }}
+                              />
+                            </Grid>
+                          </Grid>
+                        ) : (
+                          <Grid container spacing={2}>
+                            <Grid xs={12} md={12} item>
+                              <InputNumber
+                                label={'Hat Size'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                          </Grid>
+                        )}
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        {metricValue === 'Imperial/Metric' ? (
+                          <Grid container spacing={2}>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={'Waist Size'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={' '}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">in</InputAdornment>,
+                                }}
+                              />
+                            </Grid>
+                          </Grid>
+                        ) : (
+                          <Grid container spacing={2}>
+                            <Grid xs={12} md={12} item>
+                              <InputNumber
+                                label={'Waist Size'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                          </Grid>
+                        )}
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        <InputLabel id="labelAgeType" shrink>
+                          Kid Clothing
+                        </InputLabel>
+                        <Select labelId={'lblType'} disableUnderline>
+                          {eyeColor.map((i) => (
+                            <MenuItem key={i.key} value={i.value}>
+                              {i.value}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        {metricValue === 'Imperial/Metric' ? (
+                          <Grid container spacing={2}>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={'Inside Leg'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={' '}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">in</InputAdornment>,
+                                }}
+                              />
+                            </Grid>
+                          </Grid>
+                        ) : (
+                          <Grid container spacing={2}>
+                            <Grid xs={12} md={12} item>
+                              <InputNumber
+                                label={'Inside Leg'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                          </Grid>
+                        )}
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        {metricValue === 'Imperial/Metric' ? (
+                          <Grid container spacing={2}>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={'Outside Leg'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={' '}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">in</InputAdornment>,
+                                }}
+                              />
+                            </Grid>
+                          </Grid>
+                        ) : (
+                          <Grid container spacing={2}>
+                            <Grid xs={12} md={12} item>
+                              <InputNumber
+                                label={'Outside Leg'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                          </Grid>
+                        )}
+                      </FormControl>
+                    </Grid>
+                  </Grid>
+                  <Grid container className={classes.profileItemsContainer} spacing={2}>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        <InputLabel id="labelAgeType" shrink>
+                          T-Shirt Size
+                        </InputLabel>
+                        <Select labelId={'lblType'} disableUnderline defaultValue={tshirtSize[0].value}>
+                          {tshirtSize.map((i) => (
+                            <MenuItem key={i.key} value={i.value}>
+                              {i.value}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                  </Grid>
                 </Grid>
-              </Grid>
-              <Grid container className={classes.profileItemsContainer} spacing={2}>
-                <Grid xs={12} md={6} lg={2} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <InputLabel id="labelAgeType" shrink>
-                      Suit Size
-                    </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline>
-                      {eyeColor.map((i) => (
-                        <MenuItem key={i.key} value={i.value}>
-                          {i.value}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
+              ) : (
+                <Grid>
+                  <Grid container className={classes.profileItemsContainer} spacing={2}>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        <InputLabel id="labelCountry" shrink>
+                          Hair Color
+                        </InputLabel>
+                        <Select labelId={'lblType'} disableUnderline defaultValue={hairColor[0].value}>
+                          {hairColor.map((i) => (
+                            <MenuItem key={i.key} value={i.value}>
+                              {i.value}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        <InputLabel id="labelAgeType" shrink>
+                          Eye Colour
+                        </InputLabel>
+                        <Select labelId={'lblType'} disableUnderline defaultValue={eyeColor[0].value}>
+                          {eyeColor.map((i) => (
+                            <MenuItem key={i.key} value={i.value}>
+                              {i.value}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        <InputLabel id="labelSizeUnit" shrink>
+                          Complexion
+                        </InputLabel>
+                        <Select labelId={'lblType'} disableUnderline defaultValue={complexion[0].value}>
+                          {complexion.map((i) => (
+                            <MenuItem key={i.key} value={i.value}>
+                              {i.value}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        {metricValue === 'Imperial/Metric' ? (
+                          <Grid container spacing={2}>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={'Height'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={' '}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">in</InputAdornment>,
+                                }}
+                              />
+                            </Grid>
+                          </Grid>
+                        ) : (
+                          <Grid container spacing={2}>
+                            <Grid xs={12} md={12} item>
+                              <InputNumber
+                                label={'Height'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                          </Grid>
+                        )}
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        {metricValue === 'Imperial/Metric' ? (
+                          <Grid container spacing={2}>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={'Waist Size'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={' '}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">in</InputAdornment>,
+                                }}
+                              />
+                            </Grid>
+                          </Grid>
+                        ) : (
+                          <Grid container spacing={2}>
+                            <Grid xs={12} md={12} item>
+                              <InputNumber
+                                label={'Waist Size'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                          </Grid>
+                        )}
+                      </FormControl>
+                    </Grid>
+                  </Grid>
+                  <Grid container className={classes.profileItemsContainer} spacing={2}>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        <InputLabel id="labelAgeType" shrink>
+                          Suit Size
+                        </InputLabel>
+                        <Select labelId={'lblType'} disableUnderline>
+                          {eyeColor.map((i) => (
+                            <MenuItem key={i.key} value={i.value}>
+                              {i.value}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        {metricValue === 'Imperial/Metric' ? (
+                          <Grid container spacing={2}>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={'Chest Size'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={' '}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">in</InputAdornment>,
+                                }}
+                              />
+                            </Grid>
+                          </Grid>
+                        ) : (
+                          <Grid container spacing={2}>
+                            <Grid xs={12} md={12} item>
+                              <InputNumber
+                                label={'Chest Size'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                          </Grid>
+                        )}
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        {metricValue === 'Imperial/Metric' ? (
+                          <Grid container spacing={2}>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={'Collar Size'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={' '}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">in</InputAdornment>,
+                                }}
+                              />
+                            </Grid>
+                          </Grid>
+                        ) : (
+                          <Grid container spacing={2}>
+                            <Grid xs={12} md={12} item>
+                              <InputNumber
+                                label={'Collar Size'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                          </Grid>
+                        )}
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        {metricValue === 'Imperial/Metric' ? (
+                          <Grid container spacing={2}>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={'Inside Leg'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={' '}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">in</InputAdornment>,
+                                }}
+                              />
+                            </Grid>
+                          </Grid>
+                        ) : (
+                          <Grid container spacing={2}>
+                            <Grid xs={12} md={12} item>
+                              <InputNumber
+                                label={'Inside Leg'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                          </Grid>
+                        )}
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        {metricValue === 'Imperial/Metric' ? (
+                          <Grid container spacing={2}>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={'Outside Leg'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                            <Grid xs={6} md={6} item>
+                              <InputNumber
+                                label={' '}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">in</InputAdornment>,
+                                }}
+                              />
+                            </Grid>
+                          </Grid>
+                        ) : (
+                          <Grid container spacing={2}>
+                            <Grid xs={12} md={12} item>
+                              <InputNumber
+                                label={'Outside Leg'}
+                                InputProps={{
+                                  disableUnderline: true,
+                                  endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                }}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
+                          </Grid>
+                        )}
+                      </FormControl>
+                    </Grid>
+                  </Grid>
+                  <Grid container className={classes.profileItemsContainer} spacing={2}>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        <InputLabel id="labelAgeType" shrink>
+                          Shoe Size
+                        </InputLabel>
+                        <Select labelId={'lblType'} disableUnderline defaultValue={eyeColor[0].value}>
+                          {eyeColor.map((i) => (
+                            <MenuItem key={i.key} value={i.value}>
+                              {i.value}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={12} md={6} lg={2} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        <InputLabel id="labelAgeType" shrink>
+                          T-shirt Size
+                        </InputLabel>
+                        <Select labelId={'lblType'} disableUnderline defaultValue={eyeColor[0].value}>
+                          {tshirtSize.map((i) => (
+                            <MenuItem key={i.key} value={i.value}>
+                              {i.value}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                    {genderValue === 'Male' ? (
+                      <></>
+                    ) : (
+                      <Grid xs={12} md={6} lg={2} item>
+                        <FormControl margin={'normal'} fullWidth>
+                          {metricValue === 'Imperial/Metric' ? (
+                            <Grid container spacing={2}>
+                              <Grid xs={6} md={6} item>
+                                <InputNumber
+                                  label={'Hip Size'}
+                                  InputProps={{
+                                    disableUnderline: true,
+                                    endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                  }}
+                                  InputLabelProps={{ shrink: true }}
+                                />
+                              </Grid>
+                              <Grid xs={6} md={6} item>
+                                <InputNumber
+                                  label={' '}
+                                  InputProps={{
+                                    disableUnderline: true,
+                                    endAdornment: <InputAdornment position="end">in</InputAdornment>,
+                                  }}
+                                />
+                              </Grid>
+                            </Grid>
+                          ) : (
+                            <Grid container spacing={2}>
+                              <Grid xs={12} md={12} item>
+                                <InputNumber
+                                  label={'Hip Size'}
+                                  InputProps={{
+                                    disableUnderline: true,
+                                    endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                  }}
+                                  InputLabelProps={{ shrink: true }}
+                                />
+                              </Grid>
+                            </Grid>
+                          )}
+                        </FormControl>
+                      </Grid>
+                    )}
+                  </Grid>
                 </Grid>
-                <Grid xs={12} md={6} lg={2} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <InputLabel id="labelAgeType" shrink>
-                      Chest Size
-                    </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline defaultValue={chestSize[0].name}>
-                      {chestSize.map((i) => (
-                        <MenuItem key={i.name} value={i.name}>
-                          {i.name}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid xs={12} md={6} lg={2} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <InputLabel id="labelAgeType" shrink>
-                      Collar Size
-                    </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline defaultValue={eyeColor[0].value}>
-                      {eyeColor.map((i) => (
-                        <MenuItem key={i.key} value={i.value}>
-                          {i.value}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid xs={12} md={6} lg={2} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <InputLabel id="labelAgeType" shrink>
-                      Inside Leg
-                    </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline defaultValue={eyeColor[0].value}>
-                      {eyeColor.map((i) => (
-                        <MenuItem key={i.key} value={i.value}>
-                          {i.value}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid xs={12} md={6} lg={2} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <InputLabel id="labelAgeType" shrink>
-                      Outside Leg
-                    </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline defaultValue={eyeColor[0].value}>
-                      {eyeColor.map((i) => (
-                        <MenuItem key={i.key} value={i.value}>
-                          {i.value}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-              </Grid>
-              <Grid container className={classes.profileItemsContainer} spacing={2}>
-                <Grid xs={12} md={6} lg={2} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <InputLabel id="labelAgeType" shrink>
-                      Shoe Size
-                    </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline defaultValue={eyeColor[0].value}>
-                      {eyeColor.map((i) => (
-                        <MenuItem key={i.key} value={i.value}>
-                          {i.value}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid xs={12} md={6} lg={2} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <InputLabel id="labelAgeType" shrink>
-                      T-shirt Size
-                    </InputLabel>
-                    <Select labelId={'lblType'} disableUnderline defaultValue={eyeColor[0].value}>
-                      {eyeColor.map((i) => (
-                        <MenuItem key={i.key} value={i.value}>
-                          {i.value}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-              </Grid>
+              )}
               <Divider style={{ margin: '24px 0px' }} />
               <Grid spacing={2} container>
                 <Grid xs={12} md={6} lg={6} item>
@@ -346,22 +943,26 @@ const Statistics = () => {
                   <div className={classes.autocompleteContainer}>
                     <Autocomplete
                       multiple
-                      limitTags={2}
-                      getOptionLabel={(ethnicityOptions) => ethnicityOptions.name}
-                      id="multiple-limit-tags"
                       options={ethnicityOptions}
-                      renderInput={(params) => <TextField {...params} variant="outlined" />}
+                      getOptionLabel={(ethnicityOptions) => ethnicityOptions.name}
+                      id="multiple-tags"
+                      value={ethnicityChipValue}
+                      onChange={(e, newValue) => setEthnicityChipValue(newValue)}
+                      renderTags={() => null}
+                      renderInput={(params) => (
+                        <Grid className={classes.autoCompleteGrid}>
+                          <Link onClick={handleOpenEthnicityDialog}>View All</Link>
+                          <TextField {...params} variant="outlined" placeholder="Ethnicities" />
+                        </Grid>
+                      )}
                     />
                   </div>
-                  <Button
-                    id="viewAllEthnicities"
-                    style={{ marginTop: '10px' }}
-                    variant="contained"
-                    color="default"
-                    disableElevation
-                  >
-                    View All
-                  </Button>
+
+                  <Grid className={classes.chipContainer}>
+                    {ethnicityChipValue.map((v) => (
+                      <Chip key={v.name} label={v.name} onDelete={onEthnicityChipDelete(v.name)} />
+                    ))}
+                  </Grid>
                 </Grid>
                 <Grid xs={12} md={6} lg={6} item>
                   <InputLabel id="labelAgeType" shrink>
@@ -370,22 +971,25 @@ const Statistics = () => {
                   <div className={classes.autocompleteContainer}>
                     <Autocomplete
                       multiple
-                      limitTags={2}
-                      getOptionLabel={(talentTypesOptions) => talentTypesOptions.value}
-                      id="multiple-limit-tags"
                       options={talentTypesOptions}
-                      renderInput={(params) => <TextField {...params} variant="outlined" />}
+                      getOptionLabel={(talentTypesOptions) => talentTypesOptions.value}
+                      id="multiple-tags"
+                      value={talentTypesOptions}
+                      onChange={(e, newValue) => setTalentChipValue(newValue)}
+                      renderTags={() => null}
+                      renderInput={(params) => (
+                        <Grid className={classes.autoCompleteGrid}>
+                          <Link onClick={handleOpenEthnicityDialog}>View All</Link>
+                          <TextField {...params} variant="outlined" placeholder="Other Talent Types" />
+                        </Grid>
+                      )}
                     />
                   </div>
-                  <Button
-                    id="viewAllOtherTalentTypes"
-                    style={{ marginTop: '10px' }}
-                    variant="contained"
-                    color="default"
-                    disableElevation
-                  >
-                    View All
-                  </Button>
+                  <Grid className={classes.chipContainer}>
+                    {talentChipValue.map((v) => (
+                      <Chip key={v.value} label={v.value} onDelete={onTalentChipDelete(v.value)} />
+                    ))}
+                  </Grid>
                 </Grid>
               </Grid>
             </CardContent>
@@ -397,6 +1001,8 @@ const Statistics = () => {
           Save Changes
         </Button>
       </Box>
+      <EthnicityDialog open={isEthnicityDialogOpen} onClose={handleCloseEthnicityDialog} />
+      <ConfirmationDialog open={isConfirmationDialog} onClose={handleCloseConfirmationDialog} />
     </Grid>
   );
 };

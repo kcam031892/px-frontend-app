@@ -3,10 +3,16 @@ import { talentDao } from 'shared/dao/talentDao';
 import {
   ITalentBiographyResponsePayload,
   ITalentResumeResponsePayload,
+  ITalentStatisticsResponsePayload,
   ITalentUpdatePayload,
 } from 'shared/interfaces/ITalent';
 
-const { getResume: getResumeDao, getBiography: getBiographyDao, updateTalent: updateTalentDao } = talentDao();
+const {
+  getResume: getResumeDao,
+  getBiography: getBiographyDao,
+  getStatistics: getStatisticsDao,
+  updateTalent: updateTalentDao,
+} = talentDao();
 export const talentService = () => {
   const updateTalent = () => {
     return useMutation((payload: ITalentUpdatePayload) => updateTalentDao(payload));
@@ -19,9 +25,14 @@ export const talentService = () => {
     return useQuery<ITalentBiographyResponsePayload>(['talents/biography'], () => getBiographyDao());
   };
 
+  const getStatistics = () => {
+    return useQuery<ITalentStatisticsResponsePayload>(['talents/statistics'], () => getStatisticsDao());
+  };
+
   return {
     updateTalent,
     getResume,
     getBiography,
+    getStatistics,
   };
 };
