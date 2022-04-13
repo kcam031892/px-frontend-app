@@ -31,15 +31,17 @@ import b64toBlob from 'b64-to-blob';
 import { base64ToBlob, blobToBase64 } from 'base64-blob';
 import { dataUrlToFile } from 'shared/utils/dataUrlToFile';
 import { useQueryClient } from 'react-query';
+import { mediaService } from 'shared/services/mediaService';
 
 const { getProfilePrimaryImage, setProfilePrimaryImage } = profileService();
+const { updateMedia } = mediaService();
 const PrimaryImage = () => {
   const { profileId } = useParams() as { profileId: string };
   const classes = useStyles();
   const [tags, setTags] = useState<string[]>([]);
   const [autocompleteKey, setAutoCompleteKey] = useState<string>('');
   const [isFileDialogOpen, setIsFileDialogOpen] = useState<boolean>(false);
-  const [autoCompleteValue] = useDebounce(autocompleteKey, 500);
+  const [autoCompleteValue] = useDebounce(autocompleteKey, 100);
   const [cropData, setCropData] = useState<string>('/no-image-placeholder.svg');
   const [cropper, setCropper] = useState<any>(null);
   const [hasImage, setIsHasImage] = useState<boolean>(false);
@@ -48,18 +50,65 @@ const PrimaryImage = () => {
   const [fileName, setFileName] = useState<string>('');
   const [qualityLevel, setQualityLevel] = useState<ImageQuanlityLevel>(ImageQuanlityLevel.None);
   const [isImageGalleryOpen, setIsImageGalleryOpen] = useState<boolean>(false);
-  const { data, isError, isLoading: isLoadingPrimaryImage } = getProfilePrimaryImage(profileId);
-  const { mutate, isLoading: isSaving } = setProfilePrimaryImage();
+  const [toUpdateMediaId, setToUpdateMediaId] = useState<string>('');
+  const { data, isLoading: isLoadingPrimaryImage } = getProfilePrimaryImage(profileId);
+  const { mutateAsync, isLoading: isSaving } = setProfilePrimaryImage();
+  const { mutate: updateMediaMutate, isLoading: isUpdateMediaLoading } = updateMedia();
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const queryClient = useQueryClient();
 
   const onSelectTag = (newTag: string) => {
     if (!tags.includes(newTag)) {
-      setTags((tags) => [...tags, newTag]);
+      const newTags = [...tags, newTag];
+
+      if (toUpdateMediaId) {
+        const formData = new FormData();
+        formData.set('tag_list', newTags.join(', '));
+        updateMediaMutate(
+          { mediumId: toUpdateMediaId, formData: formData },
+          {
+            onSuccess: () => {
+              queryClient.setQueriesData(['profile_primary_image', profileId], {
+                data: {
+                  ...data?.data,
+                  attributes: {
+                    ...data?.data.attributes,
+                    medium_tag_list: newTags,
+                  },
+                },
+              });
+            },
+          },
+        );
+      }
+
+      setTags(newTags);
     }
   };
   const onDeleteTag = (tag: string) => {
     const filteredTag = tags.filter((t) => t !== tag);
+
+    if (toUpdateMediaId) {
+      const formData = new FormData();
+      formData.set('tag_list', filteredTag.join(', '));
+      updateMediaMutate(
+        { mediumId: toUpdateMediaId, formData: formData },
+        {
+          onSuccess: () => {
+            queryClient.setQueriesData(['profile_primary_image', profileId], {
+              data: {
+                ...data?.data,
+                attributes: {
+                  ...data?.data.attributes,
+                  medium_tag_list: filteredTag,
+                },
+              },
+            });
+          },
+        },
+      );
+    }
+
     setTags(filteredTag);
   };
 
@@ -67,6 +116,8 @@ const PrimaryImage = () => {
     if (data) {
       setCropData(data.data.attributes.attachment);
       setFileName(data.data.attributes.medium_name);
+      setTags(data.data.attributes.medium_tag_list);
+      setToUpdateMediaId(data.data.attributes.medium_id);
     }
   }, [data]);
 
@@ -114,20 +165,26 @@ const PrimaryImage = () => {
       formData.set('file_size', fileSize.toString());
     } else if (mediaId) {
       formData.set('medium_id', mediaId);
+      setToUpdateMediaId(mediaId);
     }
     setIsImageGalleryOpen(false);
     setIsFileDialogOpen(false);
-    mutate(
-      { profileId, formData, onProgress: (number) => setUploadProgress(number) },
-      {
-        onSuccess: () => {
-          queryClient.removeQueries('profiles');
-          queryClient.invalidateQueries(['profile_primary_image', profileId]);
 
-          setUploadProgress(0);
+    if (fileImage || mediaId) {
+      await mutateAsync(
+        { profileId, formData, onProgress: (number) => setUploadProgress(number) },
+        {
+          onSuccess: () => {
+            queryClient.removeQueries('profiles');
+            queryClient.removeQueries('media');
+            queryClient.removeQueries(['profile_media', profileId, { file_type: 'image' }]);
+            queryClient.invalidateQueries(['profile_primary_image', profileId]);
+            setUploadProgress(0);
+            setTags([]);
+          },
         },
-      },
-    );
+      );
+    }
   };
 
   const isLoading = useMemo(() => {
@@ -175,6 +232,7 @@ const PrimaryImage = () => {
                 options={tags}
                 freeSolo={true}
                 clearOnBlur={true}
+                disabled={!toUpdateMediaId}
                 key={autoCompleteValue}
                 classes={{
                   root: classes.autocomplete__tagSelect,
