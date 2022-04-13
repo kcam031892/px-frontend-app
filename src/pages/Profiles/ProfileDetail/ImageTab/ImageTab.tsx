@@ -168,6 +168,7 @@ const ImageTab = () => {
           queryClient.removeQueries('profiles');
           queryClient.removeQueries(['profile_primary_image', profileId]);
           queryClient.invalidateQueries(['profile_media', profileId, { file_type: 'image' }]);
+          AlertOpen('success', 'Primary Image Updated');
         },
       },
     );
