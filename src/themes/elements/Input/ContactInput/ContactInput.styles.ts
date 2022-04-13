@@ -21,9 +21,9 @@ export const useStyles = makeStyles(() =>
       width: 'unset',
     },
     contactButton_class: {
-      border: 'none !important',
+      border: 'solid 2px #F5F5F5 !important',
       borderTopLeftRadius: '6px !important',
-      borderTopBottomRadius: '6px !important',
+      borderBottomLeftRadius: '6px !important',
       height: '40px !important',
     },
   }),
