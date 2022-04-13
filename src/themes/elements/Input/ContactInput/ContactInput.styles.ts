@@ -24,6 +24,7 @@ export const useStyles = makeStyles(() =>
       border: 'none !important',
       borderTopLeftRadius: '6px !important',
       borderTopBottomRadius: '6px !important',
+      height: '40px !important',
     },
   }),
 );
