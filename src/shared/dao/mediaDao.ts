@@ -1,24 +1,24 @@
 import { ENDPOINTS } from 'shared/constants/ENDPOINTS';
 import { useAxios } from 'shared/hooks/useAxios';
-import { IStatisticsResponsePayload } from 'shared/interfaces/IStatistics';
+import { IMediaRequestPayload, IMediaResponse } from 'shared/interfaces/IMedia';
 import { authToken } from 'shared/utils/authToken';
 
-const { GET, PATCH } = useAxios();
+const { GET } = useAxios();
 
-export const statisticsDao = () => {
+export const mediaDao = () => {
   const { getAuthToken } = authToken();
-  const getStatistics = async () => {
-    const response = await GET<IStatisticsResponsePayload>({
-      url: `${ENDPOINTS.ME}`,
+  const getMediaList = async (payload?: IMediaRequestPayload) => {
+    const response = await GET<IMediaResponse>({
+      url: `${ENDPOINTS.MEDIA}`,
+      params: payload,
       headers: {
         Authorization: `Bearer ${getAuthToken()}`,
       },
     });
-
     return response.data;
   };
 
   return {
-    getStatistics,
+    getMediaList,
   };
 };

@@ -27,6 +27,7 @@ import {
   createNewSection,
   reorderRow,
   reorderSection,
+  resetSection,
   selectResumeState,
   setSection,
   toggleShowYear,
@@ -45,6 +46,8 @@ import {
 import clsx from 'clsx';
 import { talentService } from 'shared/services/talentService';
 import { useQueryClient } from 'react-query';
+import { isEqual } from 'lodash';
+import { ConfirmDialog } from 'components';
 
 const galleryTabs = [
   {
@@ -65,18 +68,19 @@ const Resume = () => {
   const classes = useStyles();
   const tabStyle = useTabStyle();
   const { data, isLoading, isError } = getResume();
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  const [dialogType, setDialogType] = useState<string>('');
   const { mutate, isLoading: isUpdateLoading } = updateTalent();
   const queryClient = useQueryClient();
   const { isOpen: isAlertOpen, alertRef, AlertOpen } = useAlert({ autoHideDuration: 2000, horizontal: 'center' });
-  // const [sections, setSections] = useState<ISection[]>([]);
-  const { sections, isSectionShowYear } = useSelector(selectResumeState);
+
+  const { sections, isSectionShowYear, oldSections } = useSelector(selectResumeState);
   const dispatch = useDispatch();
   const [isSelected, setSelected] = useState<number>(-1);
   const [anchorEl, setAnchorEl] = React.useState<any>(null);
   const [galleryDialogOpen, setGalleryDialogOpen] = useState<boolean>(false);
   const [selectedGalleryTab, setSelectedGalleryTab] = useState<string>('images');
   const [isDragging, setIsDragging] = useState<boolean>(false);
-  console.log('sections', sections);
 
   useEffect(() => {
     if (!isError && data) {
@@ -89,6 +93,11 @@ const Resume = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, data]);
 
+  const handleOpenDialog = (type: string) => {
+    setIsDialogOpen(true);
+    setDialogType(type);
+  };
+
   const handleSave = () => {
     mutate(
       { resume: sections },
@@ -99,6 +108,12 @@ const Resume = () => {
         },
       },
     );
+    setIsDialogOpen(false);
+  };
+
+  const handleReset = () => {
+    dispatch(resetSection());
+    setIsDialogOpen(false);
   };
 
   const handleOpenGalleryDialog = () => {
@@ -139,45 +154,6 @@ const Resume = () => {
 
   const handleReorderTable = (sectionIndex: number, sourceIndex: number, destinationIndex: number) => {
     dispatch(reorderRow({ sectionIndex, sourceIndex, destinationIndex }));
-  };
-
-  const handleColumnChange = (arrayIndex: number, num: number) => {
-    // const section = sections.filter((_, index) => index === arrayIndex)[0];
-    // if (section.values) {
-    //   const arrayText = section.values;
-    //   if (arrayText[0].length === num) return;
-    //   const updatedArrayText = arrayText.map((arrText) => {
-    //     if (arrText.length > num) {
-    //       return arrText.slice(0, -(arrText.length - num));
-    //     }
-    //     return [...arrText, ...createEmptyColumnArray()];
-    //   });
-    //   const updatedSection: ISection = { ...section, values: updatedArrayText };
-    //   const updatedSections = sections.map((section, index) => {
-    //     return index === arrayIndex ? updatedSection : section;
-    //   });
-    //   setSections(updatedSections);
-    // }
-  };
-
-  const handleRowChange = (arrayIndex: number, num: number) => {
-    dispatch(addNewRow({ index: arrayIndex }));
-    // const section = sections.filter((_, index) => index === arrayIndex)[0];
-    // if (section.values) {
-    //   let arrayText = section.values;
-    //   // if (arrayText.length === num) return;
-    //   // if (arrayText.length > num) {
-    //   //   arrayText = arrayText.slice(0, -(arrayText.length - num));
-    //   // } else {
-    //   // }
-    //   const emptyTextArray = createEmptyTableArray();
-    //   arrayText = [...emptyTextArray, ...arrayText];
-    //   const updatedSection: ISection = { ...section, values: arrayText };
-    //   const updatedSections = sections.map((section, index) => {
-    //     return index === arrayIndex ? updatedSection : section;
-    //   });
-    //   setSections(updatedSections);
-    // }
   };
 
   const handleShowYear = () => {
@@ -241,8 +217,6 @@ const Resume = () => {
                                   setSelected={handleSetSelected}
                                   isSelected={isSectionSelected(index)}
                                   handleReorderTable={handleReorderTable}
-                                  handleRowChange={handleRowChange}
-                                  handleColumnChange={handleColumnChange}
                                   handleOpenGalleryDialog={handleOpenGalleryDialog}
                                   providedDraggable={providedDraggable}
                                 />
@@ -268,6 +242,8 @@ const Resume = () => {
                       marginRight: '16px',
                       textTransform: 'none',
                     }}
+                    disabled={isEqual(sections, oldSections)}
+                    onClick={() => handleOpenDialog('cancel')}
                   >
                     Cancel
                   </Button>
@@ -275,10 +251,9 @@ const Resume = () => {
                     variant="contained"
                     disableElevation
                     color="primary"
-                    onClick={() => handleSave()}
-                    disabled={isUpdateLoading}
+                    onClick={() => handleOpenDialog('save')}
+                    disabled={isUpdateLoading || isEqual(sections, oldSections)}
                     style={{
-                      backgroundColor: '#2962FF',
                       textTransform: 'none',
                     }}
                   >
@@ -350,6 +325,15 @@ const Resume = () => {
           </Dialog>
         </>
       )}
+
+      <ConfirmDialog
+        open={isDialogOpen}
+        handleClose={() => setIsDialogOpen(false)}
+        title="Confirmation"
+        onConfirm={() => (dialogType === 'save' ? handleSave() : handleReset())}
+      >
+        {dialogType === 'save' ? 'Are you sure you want to save this?' : 'Are you sure you want to cancel this?'}
+      </ConfirmDialog>
       <Backdrop isLoading={isLoading || isUpdateLoading} />
     </Box>
   );

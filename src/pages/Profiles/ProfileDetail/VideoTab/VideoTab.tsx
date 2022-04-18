@@ -12,36 +12,52 @@ import {
 import { arrayMove, rectSortingStrategy, SortableContext } from '@dnd-kit/sortable';
 import { Box, Dialog, DialogContent, Grid, Typography } from '@material-ui/core';
 import { VideoEditor } from 'components';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import ScrollContainer from 'react-indiana-drag-scroll';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { EditorMode } from 'shared/enums/EditorMode';
+import { IProfileMedia, IProfileMediaSetSelectPayload } from 'shared/interfaces/IProfile';
+import { mediaService } from 'shared/services/mediaService';
+import { profileService } from 'shared/services/profileService';
+import HiddenVideo from './VideoItem/HiddenVideo';
 
 import VideoItem from './VideoItem/VideoItem';
+import VideoOverlay from './VideoItem/VideoOverlay';
 import { useStyles } from './VideoTab.styles';
 
+const { getMediaProfile, setSelectProfileMedia, unSelectProfileMedia } = profileService();
+const { getMediaList } = mediaService();
 const VideoTab = () => {
   const classes = useStyles();
+  const { profileId } = useParams() as { profileId: string };
   const history = useHistory();
   const location = useLocation();
   const [isEditorOpen, setIsEditorOpen] = useState<boolean>(false);
-  const [items, setItems] = useState<any[]>(
-    Array.from({ length: 10 }).map((_, i) => {
-      return {
-        id: i.toString(),
-      };
-    }),
-  );
+  const [items, setItems] = useState<IProfileMedia[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
-  const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
-    padding: 8 * 2,
-    paddingLeft: 0,
-    margin: `0 8px 0 0`,
 
-    // styles we need to apply on draggables
-    ...draggableStyle,
+  const { data: mediaProfileData, isLoading: isMediaProfileLoading } = getMediaProfile(profileId, {
+    file_type: 'video',
   });
+  const { data: mediaData, isLoading: isMediaLoading } = getMediaList({ file_type: 'video' });
+  const { mutate } = setSelectProfileMedia();
+  const { mutate: unselectMutate } = unSelectProfileMedia();
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (mediaProfileData) {
+      setItems(mediaProfileData.data);
+    }
+  }, [mediaProfileData]);
+
+  const filteredMedia = useMemo(() => {
+    const items = mediaData && mediaProfileData ? mediaData.data : [];
+    return items.filter(
+      (item) => !mediaProfileData?.data.some((profileItem) => profileItem.attributes.medium_id === item.id),
+    );
+  }, [mediaData, mediaProfileData]);
 
   useEffect(() => {
     if (location.search) {
@@ -50,6 +66,28 @@ const VideoTab = () => {
       }
     }
   }, [location.search]);
+
+  const handleSetSelectMedia = (payload: IProfileMediaSetSelectPayload) => {
+    mutate(
+      { profileId, payload },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries(['profile_media', profileId, { file_type: 'video' }]);
+        },
+      },
+    );
+  };
+
+  const handleUnselectMedia = (profileMediaId: string) => {
+    unselectMutate(
+      { profileId, profileMediaId },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries(['profile_media', profileId, { file_type: 'video' }]);
+        },
+      },
+    );
+  };
 
   const handleEditVideo = (mode: EditorMode) => {
     if (mode === EditorMode.VIEW) {
@@ -72,17 +110,12 @@ const VideoTab = () => {
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
   const onDragStart = (event: DragStartEvent) => {
-    console.log('drag start');
-
     setActiveId(event.active.id);
   };
-  console.log(items);
 
   const onDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (active && over) {
-      console.log(active.id, over.id);
-
       if (active.id !== over.id) {
         setItems((items: any) => {
           const oldIndex = items.findIndex((x: any) => x.id === active.id);
@@ -95,58 +128,68 @@ const VideoTab = () => {
     setActiveId(null);
   };
 
+  const isLoading = useMemo(() => isMediaLoading || isMediaProfileLoading, [isMediaLoading, isMediaProfileLoading]);
+
   return (
     <Box className={classes.videoTab}>
-      {/* Selected Videos */}
-      <Box className={classes.selectedVideos}>
-        <Box className={classes.titleContainer}>
-          <Typography variant="h6">Selected Videos</Typography>
-          <Typography variant="caption">(2 of 16 hidden)</Typography>
-        </Box>
-        <Box className={classes.selectedVideos__videoList}>
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragStart={onDragStart}
-            onDragEnd={onDragEnd}
-          >
-            <SortableContext items={items} strategy={rectSortingStrategy}>
-              <Grid container spacing={2}>
-                {items.map((item) => (
-                  <Grid xs={12} lg={3} item key={item.id}>
-                    <VideoItem item={item} handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
+      {!isLoading && (
+        <>
+          {/* Selected Videos */}
+          <Box className={classes.selectedVideos}>
+            <Box className={classes.titleContainer}>
+              <Typography variant="h6">Selected Videos</Typography>
+              <Typography variant="caption">{`(${items.length} of ${mediaData?.data.length} selected)`}</Typography>
+            </Box>
+            <Box className={classes.selectedVideos__videoList}>
+              <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragStart={onDragStart}
+                onDragEnd={onDragEnd}
+              >
+                <SortableContext items={items} strategy={rectSortingStrategy}>
+                  <Grid container spacing={2}>
+                    {items.map((item) => (
+                      <Grid xs={12} lg={4} item key={item.id}>
+                        <VideoItem
+                          item={item}
+                          handleEditVideo={() => handleEditVideo(EditorMode.VIEW)}
+                          handleUnselectMedia={handleUnselectMedia}
+                        />
+                      </Grid>
+                    ))}
                   </Grid>
-                ))}
-              </Grid>
-              <DragOverlay>
-                {activeId ? (
-                  <VideoItem
-                    item={items.filter((item: any) => item.id === activeId)[0]}
-                    handleEditVideo={() => handleEditVideo(EditorMode.VIEW)}
-                  />
-                ) : null}
-              </DragOverlay>
-            </SortableContext>
-          </DndContext>
-        </Box>
-      </Box>
+                  <DragOverlay>
+                    {activeId ? <VideoOverlay item={items.filter((item: any) => item.id === activeId)[0]} /> : null}
+                  </DragOverlay>
+                </SortableContext>
+              </DndContext>
+            </Box>
+          </Box>
 
-      {/* Other Videos */}
-      <Box className={classes.otherImages}>
-        <Box className={classes.titleContainer}>
-          <Typography variant="h6">Other Videos</Typography>
-          <Typography variant="caption">(2 of 16 hidden)</Typography>
-        </Box>
-        <Box className={classes.selectedVideos__videoList}>
-          <Grid container spacing={2}>
-            {items.map((item, i) => (
-              <Grid xs={12} lg={3} item key={item.id}>
-                <VideoItem item={item} isHideVideo handleEditVideo={() => handleEditVideo(EditorMode.VIEW)} />
+          {/* Other Videos */}
+          <Box className={classes.otherImages}>
+            <Box className={classes.titleContainer}>
+              <Typography variant="h6">Other Videos</Typography>
+              <Typography variant="caption">{`(${filteredMedia.length} of ${mediaData?.data.length} hidden)`}</Typography>
+            </Box>
+            <Box className={classes.selectedVideos__videoList}>
+              <Grid container spacing={2}>
+                {mediaData &&
+                  filteredMedia.map((item, i) => (
+                    <Grid xs={12} lg={3} item key={item.id}>
+                      <HiddenVideo
+                        item={item}
+                        handleEditVideo={() => handleEditVideo(EditorMode.VIEW)}
+                        handleSetSelect={handleSetSelectMedia}
+                      />
+                    </Grid>
+                  ))}
               </Grid>
-            ))}
-          </Grid>
-        </Box>
-      </Box>
+            </Box>
+          </Box>
+        </>
+      )}
 
       {/* Dialog / Edit Image */}
       <Dialog

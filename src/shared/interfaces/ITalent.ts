@@ -38,7 +38,21 @@ export interface ITalentBiographyResponsePayload extends ICommonCreateResponsePa
   data: IBiography;
 }
 
+export interface IStatistics {
+  id: string;
+  type: string;
+  attributes: {
+    id: string;
+    biography: string;
+  };
+}
+
+export interface ITalentStatisticsResponsePayload extends ICommonCreateResponsePayload {
+  data: IStatistics;
+}
+
 export interface ITalentUpdatePayload {
   resume?: ISection[];
   biography?: string;
+  // statistics?: string;
 }

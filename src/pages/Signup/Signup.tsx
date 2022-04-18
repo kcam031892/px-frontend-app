@@ -14,6 +14,8 @@ import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
 import { ROUTES } from 'shared/constants/ROUTES';
 import { PasswordPrinciple, validatePassword } from 'shared/utils/passwordUtil';
 import { PasswordStrength } from 'components/PasswordStrength';
+import countriesList from 'data/Countries.json';
+import statesList from 'data/States.json';
 import { useStyles } from './Signup.styles';
 
 const FULL_SIZE = 800;
@@ -23,6 +25,7 @@ const Signup = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [passwordValidationResult, setPasswordValidationResult] = useState<PasswordPrinciple | null>(null);
+  const [states, setStates] = useState<any>([]);
 
   const { isLoading, errorMessage, isLoggedIn } = useSelector(selectUserState);
 
@@ -31,17 +34,6 @@ const Signup = () => {
       history.push(ROUTES.TALENT.PROFILE);
     }
   }, [isLoggedIn, history]);
-
-  const countries: IKeyValue[] = [
-    {
-      key: 'Australia',
-      value: 'AU',
-    },
-    {
-      key: 'Philippines',
-      value: 'PH',
-    },
-  ];
 
   // Forms
   const initialValues: ISignUpRequestPayload = {
@@ -56,11 +48,13 @@ const Signup = () => {
     user_type: 'talent',
   };
 
+  const countries = countriesList.map((country) => ({ key: country.name, value: country.code }));
+
   const signUpValidationSchema: yup.SchemaOf<ISignUpRequestPayload> = yup.object({
     first_name: yup.string().required('First name is required'),
     last_name: yup.string().required('Last name is required'),
     contact_number: yup.string().required('Contact number is required'),
-    email: yup.string().email('Must be a valid email').required('Email is required'),
+    email: yup.string().email('Wrong email format').required('Email is required'),
     country: yup.string().required('Country is required'),
     state: yup.string().required('State is required'),
     user_type: yup.string().required('User type is required'),
@@ -75,8 +69,17 @@ const Signup = () => {
         }
         return false;
       }),
-    password_confirmation: yup.string().required('Password confirmation is required.'),
+    password_confirmation: yup
+      .string()
+      .required('Password confirmation is required')
+      .oneOf([yup.ref('password')], 'Your passwords do not match.'),
   });
+
+  const handleSetCountryStates = (countryCode: any) => {
+    const filteredStates = statesList.filter((state) => state.countryCode === countryCode);
+    const newStates = filteredStates.map((state) => ({ key: state.name, value: state.name }));
+    setStates(newStates);
+  };
 
   const handleSnackBarClose = () => {
     dispatch(setErrorMessage(null));
@@ -101,7 +104,13 @@ const Signup = () => {
               label={'First Name'}
               autoFocus
               name="first_name"
-              onChange={form.handleChange}
+              onChange={(e) => {
+                if (form.errors.first_name && !form.touched.first_name) {
+                  form.setFieldTouched('first_name');
+                  form.validateField('first_name');
+                }
+                return form.handleChange(e);
+              }}
               errorMessage={getErrorMessage(form.touched.first_name, form.errors.first_name)}
               value={form.values.first_name}
               fullWidth
@@ -114,7 +123,13 @@ const Signup = () => {
             <Input
               label={'Last Name'}
               name="last_name"
-              onChange={form.handleChange}
+              onChange={(e) => {
+                if (form.errors.last_name && !form.touched.last_name) {
+                  form.setFieldTouched('last_name');
+                  form.validateField('last_name');
+                }
+                return form.handleChange(e);
+              }}
               errorMessage={getErrorMessage(form.touched.last_name, form.errors.last_name)}
               value={form.values.last_name}
               fullWidth
@@ -125,14 +140,26 @@ const Signup = () => {
             />
             <ContactInput
               name="contact_number"
-              onChange={form.handleChange}
+              onChange={(e) => {
+                if (form.errors.contact_number && !form.touched.contact_number) {
+                  form.setFieldTouched('contact_number');
+                  form.validateField('contact_number');
+                }
+                return form.handleChange(e);
+              }}
               errorMessage={getErrorMessage(form.touched.contact_number, form.errors.contact_number)}
               value={form.values.contact_number}
             />
             <Input
               label={'Email Address'}
               name="email"
-              onChange={form.handleChange}
+              onChange={(e) => {
+                if (form.errors.email && !form.touched.email) {
+                  form.setFieldTouched('email');
+                  form.validateField('email');
+                }
+                return form.handleChange(e);
+              }}
               errorMessage={getErrorMessage(form.touched.email, form.errors.email)}
               value={form.values.email}
               fullWidth
@@ -149,7 +176,10 @@ const Signup = () => {
                     fullWidth
                     data={countries}
                     value={form.values.country}
-                    onChange={(event) => form.setFieldValue('country', event.target.value)}
+                    onChange={(event) => {
+                      form.setFieldValue('country', event.target.value);
+                      handleSetCountryStates(event.target.value);
+                    }}
                     errorMessage={getErrorMessage(form.touched.country, form.errors.country)}
                   />
                 </Grid>
@@ -157,7 +187,7 @@ const Signup = () => {
                   <Select
                     label=" "
                     fullWidth
-                    data={countries}
+                    data={states}
                     value={form.values.state}
                     onChange={(event) => form.setFieldValue('state', event.target.value)}
                     errorMessage={getErrorMessage(form.touched.state, form.errors.state)}
@@ -172,7 +202,13 @@ const Signup = () => {
                 label={'New Password'}
                 margin={'normal'}
                 name="password"
-                onChange={form.handleChange}
+                onChange={(e) => {
+                  if (form.errors.password && !form.touched.password) {
+                    form.setFieldTouched('password');
+                    form.validateField('password');
+                  }
+                  return form.handleChange(e);
+                }}
                 errorMessage={getErrorMessage(form.touched.password, form.errors.password)}
                 value={form.values.password}
                 fullWidth
@@ -185,7 +221,13 @@ const Signup = () => {
                 margin={'normal'}
                 name="password_confirmation"
                 fullWidth
-                onChange={form.handleChange}
+                onChange={(e) => {
+                  if (form.errors.password_confirmation && !form.touched.password_confirmation) {
+                    form.setFieldTouched('password_confirmation');
+                    form.validateField('password_confirmation');
+                  }
+                  return form.handleChange(e);
+                }}
                 errorMessage={getErrorMessage(form.touched.password_confirmation, form.errors.password_confirmation)}
                 value={form.values.password_confirmation}
                 InputProps={{ disableUnderline: true }}
@@ -206,7 +248,7 @@ const Signup = () => {
           <Grid xs={12} md={12} lg={12}>
             <Snackbar open={!!errorMessage} autoHideDuration={6000} onClose={handleSnackBarClose}>
               <Alert severity="error" onClose={handleSnackBarClose}>
-                {errorMessage && 'Something went wrong. Sign up failed.'}
+                {errorMessage}
               </Alert>
             </Snackbar>
             <Backdrop isLoading={isLoading} />

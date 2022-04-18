@@ -12,9 +12,7 @@ export const useStyles = makeStyles((theme) =>
     card__isDragging: {
       transform: 'scale(0.9)',
     },
-    card__hideImage: {
-      minWidth: 300,
-    },
+    card__hideImage: {},
     card__media: {
       paddingTop: theme.spacing(3),
     },

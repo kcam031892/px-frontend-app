@@ -1,0 +1,86 @@
+[
+  { "id": "187", "values": [
+    {"region": "AU", "name": "26"},
+    {"region": "NZ", "name": "26"},
+    {"region": "US", "name": "26"},
+    {"region": "UK", "name": "26"},
+    {"region": "EU", "name": "36"}
+  ]},
+  { "id": "188", "values": [
+    {"region": "AU", "name": "28"},
+    {"region": "NZ", "name": "28"},
+    {"region": "US", "name": "28"},
+    {"region": "UK", "name": "28"},
+    {"region": "EU", "name": "38"}
+  ]},
+  { "id": "189", "values": [
+    {"region": "AU", "name": "30"},
+    {"region": "NZ", "name": "30"},
+    {"region": "US", "name": "30"},
+    {"region": "UK", "name": "30"},
+    {"region": "EU", "name": "40"}
+  ]},
+  { "id": "190", "values": [
+    {"region": "AU", "name": "32"},
+    {"region": "NZ", "name": "32"},
+    {"region": "US", "name": "32"},
+    {"region": "UK", "name": "32"},
+    {"region": "EU", "name": "42"}
+  ]},
+  { "id": "102", "values": [
+    {"region": "AU", "name": "34"},
+    {"region": "NZ", "name": "34"},
+    {"region": "US", "name": "34"},
+    {"region": "UK", "name": "34"},
+    {"region": "EU", "name": "44"}
+  ]},
+  { "id": "103", "values": [
+    {"region": "AU", "name": "36"},
+    {"region": "NZ", "name": "36"},
+    {"region": "US", "name": "36"},
+    {"region": "UK", "name": "36"},
+    {"region": "EU", "name": "46"}
+  ]},
+  { "id": "104", "values": [
+    {"region": "AU", "name": "38"},
+    {"region": "NZ", "name": "38"},
+    {"region": "US", "name": "38"},
+    {"region": "UK", "name": "38"},
+    {"region": "EU", "name": "48"}
+  ]},
+  { "id": "105", "values": [
+    {"region": "AU", "name": "40"},
+    {"region": "NZ", "name": "40"},
+    {"region": "US", "name": "40"},
+    {"region": "UK", "name": "40"},
+    {"region": "EU", "name": "50"}
+  ]},
+  { "id": "106", "values": [
+    {"region": "AU", "name": "42"},
+    {"region": "NZ", "name": "42"},
+    {"region": "US", "name": "42"},
+    {"region": "UK", "name": "42"},
+    {"region": "EU", "name": "52"}
+  ]},
+  { "id": "107", "values": [
+    {"region": "AU", "name": "44"},
+    {"region": "NZ", "name": "44"},
+    {"region": "US", "name": "44"},
+    {"region": "UK", "name": "44"},
+    {"region": "EU", "name": "54"}
+  ]},
+  { "id": "108", "values": [
+    {"region": "AU", "name": "46"},
+    {"region": "NZ", "name": "46"},
+    {"region": "US", "name": "46"},
+    {"region": "UK", "name": "46"},
+    {"region": "EU", "name": "56"}
+  ]},
+  { "id": "109", "values": [
+    {"region": "AU", "name": "48"},
+    {"region": "NZ", "name": "48"},
+    {"region": "US", "name": "48"},
+    {"region": "UK", "name": "48"},
+    {"region": "EU", "name": "58"}
+  ]}
+]

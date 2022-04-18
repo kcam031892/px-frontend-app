@@ -13,3 +13,4 @@ export { UsageData } from './UsageData';
 export { VideoEditor } from './VideoEditor';
 export { Waveform } from './Waveform';
 export { ProfileSkeleton } from './Skeleton';
+export { ConfirmDialog } from './ConfirmDialog';
