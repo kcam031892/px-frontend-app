@@ -7,6 +7,8 @@ import {
   IProfileMediaSetSelectPayload,
   IProfilePrimaryImageResponsePayload,
   IProfileResponsePayload,
+  IProfileTabDetailReponsePayload,
+  IProfileUpdatePayload,
   ISingleProfileResponsePayload,
 } from 'shared/interfaces/IProfile';
 import { IErrorResponse } from 'shared/interfaces/utils/IErrorResonse';
@@ -15,7 +17,9 @@ import { IMediaFileType } from 'shared/interfaces/utils/IMediaFileType';
 const {
   getProfiles: getProfilesDao,
   getSingleProfile: getSingleProfileDao,
+  getProfileTabDetail: getProfileTabDetailDao,
   createProfile: createProfileDao,
+  updateProfile: updateProfileDao,
   getProfilePrimaryImage: getProfilePrimaryImageDao,
   setProfilePrimaryImage: setProfilePrimaryImageDao,
   getProfileMedia: getProfileMediaDao,
@@ -32,9 +36,21 @@ export const profileService = () => {
     return useQuery<ISingleProfileResponsePayload, Error>(['profile', id], () => getSingleProfileDao(id));
   };
 
+  const getProfileTabDetail = (id: string, tab: string) => {
+    return useQuery<IProfileTabDetailReponsePayload, AxiosError<IErrorResponse>>(['profile_tab', id, tab], () =>
+      getProfileTabDetailDao(id, tab),
+    );
+  };
+
   const createProfile = () => {
     return useMutation<IProfileCreateResponsePayload, AxiosError<IErrorResponse>, IProfileCreatePayload>(
       (payload: IProfileCreatePayload) => createProfileDao(payload),
+    );
+  };
+
+  const updateProfile = () => {
+    return useMutation(({ profileId, payload }: { profileId: string; payload: IProfileUpdatePayload }) =>
+      updateProfileDao(profileId, payload),
     );
   };
 
@@ -91,7 +107,9 @@ export const profileService = () => {
   return {
     getProfiles,
     getSingleProfile,
+    getProfileTabDetail,
     createProfile,
+    updateProfile,
     getProfilePrimaryImage,
     setProfilePrimaryImage,
     getMediaProfile,
