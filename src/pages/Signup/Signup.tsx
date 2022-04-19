@@ -40,7 +40,7 @@ const Signup = () => {
   const initialValues: ISignUpRequestPayload = {
     first_name: '',
     last_name: '',
-    contact_number: '',
+    contact_number: null,
     email: '',
     country: '',
     country_code: '1',
@@ -59,7 +59,11 @@ const Signup = () => {
   const signUpValidationSchema: yup.SchemaOf<ISignUpRequestPayload> = yup.object({
     first_name: yup.string().required('First name is required'),
     last_name: yup.string().required('Last name is required'),
-    contact_number: yup.string().required('Contact number is required'),
+    contact_number: yup
+      .number()
+      .typeError('Contact number must be numbers only')
+      .positive('Contact number must be greater than zero')
+      .required('Contact number is required'),
     email: yup.string().email('Wrong email format').required('Email is required'),
     country: yup.string().required('Country is required'),
     country_code: yup.string().required('Country code is required'),
