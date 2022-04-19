@@ -7,6 +7,8 @@ import {
   IProfileMediaSetSelectPayload,
   IProfilePrimaryImageResponsePayload,
   IProfileResponsePayload,
+  IProfileTabDetailReponsePayload,
+  IProfileUpdatePayload,
   ISingleProfileResponsePayload,
 } from 'shared/interfaces/IProfile';
 import { IMediaFileType } from 'shared/interfaces/utils/IMediaFileType';
@@ -37,6 +39,17 @@ export const profileDao = () => {
     return response.data;
   };
 
+  const getProfileTabDetail = async (id: string, tab: string) => {
+    const response = await GET<IProfileTabDetailReponsePayload>({
+      url: `${ENDPOINTS.PROFILE}/${id}/${tab}`,
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
+
+    return response.data;
+  };
+
   const createProfile = async (payload: IProfileCreatePayload) => {
     const response = await POST<IProfileCreateResponsePayload>({
       url: `${ENDPOINTS.PROFILE}`,
@@ -45,6 +58,18 @@ export const profileDao = () => {
         Authorization: `Bearer ${getAuthToken()}`,
       },
     });
+    return response.data;
+  };
+
+  const updateProfile = async (id: string, payload: IProfileUpdatePayload) => {
+    const response = await PATCH({
+      url: `${ENDPOINTS.PROFILE}/${id}`,
+      data: payload,
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
+
     return response.data;
   };
 
@@ -128,7 +153,9 @@ export const profileDao = () => {
   return {
     getProfiles,
     getSingleProfile,
+    getProfileTabDetail,
     createProfile,
+    updateProfile,
     getProfilePrimaryImage,
     setProfilePrimaryImage,
     getProfileMedia,

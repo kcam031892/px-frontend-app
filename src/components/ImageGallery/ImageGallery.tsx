@@ -1,5 +1,5 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import IMedia from 'shared/interfaces/IMedia';
 import { mediaService } from 'shared/services/mediaService';
 import { profileService } from 'shared/services/profileService';
@@ -9,14 +9,22 @@ import ImageGalleryItem from './ImageGalleryItem';
 type Props = {
   open: boolean;
   handleClose: () => void;
-  handleSave: (mediaId?: string) => void;
+  handleSave: (mediaId?: string, media?: IMedia) => void;
 };
 const { getMediaList } = mediaService();
 
 const ImageGallery: React.FC<Props> = ({ open, handleClose, handleSave }) => {
   const [selectedMediaImage, setSelectedMediaImage] = useState<IMedia | null>(null);
-  const { data } = getMediaList({ file_type: 'image' });
+
+  const { data, refetch } = getMediaList({ file_type: 'image' });
   const classes = useStyles();
+
+  // useEffect(() => {
+  //   if (open) {
+  //     refetch();
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [open]);
 
   const handleSelectedMedia = (media: IMedia) => {
     if (media !== selectedMediaImage) {
@@ -27,8 +35,10 @@ const ImageGallery: React.FC<Props> = ({ open, handleClose, handleSave }) => {
   };
 
   const onSave = () => {
-    handleSave(selectedMediaImage?.id);
-    setSelectedMediaImage(null);
+    if (selectedMediaImage) {
+      handleSave(selectedMediaImage?.id, selectedMediaImage);
+      setSelectedMediaImage(null);
+    }
   };
 
   return (

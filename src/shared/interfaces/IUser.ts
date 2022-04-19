@@ -46,7 +46,7 @@ export interface IResetPasswordResponsePayload {
 export interface ISignUpRequestPayload {
   first_name: string;
   last_name: string;
-  contact_number: string;
+  contact_number: number | null;
   email: string;
   country: string;
   country_code: string;
