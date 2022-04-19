@@ -8,6 +8,7 @@ import Languages from './Languages/Languages';
 import Instrumental from './Instrumental/Instrumental';
 import Dance from './Dance/Dance';
 import Vocal from './Vocal/Vocal';
+import Circus from './Circus/Circus';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -69,7 +70,7 @@ const tabs = [
   {
     name: 'circus',
     header: 'Circus',
-    component: <div>Circus</div>,
+    component: <Circus />,
     disabled: false,
   },
   {
