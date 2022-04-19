@@ -9,6 +9,7 @@ import Instrumental from './Instrumental/Instrumental';
 import Dance from './Dance/Dance';
 import Vocal from './Vocal/Vocal';
 import Circus from './Circus/Circus';
+import Sports from './Sports/Sports';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -76,7 +77,7 @@ const tabs = [
   {
     name: 'sports',
     header: 'Sports',
-    component: <div>Sports</div>,
+    component: <Sports />,
     disabled: false,
   },
   {
