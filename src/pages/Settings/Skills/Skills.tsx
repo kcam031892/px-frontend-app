@@ -10,6 +10,7 @@ import Dance from './Dance/Dance';
 import Vocal from './Vocal/Vocal';
 import Circus from './Circus/Circus';
 import Sports from './Sports/Sports';
+import PerformanceSkills from './PerformanceSkills/PerformanceSkills';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -83,7 +84,7 @@ const tabs = [
   {
     name: 'performanceSkills',
     header: 'Performance Skills',
-    component: <div>Performance Skills</div>,
+    component: <PerformanceSkills />,
     disabled: false,
   },
 ];
