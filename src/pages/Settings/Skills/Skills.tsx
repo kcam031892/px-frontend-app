@@ -6,6 +6,7 @@ import { useCardContentStyle } from 'themes/styles/useCardContentStyle';
 import Accents from './Accents/Accents';
 import Languages from './Languages/Languages';
 import Instrumental from './Instrumental/Instrumental';
+import Dance from './Dance/Dance';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -55,7 +56,7 @@ const tabs = [
   {
     name: 'dance',
     header: 'Dance',
-    component: <div>Dance</div>,
+    component: <Dance />,
     disabled: false,
   },
   {
