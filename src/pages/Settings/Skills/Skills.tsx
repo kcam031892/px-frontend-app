@@ -5,6 +5,7 @@ import { Tabs, Box, Tab, Grid, Card, CardContent, Typography, Input, FormControl
 import { useCardContentStyle } from 'themes/styles/useCardContentStyle';
 import Accents from './Accents/Accents';
 import Languages from './Languages/Languages';
+import Instrumental from './Instrumental/Instrumental';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -48,7 +49,7 @@ const tabs = [
   {
     name: 'instrumental',
     header: 'Instrumental',
-    component: <div>Instrumental</div>,
+    component: <Instrumental />,
     disabled: false,
   },
   {
