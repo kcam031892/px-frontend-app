@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid } from '@material-ui/core';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import IMedia from 'shared/interfaces/IMedia';
 import { mediaService } from 'shared/services/mediaService';
@@ -16,7 +16,14 @@ const { getMediaList } = mediaService();
 const ImageGallery: React.FC<Props> = ({ open, handleClose, handleSave }) => {
   const [selectedMediaImage, setSelectedMediaImage] = useState<IMedia | null>(null);
 
-  const { data, refetch } = getMediaList({ file_type: 'image' });
+  const { data, refetch, isLoading } = getMediaList(
+    { file_type: 'image' },
+    {
+      staleTime: 1000 * 60 * 5,
+      refetchOnMount: 'always',
+      enabled: open,
+    },
+  );
   const classes = useStyles();
 
   // useEffect(() => {
@@ -52,20 +59,24 @@ const ImageGallery: React.FC<Props> = ({ open, handleClose, handleSave }) => {
       className={classes.dialog}
     >
       <DialogTitle>Image Gallery</DialogTitle>
-      <DialogContent>
+      <DialogContent style={{ minHeight: 300 }}>
         <Box>
-          <Grid container spacing={2}>
-            {data &&
-              data.data.map((media) => (
-                <Grid item lg={3} key={media.id}>
-                  <ImageGalleryItem
-                    item={media}
-                    isSelected={selectedMediaImage?.id === media.id}
-                    handleSelectedMedia={handleSelectedMedia}
-                  />
-                </Grid>
-              ))}
-          </Grid>
+          {!isLoading ? (
+            <Grid container spacing={2}>
+              {data &&
+                data.data.map((media) => (
+                  <Grid item lg={3} key={media.id}>
+                    <ImageGalleryItem
+                      item={media}
+                      isSelected={selectedMediaImage?.id === media.id}
+                      handleSelectedMedia={handleSelectedMedia}
+                    />
+                  </Grid>
+                ))}
+            </Grid>
+          ) : (
+            <Typography>Loading</Typography>
+          )}
         </Box>
       </DialogContent>
       <DialogActions>
