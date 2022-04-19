@@ -3,7 +3,7 @@ import 'fontsource-roboto/300.css';
 import 'fontsource-roboto/500.css';
 import 'fontsource-roboto/700.css';
 import 'fontsource-roboto/900.css';
-
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { CssBaseline } from '@material-ui/core';
 import { ConfirmProvider } from 'material-ui-confirm';
 import { SnackbarProvider } from 'notistack';
@@ -32,6 +32,7 @@ const queryClient = new QueryClient({
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <Provider store={store}>
         <Router>
           <SwitchThemeProvider>
