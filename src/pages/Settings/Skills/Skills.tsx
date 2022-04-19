@@ -7,6 +7,7 @@ import Accents from './Accents/Accents';
 import Languages from './Languages/Languages';
 import Instrumental from './Instrumental/Instrumental';
 import Dance from './Dance/Dance';
+import Vocal from './Vocal/Vocal';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -62,7 +63,7 @@ const tabs = [
   {
     name: 'vocal',
     header: 'Vocal',
-    component: <div>Vocal</div>,
+    component: <Vocal />,
     disabled: false,
   },
   {
