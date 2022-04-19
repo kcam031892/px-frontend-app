@@ -15,8 +15,9 @@ import { IMediaResponse } from 'shared/interfaces/IMedia';
 const Skill = ({ title, category }: Props) => {
   const cardContentStyle = useCardContentStyle();
   const skillStyle = useSkillStyle();
+  const FILTERED_DATA = SKILLS_DATA.filter((item) => item.category === title);
 
-  const [skills, setSkills] = useState<TSubSkills[]>(SKILLS_DATA);
+  const [skills, setSkills] = useState<TSubSkills[]>(FILTERED_DATA);
   const [popoverAnchorEl, setPopoverAnchorEl] = useState<Element | null>(null);
   const [selectedProficiency, setSelectedProficiency] = useState<IProficiencyItem>({ key: '', value: '' });
   const [isMediaModalOpen, setIsMediaModalOpen] = useState<boolean>(false);

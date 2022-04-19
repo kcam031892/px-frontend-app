@@ -10,6 +10,7 @@ export type TSkill = {
 };
 
 export type TSubSkills = {
+  category: string;
   subgroup: string;
   skills: TSkill[];
 };

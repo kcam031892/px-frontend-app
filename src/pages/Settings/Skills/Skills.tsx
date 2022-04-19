@@ -4,6 +4,7 @@ import { Route, Link, Switch, useRouteMatch, useParams, Redirect, useLocation } 
 import { Tabs, Box, Tab, Grid, Card, CardContent, Typography, Input, FormControl, InputLabel } from '@material-ui/core';
 import { useCardContentStyle } from 'themes/styles/useCardContentStyle';
 import Accents from './Accents/Accents';
+import Languages from './Languages/Languages';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -41,7 +42,7 @@ const tabs = [
   {
     name: 'languages',
     header: 'Languages',
-    component: <div>Languages</div>,
+    component: <Languages />,
     disabled: false,
   },
   {
