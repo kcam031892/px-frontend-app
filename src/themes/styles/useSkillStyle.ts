@@ -38,14 +38,10 @@ export const useSkillStyle = makeStyles(() =>
       marginTop: '20px',
     },
     chipsDisplay: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'flex-start',
-      flexWrap: 'wrap',
-      '& > *:not(:last-child)': {
-        marginRight: '10px',
-        marginBottom: '10px',
-      },
+      display: 'grid',
+      gridTemplateColumns: 'repeat(4, 1fr)',
+      gridColumnGap: '10px',
+      gridRowGap: '20px',
     },
     horizontalDivider: {
       margin: '5px 0px 15px 0px',
@@ -61,6 +57,18 @@ export const useSkillStyle = makeStyles(() =>
       color: '#ffffff !important',
       height: '18.33px !important',
       width: '18.33px !important',
+    },
+    selectedDisplay: {
+      display: 'flex',
+      flexWrap: 'wrap',
+
+      '& > *': {
+        marginRight: '15px',
+        marginBottom: '15px',
+      },
+    },
+    subgroup: {
+      marginBottom: '30px',
     },
   }),
 );
