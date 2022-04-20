@@ -96,7 +96,7 @@ export const resumeSlicer = createSlice({
           sequence: state.sections.length + 1,
           title: '',
           section_id: generateSectionId(),
-          values: [{ fields: [], attachments: [] }],
+          values: [{ fields: createEmptyColumnArray(), attachments: [] }],
         });
       }
     },
@@ -191,8 +191,12 @@ export const resumeSlicer = createSlice({
       });
       state.sections = updatedSections;
     },
-    toggleShowYear(state: IResumeState, action: PayloadAction<{ isSectionShowYear: boolean }>) {
+    setShowYear(state: IResumeState, action: PayloadAction<{ isSectionShowYear: boolean }>) {
       state.isSectionShowYear = action.payload.isSectionShowYear;
+      state.oldIsSectionShowYear = action.payload.isSectionShowYear;
+    },
+    toggleShowYear(state: IResumeState) {
+      state.isSectionShowYear = !state.isSectionShowYear;
     },
   },
 });
@@ -209,6 +213,7 @@ export const {
   removeRow,
   reorderRow,
   changeTextValues,
+  setShowYear,
   toggleShowYear,
   changeSectionTitle,
 } = resumeSlicer.actions;

@@ -30,6 +30,7 @@ import {
   resetSection,
   selectResumeState,
   setSection,
+  setShowYear,
   toggleShowYear,
 } from 'shared/redux/slicers/resume.slicer';
 import MediaGallery from './MediaGallery';
@@ -74,13 +75,14 @@ const Resume = () => {
   const queryClient = useQueryClient();
   const { isOpen: isAlertOpen, alertRef, AlertOpen } = useAlert({ autoHideDuration: 2000, horizontal: 'center' });
 
-  const { sections, isSectionShowYear, oldSections } = useSelector(selectResumeState);
+  const { sections, isSectionShowYear, oldIsSectionShowYear, oldSections } = useSelector(selectResumeState);
   const dispatch = useDispatch();
   const [isSelected, setSelected] = useState<number>(-1);
   const [anchorEl, setAnchorEl] = React.useState<any>(null);
   const [galleryDialogOpen, setGalleryDialogOpen] = useState<boolean>(false);
   const [selectedGalleryTab, setSelectedGalleryTab] = useState<string>('images');
   const [isDragging, setIsDragging] = useState<boolean>(false);
+  console.log(sections);
 
   useEffect(() => {
     if (!isError && data) {
@@ -88,7 +90,7 @@ const Resume = () => {
       if (sections && sections.length > 0) {
         dispatch(setSection({ sections }));
       }
-      dispatch(toggleShowYear({ isSectionShowYear: data.data.attributes.resume_show_year }));
+      dispatch(setShowYear({ isSectionShowYear: data.data.attributes.resume_show_year }));
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -159,7 +161,7 @@ const Resume = () => {
   };
 
   const handleShowYear = () => {
-    dispatch(toggleShowYear({ isSectionShowYear: !isSectionShowYear }));
+    dispatch(toggleShowYear());
   };
 
   const handleDragEnd = (result: DropResult) => {
@@ -254,7 +256,10 @@ const Resume = () => {
                     disableElevation
                     color="primary"
                     onClick={() => handleOpenDialog('save')}
-                    disabled={isUpdateLoading || isEqual(sections, oldSections)}
+                    disabled={
+                      isUpdateLoading ||
+                      (isEqual(sections, oldSections) && isEqual(isSectionShowYear, oldIsSectionShowYear))
+                    }
                     style={{
                       textTransform: 'none',
                     }}
