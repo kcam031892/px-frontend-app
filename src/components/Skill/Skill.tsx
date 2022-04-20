@@ -2,15 +2,16 @@ import { useState, useEffect, useCallback } from 'react';
 import { Box, Grid, Card, CardContent, Typography, Button, Chip, FormControlLabel, Checkbox } from '@material-ui/core';
 import { useCardContentStyle } from 'themes/styles/useCardContentStyle';
 import { useSkillStyle } from 'themes/styles/useSkillStyle';
+import IMedia, { IMediaResponse } from 'shared/interfaces/IMedia';
 import { IProficiencyItem } from 'shared/interfaces/IProficiency';
 import SkillPopOver from './SkillPopOver/SkillsPopOver';
+import MediaModal, { TSelectedIds } from './MediaModal';
 import SKILLS_DATA from 'data/Skills.json';
 import { ENDPOINTS } from 'shared/constants/ENDPOINTS';
 import { useAxios } from 'shared/hooks/useAxios';
 import { authToken } from 'shared/utils/authToken';
 
 import { TSkill, TSubSkills, TCurrentSkill, Props } from '.';
-import { IMediaResponse } from 'shared/interfaces/IMedia';
 
 const Skill = ({ title, category }: Props) => {
   const cardContentStyle = useCardContentStyle();
@@ -19,6 +20,8 @@ const Skill = ({ title, category }: Props) => {
 
   const [skills, setSkills] = useState<TSubSkills[]>(FILTERED_DATA);
   const [popoverAnchorEl, setPopoverAnchorEl] = useState<Element | null>(null);
+  const [media, setMedia] = useState<IMedia[]>([]);
+  const [selectedMediaIds, setSelectedMediaIds] = useState<TSelectedIds>([]);
   const [selectedProficiency, setSelectedProficiency] = useState<IProficiencyItem>({ key: '', value: '' });
   const [isMediaModalOpen, setIsMediaModalOpen] = useState<boolean>(false);
   const [currentSkill, setCurrentSkill] = useState<TCurrentSkill>();
@@ -29,6 +32,18 @@ const Skill = ({ title, category }: Props) => {
   const getSubgroup = (subgroup: string) => skills.filter((x) => x.subgroup === subgroup)![0];
 
   const getSelectedSkills = (skills: TSkill[]) => skills.filter((skill: TSkill) => skill.is_selected);
+
+  const getSelectedMediaIds = (skill: TSkill) => {
+    if (!skill.media) return null;
+
+    return skill.media.map((file) => file.id);
+  };
+
+  const getSelectedMediaBySelectedIds = (selectedIds: TSelectedIds) => {
+    return selectedIds.map((selectedId) => {
+      return media.filter((mediaItem) => mediaItem.id === selectedId)![0];
+    });
+  };
 
   const skillsTally = () =>
     skills.reduce(
@@ -54,6 +69,7 @@ const Skill = ({ title, category }: Props) => {
   const clearProficiencyData = () => {
     setCurrentSkill(undefined);
     setPopoverAnchorEl(null);
+    setSelectedMediaIds([]);
   };
 
   const onToggleSkill = (subgroup: string, skill: TSkill) => {
@@ -90,6 +106,14 @@ const Skill = ({ title, category }: Props) => {
   };
 
   const onOpenPopover = (subgroup: string, skill: TSkill) => (e: React.MouseEvent) => {
+    if (skill.media) {
+      const newSelectedMediaIds = getSelectedMediaIds(skill);
+
+      if (newSelectedMediaIds) {
+        setSelectedMediaIds(newSelectedMediaIds);
+      }
+    }
+
     if (skill.proficiency) {
       setSelectedProficiency(skill.proficiency);
     }
@@ -103,9 +127,11 @@ const Skill = ({ title, category }: Props) => {
   const onSubmitProficiency = (proficiency: IProficiencyItem) => {
     if (!currentSkill) return;
 
+    const selectedMedia = getSelectedMediaBySelectedIds(selectedMediaIds);
     const newSkill = {
       ...currentSkill.skill,
       proficiency,
+      media: selectedMedia,
     };
 
     setSkills((prevSkills) =>
@@ -117,21 +143,41 @@ const Skill = ({ title, category }: Props) => {
     clearProficiencyData();
   };
 
-  // Open media modal
   const openMediaModal = () => setIsMediaModalOpen(true);
+  const closeMedialModal = () => setIsMediaModalOpen(false);
+  const onConfirmSelected = (selectedIds: TSelectedIds) => {
+    setSelectedMediaIds(selectedIds);
+    setIsMediaModalOpen(false);
+  };
+
+  const restructureData = (arrSkills: any) => {
+    return {
+      category: title,
+      groups: arrSkills.map((data: any) => {
+        return {
+          name: data.subgroup,
+          skills: data.skills,
+        };
+      }),
+    };
+  };
 
   const onSave: React.MouseEventHandler<HTMLButtonElement> = () => {
+    const reconstructedData = restructureData(skills);
+    console.log('reconstructedData: ', reconstructedData);
     /* POST({
       url: <endpoint-here>,
       headers: {
         Authorization: `Bearer ${getAuthToken()}`,
       },
-      data: skills,
+      data: reconstructedData,
     }) */
   };
 
   const initialize = useCallback(async () => {
-    const mediaResponse = await GET<IMediaResponse>({
+    const {
+      data: { data: mediaResponse = [] },
+    } = await GET<IMediaResponse>({
       url: ENDPOINTS.MEDIA,
       headers: {
         Authorization: `Bearer ${getAuthToken()}`,
@@ -144,11 +190,15 @@ const Skill = ({ title, category }: Props) => {
         Authorization: `Bearer ${getAuthToken()}`,
       },
     }); */
+
+    setMedia(mediaResponse);
+    // setSkills(skillsResponse.attributes.skills); // something like that
   }, [GET, getAuthToken]);
 
   useEffect(() => {
     initialize();
-  }, [initialize]);
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <Grid container className={skillStyle.contentContainer}>
@@ -219,8 +269,17 @@ const Skill = ({ title, category }: Props) => {
         open={!!popoverAnchorEl}
         anchorEl={popoverAnchorEl}
         onClose={onClosePopover}
+        onSelectMedia={openMediaModal}
         initialProficiency={selectedProficiency}
         onSubmitProficiency={onSubmitProficiency}
+        selectedMedia={getSelectedMediaBySelectedIds(selectedMediaIds)}
+      />
+      <MediaModal
+        isOpen={isMediaModalOpen}
+        media={media}
+        onConfirm={onConfirmSelected}
+        onCancel={closeMedialModal}
+        initialSelectedIds={selectedMediaIds}
       />
     </Grid>
   );
