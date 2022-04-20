@@ -15,6 +15,7 @@ import { ROUTES } from 'shared/constants/ROUTES';
 import { PasswordPrinciple, validatePassword } from 'shared/utils/passwordUtil';
 import { PasswordStrength } from 'components/PasswordStrength';
 import countriesList from 'data/Countries.json';
+import stateLessCountries from 'data/StateLessCountries.json';
 import statesList from 'data/States.json';
 import { useStyles } from './Signup.styles';
 
@@ -39,9 +40,10 @@ const Signup = () => {
   const initialValues: ISignUpRequestPayload = {
     first_name: '',
     last_name: '',
-    contact_number: '',
+    contact_number: null,
     email: '',
     country: '',
+    country_code: '1',
     state: '',
     password: '',
     password_confirmation: '',
@@ -50,13 +52,26 @@ const Signup = () => {
 
   const countries = countriesList.map((country) => ({ key: country.name, value: country.code }));
 
+  const handleStateLessCountries = (countryCode: any) => {
+    return stateLessCountries.includes(countryCode);
+  };
+
   const signUpValidationSchema: yup.SchemaOf<ISignUpRequestPayload> = yup.object({
     first_name: yup.string().required('First name is required'),
     last_name: yup.string().required('Last name is required'),
-    contact_number: yup.string().required('Contact number is required'),
+    contact_number: yup
+      .number()
+      .typeError('Contact number must be numbers only')
+      .positive('Contact number must be greater than zero')
+      .required('Contact number is required'),
     email: yup.string().email('Wrong email format').required('Email is required'),
     country: yup.string().required('Country is required'),
-    state: yup.string().required('State is required'),
+    country_code: yup.string().required('Country code is required'),
+    state: yup.string().when('country', {
+      is: (val: any) => handleStateLessCountries(val),
+      then: yup.string().notRequired(),
+      otherwise: yup.string().required('State is required'),
+    }),
     user_type: yup.string().required('User type is required'),
     password: yup
       .string()
@@ -140,6 +155,9 @@ const Signup = () => {
             />
             <ContactInput
               name="contact_number"
+              handleCodeChange={(val: any) => {
+                form.setFieldValue('country_code', val);
+              }}
               onChange={(e) => {
                 if (form.errors.contact_number && !form.touched.contact_number) {
                   form.setFieldTouched('contact_number');
@@ -178,6 +196,7 @@ const Signup = () => {
                     value={form.values.country}
                     onChange={(event) => {
                       form.setFieldValue('country', event.target.value);
+                      form.setFieldValue('state', '');
                       handleSetCountryStates(event.target.value);
                     }}
                     errorMessage={getErrorMessage(form.touched.country, form.errors.country)}
@@ -191,6 +210,7 @@ const Signup = () => {
                     value={form.values.state}
                     onChange={(event) => form.setFieldValue('state', event.target.value)}
                     errorMessage={getErrorMessage(form.touched.state, form.errors.state)}
+                    disabled={states.length === 0}
                   />
                 </Grid>
               </Grid>

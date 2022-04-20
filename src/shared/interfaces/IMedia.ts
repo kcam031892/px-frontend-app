@@ -48,4 +48,11 @@ export interface IMeta {
   total: number;
 }
 
+export interface IRetrieveMultipleMediaUrlResponsePayload {
+  data: {
+    id: string;
+    url: string;
+  }[];
+}
+
 export default IMedia;

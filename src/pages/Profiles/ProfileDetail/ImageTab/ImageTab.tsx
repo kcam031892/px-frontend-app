@@ -37,6 +37,7 @@ import { errorResponseToArray } from 'shared/utils/errorResponseToArray';
 import { useAlert } from 'themes/elements';
 import ImageOverlay from './ImageItem/ImageOverlay';
 import { debounce } from 'lodash';
+import IMedia from 'shared/interfaces/IMedia';
 
 const { getMediaProfile, setSelectProfileMedia, unSelectProfileMedia, updateProfileMediaSort, setProfilePrimaryImage } =
   profileService();
@@ -46,6 +47,7 @@ const ImageTab = () => {
   const { profileId } = useParams() as { profileId: string };
   const classes = useStyles();
   const [items, setItems] = useState<IProfileMedia[]>([]);
+  const [selectedMedia, setSelectedMedia] = useState<IMedia | null>(null);
   const { data: mediaProfileData, isLoading: isMediaProfileLoading } = getMediaProfile(profileId, {
     file_type: 'image',
   });
@@ -166,7 +168,9 @@ const ImageTab = () => {
       {
         onSuccess: () => {
           queryClient.removeQueries('profiles');
-          queryClient.invalidateQueries(['profile_primary_image', profileId]);
+          queryClient.removeQueries(['profile_primary_image', profileId]);
+          queryClient.invalidateQueries(['profile_media', profileId, { file_type: 'image' }]);
+          AlertOpen('success', 'Primary Image Updated');
         },
       },
     );
@@ -200,8 +204,7 @@ const ImageTab = () => {
                         items.map((item, i) => (
                           <Box
                             style={{
-                              minWidth: (item.attributes.medium_width * 150) / item.attributes.medium_height - 150,
-                              maxWidth: (item.attributes.medium_width * 150) / item.attributes.medium_height,
+                              maxWidth: (item.attributes.medium_width * 250) / item.attributes.medium_height,
                               height: 150,
                             }}
                             key={item.id}
@@ -221,7 +224,7 @@ const ImageTab = () => {
                       <Box
                         style={{
                           maxWidth:
-                            (items.filter((item: any) => item.id === activeId)[0].attributes.medium_width * 150) /
+                            (items.filter((item: any) => item.id === activeId)[0].attributes.medium_width * 250) /
                             items.filter((item: any) => item.id === activeId)[0].attributes.medium_height,
                           height: 150,
                         }}
@@ -247,15 +250,17 @@ const ImageTab = () => {
                   filteredMedia.map((item, i) => (
                     <Box
                       style={{
-                        minWidth: (item.attributes.file_width * 150) / item.attributes.file_height - 150,
-                        maxWidth: (item.attributes.file_width * 150) / item.attributes.file_height,
+                        maxWidth: (item.attributes.file_width * 250) / item.attributes.file_height,
                         height: 150,
                       }}
                       key={item.id}
                     >
                       <HiddenImage
                         item={item}
-                        handleEditImage={() => setIsEditorOpen(true)}
+                        handleEditImage={() => {
+                          setSelectedMedia(item);
+                          setIsEditorOpen(true);
+                        }}
                         handleSetSelect={handleSetSelectMedia}
                       />
                     </Box>
@@ -275,7 +280,7 @@ const ImageTab = () => {
         classes={{ paper: classes.dialogPaper }}
       >
         <DialogContent className={classes.dialogContent}>
-          <ImageEditor onCloseEditor={() => setIsEditorOpen(false)} />
+          {selectedMedia && <ImageEditor onCloseEditor={() => setIsEditorOpen(false)} media={selectedMedia} />}
         </DialogContent>
       </Dialog>
       {isAlertOpen && alertRef}

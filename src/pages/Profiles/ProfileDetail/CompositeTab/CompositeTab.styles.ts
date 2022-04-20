@@ -8,7 +8,7 @@ export const useStyles = makeStyles((theme) =>
       alignItems: 'center',
     },
     templateContainer: {
-      marginTop: theme.spacing(1),
+      // marginTop: theme.spacing(1),
     },
     actionContainer: {
       display: 'flex',
