@@ -30,5 +30,14 @@ export const useStyles = makeStyles(() =>
         margin: '0 5px 10px 0',
       },
     },
+    dialogContentContainer: {
+      padding: '8px 24px 24px',
+    },
+    buttonContainer: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+      gap: '10px',
+      marginTop: '20px',
+    },
   }),
 );

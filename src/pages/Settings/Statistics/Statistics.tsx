@@ -33,6 +33,7 @@ import ethnicity from 'data/Ethnicities.json';
 import talentTypes from 'data/TalentTypes.json';
 import tshirtSize from 'data/TShirtSize.json';
 import chestSize from 'data/ChestSize.json';
+import suitSize from 'data/SuitSize.json';
 
 import EthnicityDialog from './EthnicityDialog/EthnicityDialog';
 import ConfirmationDialog from './ConfirmationDialog/ConfirmationDialog';
@@ -61,6 +62,9 @@ const Statistics = () => {
   const [ethnicityChipValue, setEthnicityChipValue] = useState<any[]>([]);
   const [talentChipValue, setTalentChipValue] = useState<any[]>([]);
 
+  const [chestSizeInValue, setChestSizeInValue] = useState('');
+  const [chestSizeCmValue, setChestSizeCmValue] = useState('');
+
   const onEthnicityChipDelete = (name: any) => () => {
     setEthnicityChipValue((value) => value.filter((v) => v.name !== name));
   };
@@ -82,7 +86,8 @@ const Statistics = () => {
 
   const selectRegion = (event: React.ChangeEvent<{ value: any }>) => {
     setRegionValue(event.target.value);
-    if (event.target.value === 'United States' || event.target.value === 'United Kingdom') {
+    console.log(event.target);
+    if (event.target.value === 'US' || event.target.value === 'UK') {
       setMetricValue('Imperial/Metric');
     } else {
       setMetricValue('Metric');
@@ -126,6 +131,18 @@ const Statistics = () => {
   //   enableReinitialize: true,
   // });
 
+  function cmtoIn(e: any, set: any) {
+    const inches = e.target.value / 2.54;
+    const num = Math.round(inches / 0.5) * 0.5;
+    set(num);
+  }
+
+  function inToCm(e: any, set: any) {
+    const cm = e.target.value * 0.3937;
+    const num = Math.round(cm / 0.5) * 0.5;
+    set(num);
+  }
+
   return (
     <Grid container spacing={0}>
       <Grid container spacing={2}>
@@ -148,10 +165,10 @@ const Statistics = () => {
                         selectRegion(e);
                       }}
                       disableUnderline
-                      defaultValue={region[0].value}
+                      defaultValue={region[0].key}
                     >
                       {region.map((i) => (
-                        <MenuItem key={i.key} value={i.value}>
+                        <MenuItem key={i.key} value={i.key}>
                           {i.value}
                         </MenuItem>
                       ))}
@@ -689,10 +706,16 @@ const Statistics = () => {
                           Suit Size
                         </InputLabel>
                         <Select labelId={'lblType'} disableUnderline>
-                          {eyeColor.map((i) => (
-                            <MenuItem key={i.key} value={i.value}>
-                              {i.value}
-                            </MenuItem>
+                          {suitSize.map((i) => (
+                            <>
+                              {i.values
+                                .filter((values) => values.region === regionValue)
+                                .map((j) => {
+                                  <MenuItem key={j.name} value={j.name}>
+                                    {j.name}
+                                  </MenuItem>;
+                                })}
+                            </>
                           ))}
                         </Select>
                       </FormControl>
@@ -704,16 +727,20 @@ const Statistics = () => {
                             <Grid xs={6} md={6} item>
                               <InputNumber
                                 label={'Chest Size'}
+                                value={chestSizeCmValue}
                                 InputProps={{
                                   disableUnderline: true,
                                   endAdornment: <InputAdornment position="end">cm</InputAdornment>,
                                 }}
                                 InputLabelProps={{ shrink: true }}
+                                onChange={(e) => cmtoIn(e, setChestSizeInValue)}
                               />
                             </Grid>
                             <Grid xs={6} md={6} item>
                               <InputNumber
                                 label={' '}
+                                value={chestSizeInValue}
+                                onChange={(e) => inToCm(e, setChestSizeCmValue)}
                                 InputProps={{
                                   disableUnderline: true,
                                   endAdornment: <InputAdornment position="end">in</InputAdornment>,
