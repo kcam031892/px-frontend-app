@@ -77,6 +77,10 @@ const ResumeSection: React.FC<Props> = ({
     }
   };
 
+  const handleInputChange = (value: string) => {
+    dispatch(changeSectionTitle({ sectionIndex: index, value }));
+  };
+
   return (
     <Card
       variant="outlined"
@@ -109,7 +113,12 @@ const ResumeSection: React.FC<Props> = ({
             ))}
           </Select>
         ) : (
-          <InputBase fullWidth placeholder="Enter title here ..." />
+          <InputBase
+            fullWidth
+            placeholder="Enter title here ..."
+            value={section.title}
+            onChange={(e) => handleInputChange(e.target.value)}
+          />
         )}
 
         <Box>
@@ -123,7 +132,7 @@ const ResumeSection: React.FC<Props> = ({
               setIsTableDragging={setIsTableDragging}
             />
           ) : (
-            <SummaryCard />
+            <SummaryCard index={index} section={section} />
           )}
         </Box>
         <Box

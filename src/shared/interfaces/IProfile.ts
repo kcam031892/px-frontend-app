@@ -59,7 +59,7 @@ export interface IProfileCreatePayload {
 
 export interface IProfileUpdatePayload {
   composite_card?: IComposite[];
-  resume?: ISection[];
+  resume?: string[];
 }
 
 export interface IProfilePrimaryImage {

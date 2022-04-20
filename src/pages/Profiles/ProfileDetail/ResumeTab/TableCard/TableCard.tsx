@@ -7,8 +7,9 @@ import { Input } from 'themes/elements';
 
 type Props = {
   section: ISection;
+  isShowYear?: boolean;
 };
-const TableCard: React.FC<Props> = ({ section }) => {
+const TableCard: React.FC<Props> = ({ section, isShowYear }) => {
   const handleDragEnd = (result: DropResult) => {};
   return (
     <>
@@ -50,18 +51,21 @@ const TableCard: React.FC<Props> = ({ section }) => {
               placeholder="Role"
             />
           </Grid>
-          <Grid item xs>
-            <Input
-              fullWidth
-              disabled
-              margin={'normal'}
-              inputProps={{ tabIndex: rowIndex }}
-              InputProps={{ disableUnderline: true }}
-              InputLabelProps={{ shrink: true }}
-              value={section.values[rowIndex].fields[3]}
-              placeholder="Year"
-            />
-          </Grid>
+          {isShowYear && (
+            <Grid item xs>
+              <Input
+                fullWidth
+                disabled
+                margin={'normal'}
+                inputProps={{ tabIndex: rowIndex }}
+                InputProps={{ disableUnderline: true }}
+                InputLabelProps={{ shrink: true }}
+                value={section.values[rowIndex].fields[3]}
+                placeholder="Year"
+              />
+            </Grid>
+          )}
+
           <Grid item xs>
             <Input
               fullWidth

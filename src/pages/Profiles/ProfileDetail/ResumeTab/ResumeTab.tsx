@@ -53,7 +53,7 @@ const ResumeTab = () => {
       {
         profileId,
         payload: {
-          resume: sections,
+          resume: sections.map((section) => section.section_id),
         },
       },
       {
@@ -171,6 +171,7 @@ const ResumeTab = () => {
                                       module="selected"
                                       section={section}
                                       handleHideResume={handleHideResume}
+                                      isShowYear={talentResumeData?.data.attributes.resume_show_year}
                                     />
                                   </Grid>
                                 )}

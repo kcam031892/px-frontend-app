@@ -33,6 +33,7 @@ const Biography = () => {
   const biographyValidationSchema: yup.SchemaOf<ITalentUpdatePayload> = yup.object().shape({
     resume: yup.array(),
     biography: yup.string(),
+    resume_show_year: yup.boolean(),
   });
 
   const handleUpdateBiography = (values: ITalentUpdatePayload) => {
