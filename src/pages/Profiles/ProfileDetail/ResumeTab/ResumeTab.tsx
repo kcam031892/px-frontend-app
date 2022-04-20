@@ -53,7 +53,7 @@ const ResumeTab = () => {
       {
         profileId,
         payload: {
-          resume: sections,
+          resume: sections.map((section) => section.section_id),
         },
       },
       {

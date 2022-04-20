@@ -19,7 +19,7 @@ export const useStyles = makeStyles(() =>
       zIndex: 2,
     },
     card: {
-      height: '236px',
+      height: '250px',
       position: 'relative',
       borderRadius: 12,
     },

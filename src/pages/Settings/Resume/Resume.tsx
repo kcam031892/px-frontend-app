@@ -88,6 +88,7 @@ const Resume = () => {
       if (sections && sections.length > 0) {
         dispatch(setSection({ sections }));
       }
+      dispatch(toggleShowYear({ isSectionShowYear: data.data.attributes.resume_show_year }));
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -100,10 +101,11 @@ const Resume = () => {
 
   const handleSave = () => {
     mutate(
-      { resume: sections },
+      { resume: sections, resume_show_year: isSectionShowYear },
       {
         onSuccess: () => {
           queryClient.invalidateQueries('talents/resume');
+          queryClient.resetQueries('profile_tab');
           AlertOpen('success', 'Resume has been successfully updated.');
         },
       },
@@ -157,7 +159,7 @@ const Resume = () => {
   };
 
   const handleShowYear = () => {
-    dispatch(toggleShowYear());
+    dispatch(toggleShowYear({ isSectionShowYear: !isSectionShowYear }));
   };
 
   const handleDragEnd = (result: DropResult) => {
