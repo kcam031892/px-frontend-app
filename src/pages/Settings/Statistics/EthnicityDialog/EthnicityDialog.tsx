@@ -46,9 +46,11 @@ const EthnicityDialog: React.FC<Props> = ({ open, onClose, selectedChips, setSel
     setSelected(newSet);
   }
 
-  // const onChipSelect = (name: any) => () => {
-  //   setSelected((value) => value.filter((v) => v.name !== name));
-  // };
+  function onSave() {
+    const arr = Array.from(selected);
+    const res = allChips.filter((i) => arr.includes(i.id));
+    setSelectedChips(res);
+  }
 
   return (
     <Dialog
@@ -78,12 +80,20 @@ const EthnicityDialog: React.FC<Props> = ({ open, onClose, selectedChips, setSel
                 key={c.id}
                 onClick={() => handleSelectionChanged(c.id)}
                 variant={selected.has(c.id) ? 'outlined' : 'default'}
-              ></Chip>
+              >
+                {c.name}
+              </Chip>
             ))}
           </Grid>
         </Grid>
         <Grid item xs={12} md={12} className={classes.buttonContainer}>
-          <Button variant="contained" disableElevation>
+          <Button
+            variant="contained"
+            onClick={() => {
+              onSave();
+            }}
+            disableElevation
+          >
             Save Changes
           </Button>
           <Button
