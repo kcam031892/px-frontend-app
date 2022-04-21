@@ -33,6 +33,13 @@ export const mediaDao = () => {
     return response.data;
   };
 
+  const retrieveSingleMediaUrl = async (id: string) => {
+    const response = await GET({
+      url: `${ENDPOINTS.MEDIA}/${id}`,
+    });
+    return response.data;
+  };
+
   const retrieveMultipleMediaUrl = async (ids: string[]) => {
     const response = await GET<IRetrieveMultipleMediaUrlResponsePayload>({
       url: `${ENDPOINTS.MEDIA_URLS}`,
@@ -46,6 +53,7 @@ export const mediaDao = () => {
   return {
     getMediaList,
     updateMedia,
+    retrieveSingleMediaUrl,
     retrieveMultipleMediaUrl,
   };
 };

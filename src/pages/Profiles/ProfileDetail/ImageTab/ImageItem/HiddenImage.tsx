@@ -37,12 +37,17 @@ const HiddenImage: React.FC<Props> = ({ item, handleEditImage, handleSetSelect }
       <Box className={classes.card__media}>
         <CardMedia
           component="img"
-          image={item.attributes.attachment_url}
+          image={
+            item.attributes.modified_attachment_url
+              ? item.attributes.modified_attachment_url
+              : item.attributes.attachment_url
+          }
           title={item.attributes.file_name}
-          alt=""
+          alt={item.attributes.file_name}
           height={150}
           width={'100%'}
           style={{ objectFit: 'contain' }}
+          crossOrigin={'anonymous'}
         />
       </Box>
 
