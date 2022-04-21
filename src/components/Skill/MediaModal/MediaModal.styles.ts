@@ -16,9 +16,13 @@ export const useStyles = makeStyles(() =>
       top: 10,
       right: 10,
       backgroundColor: 'white',
+      '&:hover': {
+        border: 'solid 1px #FFFFFF',
+        color: '#FFFFFF',
+      },
     },
     selectBtnActive: {
-      backgroundColor: 'black',
+      backgroundColor: '#66bb6a',
       color: 'white',
     },
     videoContainer: {

@@ -257,9 +257,9 @@ const Skill = ({ title, category }: Props) => {
           </Typography>
         </Grid>
         <Grid xs={12} md={6} item className={skillStyle.flexRight}>
-          <Button variant="outlined" onClick={initializeSkills}>
+          {/* <Button variant="outlined" onClick={initializeSkills}>
             Cancel
-          </Button>
+          </Button> */}
           <Button onClick={onSave} variant="contained" color="primary" className={skillStyle.btnPrimary}>
             Save
           </Button>
