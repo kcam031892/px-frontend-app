@@ -33,7 +33,7 @@ import {
   RotateRightIcon,
 } from 'components/Icons';
 import { Guid } from 'guid-typescript';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Cropper } from 'react-cropper';
 import { EditorMode } from 'shared/enums/EditorMode';
 import { Button, ImageSlider, Input } from 'themes/elements';
@@ -42,13 +42,27 @@ import { v4 as uuidv4 } from 'uuid';
 import { useStyles } from './ImageEditor.styles';
 import IMedia from 'shared/interfaces/IMedia';
 import { formatBytes } from 'shared/utils/formatBytes';
+import { mediaService } from 'shared/services/mediaService';
 
 type Props = {
   onCloseEditor: () => void;
   media: IMedia;
 };
+const { retrieveSingleMediaUrl, retrieveMultipleMediaUrl } = mediaService();
 const ImageEditor: React.FC<Props> = ({ onCloseEditor, media }) => {
   const [src, setSrc] = useState<string>(media.attributes.attachment_url);
+  const { data } = retrieveMultipleMediaUrl([media.attributes.id]);
+  console.log('data', data);
+
+  // useEffect(() => {
+  //   if (data) {
+  //     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  //     console.log('blog', blob);
+
+  //     setSrc(data.data[0].url);
+  //   }
+  // }, [data]);
+
   const [mode, setMode] = useState<EditorMode>(EditorMode.VIEW);
   const [anchorEl, setAnchorEl] = useState<any>(null);
   const [isPortrait, setIsPortrait] = useState<boolean>(false);
@@ -108,7 +122,6 @@ const ImageEditor: React.FC<Props> = ({ onCloseEditor, media }) => {
     }
     setMode(EditorMode.VIEW);
   };
-  console.log('src', src);
 
   return (
     <Box>
@@ -292,6 +305,7 @@ const ImageEditor: React.FC<Props> = ({ onCloseEditor, media }) => {
                 wheelZoomRatio={0.1}
                 cropBoxResizable={true}
                 checkCrossOrigin={false}
+                checkOrientation={false}
                 crossOrigin="anonymous"
                 ready={() => setIsImageLoaded(true)}
                 zoomOnWheel={true}

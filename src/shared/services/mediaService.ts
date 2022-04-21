@@ -4,6 +4,7 @@ import { IMediaRequestPayload, IMediaResponse } from 'shared/interfaces/IMedia';
 const {
   getMediaList: getMediaListDao,
   updateMedia: updateMediaDao,
+  retrieveSingleMediaUrl: retrieveSingleMediaUrlDao,
   retrieveMultipleMediaUrl: retrieveMultipleMediaUrlDao,
 } = mediaDao();
 export const mediaService = () => {
@@ -19,6 +20,10 @@ export const mediaService = () => {
     );
   };
 
+  const retrieveSingleMediaUrl = (id: string) => {
+    return useQuery(['retrieve_media_url', id], () => retrieveSingleMediaUrlDao(id));
+  };
+
   const retrieveMultipleMediaUrl = (ids: string[]) => {
     return useQuery(['retrieve_media_urls', ids], () => retrieveMultipleMediaUrlDao(ids), {
       enabled: ids?.length > 0,
@@ -30,6 +35,7 @@ export const mediaService = () => {
   return {
     getMediaList,
     updateMedia,
+    retrieveSingleMediaUrl,
     retrieveMultipleMediaUrl,
   };
 };
