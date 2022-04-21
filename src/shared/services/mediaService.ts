@@ -1,10 +1,17 @@
-import { useMutation, useQuery } from 'react-query';
+import { QueryFunction, useMutation, useQuery, UseQueryOptions } from 'react-query';
 import { mediaDao } from 'shared/dao/mediaDao';
-import { IMediaRequestPayload } from 'shared/interfaces/IMedia';
-const { getMediaList: getMediaListDao, updateMedia: updateMediaDao } = mediaDao();
+import { IMediaRequestPayload, IMediaResponse } from 'shared/interfaces/IMedia';
+const {
+  getMediaList: getMediaListDao,
+  updateMedia: updateMediaDao,
+  retrieveMultipleMediaUrl: retrieveMultipleMediaUrlDao,
+} = mediaDao();
 export const mediaService = () => {
-  const getMediaList = (payload?: IMediaRequestPayload) => {
-    return useQuery(['media', payload], () => getMediaListDao(payload));
+  const getMediaList = (
+    payload?: IMediaRequestPayload,
+    options?: Omit<UseQueryOptions<IMediaResponse, Error, IMediaResponse>, 'queryKey'>,
+  ) => {
+    return useQuery<IMediaResponse, Error, IMediaResponse>(['media', payload], () => getMediaListDao(payload), options);
   };
   const updateMedia = () => {
     return useMutation(({ mediumId, formData }: { mediumId: string; formData: FormData }) =>
@@ -12,8 +19,17 @@ export const mediaService = () => {
     );
   };
 
+  const retrieveMultipleMediaUrl = (ids: string[]) => {
+    return useQuery(['retrieve_media_urls', ids], () => retrieveMultipleMediaUrlDao(ids), {
+      enabled: ids?.length > 0,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    });
+  };
+
   return {
     getMediaList,
     updateMedia,
+    retrieveMultipleMediaUrl,
   };
 };

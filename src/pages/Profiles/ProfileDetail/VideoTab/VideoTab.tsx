@@ -27,7 +27,7 @@ import VideoItem from './VideoItem/VideoItem';
 import VideoOverlay from './VideoItem/VideoOverlay';
 import { useStyles } from './VideoTab.styles';
 
-const { getMediaProfile, setSelectProfileMedia, unSelectProfileMedia } = profileService();
+const { getMediaProfile, setSelectProfileMedia, unSelectProfileMedia, updateProfileMediaSort } = profileService();
 const { getMediaList } = mediaService();
 const VideoTab = () => {
   const classes = useStyles();
@@ -44,6 +44,7 @@ const VideoTab = () => {
   const { data: mediaData, isLoading: isMediaLoading } = getMediaList({ file_type: 'video' });
   const { mutate } = setSelectProfileMedia();
   const { mutate: unselectMutate } = unSelectProfileMedia();
+  const { mutate: updateSortMutate, isLoading: isLoadingUpdateSort } = updateProfileMediaSort();
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -69,7 +70,7 @@ const VideoTab = () => {
 
   const handleSetSelectMedia = (payload: IProfileMediaSetSelectPayload) => {
     mutate(
-      { profileId, payload },
+      { profileId, payload: { ...payload, sort: mediaProfileData ? mediaProfileData.data.length : 0 } },
       {
         onSuccess: () => {
           queryClient.invalidateQueries(['profile_media', profileId, { file_type: 'video' }]);
@@ -113,7 +114,7 @@ const VideoTab = () => {
     setActiveId(event.active.id);
   };
 
-  const onDragEnd = (event: DragEndEvent) => {
+  const onDragOver = (event: DragEndEvent) => {
     const { active, over } = event;
     if (active && over) {
       if (active.id !== over.id) {
@@ -125,6 +126,19 @@ const VideoTab = () => {
         });
       }
     }
+  };
+  const onDragEnd = () => {
+    const updatedItems = items.map((item, i) => {
+      return {
+        id: item.id,
+        sort: i,
+      };
+    });
+    setTimeout(() => {
+      updateSortMutate({ profileId, sort: updatedItems });
+    }, 500);
+
+    queryClient.setQueriesData(['profile_media', profileId, { file_type: 'video' }], { data: items });
     setActiveId(null);
   };
 
@@ -145,6 +159,7 @@ const VideoTab = () => {
                 sensors={sensors}
                 collisionDetection={closestCenter}
                 onDragStart={onDragStart}
+                onDragOver={onDragOver}
                 onDragEnd={onDragEnd}
               >
                 <SortableContext items={items} strategy={rectSortingStrategy}>

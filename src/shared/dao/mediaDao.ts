@@ -1,6 +1,10 @@
 import { ENDPOINTS } from 'shared/constants/ENDPOINTS';
 import { useAxios } from 'shared/hooks/useAxios';
-import { IMediaRequestPayload, IMediaResponse } from 'shared/interfaces/IMedia';
+import {
+  IMediaRequestPayload,
+  IMediaResponse,
+  IRetrieveMultipleMediaUrlResponsePayload,
+} from 'shared/interfaces/IMedia';
 import { authToken } from 'shared/utils/authToken';
 
 const { GET, PATCH } = useAxios();
@@ -29,14 +33,11 @@ export const mediaDao = () => {
     return response.data;
   };
 
-  const retrieveMediaUrl = async (id: string) => {
-    const response = await GET({
-      url: `${ENDPOINTS.MEDIA}/${id}`,
+  const retrieveMultipleMediaUrl = async (ids: string[]) => {
+    const response = await GET<IRetrieveMultipleMediaUrlResponsePayload>({
+      url: `${ENDPOINTS.MEDIA_URLS}`,
       params: {
-        redirect: false,
-      },
-      headers: {
-        Authorization: `Bearer ${getAuthToken()}`,
+        ids,
       },
     });
     return response.data;
@@ -45,6 +46,6 @@ export const mediaDao = () => {
   return {
     getMediaList,
     updateMedia,
-    retrieveMediaUrl,
+    retrieveMultipleMediaUrl,
   };
 };

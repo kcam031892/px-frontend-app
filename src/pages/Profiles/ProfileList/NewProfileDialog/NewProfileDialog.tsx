@@ -206,20 +206,25 @@ const NewProfileDialog: React.FC<Props> = ({ open, onClose, hasFreelance, profil
             </FormControl>
           </Grid>
           <Grid item xs={12} lg={12}>
-            <Select
-              labelId={'lblType'}
-              disableUnderline
-              value={form.values.profile_type}
-              name="profile_type"
-              onChange={form.handleChange}
-              fullWidth
-            >
-              {profileTypes.map((profileType) => (
-                <MenuItem key={profileType.value} value={profileType.value}>
-                  {profileType.label}
-                </MenuItem>
-              ))}
-            </Select>
+            <FormControl margin={'normal'} fullWidth>
+              <InputLabel id="profileType" shrink>
+                Profile Type
+              </InputLabel>
+              <Select
+                labelId={'profileType'}
+                disableUnderline
+                value={form.values.profile_type}
+                name="profile_type"
+                onChange={form.handleChange}
+                fullWidth
+              >
+                {profileTypes.map((profileType) => (
+                  <MenuItem key={profileType.value} value={profileType.value}>
+                    {profileType.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
             {form.values.representation_type === RepresentationType.AGENCY_REPRESENTATION && (

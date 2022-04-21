@@ -11,8 +11,9 @@ type Props = {
   minHeight?: number;
   setEditorState: React.Dispatch<React.SetStateAction<EditorState>>;
   editorState: EditorState;
+  isReadOnly?: boolean;
 };
-const RichEditor: React.FC<Props> = ({ onChange, minHeight, editorState, setEditorState }) => {
+const RichEditor: React.FC<Props> = ({ onChange, minHeight, editorState, setEditorState, isReadOnly }) => {
   const classes = useStyles();
   const [isToolbarHidden, setIsToolbarHidden] = useState<boolean>(true);
 
@@ -37,6 +38,7 @@ const RichEditor: React.FC<Props> = ({ onChange, minHeight, editorState, setEdit
       onFocus={() => setIsToolbarHidden(false)}
       onBlur={() => setIsToolbarHidden(true)}
       onEditorStateChange={handleEditStateChange}
+      readOnly={isReadOnly}
       wrapperStyle={{ minHeight: minHeight || 20 }}
       toolbar={{
         options: ['inline'],

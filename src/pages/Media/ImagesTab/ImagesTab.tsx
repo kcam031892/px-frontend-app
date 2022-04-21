@@ -211,7 +211,7 @@ const ImagesTab = () => {
       </Grid>
 
       {/* Dialog / Edit Image */}
-      <Dialog
+      {/* <Dialog
         open={isEditorOpen}
         onClose={() => setIsEditorOpen(false)}
         aria-labelledby="form-dialog-title"
@@ -219,9 +219,9 @@ const ImagesTab = () => {
         classes={{ paper: classes.dialogPaper }}
       >
         <DialogContent className={classes.dialogContent}>
-          <ImageEditor onCloseEditor={() => setIsEditorOpen(false)} />
+          <ImageEditor media={} onCloseEditor={() => setIsEditorOpen(false)} />
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
     </Box>
   );
 };

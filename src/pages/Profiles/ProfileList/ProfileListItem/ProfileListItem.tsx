@@ -65,6 +65,10 @@ const ProfileListItem: React.FC<Props> = ({ profile }) => {
             </Typography>
           )}
 
+          <Typography variant="body2" className={classes.agency__detail}>
+            {profile.attributes.profile_type}
+          </Typography>
+
           <IconButton
             aria-label="more"
             aria-controls="long-menu"

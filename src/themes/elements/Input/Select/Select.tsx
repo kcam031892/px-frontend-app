@@ -17,7 +17,9 @@ const Select: React.FC<Props> = ({ fullWidth, label, errorMessage, data, hasMarg
 
         <MUISelect disableUnderline {...props} error={!!errorMessage}>
           {data.map((item) => (
-            <MenuItem value={item.value}>{item.key}</MenuItem>
+            <MenuItem value={item.value} key={item.key}>
+              {item.key}
+            </MenuItem>
           ))}
         </MUISelect>
         {errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}
