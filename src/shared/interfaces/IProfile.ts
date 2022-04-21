@@ -1,7 +1,9 @@
+import { IComposite } from 'shared/constants/INITIAL_COMPOSITE_STATES';
 import { ProfileStatus } from 'shared/enums/ProfileStatus';
 import { RepresentationType } from 'shared/enums/RepresentationType';
-import { SectionType } from 'shared/enums/SectionType';
-import { ICommonCreateResponsePayload } from './ICommon';
+
+import { ICommonCreateResponsePayload, ICommonResponsePayload } from './ICommon';
+import { ISection } from './ITalent';
 
 export interface IProfile {
   id: string;
@@ -34,6 +36,17 @@ export interface IProfileResponsePayload {
 export interface ISingleProfileResponsePayload {
   data: IProfile;
 }
+export interface IProfileTabDetailReponsePayload {
+  data: {
+    id: string;
+    type: string;
+    attributes: {
+      id: string;
+      resume?: ISection[];
+      composite_card?: IComposite[];
+    };
+  };
+}
 
 export interface IProfileCreatePayload {
   representation_type: RepresentationType;
@@ -42,6 +55,11 @@ export interface IProfileCreatePayload {
   agency_id?: string;
   confirmed_agreement: boolean;
   profile_type: string;
+}
+
+export interface IProfileUpdatePayload {
+  composite_card?: IComposite[];
+  resume?: ISection[];
 }
 
 export interface IProfilePrimaryImage {

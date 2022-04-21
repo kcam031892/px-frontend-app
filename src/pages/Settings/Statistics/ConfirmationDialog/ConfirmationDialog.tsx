@@ -57,7 +57,7 @@ const ProfeciencyDialog: React.FC<Props> = ({ open, onClose }) => {
       <DialogContent className={classes.dialogContentContainer}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={12}>
-            There are some unsaved changes, you will loose these changes. Click "Save Changes" if you wish to keep them.
+            There are some unsaved changes, you will lose these changes. Click "Save Changes" if you wish to keep them.
           </Grid>
           <Grid item xs={12} md={12} className={classes.buttonContainer}>
             <Button variant="contained" disableElevation>

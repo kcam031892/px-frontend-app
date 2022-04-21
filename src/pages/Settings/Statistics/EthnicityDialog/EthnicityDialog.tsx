@@ -12,7 +12,7 @@ import {
   Select,
   Chip,
 } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import ClearIcon from '@material-ui/icons/Clear';
 import Done from '@material-ui/icons/Done';
 import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
@@ -23,13 +23,28 @@ import { boolean } from 'yup/lib/locale';
 type Props = {
   open: boolean;
   onClose: () => void;
+  selectedChips: any[];
+  setSelectedChips: Dispatch<SetStateAction<any[]>>;
 };
 
-const ProfeciencyDialog: React.FC<Props> = ({ open, onClose }) => {
-  const [selected, setSelected] = React.useState(true);
+const EthnicityDialog: React.FC<Props> = ({ open, onClose, selectedChips, setSelectedChips }) => {
+  const [allChips, setAllChips] = React.useState(ethnicity);
+  const [selected, setSelected] = React.useState(new Set());
+
+  selectedChips.forEach((e) => {
+    selected.add(e.id);
+  });
+
   const [isLargeDialog, setIsLargeDialog] = useState<boolean>(false);
   const toggleLargeDialog = () => setIsLargeDialog((curr) => !curr);
   const classes = useStyles();
+
+  function handleSelectionChanged(id: any) {
+    const newSet = new Set(selected);
+    if (newSet.has(id)) newSet.delete(id);
+    else newSet.add(id);
+    setSelected(newSet);
+  }
 
   // const onChipSelect = (name: any) => () => {
   //   setSelected((value) => value.filter((v) => v.name !== name));
@@ -54,25 +69,35 @@ const ProfeciencyDialog: React.FC<Props> = ({ open, onClose }) => {
           </IconButton>
         </Box>
       </DialogTitle>
-      <DialogContent>
+      <DialogContent className={classes.dialogContentContainer}>
         <Grid className={classes.chipContainer}>
           <Grid item xs={12} md={12}>
-            {ethnicity.map((i) => (
+            {allChips.map((c: any) => (
               <Chip
-                onClick={() => setSelected((s) => !s)}
-                // onDelete={selected && (() => {})}
-                color={selected ? 'primary' : 'default'}
-                variant={selected ? 'default' : 'outlined'}
-                deleteIcon={<Done />}
-                key={i.name}
-                label={i.name}
-              />
+                label={c.name}
+                key={c.id}
+                onClick={() => handleSelectionChanged(c.id)}
+                variant={selected.has(c.id) ? 'outlined' : 'default'}
+              ></Chip>
             ))}
           </Grid>
+        </Grid>
+        <Grid item xs={12} md={12} className={classes.buttonContainer}>
+          <Button variant="contained" disableElevation>
+            Save Changes
+          </Button>
+          <Button
+            onClick={() => {
+              onClose();
+            }}
+            disableElevation
+          >
+            Cancel
+          </Button>
         </Grid>
       </DialogContent>
     </Dialog>
   );
 };
 
-export default ProfeciencyDialog;
+export default EthnicityDialog;

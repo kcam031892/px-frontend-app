@@ -1,5 +1,5 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid } from '@material-ui/core';
-import React, { useState } from 'react';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Typography } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import IMedia from 'shared/interfaces/IMedia';
 import { mediaService } from 'shared/services/mediaService';
 import { profileService } from 'shared/services/profileService';
@@ -9,14 +9,29 @@ import ImageGalleryItem from './ImageGalleryItem';
 type Props = {
   open: boolean;
   handleClose: () => void;
-  handleSave: (mediaId?: string) => void;
+  handleSave: (mediaId?: string, media?: IMedia) => void;
 };
 const { getMediaList } = mediaService();
 
 const ImageGallery: React.FC<Props> = ({ open, handleClose, handleSave }) => {
   const [selectedMediaImage, setSelectedMediaImage] = useState<IMedia | null>(null);
-  const { data } = getMediaList({ file_type: 'image' });
+
+  const { data, refetch, isLoading } = getMediaList(
+    { file_type: 'image' },
+    {
+      staleTime: 1000 * 60 * 5,
+      refetchOnMount: 'always',
+      enabled: open,
+    },
+  );
   const classes = useStyles();
+
+  // useEffect(() => {
+  //   if (open) {
+  //     refetch();
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [open]);
 
   const handleSelectedMedia = (media: IMedia) => {
     if (media !== selectedMediaImage) {
@@ -27,8 +42,10 @@ const ImageGallery: React.FC<Props> = ({ open, handleClose, handleSave }) => {
   };
 
   const onSave = () => {
-    handleSave(selectedMediaImage?.id);
-    setSelectedMediaImage(null);
+    if (selectedMediaImage) {
+      handleSave(selectedMediaImage?.id, selectedMediaImage);
+      setSelectedMediaImage(null);
+    }
   };
 
   return (
@@ -42,20 +59,24 @@ const ImageGallery: React.FC<Props> = ({ open, handleClose, handleSave }) => {
       className={classes.dialog}
     >
       <DialogTitle>Image Gallery</DialogTitle>
-      <DialogContent>
+      <DialogContent style={{ minHeight: 300 }}>
         <Box>
-          <Grid container spacing={2}>
-            {data &&
-              data.data.map((media) => (
-                <Grid item lg={3} key={media.id}>
-                  <ImageGalleryItem
-                    item={media}
-                    isSelected={selectedMediaImage?.id === media.id}
-                    handleSelectedMedia={handleSelectedMedia}
-                  />
-                </Grid>
-              ))}
-          </Grid>
+          {!isLoading ? (
+            <Grid container spacing={2}>
+              {data &&
+                data.data.map((media) => (
+                  <Grid item lg={3} key={media.id}>
+                    <ImageGalleryItem
+                      item={media}
+                      isSelected={selectedMediaImage?.id === media.id}
+                      handleSelectedMedia={handleSelectedMedia}
+                    />
+                  </Grid>
+                ))}
+            </Grid>
+          ) : (
+            <Typography>Loading</Typography>
+          )}
         </Box>
       </DialogContent>
       <DialogActions>

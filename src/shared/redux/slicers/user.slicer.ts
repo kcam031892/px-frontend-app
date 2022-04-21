@@ -102,6 +102,7 @@ export const userSignup =
       dispatch(setUser({ user }));
       dispatch(setIsLoggedIn(true));
       dispatch(setErrorMessage(null));
+      setLS('is_completed_primary_details', user.attributes.completed_primary_details);
       return user;
     } catch (err: any) {
       const { errors = {} } = err.response.data;

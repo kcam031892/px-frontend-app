@@ -29,10 +29,11 @@ export interface ISignInResponsePayload {
 export interface ISignUpRequestPayload {
   first_name: string;
   last_name: string;
-  contact_number: string;
+  contact_number: number | null;
   email: string;
   country: string;
-  state: string;
+  country_code: string;
+  state: string | undefined;
   user_type: string;
   password: string;
   password_confirmation: string;

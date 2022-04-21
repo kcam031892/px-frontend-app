@@ -3,6 +3,10 @@ export interface ICommon {
   updated_at: Date;
 }
 
+export interface ICommonResponsePayload {
+  id: string;
+  type: string;
+}
 export interface ICommonCreateResponsePayload {
   message: string;
 }
