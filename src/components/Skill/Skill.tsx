@@ -27,7 +27,7 @@ const Skill = ({ title, category }: Props) => {
   const [currentSkill, setCurrentSkill] = useState<TCurrentSkill>();
 
   const { getAuthToken } = authToken();
-  const { GET, POST } = useAxios();
+  const { GET, PATCH } = useAxios();
 
   const getSubgroup = (subgroup: string) => skills.filter((x) => x.subgroup === subgroup)![0];
 
