@@ -47,21 +47,12 @@ import { mediaService } from 'shared/services/mediaService';
 type Props = {
   onCloseEditor: () => void;
   media: IMedia;
+  handleCroppedSave: (media: IMedia, modifiedImage: string) => Promise<void>;
+  url: string;
 };
-const { retrieveSingleMediaUrl, retrieveMultipleMediaUrl } = mediaService();
-const ImageEditor: React.FC<Props> = ({ onCloseEditor, media }) => {
-  const [src, setSrc] = useState<string>(media.attributes.attachment_url);
-  const { data } = retrieveMultipleMediaUrl([media.attributes.id]);
-  console.log('data', data);
 
-  // useEffect(() => {
-  //   if (data) {
-  //     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  //     console.log('blog', blob);
-
-  //     setSrc(data.data[0].url);
-  //   }
-  // }, [data]);
+const ImageEditor: React.FC<Props> = ({ onCloseEditor, media, handleCroppedSave, url }) => {
+  const [src, setSrc] = useState<string>(url);
 
   const [mode, setMode] = useState<EditorMode>(EditorMode.VIEW);
   const [anchorEl, setAnchorEl] = useState<any>(null);
@@ -114,11 +105,11 @@ const ImageEditor: React.FC<Props> = ({ onCloseEditor, media }) => {
     cropper.zoomTo(valueNumber);
   };
 
-  const handleCrop = () => {
+  const handleCrop = async () => {
     if (typeof cropper !== 'undefined') {
-      console.log(cropper.getCroppedCanvas().toDataURL());
-
-      // setSrc(.toDataURL('image/jpeg', 0.9));
+      const cropped = cropper.getCroppedCanvas().toDataURL('image/jpeg', 0.9) as string;
+      await handleCroppedSave(media, cropped);
+      setSrc(cropped);
     }
     setMode(EditorMode.VIEW);
   };
@@ -152,7 +143,7 @@ const ImageEditor: React.FC<Props> = ({ onCloseEditor, media }) => {
               </Box>
             </Box>
             <Box className={classes.editorPanel__imageContainer}>
-              <img src={src} className={classes.editorPanel__image} />
+              <img src={src} className={classes.editorPanel__image} crossOrigin="anonymous" />
             </Box>
           </Grid>
           {/* Detail Panel */}
