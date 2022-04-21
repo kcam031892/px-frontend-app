@@ -1,6 +1,10 @@
 import { ENDPOINTS } from 'shared/constants/ENDPOINTS';
 import { useAxios } from 'shared/hooks/useAxios';
 import {
+  IForgotPasswordRequestPayload,
+  IForgotPasswordResponsePayload,
+  IResetPasswordRequestPayload,
+  IResetPasswordResponsePayload,
   ISignInRequestPayload,
   ISignInResponsePayload,
   ISignUpRequestPayload,
@@ -28,6 +32,28 @@ export const authDao = () => {
   const signup = async (payload: ISignUpRequestPayload) => {
     const response = await POST<ISignUpResponsePayload>({
       url: `${ENDPOINTS.USERS}`,
+      data: payload,
+    });
+
+    return {
+      data: response?.data,
+    };
+  };
+
+  const sendEmail = async (payload: IForgotPasswordRequestPayload) => {
+    const response = await POST<IForgotPasswordResponsePayload>({
+      url: `${ENDPOINTS.FORGOT_PASSWORD}`,
+      data: payload,
+    });
+
+    return {
+      data: response?.data,
+    };
+  };
+
+  const resetPassword = async (payload: IResetPasswordRequestPayload) => {
+    const response = await POST<IResetPasswordResponsePayload>({
+      url: `${ENDPOINTS.RESET_PASSWORD}`,
       data: payload,
     });
 
@@ -93,6 +119,8 @@ export const authDao = () => {
   return {
     login,
     signup,
+    sendEmail,
+    resetPassword,
     loginWithGoogle,
     loginWithFacebook,
     getUserProfile,
