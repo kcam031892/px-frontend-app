@@ -162,19 +162,31 @@ const Skill = ({ title, category }: Props) => {
     };
   };
 
+  const reconstructSkills = (arrSkills: any) => {
+    const { groups = [], category = '' } = arrSkills;
+
+    return groups.map((group: any) => ({
+      category,
+      subgroup: group.name,
+      skills: group.skills,
+    }));
+  };
+
   const onSave: React.MouseEventHandler<HTMLButtonElement> = () => {
     const reconstructedData = restructureData(skills);
-    console.log('reconstructedData: ', reconstructedData);
-    /* POST({
-      url: <endpoint-here>,
+
+    PATCH({
+      url: `${ENDPOINTS.TALENTS}`,
       headers: {
         Authorization: `Bearer ${getAuthToken()}`,
       },
-      data: reconstructedData,
-    }) */
+      data: {
+        skills: reconstructedData,
+      },
+    });
   };
 
-  const initialize = useCallback(async () => {
+  const initializeMedia = useCallback(async () => {
     const {
       data: { data: mediaResponse = [] },
     } = await GET<IMediaResponse>({
@@ -184,21 +196,35 @@ const Skill = ({ title, category }: Props) => {
       },
     });
 
-    // const skillsResponse = await GET({
-    //   url: `${ENDPOINTS.TALENTS}/`,
-    //   headers: {
-    //     Authorization: `Bearer ${getAuthToken()}`,
-    //   },
-    // });
-
     setMedia(mediaResponse);
-    // setSkills(skillsResponse.attributes.skills); // something like that
   }, [GET, getAuthToken]);
 
+  const initialize = useCallback(
+    async (title) => {
+      const {
+        data: { data: skillsResponse },
+      } = await GET({
+        url: `${ENDPOINTS.TALENTS}/skills?category=${title}`,
+        headers: {
+          Authorization: `Bearer ${getAuthToken()}`,
+        },
+      });
+      const reconstructedSkills = reconstructSkills(skillsResponse.attributes.skills);
+
+      setSkills(reconstructedSkills);
+    },
+    [GET, getAuthToken],
+  );
+
   useEffect(() => {
-    initialize();
+    initializeMedia();
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    initialize(title);
+    // eslint-disable-next-line
+  }, [title]);
 
   return (
     <Grid container className={skillStyle.contentContainer}>
