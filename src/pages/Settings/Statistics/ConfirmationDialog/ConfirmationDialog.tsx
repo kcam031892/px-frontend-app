@@ -23,9 +23,10 @@ import { boolean } from 'yup/lib/locale';
 type Props = {
   open: boolean;
   onClose: () => void;
+  submitForm: () => void;
 };
 
-const ProfeciencyDialog: React.FC<Props> = ({ open, onClose }) => {
+const ProfeciencyDialog: React.FC<Props> = ({ open, onClose, submitForm }) => {
   //   const [selected, setSelected] = React.useState(true);
   const [isLargeDialog, setIsLargeDialog] = useState<boolean>(false);
   const toggleLargeDialog = () => setIsLargeDialog((curr) => !curr);
@@ -60,7 +61,14 @@ const ProfeciencyDialog: React.FC<Props> = ({ open, onClose }) => {
             There are some unsaved changes, you will lose these changes. Click "Save Changes" if you wish to keep them.
           </Grid>
           <Grid item xs={12} md={12} className={classes.buttonContainer}>
-            <Button variant="contained" disableElevation>
+            <Button
+              variant="contained"
+              onClick={() => {
+                submitForm();
+                onClose();
+              }}
+              disableElevation
+            >
               Save Changes
             </Button>
             <Button onClick={() => onClose()} disableElevation>
