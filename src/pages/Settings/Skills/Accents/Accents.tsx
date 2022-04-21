@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Tab, Grid, Card, CardContent, Typography, Button, Chip } from '@material-ui/core';
+import { Box, Tab, Grid, Card, CardContent, Typography, Button, Chip, Badge } from '@material-ui/core';
 import { useCardContentStyle } from 'themes/styles/useCardContentStyle';
 import { useSkillStyle } from 'themes/styles/useSkillStyle';
 import ProfeciencyDialog from './ProfeciencyDialog/ProfeciencyDialog';
+import SkillPopOver from '../SkillsPopOver/SkillsPopOver';
 
 const Accents = () => {
   const cardContentStyle = useCardContentStyle();
@@ -32,11 +33,35 @@ const Accents = () => {
         <Card variant="outlined">
           <CardContent className={cardContentStyle.root}>
             <Typography>
-              <h2>European</h2>
+              <h2>North American</h2>
             </Typography>
             <Grid className={skillStyle.chipContainer} item>
-              <Box component="div">
-                <Chip label="Clickable Link" component="button" onClick={handleOpenProfeciencyDialog} clickable />
+              <Box className={skillStyle.chipsDisplay}>
+                <SkillPopOver />
+                <div>
+                  <Chip
+                    label="Canadian"
+                    onDelete={() => {}}
+                    avatar={<span className={skillStyle.badgeStyle}>I</span>}
+                  />
+                </div>
+                <div>
+                  <Chip
+                    label="Caribbean"
+                    onDelete={() => {}}
+                    avatar={<span className={skillStyle.badgeStyle}>E</span>}
+                  />
+                </div>
+              </Box>
+              <div className={skillStyle.horizontalDivider} />
+              <Box className={skillStyle.chipsDisplay}>
+                <Chip label="Midwest" />
+                <Chip label="New England" />
+                <Chip label="New York" />
+                <Chip label="Southern States" />
+                <Chip label="Standard" />
+                <Chip label="Urban" />
+                <Chip label="Western States" />
               </Box>
             </Grid>
           </CardContent>
