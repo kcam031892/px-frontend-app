@@ -16,5 +16,12 @@ export const useStyles = makeStyles(() =>
         color: '#707372',
       },
     },
+    contactInput: {
+      '& .react-tel-input': {
+        '& .form-control': {
+          width: '96px!important',
+        },
+      },
+    },
   }),
 );

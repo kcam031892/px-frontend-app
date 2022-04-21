@@ -14,7 +14,7 @@ export const useStyles = makeStyles(() =>
       caretColor: '#2962FF !important',
       borderRadius: '6px !important',
       border: 'none !important',
-      width: '120px !important',
+      width: '96px !important',
       marginRight: '10px !important',
     },
     contactContainer_class: {

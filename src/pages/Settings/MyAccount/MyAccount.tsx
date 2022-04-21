@@ -22,6 +22,7 @@ import { errorResponseToArray } from 'shared/utils/errorResponseToArray';
 import { ContactInput, Input, InputPassword } from 'themes/elements';
 import { useCardContentStyle } from 'themes/styles/useCardContentStyle';
 import { IAccount, IAccountResponsePayload, IAccountUpdatePayload } from 'shared/interfaces/IAccount';
+import { getErrorMessage } from 'shared/utils/getErrorMessage';
 import gender from 'data/Gender.json';
 import country from 'data/Countries.json';
 import state from 'data/States.json';
@@ -227,7 +228,22 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
                   />
                 </Grid>
                 <Grid xs={12} md={6} item>
-                  <ContactInput value={form.values.contact_no} onChange={form.handleChange} name="contact_no" />
+                  <ContactInput
+                    className={classes.contactInput}
+                    name="contact_no"
+                    handleCodeChange={(val: any) => {
+                      form.setFieldValue('country_code', val);
+                    }}
+                    onChange={(e) => {
+                      if (form.errors.contact_no && !form.touched.contact_no) {
+                        form.setFieldTouched('contact_number');
+                        form.validateField('contact_number');
+                      }
+                      return form.handleChange(e);
+                    }}
+                    errorMessage={getErrorMessage(form.touched.contact_no, form.errors.contact_no)}
+                    value={form.values.contact_no}
+                  />
                 </Grid>
                 <Grid xs={12} md={6} item>
                   <FormControl margin={'normal'} fullWidth>
