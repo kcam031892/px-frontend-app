@@ -1,0 +1,536 @@
+[
+    {
+        "region": "AU",
+        "value": "1"
+    },
+    {
+        "region": "AU",
+        "value": "1.5"
+    },
+    {
+        "region": "AU",
+        "value": "2"
+      },
+      {
+        "region": "AU",
+        "value": "2.5"
+      },
+      {
+        "region": "AU",
+        "value": "3"
+      },
+      {
+        "region": "AU",
+        "value": "3.5"
+      },
+      {
+        "region": "AU",
+        "value": "4"
+      },
+      {
+        "region": "AU",
+        "value": "4.5"
+      },
+      {
+        "region": "AU",
+        "value": "5"
+      },
+      {
+        "region": "AU",
+        "value": "5.5"
+      },
+      {
+        "region": "AU",
+        "value": "6"
+      },
+      {
+        "region": "AU",
+        "value": "6.5"
+      },
+      {
+        "region": "AU",
+        "value": "7"
+      },
+      {
+        "region": "AU",
+        "value": "7.5"
+      },
+      {
+        "region": "AU",
+        "value": "8"
+      },
+      {
+        "region": "AU",
+        "value": "8.5"
+      },
+      {
+        "region": "AU",
+        "value": "9"
+      },
+      {
+        "region": "AU",
+        "value": "9.5"
+      },
+      {
+        "region": "AU",
+        "value": "10"
+      },
+      {
+        "region": "AU",
+        "value": "10.5"
+      },
+      {
+        "region": "AU",
+        "value": "11"
+      },
+      {
+        "region": "AU",
+        "value": "11.5"
+      },
+      {
+        "region": "AU",
+        "value": "12"
+      },
+      {
+        "region": "AU",
+        "value": "12.5"
+      },
+      {
+        "region": "AU",
+        "value": "13"
+      },
+      {
+        "region": "AU",
+        "value": "13.5"
+      },
+      {
+        "region": "AU",
+        "value": "14"
+      },
+      {
+        "region": "NZ",
+        "value": "1"
+      },
+      {
+        "region": "NZ",
+        "value": "1.5"
+      },
+      {
+        "region": "NZ",
+        "value": "2"
+      },
+      {
+        "region": "NZ",
+        "value": "2.5"
+      },
+      {
+        "region": "NZ",
+        "value": "3"
+      },
+      {
+        "region": "NZ",
+        "value": "3.5"
+      },
+      {
+        "region": "NZ",
+        "value": "4"
+      },
+      {
+        "region": "NZ",
+        "value": "4.5"
+      },
+      {
+        "region": "NZ",
+        "value": "5"
+      },
+      {
+        "region": "NZ",
+        "value": "5.5"
+      },
+      {
+        "region": "NZ",
+        "value": "6"
+      },
+      {
+        "region": "NZ",
+        "value": "6.5"
+      },
+      {
+        "region": "NZ",
+        "value": "7"
+      },
+      {
+        "region": "NZ",
+        "value": "7.5"
+      },
+      {
+        "region": "NZ",
+        "value": "8"
+      },
+      {
+        "region": "NZ",
+        "value": "8.5"
+      },
+      {
+        "region": "NZ",
+        "value": "9"
+      },
+      {
+        "region": "NZ",
+        "value": "9.5"
+      },
+      {
+        "region": "NZ",
+        "value": "10"
+      },
+      {
+        "region": "NZ",
+        "value": "10.5"
+      },
+      {
+        "region": "NZ",
+        "value": "11"
+      },
+      {
+        "region": "NZ",
+        "value": "11.5"
+      },
+      {
+        "region": "NZ",
+        "value": "12"
+      },
+      {
+        "region": "NZ",
+        "value": "12.5"
+      },
+      {
+        "region": "NZ",
+        "value": "13"
+      },
+      {
+        "region": "NZ",
+        "value": "13.5"
+      },
+      {
+        "region": "NZ",
+        "value": "14"
+      },
+      {
+        "region": "UK",
+        "value": "0"
+      },
+      {
+        "region": "UK",
+        "value": "0.5"
+      },
+      {
+        "region": "UK",
+        "value": "1"
+      },
+      {
+        "region": "UK",
+        "value": "1.5"
+      },
+      {
+        "region": "UK",
+        "value": "2"
+      },
+      {
+        "region": "UK",
+        "value": "2.5"
+      },
+      {
+        "region": "UK",
+        "value": "3"
+      },
+      {
+        "region": "UK",
+        "value": "3.5"
+      },
+      {
+        "region": "UK",
+        "value": "4"
+      },
+      {
+        "region": "UK",
+        "value": "4.5"
+      },
+      {
+        "region": "UK",
+        "value": "5"
+      },
+      {
+        "region": "UK",
+        "value": "5.5"
+      },
+      {
+        "region": "UK",
+        "value": "6"
+      },
+      {
+        "region": "UK",
+        "value": "6.5"
+      },
+      {
+        "region": "UK",
+        "value": "7"
+      },
+      {
+        "region": "UK",
+        "value": "7.5"
+      },
+      {
+        "region": "UK",
+        "value": "8"
+      },
+      {
+        "region": "UK",
+        "value": "8.5"
+      },
+      {
+        "region": "UK",
+        "value": "9"
+      },
+      {
+        "region": "UK",
+        "value": "9.5"
+      },
+      {
+        "region": "UK",
+        "value": "10"
+      },
+      {
+        "region": "UK",
+        "value": "10.5"
+      },
+      {
+        "region": "UK",
+        "value": "11"
+      },
+      {
+        "region": "UK",
+        "value": "11.5"
+      },
+      {
+        "region": "UK",
+        "value": "12"
+      },
+      {
+        "region": "UK",
+        "value": "12.5"
+      },
+      {
+        "region": "UK",
+        "value": "13"
+      },
+
+
+      {
+        "region": "US",
+        "value": "2.5"
+      },
+      {
+        "region": "US",
+        "value": "3"
+      },
+      {
+        "region": "US",
+        "value": "3.5"
+      },
+      {
+        "region": "US",
+        "value": "4"
+      },
+      {
+        "region": "US",
+        "value": "4.5"
+      },
+      {
+        "region": "US",
+        "value": "5"
+      },
+      {
+        "region": "US",
+        "value": "5.5"
+      },
+      {
+        "region": "US",
+        "value": "6"
+      },
+      {
+        "region": "US",
+        "value": "6.5"
+      },
+      {
+        "region": "US",
+        "value": "7"
+      },
+      {
+        "region": "US",
+        "value": "7.5"
+      },
+      {
+        "region": "US",
+        "value": "8"
+      },
+      {
+        "region": "US",
+        "value": "8.5"
+      },
+      {
+        "region": "US",
+        "value": "9"
+      },
+      {
+        "region": "US",
+        "value": "9.5"
+      },
+      {
+        "region": "US",
+        "value": "10"
+      },
+      {
+        "region": "US",
+        "value": "10.5"
+      },
+      {
+        "region": "US",
+        "value": "11"
+      },
+      {
+        "region": "US",
+        "value": "11.5"
+      },
+      {
+        "region": "US",
+        "value": "12"
+      },
+      {
+        "region": "US",
+        "value": "12.5"
+      },
+      {
+        "region": "US",
+        "value": "13"
+      },
+      {
+        "region": "US",
+        "value": "13.5"
+      },
+      {
+        "region": "US",
+        "value": "14"
+      },
+      {
+        "region": "US",
+        "value": "15"
+      },
+      {
+        "region": "US",
+        "value": "15.5"
+      },
+      {
+        "region": "EU",
+        "value": "33.5"
+      },
+      {
+        "region": "EU",
+        "value": "34"
+      },
+      {
+        "region": "EU",
+        "value": "34.5"
+      },
+      {
+        "region": "EU",
+        "value": "35"
+      },
+      {
+        "region": "EU",
+        "value": "35.5"
+      },
+      {
+        "region": "EU",
+        "value": "36"
+      },
+      {
+        "region": "EU",
+        "value": "37"
+      },
+      {
+        "region": "EU",
+        "value": "38"
+      },
+      {
+        "region": "EU",
+        "value": "38.5"
+      },
+      {
+        "region": "EU",
+        "value": "39"
+      },
+      {
+        "region": "EU",
+        "value": "40"
+      },
+      {
+        "region": "EU",
+        "value": "41"
+      },
+      {
+        "region": "EU",
+        "value": "42"
+      },
+      {
+        "region": "EU",
+        "value": "43"
+      },
+      {
+        "region": "EU",
+        "value": "43.5"
+      },
+      {
+        "region": "EU",
+        "value": "44"
+      },
+      {
+        "region": "EU",
+        "value": "44.5"
+      },
+      {
+        "region": "EU",
+        "value": "45"
+      },
+      {
+        "region": "EU",
+        "value": "45.5"
+      },
+      {
+        "region": "EU",
+        "value": "46"
+      },
+      {
+        "region": "EU",
+        "value": "46.5"
+      },
+      {
+        "region": "EU",
+        "value": "47"
+      },
+      {
+        "region": "EU",
+        "value": "47.5"
+      },
+      {
+        "region": "EU",
+        "value": "48"
+      },
+      {
+        "region": "EU",
+        "value": "48.5"
+      },
+      {
+        "region": "EU",
+        "value": "49"
+      }
+]
