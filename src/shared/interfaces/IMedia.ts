@@ -1,5 +1,6 @@
 export interface IAttributes {
   attachment_url: string;
+  modified_attachment_url: string;
   file_type: 'image' | 'video' | 'audio';
   id: string;
   tag_list: string[];
