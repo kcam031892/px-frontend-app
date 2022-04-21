@@ -19,7 +19,7 @@ import {
 } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import { SearchIcon } from 'components/Icons';
-import { Input, InputNumber } from 'themes/elements';
+import { Input, InputNumber, useAlert } from 'themes/elements';
 import { useStyles } from './Statistics.styles';
 import { Autocomplete } from '@material-ui/lab';
 import age from 'data/Age.json';
@@ -32,13 +32,17 @@ import complexion from 'data/Complexion.json';
 import ethnicity from 'data/Ethnicities.json';
 import talentTypes from 'data/TalentTypes.json';
 import tshirtSize from 'data/TShirtSize.json';
-import chestSize from 'data/ChestSize.json';
 import suitSize from 'data/SuitSize.json';
+import femaleSuitSize from 'data/FemaleSuitSizes.json';
+import kidClothing from 'data/KidClothesSize.json';
+import maleShoeSize from 'data/MaleShoeSize.json';
+import femaleShoeSize from 'data/FemaleShoeSize.json';
+import kidShoeSize from 'data/KidShoeSize.json';
 
 import EthnicityDialog from './EthnicityDialog/EthnicityDialog';
 import ConfirmationDialog from './ConfirmationDialog/ConfirmationDialog';
 
-import { IStatistics, ITalentStatisticsResponsePayload, ITalentUpdatePayload } from 'shared/interfaces/ITalent';
+import { ITalentUpdatePayload } from 'shared/interfaces/ITalent';
 import { talentService } from 'shared/services/talentService';
 import * as yup from 'yup';
 import { FormikProps, useFormik } from 'formik';
@@ -58,6 +62,9 @@ const talentTypesOptions = talentTypes.map((i) => i);
 const Statistics = () => {
   const classes = useStyles();
   const { data } = getStatistics();
+  const queryClient = useQueryClient();
+  const { mutate, isLoading: isUpdateLoading } = updateTalent();
+  const { isOpen: isAlertOpen, alertRef, AlertOpen } = useAlert({ autoHideDuration: 2000, horizontal: 'center' });
 
   const [ethnicityChipValue, setEthnicityChipValue] = useState<any[]>([]);
   const [talentChipValue, setTalentChipValue] = useState<any[]>([]);
@@ -73,12 +80,6 @@ const Statistics = () => {
     setTalentChipValue((value) => value.filter((v) => v.value !== value));
   };
 
-  const [selectValue, setSelectValue] = useState('');
-  // const [ethnicityValue, setEthnicityValue] = React.useState<string | null>(ethnicityOptions[0]);
-  // const [inputEthnicityValue, setEthnicityInputValue] = React.useState('');
-  // const [talentTypeValue, setTalentTypeValue] = React.useState<string | null>(talentTypesOptions[0]);
-  // const [inputTalentTypeValue, setInputTalentTypeValue] = React.useState('');
-
   const [regionValue, setRegionValue] = useState('');
   const [ageValue, setAgeValue] = useState('');
   const [metricValue, setMetricValue] = useState(metric[0].value);
@@ -86,7 +87,6 @@ const Statistics = () => {
 
   const selectRegion = (event: React.ChangeEvent<{ value: any }>) => {
     setRegionValue(event.target.value);
-    console.log(event.target);
     if (event.target.value === 'US' || event.target.value === 'UK') {
       setMetricValue('Imperial/Metric');
     } else {
@@ -114,22 +114,31 @@ const Statistics = () => {
   const handleOpenConfirmationDialog = () => setIsConfirmationDialog(true);
   const handleCloseConfirmationDialog = () => setIsConfirmationDialog(false);
 
-  // const initialValues: ITalentUpdatePayload = {
-  //   statistics: {},
-  // };
+  const initialValues: ITalentUpdatePayload = {
+    statistics: '',
+  };
 
-  // const statisticsValidationScheme: yup.SchemaOf<ITalentUpdatePayload> = yup.object().shape({
-  //   statistics: yup.array(),
-  // });
+  const statisticsValidationScheme: yup.SchemaOf<ITalentUpdatePayload> = yup.object().shape({
+    resume: yup.array(),
+    biography: yup.string(),
+    statistics: yup.string(),
+  });
 
-  const { mutate, isLoading: isUpdateLoading } = updateTalent();
+  const handleUpdateStatistics = (values: ITalentUpdatePayload) => {
+    mutate(values, {
+      onSuccess: () => {
+        queryClient.invalidateQueries('talents/biography');
+        AlertOpen('success', 'Statistics has been successfully updated');
+      },
+    });
+  };
 
-  // const form: FormikProps<ITalentUpdatePayload> = useFormik({
-  //   initialValues,
-  //   validationSchema: statisticsValidationScheme,
-  //   onSubmit: (values) => handleSubmit(values),
-  //   enableReinitialize: true,
-  // });
+  const form: FormikProps<ITalentUpdatePayload> = useFormik({
+    initialValues,
+    validationSchema: statisticsValidationScheme,
+    onSubmit: (values) => handleUpdateStatistics(values),
+    enableReinitialize: true,
+  });
 
   function cmtoIn(e: any, set: any) {
     const inches = e.target.value / 2.54;
@@ -467,11 +476,13 @@ const Statistics = () => {
                           Kid Clothing
                         </InputLabel>
                         <Select labelId={'lblType'} disableUnderline>
-                          {eyeColor.map((i) => (
-                            <MenuItem key={i.key} value={i.value}>
-                              {i.value}
-                            </MenuItem>
-                          ))}
+                          {kidClothing
+                            .filter((c) => c.region == regionValue)
+                            .map((i) => (
+                              <MenuItem key={i.value} value={i.value}>
+                                {i.value}
+                              </MenuItem>
+                            ))}
                         </Select>
                       </FormControl>
                     </Grid>
@@ -699,25 +710,34 @@ const Statistics = () => {
                       </FormControl>
                     </Grid>
                   </Grid>
+
                   <Grid container className={classes.profileItemsContainer} spacing={2}>
                     <Grid xs={12} md={6} lg={2} item>
                       <FormControl margin={'normal'} fullWidth>
                         <InputLabel id="labelAgeType" shrink>
                           Suit Size
                         </InputLabel>
-                        <Select labelId={'lblType'} disableUnderline>
-                          {suitSize.map((i) => (
-                            <>
-                              {i.values
-                                .filter((values) => values.region === regionValue)
-                                .map((j) => {
-                                  <MenuItem key={j.name} value={j.name}>
-                                    {j.name}
-                                  </MenuItem>;
-                                })}
-                            </>
-                          ))}
-                        </Select>
+                        {genderValue === 'Female' ? (
+                          <Select labelId={'lblType'} disableUnderline>
+                            {femaleSuitSize
+                              .filter((c) => c.region === regionValue)
+                              .map((i) => (
+                                <MenuItem key={i.value} value={i.value}>
+                                  {i.value}
+                                </MenuItem>
+                              ))}
+                          </Select>
+                        ) : (
+                          <Select labelId={'lblType'} disableUnderline>
+                            {suitSize
+                              .filter((c) => c.region === regionValue)
+                              .map((i) => (
+                                <MenuItem key={i.value} value={i.value}>
+                                  {i.value}
+                                </MenuItem>
+                              ))}
+                          </Select>
+                        )}
                       </FormControl>
                     </Grid>
                     <Grid xs={12} md={6} lg={2} item>
@@ -731,9 +751,12 @@ const Statistics = () => {
                                 InputProps={{
                                   disableUnderline: true,
                                   endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                  inputProps: { min: 0 },
                                 }}
                                 InputLabelProps={{ shrink: true }}
-                                onChange={(e) => cmtoIn(e, setChestSizeInValue)}
+                                onChange={(e) => {
+                                  cmtoIn(e, setChestSizeInValue);
+                                }}
                               />
                             </Grid>
                             <Grid xs={6} md={6} item>
@@ -744,6 +767,7 @@ const Statistics = () => {
                                 InputProps={{
                                   disableUnderline: true,
                                   endAdornment: <InputAdornment position="end">in</InputAdornment>,
+                                  inputProps: { min: 0 },
                                 }}
                               />
                             </Grid>
@@ -756,6 +780,7 @@ const Statistics = () => {
                                 InputProps={{
                                   disableUnderline: true,
                                   endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                  inputProps: { min: 0 },
                                 }}
                                 InputLabelProps={{ shrink: true }}
                               />
@@ -774,6 +799,7 @@ const Statistics = () => {
                                 InputProps={{
                                   disableUnderline: true,
                                   endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                  inputProps: { min: 0 },
                                 }}
                                 InputLabelProps={{ shrink: true }}
                               />
@@ -784,6 +810,7 @@ const Statistics = () => {
                                 InputProps={{
                                   disableUnderline: true,
                                   endAdornment: <InputAdornment position="end">in</InputAdornment>,
+                                  inputProps: { min: 0 },
                                 }}
                               />
                             </Grid>
@@ -796,6 +823,7 @@ const Statistics = () => {
                                 InputProps={{
                                   disableUnderline: true,
                                   endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                  inputProps: { min: 0 },
                                 }}
                                 InputLabelProps={{ shrink: true }}
                               />
@@ -814,6 +842,7 @@ const Statistics = () => {
                                 InputProps={{
                                   disableUnderline: true,
                                   endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                  inputProps: { min: 0 },
                                 }}
                                 InputLabelProps={{ shrink: true }}
                               />
@@ -824,6 +853,7 @@ const Statistics = () => {
                                 InputProps={{
                                   disableUnderline: true,
                                   endAdornment: <InputAdornment position="end">in</InputAdornment>,
+                                  inputProps: { min: 0 },
                                 }}
                               />
                             </Grid>
@@ -836,6 +866,7 @@ const Statistics = () => {
                                 InputProps={{
                                   disableUnderline: true,
                                   endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                  inputProps: { min: 0 },
                                 }}
                                 InputLabelProps={{ shrink: true }}
                               />
@@ -854,6 +885,7 @@ const Statistics = () => {
                                 InputProps={{
                                   disableUnderline: true,
                                   endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                                  inputProps: { min: 0 },
                                 }}
                                 InputLabelProps={{ shrink: true }}
                               />
@@ -864,6 +896,7 @@ const Statistics = () => {
                                 InputProps={{
                                   disableUnderline: true,
                                   endAdornment: <InputAdornment position="end">in</InputAdornment>,
+                                  inputProps: { min: 0 },
                                 }}
                               />
                             </Grid>
@@ -891,13 +924,37 @@ const Statistics = () => {
                         <InputLabel id="labelAgeType" shrink>
                           Shoe Size
                         </InputLabel>
-                        <Select labelId={'lblType'} disableUnderline defaultValue={eyeColor[0].value}>
-                          {eyeColor.map((i) => (
-                            <MenuItem key={i.key} value={i.value}>
-                              {i.value}
-                            </MenuItem>
-                          ))}
-                        </Select>
+                        {ageValue === 'Minor' ? (
+                          <Select labelId={'lblType'} disableUnderline defaultValue={eyeColor[0].value}>
+                            {kidShoeSize
+                              .filter((c) => c.region === regionValue)
+                              .map((i) => (
+                                <MenuItem key={i.value} value={i.value}>
+                                  {i.value}
+                                </MenuItem>
+                              ))}
+                          </Select>
+                        ) : genderValue === 'Female' ? (
+                          <Select labelId={'lblType'} disableUnderline defaultValue={eyeColor[0].value}>
+                            {femaleShoeSize
+                              .filter((c) => c.region === regionValue)
+                              .map((i) => (
+                                <MenuItem key={i.value} value={i.value}>
+                                  {i.value}
+                                </MenuItem>
+                              ))}
+                          </Select>
+                        ) : (
+                          <Select labelId={'lblType'} disableUnderline defaultValue={eyeColor[0].value}>
+                            {maleShoeSize
+                              .filter((c) => c.region === regionValue)
+                              .map((i) => (
+                                <MenuItem key={i.value} value={i.value}>
+                                  {i.value}
+                                </MenuItem>
+                              ))}
+                          </Select>
+                        )}
                       </FormControl>
                     </Grid>
                     <Grid xs={12} md={6} lg={2} item>
@@ -1028,7 +1085,12 @@ const Statistics = () => {
           Save Changes
         </Button>
       </Box>
-      <EthnicityDialog open={isEthnicityDialogOpen} onClose={handleCloseEthnicityDialog} />
+      <EthnicityDialog
+        open={isEthnicityDialogOpen}
+        onClose={handleCloseEthnicityDialog}
+        selectedChips={ethnicityChipValue}
+        setSelectedChips={setEthnicityChipValue}
+      />
       <ConfirmationDialog open={isConfirmationDialog} onClose={handleCloseConfirmationDialog} />
     </Grid>
   );

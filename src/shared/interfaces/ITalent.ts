@@ -43,7 +43,7 @@ export interface IStatistics {
   type: string;
   attributes: {
     id: string;
-    biography: string;
+    statistics: string;
   };
 }
 
@@ -54,5 +54,5 @@ export interface ITalentStatisticsResponsePayload extends ICommonCreateResponseP
 export interface ITalentUpdatePayload {
   resume?: ISection[];
   biography?: string;
-  // statistics?: string;
+  statistics?: string;
 }

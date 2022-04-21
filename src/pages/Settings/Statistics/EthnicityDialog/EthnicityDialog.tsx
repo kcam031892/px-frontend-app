@@ -12,7 +12,7 @@ import {
   Select,
   Chip,
 } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import ClearIcon from '@material-ui/icons/Clear';
 import Done from '@material-ui/icons/Done';
 import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
@@ -23,12 +23,17 @@ import { boolean } from 'yup/lib/locale';
 type Props = {
   open: boolean;
   onClose: () => void;
+  selectedChips: any[];
+  setSelectedChips: Dispatch<SetStateAction<any[]>>;
 };
 
-const EthnicityDialog: React.FC<Props> = ({ open, onClose }) => {
+const EthnicityDialog: React.FC<Props> = ({ open, onClose, selectedChips, setSelectedChips }) => {
   const [allChips, setAllChips] = React.useState(ethnicity);
   const [selected, setSelected] = React.useState(new Set());
-  console.log(ethnicity);
+
+  selectedChips.forEach((e) => {
+    selected.add(e.id);
+  });
 
   const [isLargeDialog, setIsLargeDialog] = useState<boolean>(false);
   const toggleLargeDialog = () => setIsLargeDialog((curr) => !curr);
@@ -81,7 +86,12 @@ const EthnicityDialog: React.FC<Props> = ({ open, onClose }) => {
           <Button variant="contained" disableElevation>
             Save Changes
           </Button>
-          <Button onClick={() => onClose()} disableElevation>
+          <Button
+            onClick={() => {
+              onClose();
+            }}
+            disableElevation
+          >
             Cancel
           </Button>
         </Grid>
