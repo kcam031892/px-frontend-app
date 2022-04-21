@@ -1,22 +1,20 @@
-import { Grid, IconButton } from '@material-ui/core';
-import { DeleteIcon, MoveIcon, ResumeMediaIcon } from 'components/Icons';
+import { Grid } from '@material-ui/core';
+
 import React from 'react';
-import {
-  DragDropContext,
-  Draggable,
-  DraggableProvided,
-  DropResult,
-  Droppable,
-  DroppableProvided,
-} from 'react-beautiful-dnd';
+import { DropResult } from 'react-beautiful-dnd';
+import { ISection } from 'shared/interfaces/ITalent';
 import { Input } from 'themes/elements';
 
-const TableCard = () => {
+type Props = {
+  section: ISection;
+  isShowYear?: boolean;
+};
+const TableCard: React.FC<Props> = ({ section, isShowYear }) => {
   const handleDragEnd = (result: DropResult) => {};
   return (
     <>
-      {Array.from({ length: 2 }).map((_, rowIndex) => (
-        <Grid container spacing={2}>
+      {Array.from({ length: section.values.length }).map((_, rowIndex) => (
+        <Grid container spacing={2} key={rowIndex}>
           <Grid item xs>
             <Input
               fullWidth
@@ -25,7 +23,7 @@ const TableCard = () => {
               inputProps={{ tabIndex: rowIndex }}
               InputProps={{ disableUnderline: true }}
               InputLabelProps={{ shrink: true }}
-              value={'Sample'}
+              value={section.values[rowIndex].fields[0]}
               placeholder="Title"
             />
           </Grid>
@@ -37,7 +35,7 @@ const TableCard = () => {
               inputProps={{ tabIndex: rowIndex }}
               InputProps={{ disableUnderline: true }}
               InputLabelProps={{ shrink: true }}
-              value={'Sample 2'}
+              value={section.values[rowIndex].fields[1]}
               placeholder="Director"
             />
           </Grid>
@@ -49,10 +47,25 @@ const TableCard = () => {
               inputProps={{ tabIndex: rowIndex }}
               InputProps={{ disableUnderline: true }}
               InputLabelProps={{ shrink: true }}
-              value={'Sample 3'}
+              value={section.values[rowIndex].fields[2]}
               placeholder="Role"
             />
           </Grid>
+          {isShowYear && (
+            <Grid item xs>
+              <Input
+                fullWidth
+                disabled
+                margin={'normal'}
+                inputProps={{ tabIndex: rowIndex }}
+                InputProps={{ disableUnderline: true }}
+                InputLabelProps={{ shrink: true }}
+                value={section.values[rowIndex].fields[3]}
+                placeholder="Year"
+              />
+            </Grid>
+          )}
+
           <Grid item xs>
             <Input
               fullWidth
@@ -61,8 +74,7 @@ const TableCard = () => {
               inputProps={{ tabIndex: rowIndex }}
               InputProps={{ disableUnderline: true }}
               InputLabelProps={{ shrink: true }}
-              value={'Sample 4'}
-              placeholder="Year"
+              value={section.values[rowIndex].fields[4]}
             />
           </Grid>
           <Grid item xs>
@@ -73,18 +85,7 @@ const TableCard = () => {
               inputProps={{ tabIndex: rowIndex }}
               InputProps={{ disableUnderline: true }}
               InputLabelProps={{ shrink: true }}
-              value={'Sample 5'}
-            />
-          </Grid>
-          <Grid item xs>
-            <Input
-              fullWidth
-              disabled
-              margin={'normal'}
-              inputProps={{ tabIndex: rowIndex }}
-              InputProps={{ disableUnderline: true }}
-              InputLabelProps={{ shrink: true }}
-              value={'Sample 6'}
+              value={section.values[rowIndex].fields[5]}
             />
           </Grid>
         </Grid>

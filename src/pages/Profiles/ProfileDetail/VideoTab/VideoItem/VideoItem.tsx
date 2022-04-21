@@ -10,6 +10,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { useStyles } from './VideoItem.styles';
 import { IProfileMedia } from 'shared/interfaces/IProfile';
 import { formatBytes } from 'shared/utils/formatBytes';
+import { ellipseText } from 'shared/utils/ellipseText';
 
 type Props = {
   handleEditVideo: () => void;
@@ -63,7 +64,7 @@ const VideoItem: React.FC<Props> = ({ handleEditVideo, item, handleUnselectMedia
       <CardContent className={classes.card__content} {...attributes} {...listeners}>
         <Box>
           <Typography variant="h6" className={classes.card__title}>
-            {item.attributes.medium_name}
+            {ellipseText(item.attributes.medium_name)}
           </Typography>
           <Typography variant="subtitle1" className={classes.card__subtitle}>
             {formatBytes(item.attributes.medium_size)}

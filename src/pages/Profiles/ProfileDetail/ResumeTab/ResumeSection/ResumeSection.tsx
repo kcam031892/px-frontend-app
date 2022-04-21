@@ -2,7 +2,12 @@ import { Box, Card, CardContent, IconButton, InputBase, Tooltip } from '@materia
 import clsx from 'clsx';
 import { DeleteIcon, DownIcon, UpIcon } from 'components/Icons';
 import React from 'react';
+import { useHistory } from 'react-router';
+import { ROUTES } from 'shared/constants/ROUTES';
+import { SectionType } from 'shared/enums/SectionType';
+import { ISection } from 'shared/interfaces/ITalent';
 import { Button } from 'themes/elements';
+import SummaryCard from '../SummaryCard/SummaryCard';
 
 import TableCard from '../TableCard/TableCard';
 import { useStyles } from './ResumeSection.styles';
@@ -11,15 +16,38 @@ type Props = {
   setSelected: (module: 'selected' | 'hidden', index: number) => void;
   module: 'selected' | 'hidden';
   index: number;
+  section: ISection;
+  handleSelectResume?: (section: ISection) => void;
+  handleHideResume?: (section: ISection) => void;
+  isShowYear?: boolean;
 };
-const ResumeSection: React.FC<Props> = ({ isSelected, setSelected, module, index }) => {
+const ResumeSection: React.FC<Props> = ({
+  isSelected,
+  setSelected,
+  module,
+  index,
+  section,
+  handleSelectResume,
+  handleHideResume,
+  isShowYear,
+}) => {
+  const { push } = useHistory();
   const classes = useStyles();
   const getIsSelected = isSelected.index === index && isSelected.module === module;
   return (
     <Card variant="outlined" className={classes.card} onClick={() => setSelected(module, index)}>
       <CardContent>
         {/* Content */}
-        {module === 'selected' ? <TableCard /> : <InputBase fullWidth placeholder="Sample Category" disabled />}
+        <InputBase fullWidth value={section.title} readOnly />
+        {module === 'selected' && (
+          <>
+            {section.section_type === SectionType.TABLE ? (
+              <TableCard section={section} isShowYear={isShowYear} />
+            ) : (
+              <SummaryCard section={section} />
+            )}
+          </>
+        )}
         {/* Action */}
         <Box
           className={clsx(classes.actionContainer, {
@@ -27,9 +55,13 @@ const ResumeSection: React.FC<Props> = ({ isSelected, setSelected, module, index
           })}
         >
           <Box className={classes.actionContainer__item}>
-            {module === 'selected' ? <Button>Hide Resume</Button> : <Button>Select Resume</Button>}
+            {module === 'selected' ? (
+              <Button onClick={() => handleHideResume && handleHideResume(section)}>Hide Resume</Button>
+            ) : (
+              <Button onClick={() => handleSelectResume && handleSelectResume(section)}>Select Resume</Button>
+            )}
 
-            <Button>Edit Resume</Button>
+            <Button onClick={() => push(`${ROUTES.TALENT.SETTINGS}/resume`)}>Edit Resume</Button>
           </Box>
         </Box>
       </CardContent>

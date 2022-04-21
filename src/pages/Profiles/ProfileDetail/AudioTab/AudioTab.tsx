@@ -26,7 +26,7 @@ import AudioOverlay from './AudioItem/AudioOverlay';
 import HiddenAudio from './AudioItem/HiddenAudio';
 import { useStyles } from './AudioTab.styles';
 
-const { getMediaProfile, setSelectProfileMedia, unSelectProfileMedia } = profileService();
+const { getMediaProfile, setSelectProfileMedia, unSelectProfileMedia, updateProfileMediaSort } = profileService();
 const { getMediaList } = mediaService();
 const AudioTab = () => {
   const classes = useStyles();
@@ -41,6 +41,7 @@ const AudioTab = () => {
   const { data: mediaData, isLoading: isMediaLoading } = getMediaList({ file_type: 'audio' });
   const { mutate } = setSelectProfileMedia();
   const { mutate: unselectMutate } = unSelectProfileMedia();
+  const { mutate: updateSortMutate, isLoading: isLoadingUpdateSort } = updateProfileMediaSort();
   const queryClient = useQueryClient();
 
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -86,7 +87,7 @@ const AudioTab = () => {
 
   const handleSetSelectMedia = (payload: IProfileMediaSetSelectPayload) => {
     mutate(
-      { profileId, payload },
+      { profileId, payload: { ...payload, sort: mediaProfileData ? mediaProfileData.data.length : 0 } },
       {
         onSuccess: () => {
           queryClient.invalidateQueries(['profile_media', profileId, { file_type: 'audio' }]);
@@ -112,7 +113,7 @@ const AudioTab = () => {
     setActiveId(event.active.id);
   };
 
-  const onDragEnd = (event: DragEndEvent) => {
+  const onDragOver = (event: DragEndEvent) => {
     const { active, over } = event;
     if (active && over) {
       if (active.id !== over.id) {
@@ -124,6 +125,20 @@ const AudioTab = () => {
         });
       }
     }
+  };
+
+  const onDragEnd = () => {
+    const updatedItems = items.map((item, i) => {
+      return {
+        id: item.id,
+        sort: i,
+      };
+    });
+    setTimeout(() => {
+      updateSortMutate({ profileId, sort: updatedItems });
+    }, 500);
+
+    queryClient.setQueriesData(['profile_media', profileId, { file_type: 'audio' }], { data: items });
     setActiveId(null);
   };
 
@@ -143,6 +158,7 @@ const AudioTab = () => {
                 sensors={sensors}
                 collisionDetection={closestCenter}
                 onDragStart={onDragStart}
+                onDragOver={onDragOver}
                 onDragEnd={onDragEnd}
               >
                 <SortableContext items={items} strategy={rectSortingStrategy}>

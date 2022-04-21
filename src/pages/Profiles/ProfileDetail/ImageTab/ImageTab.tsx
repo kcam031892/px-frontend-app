@@ -37,6 +37,7 @@ import { errorResponseToArray } from 'shared/utils/errorResponseToArray';
 import { useAlert } from 'themes/elements';
 import ImageOverlay from './ImageItem/ImageOverlay';
 import { debounce } from 'lodash';
+import IMedia from 'shared/interfaces/IMedia';
 
 const { getMediaProfile, setSelectProfileMedia, unSelectProfileMedia, updateProfileMediaSort, setProfilePrimaryImage } =
   profileService();
@@ -46,6 +47,7 @@ const ImageTab = () => {
   const { profileId } = useParams() as { profileId: string };
   const classes = useStyles();
   const [items, setItems] = useState<IProfileMedia[]>([]);
+  const [selectedMedia, setSelectedMedia] = useState<IMedia | null>(null);
   const { data: mediaProfileData, isLoading: isMediaProfileLoading } = getMediaProfile(profileId, {
     file_type: 'image',
   });
@@ -255,7 +257,10 @@ const ImageTab = () => {
                     >
                       <HiddenImage
                         item={item}
-                        handleEditImage={() => setIsEditorOpen(true)}
+                        handleEditImage={() => {
+                          setSelectedMedia(item);
+                          setIsEditorOpen(true);
+                        }}
                         handleSetSelect={handleSetSelectMedia}
                       />
                     </Box>
@@ -275,7 +280,7 @@ const ImageTab = () => {
         classes={{ paper: classes.dialogPaper }}
       >
         <DialogContent className={classes.dialogContent}>
-          <ImageEditor onCloseEditor={() => setIsEditorOpen(false)} />
+          {selectedMedia && <ImageEditor onCloseEditor={() => setIsEditorOpen(false)} media={selectedMedia} />}
         </DialogContent>
       </Dialog>
       {isAlertOpen && alertRef}

@@ -40,11 +40,15 @@ import { Button, ImageSlider, Input } from 'themes/elements';
 import { v4 as uuidv4 } from 'uuid';
 
 import { useStyles } from './ImageEditor.styles';
+import IMedia from 'shared/interfaces/IMedia';
+import { formatBytes } from 'shared/utils/formatBytes';
 
 type Props = {
   onCloseEditor: () => void;
+  media: IMedia;
 };
-const ImageEditor: React.FC<Props> = ({ onCloseEditor }) => {
+const ImageEditor: React.FC<Props> = ({ onCloseEditor, media }) => {
+  const [src, setSrc] = useState<string>(media.attributes.attachment_url);
   const [mode, setMode] = useState<EditorMode>(EditorMode.VIEW);
   const [anchorEl, setAnchorEl] = useState<any>(null);
   const [isPortrait, setIsPortrait] = useState<boolean>(false);
@@ -96,6 +100,16 @@ const ImageEditor: React.FC<Props> = ({ onCloseEditor }) => {
     cropper.zoomTo(valueNumber);
   };
 
+  const handleCrop = () => {
+    if (typeof cropper !== 'undefined') {
+      console.log(cropper.getCroppedCanvas().toDataURL());
+
+      // setSrc(.toDataURL('image/jpeg', 0.9));
+    }
+    setMode(EditorMode.VIEW);
+  };
+  console.log('src', src);
+
   return (
     <Box>
       {mode === EditorMode.VIEW ? (
@@ -125,7 +139,7 @@ const ImageEditor: React.FC<Props> = ({ onCloseEditor }) => {
               </Box>
             </Box>
             <Box className={classes.editorPanel__imageContainer}>
-              <img src="https://picsum.photos/200/300" className={classes.editorPanel__image} />
+              <img src={src} className={classes.editorPanel__image} />
             </Box>
           </Grid>
           {/* Detail Panel */}
@@ -145,10 +159,11 @@ const ImageEditor: React.FC<Props> = ({ onCloseEditor }) => {
               fullWidth
               InputProps={{ disableUnderline: true }}
               InputLabelProps={{ shrink: true }}
+              value={media.attributes.file_name}
             />
             <Box marginTop={2}>
               <Typography variant="body2" className={classes.detailPanel__infoContent}>
-                JPEG
+                {media.attributes.file_type}
               </Typography>
               <Typography variant="body2" className={classes.detailPanel__infoTitle}>
                 File Type
@@ -165,7 +180,7 @@ const ImageEditor: React.FC<Props> = ({ onCloseEditor }) => {
 
             <Box marginTop={2}>
               <Typography variant="body2" className={classes.detailPanel__infoContent}>
-                25x25
+                {media.attributes.file_width}x{media.attributes.file_size}
               </Typography>
               <Typography variant="body2" className={classes.detailPanel__infoTitle}>
                 Dimensions
@@ -174,7 +189,7 @@ const ImageEditor: React.FC<Props> = ({ onCloseEditor }) => {
 
             <Box marginTop={2}>
               <Typography variant="body2" className={classes.detailPanel__infoContent}>
-                25x25
+                {formatBytes(media.attributes.file_size)}
               </Typography>
               <Typography variant="body2" className={classes.detailPanel__infoTitle}>
                 Size
@@ -228,7 +243,7 @@ const ImageEditor: React.FC<Props> = ({ onCloseEditor }) => {
                 <IconButton aria-label="rotate right picture" onClick={() => handleRotateRight()}>
                   <RotateRightIcon width="24" height="24" viewBox="0 0 24 24" style={{ color: '#fff' }} />
                 </IconButton>
-                <Button color="primary" variant="contained" style={{ marginLeft: 12 }}>
+                <Button color="primary" variant="contained" style={{ marginLeft: 12 }} onClick={handleCrop}>
                   Done
                 </Button>
                 <Menu
@@ -264,9 +279,7 @@ const ImageEditor: React.FC<Props> = ({ onCloseEditor }) => {
                 style={{ height: '100%', width: '100%' }}
                 zoomTo={0}
                 preview=".img-preview"
-                src={
-                  'https://s3-ap-southeast-2.amazonaws.com/files.au.at2casting.com/uploads/photo/67/79/f4/9d/6779f49d-b196-4c64-8b0d-7a7c66466989r.jpg?AWSAccessKeyId=AKIAJMR5PKKNFE5OPUSA&Expires=1649950317&Signature=zKvQiClIJSuOAnPtnQsj1OIvsuc%3D&t=202203160131566389'
-                }
+                src={src}
                 minCropBoxHeight={isPortrait ? 600 : 450}
                 initialAspectRatio={isPortrait ? 0.75 : 1.3}
                 aspectRatio={isPortrait ? 0.75 : 1.3}
@@ -278,9 +291,10 @@ const ImageEditor: React.FC<Props> = ({ onCloseEditor }) => {
                 background={false}
                 wheelZoomRatio={0.1}
                 cropBoxResizable={true}
-                checkCrossOrigin={true}
-                zoomOnWheel={true}
+                checkCrossOrigin={false}
+                crossOrigin="anonymous"
                 ready={() => setIsImageLoaded(true)}
+                zoomOnWheel={true}
                 onInitialized={(instance) => {
                   setCropper(instance);
                 }}

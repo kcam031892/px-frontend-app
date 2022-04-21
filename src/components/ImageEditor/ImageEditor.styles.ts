@@ -3,7 +3,6 @@ import { createStyles, makeStyles } from '@material-ui/core';
 export const useStyles = makeStyles(() =>
   createStyles({
     container: {
-      overflow: 'hidden',
       justifyContent: 'center',
     },
     editorPanel: {
@@ -67,7 +66,7 @@ export const useStyles = makeStyles(() =>
       },
     },
     loadingPanel: {
-      height: 840,
+      height: '500px',
       width: '100%',
       zIndex: 2,
       background: '#000',
@@ -76,8 +75,9 @@ export const useStyles = makeStyles(() =>
       left: 0,
       display: 'flex',
       alignItems: 'center',
-      flexDirection: 'column',
       justifyContent: 'center',
+      flexDirection: 'column',
+
       '& svg': {
         color: '#fff',
       },

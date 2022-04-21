@@ -12,19 +12,21 @@ export interface IResumeState {
   sections: ISection[];
   oldSections: ISection[];
   isSectionShowYear: boolean;
+  oldIsSectionShowYear: boolean;
 }
 
 const initialSections: ISection[] = [
   {
     section_type: SectionType.TABLE,
     title: 'Film',
+
     values: [
       {
         fields: createEmptyColumnArray(),
         attachments: [],
       },
     ],
-    section_id: '',
+    section_id: generateSectionId(),
   },
   {
     section_type: SectionType.TABLE,
@@ -46,7 +48,7 @@ const initialSections: ISection[] = [
         attachments: [],
       },
     ],
-    section_id: '',
+    section_id: generateSectionId(),
   },
   {
     section_type: SectionType.TABLE,
@@ -57,7 +59,7 @@ const initialSections: ISection[] = [
         attachments: [],
       },
     ],
-    section_id: '',
+    section_id: generateSectionId(),
   },
 ];
 
@@ -65,6 +67,7 @@ const initialState: IResumeState = {
   sections: initialSections,
   oldSections: initialSections,
   isSectionShowYear: true,
+  oldIsSectionShowYear: true,
 };
 export const resumeSlicer = createSlice({
   name: 'resume',
@@ -93,7 +96,7 @@ export const resumeSlicer = createSlice({
           sequence: state.sections.length + 1,
           title: '',
           section_id: generateSectionId(),
-          values: [{ fields: [], attachments: [] }],
+          values: [{ fields: createEmptyColumnArray(), attachments: [] }],
         });
       }
     },
@@ -188,6 +191,10 @@ export const resumeSlicer = createSlice({
       });
       state.sections = updatedSections;
     },
+    setShowYear(state: IResumeState, action: PayloadAction<{ isSectionShowYear: boolean }>) {
+      state.isSectionShowYear = action.payload.isSectionShowYear;
+      state.oldIsSectionShowYear = action.payload.isSectionShowYear;
+    },
     toggleShowYear(state: IResumeState) {
       state.isSectionShowYear = !state.isSectionShowYear;
     },
@@ -206,6 +213,7 @@ export const {
   removeRow,
   reorderRow,
   changeTextValues,
+  setShowYear,
   toggleShowYear,
   changeSectionTitle,
 } = resumeSlicer.actions;
