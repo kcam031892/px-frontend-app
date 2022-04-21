@@ -1,0 +1,374 @@
+[
+    {
+        "region": "AU",
+        "value": "000"
+    },
+    {
+        "region": "AU",
+        "value": "00"
+    },
+    {
+        "region": "AU",
+        "value": "0"
+    },
+    {
+        "region": "AU",
+        "value": "1"
+    },
+    {
+        "region": "AU",
+        "value": "2"
+    },
+    {
+        "region": "AU",
+        "value": "3"
+    },
+    {
+        "region": "AU",
+        "value": "4"
+    },
+    {
+        "region": "AU",
+        "value": "5"
+    },
+    {
+        "region": "AU",
+        "value": "6"
+    },
+    {
+        "region": "AU",
+        "value": "7"
+    },
+    {
+        "region": "AU",
+        "value": "8"
+    },
+    {
+        "region": "AU",
+        "value": "9"
+    },
+    {
+        "region": "AU",
+        "value": "10"
+    },
+    {
+        "region": "AU",
+        "value": "11"
+    },
+    {
+        "region": "AU",
+        "value": "12"
+    },
+    {
+        "region": "AU",
+        "value": "13"
+    },
+    {
+        "region": "AU",
+        "value": "14"
+    },
+    {
+        "region": "AU",
+        "value": "15"
+    },
+    {
+        "region": "AU",
+        "value": "16"
+    },
+    {
+        "region": "NZ",
+        "value": "000"
+    },
+    {
+        "region": "NZ",
+        "value": "00"
+    },
+    {
+        "region": "NZ",
+        "value": "0"
+    },
+    {
+        "region": "NZ",
+        "value": "1"
+    },
+    {
+        "region": "NZ",
+        "value": "2"
+    },
+    {
+        "region": "NZ",
+        "value": "3"
+    },
+    {
+        "region": "NZ",
+        "value": "4"
+    },
+    {
+        "region": "NZ",
+        "value": "5"
+    },
+    {
+        "region": "NZ",
+        "value": "6"
+    },
+    {
+        "region": "NZ",
+        "value": "7"
+    },
+    {
+        "region": "NZ",
+        "value": "8"
+    },
+    {
+        "region": "NZ",
+        "value": "9"
+    },
+    {
+        "region": "NZ",
+        "value": "10"
+    },
+    {
+        "region": "NZ",
+        "value": "11"
+    },
+    {
+        "region": "NZ",
+        "value": "12"
+    },
+    {
+        "region": "NZ",
+        "value": "13"
+    },
+    {
+        "region": "NZ",
+        "value": "14"
+    },
+    {
+        "region": "NZ",
+        "value": "15"
+    },
+    {
+        "region": "NZ",
+        "value": "16"
+    },
+    {
+        "region": "US",
+        "value": "3-9 m"
+    },
+    {
+        "region": "US",
+        "value": "9-12 m"
+    },
+    {
+        "region": "US",
+        "value": "12 m"
+    },
+    {
+        "region": "US",
+        "value": "12-18 m"
+    },
+    {
+        "region": "US",
+        "value": "2 T"
+    },
+    {
+        "region": "US",
+        "value": "3 T"
+    },
+    {
+        "region": "US",
+        "value": "4 T"
+    },
+    {
+        "region": "US",
+        "value": "5"
+    },
+    {
+        "region": "US",
+        "value": "6"
+    },
+    {
+        "region": "US",
+        "value": "7"
+    },
+    {
+        "region": "US",
+        "value": "8"
+    },
+    {
+        "region": "US",
+        "value": "9"
+    },
+    {
+        "region": "US",
+        "value": "10"
+    },
+    {
+        "region": "US",
+        "value": "11"
+    },
+    {
+        "region": "US",
+        "value": "12"
+    },
+    {
+        "region": "US",
+        "value": "13"
+    },
+    {
+        "region": "US",
+        "value": "14"
+    },
+    {
+        "region": "US",
+        "value": "15"
+    },
+    {
+        "region": "US",
+        "value": "16"
+    },
+    {
+        "region": "EU",
+        "value": "6-74 cm"
+    },
+    {
+        "region": "EU",
+        "value": "74-80 cm"
+    },
+    {
+        "region": "EU",
+        "value": "80 cm"
+    },
+    {
+        "region": "EU",
+        "value": "80-86 cm"
+    },
+    {
+        "region": "EU",
+        "value": "86-92 cm"
+    },
+    {
+        "region": "EU",
+        "value": "92-98 cm"
+    },
+    {
+        "region": "EU",
+        "value": "98-104 cm"
+    },
+    {
+        "region": "EU",
+        "value": "104-110 cm"
+    },
+    {
+        "region": "EU",
+        "value": "110-116 cm"
+    },
+    {
+        "region": "EU",
+        "value": "116-122 cm"
+    },
+    {
+        "region": "EU",
+        "value": "122-128 cm"
+    },
+    {
+        "region": "EU",
+        "value": "128-134 cm"
+    },
+    {
+        "region": "EU",
+        "value": "134-140 cm"
+    },
+    {
+        "region": "EU",
+        "value": "140-146 cm"
+    },
+    {
+        "region": "EU",
+        "value": "146-152 cm"
+    },
+    {
+        "region": "EU",
+        "value": "152-158 cm"
+    },
+    {
+        "region": "EU",
+        "value": "158-164 cm"
+    },
+    {
+        "region": "UK",
+        "value": "3-9 m"
+    },
+    {
+        "region": "UK",
+        "value": "9-12 m"
+    },
+    {
+        "region": "UK",
+        "value": "12 m"
+    },
+    {
+        "region": "UK",
+        "value": "12-18 m"
+    },
+    {
+        "region": "UK",
+        "value": "18-24 m"
+    },
+    {
+        "region": "UK",
+        "value": "2-3"
+    },
+    {
+        "region": "UK",
+        "value": "3-4"
+    },
+    {
+        "region": "UK",
+        "value": "4-5"
+    },
+    {
+        "region": "UK",
+        "value": "5-6"
+    },
+    {
+        "region": "UK",
+        "value": "6-7"
+    },
+    {
+        "region": "UK",
+        "value": "7-8"
+    },
+    {
+        "region": "UK",
+        "value": "8-9"
+    },
+    {
+        "region": "UK",
+        "value": "9-10"
+    },
+    {
+        "region": "UK",
+        "value": "10-11"
+    },
+    {
+        "region": "UK",
+        "value": "11-12"
+    },
+    {
+        "region": "UK",
+        "value": "12-13"
+    },
+    {
+        "region": "UK",
+        "value": "13-14"
+    },
+    {
+        "region": "UK",
+        "value": "14-15"
+    },
+    {
+        "region": "UK",
+        "value": "16"
+    }
+]

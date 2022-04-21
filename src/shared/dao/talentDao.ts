@@ -3,6 +3,7 @@ import { useAxios } from 'shared/hooks/useAxios';
 import {
   ITalentBiographyResponsePayload,
   ITalentResumeResponsePayload,
+  ITalentStatisticsResponsePayload,
   ITalentUpdatePayload,
 } from 'shared/interfaces/ITalent';
 import { authToken } from 'shared/utils/authToken';
@@ -41,9 +42,20 @@ export const talentDao = () => {
     return response.data;
   };
 
+  const getStatistics = async () => {
+    const response = await GET<ITalentStatisticsResponsePayload>({
+      url: `${ENDPOINTS.TALENTS}/biography`,
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
+    return response.data;
+  };
+
   return {
     getResume,
     getBiography,
+    getStatistics,
     updateTalent,
   };
 };
