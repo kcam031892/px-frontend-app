@@ -169,7 +169,7 @@ const Login = () => {
           />
         </Box>
         <Box>
-          <Link to="/forgot" className={classes.forgotLink}>
+          <Link to="/forgot_password" className={classes.forgotLink}>
             Forgot Password?
           </Link>
         </Box>

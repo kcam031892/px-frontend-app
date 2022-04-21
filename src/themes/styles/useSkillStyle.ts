@@ -30,11 +30,45 @@ export const useSkillStyle = makeStyles(() =>
       backgroundColor: '#2962FF',
     },
     chipContainer: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fill, 100px);',
-      columnGap: '20px',
-      rowGap: '10px',
+      display: 'flex',
+      flexDirection: 'column',
+      // gridTemplateColumns: 'repeat(auto-fill, 100px);',
+      // columnGap: '20px',
+      // rowGap: '10px',
       marginTop: '20px',
+    },
+    chipsDisplay: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(4, 1fr)',
+      gridColumnGap: '10px',
+      gridRowGap: '20px',
+    },
+    horizontalDivider: {
+      margin: '5px 0px 15px 0px',
+      border: 'solid 1px #e5e5e5',
+    },
+    badgeStyle: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      background: '#2862ff',
+      borderRadius: '50%',
+      color: '#ffffff !important',
+      height: '18.33px !important',
+      width: '18.33px !important',
+    },
+    selectedDisplay: {
+      display: 'flex',
+      flexWrap: 'wrap',
+
+      '& > *': {
+        marginRight: '15px',
+        marginBottom: '15px',
+      },
+    },
+    subgroup: {
+      marginBottom: '30px',
     },
   }),
 );

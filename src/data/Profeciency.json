@@ -4,15 +4,15 @@
       "values": [
         {
             "key": "Novice",
-            "value": "Novice"
+            "value": "N"
         },
         {
             "key": "Intermediate",
-            "value": "Intermediate"
+            "value": "I"
         },
         {
             "key": "Expert/Professional",
-            "value": "Expert/Professional"
+            "value": "E"
         }
       ]
     },

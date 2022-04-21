@@ -5,43 +5,73 @@
       "skills": [
             {
                 "key": "American - Californian",
-                "value": "American - Californian"
+                "value": "American - Californian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "American - Midwest",
-                "value": "American - Midwest"
+                "value": "American - Midwest",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "American - New England",
-                "value": "American - New England"
+                "value": "American - New England",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "American - New York",
-                "value": "American - New York"
+                "value": "American - New York",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "American - Southern States",
-                "value": "American - Southern States"
+                "value": "American - Southern States",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "American - Standard",
-                "value": "American - Standard"
+                "value": "American - Standard",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "American - Urban",
-                "value": "American - Urban"
+                "value": "American - Urban",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "American - Western States",
-                "value": "American - Western States"
+                "value": "American - Western States",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Canadian",
-                "value": "Canadian"
+                "value": "Canadian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Caribbean",
-                "value": "Caribbean"
+                "value": "Caribbean",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             }
         ]
     },
@@ -51,19 +81,31 @@
         "skills": [
             {
                 "key": "Latin American",
-                "value": "Latin American"
+                "value": "Latin American",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Mexican",
-                "value": "Mexican"
+                "value": "Mexican",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Portuguese",
-                "value": "Portuguese"
+                "value": "Portuguese",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Latin Spanish",
-                "value": "Latin Spanish"
+                "value": "Latin Spanish",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             }
         ]
     },
@@ -73,59 +115,101 @@
         "skills": [
             {
                 "key": "Chinese",
-                "value": "Chinese"
+                "value": "Chinese",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Indonesian",
-                "value": "Indonesian"
+                "value": "Indonesian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Japanese",
-                "value": "Japanese"
+                "value": "Japanese",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Korean",
-                "value": "Korean"
+                "value": "Korean",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Malay",
-                "value": "Malay"
+                "value": "Malay",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Filipino - Tagalog",
-                "value": "Filipino - Tagalog"
+                "value": "Filipino - Tagalog",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Filipino - Cebuano",
-                "value": "Filipino - Cebuano"
+                "value": "Filipino - Cebuano",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Singaporean",
-                "value": "Singaporean"
+                "value": "Singaporean",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Thai",
-                "value": "Thai"
+                "value": "Thai",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Vietnamese",
-                "value": "Vietnamese"
+                "value": "Vietnamese",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Taiwanese",
-                "value": "Taiwanese"
+                "value": "Taiwanese",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "South Korean",
-                "value": "South Korean"
+                "value": "South Korean",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Mongolian",
-                "value": "Mongolian"
+                "value": "Mongolian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Indian",
-                "value": "Indian"
+                "value": "Indian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             }
         ]
     },
@@ -135,19 +219,31 @@
         "skills": [
             {
                 "key": "Australian",
-                "value": "Australian"
+                "value": "Australian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Aboriginal/ Torres Straight",
-                "value": "Aboriginal/ Torres Straight"
+                "value": "Aboriginal/ Torres Straight",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "New Zealand",
-                "value": "New Zealand"
+                "value": "New Zealand",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "New Zealand Maori",
-                "value": "New Zealand Maori"
+                "value": "New Zealand Maori",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             }
         ]
     },
@@ -157,67 +253,115 @@
         "skills": [
             {
                 "key": "English Standard",
-                "value": "English Standard"
+                "value": "English Standard",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Cornwall",
-                "value": "Cornwall"
+                "value": "Cornwall",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Yorkshire",
-                "value": "Yorkshire"
+                "value": "Yorkshire",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Manchester",
-                "value": "Manchester"
+                "value": "Manchester",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Liverpool",
-                "value": "Liverpool"
+                "value": "Liverpool",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Midlands",
-                "value": "Midlands"
+                "value": "Midlands",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Cockney",
-                "value": "Cockney"
+                "value": "Cockney",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Irish",
-                "value": "Irish"
+                "value": "Irish",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Scottish",
-                "value": "Scottish"
+                "value": "Scottish",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "North England",
-                "value": "North England"
+                "value": "North England",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "South England",
-                "value": "South England"
+                "value": "South England",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "London",
-                "value": "London"
+                "value": "London",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "London (East End)",
-                "value": "London (East End)"
+                "value": "London (East End)",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Newcastle",
-                "value": "Newcastle"
+                "value": "Newcastle",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Norfolk",
-                "value": "Norfolk"
+                "value": "Norfolk",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Welsh",
-                "value": "Welsh"
+                "value": "Welsh",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             }
         ]
     },
@@ -227,47 +371,80 @@
         "skills": [
             {
                 "key": "Danish",
-                "value": "Danish"
+                "value": "Danish",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Dutch",
-                "value": "Dutch"
+                "value": "Dutch",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "East European",
-                "value": "East European"
+                "value": "East European",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "French",
-                "value": "French"
+                "value": "French",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "German",
-                "value": "German"
+                "value": "German",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Greek",
-                "value": "Greek"
+                "value": "Greek",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Italian",
-                "value": "Italian"
+                "value": "Italian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Polish",
-                "value": "Polish"
+                "value": "Polish",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Russian",
-                "value": "Russian"
+                "value": "Russian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Spanish",
-                "value": "Spanish"
+                "value": "Spanish",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Scandinavian",
-                "value": "Scandinavian"
+                "value": "Scandinavian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             }
         ]
     },
@@ -277,15 +454,24 @@
         "skills": [
             {
                 "key": "South African",
-                "value": "South African"
+                "value": "South African",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Afrikaans",
-                "value": "Afrikaans"
+                "value": "Afrikaans",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Boer",
-                "value": "Boer"
+                "value": "Boer",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             }
         ]
     },
@@ -295,34 +481,58 @@
         "skills": [
             {
                 "key": "Arabic",
-                "value": "Arabic"
+                "value": "Arabic",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Indian",
-                "value": "Indian"
+                "value": "Indian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Middle Eastern",
-                "value": "Middle Eastern"
+                "value": "Middle Eastern",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Pakistani",
-                "value": "Pakistani"
+                "value": "Pakistani",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Polynesian",
-                "value": "Polynesian"
+                "value": "Polynesian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },{
                 "key": "Samoan",
-                "value": "Samoan"
+                "value": "Samoan",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Tongan",
-                "value": "Tongan"
+                "value": "Tongan",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Figiian",
-                "value": "Figiian"
+                "value": "Figiian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             }
         ]
     },
@@ -332,7 +542,10 @@
         "skills": [
             {
                 "key": "English",
-                "value": "English"
+                "value": "English",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             }
         ]
     },
@@ -342,31 +555,52 @@
         "skills": [
             {
                 "key": "Australian Aboriginal",
-                "value": "Australian Aboriginal"
+                "value": "Australian Aboriginal",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Inuit",
-                "value": "Inuit"
+                "value": "Inuit",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "New Zealand Maori",
-                "value": "New Zealand Maori"
+                "value": "New Zealand Maori",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Native American",
-                "value": "Native American"
+                "value": "Native American",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Samoan",
-                "value": "Samoan"
+                "value": "Samoan",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Tongan",
-                "value": "Tongan"
+                "value": "Tongan",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Fijiian",
-                "value": "Fijiian"
+                "value": "Fijiian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             }
         ]
     },
@@ -376,19 +610,31 @@
         "skills": [
             {
                 "key": "Senegalese",
-                "value": "Senegalese"
+                "value": "Senegalese",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Swaheli",
-                "value": "Swaheli"
+                "value": "Swaheli",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Afrikaans",
-                "value": "Afrikaans"
+                "value": "Afrikaans",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Zulu",
-                "value": "Zulu"
+                "value": "Zulu",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             }
         ]
     },
@@ -398,43 +644,73 @@
         "skills": [
             {
                 "key": "Cantonese",
-                "value": "Cantonese"
+                "value": "Cantonese",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Indonesian",
-                "value": "Indonesian"
+                "value": "Indonesian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Japanese",
-                "value": "Japanese"
+                "value": "Japanese",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Korean",
-                "value": "Korean"
+                "value": "Korean",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Malay",
-                "value": "Malay"
+                "value": "Malay",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Mandarin",
-                "value": "Mandarin"
+                "value": "Mandarin",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Filipino - Tagalog",
-                "value": "Filipino - Tagalog"
+                "value": "Filipino - Tagalog",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Filipino - Cebuano",
-                "value": "Filipino - Cebuano"
+                "value": "Filipino - Cebuano",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Singaporean",
-                "value": "Singaporean"
+                "value": "Singaporean",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Thai",
-                "value": "Thai"
+                "value": "Thai",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             }
         ]
     },
@@ -444,51 +720,87 @@
         "skills": [
             {
                 "key": "Arabic",
-                "value": "Arabic"
+                "value": "Arabic",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Bengali",
-                "value": "Bengali"
+                "value": "Bengali",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Farsi",
-                "value": "Farsi"
+                "value": "Farsi",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Fukien",
-                "value": "Fukien"
+                "value": "Fukien",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Gujarati",
-                "value": "Gujarati"
+                "value": "Gujarati",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Hebrew",
-                "value": "Hebrew"
+                "value": "Hebrew",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Hindi",
-                "value": "Hindi"
+                "value": "Hindi",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Kurdish",
-                "value": "Kurdish"
+                "value": "Kurdish",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Punjabi",
-                "value": "Punjabi"
+                "value": "Punjabi",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Sinhalese",
-                "value": "Sinhalese"
+                "value": "Sinhalese",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Turkish",
-                "value": "Turkish"
+                "value": "Turkish",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Urdu",
-                "value": "Urdu"
+                "value": "Urdu",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             }
         ]
     },
@@ -498,43 +810,73 @@
         "skills": [
             {
                 "key": "Danish",
-                "value": "Danish"
+                "value": "Danish",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Dutch",
-                "value": "Dutch"
+                "value": "Dutch",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "French",
-                "value": "French"
+                "value": "French",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "German",
-                "value": "German"
+                "value": "German",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Greek",
-                "value": "Greek"
+                "value": "Greek",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Italian",
-                "value": "Italian"
+                "value": "Italian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Portuguese",
-                "value": "Portuguese"
+                "value": "Portuguese",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Russian",
-                "value": "Russian"
+                "value": "Russian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Scandanavian",
-                "value": "Scandanavian"
+                "value": "Scandanavian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Spanish",
-                "value": "Spanish"
+                "value": "Spanish",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             }
         ]
     },
@@ -544,100 +886,172 @@
         "skills": [
             {
                 "key": "Armenian",
-                "value": "Armenian"
+                "value": "Armenian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Bulgarian",
-                "value": "Bulgarian"
+                "value": "Bulgarian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Cornish",
-                "value": "Cornish"
+                "value": "Cornish",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Croatian",
-                "value": "Croatian"
+                "value": "Croatian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Czech",
-                "value": "Czech"
+                "value": "Czech",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Esperanto",
-                "value": "Esperanto"
+                "value": "Esperanto",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Finnish",
-                "value": "Finnish"
+                "value": "Finnish",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Flemish",
-                "value": "Flemish"
+                "value": "Flemish",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Gaelic",
-                "value": "Gaelic"
+                "value": "Gaelic",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Hungarian",
-                "value": "Hungarian"
+                "value": "Hungarian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Icelandic",
-                "value": "Icelandic"
+                "value": "Icelandic",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Latvian",
-                "value": "Latvian"
+                "value": "Latvian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Lithuanian",
-                "value": "Lithuanian"
+                "value": "Lithuanian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Macedonian",
-                "value": "Macedonian"
+                "value": "Macedonian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Maltese",
-                "value": "Maltese"
+                "value": "Maltese",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Polish",
-                "value": "Polish"
+                "value": "Polish",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Romanian",
-                "value": "Romanian"
+                "value": "Romanian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Serbian",
-                "value": "Serbian"
+                "value": "Serbian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Serbo-Croat",
-                "value": "Serbo-Croat"
+                "value": "Serbo-Croat",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Slavonic",
-                "value": "Slavonic"
+                "value": "Slavonic",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Welsh",
-                "value": "Welsh"
+                "value": "Welsh",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Yiddish",
-                "value": "Yiddish"
+                "value": "Yiddish",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Patios",
-                "value": "Patios"
+                "value": "Patios",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             }
             ,
             {
                 "key": "Romany",
-                "value": "Romany"
+                "value": "Romany",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             }
         ]
     },
@@ -647,19 +1061,2614 @@
         "skills": [
             {
                 "key": "Sign Language",
-                "value": "Sign Language"
+                "value": "Sign Language",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Tahitian",
-                "value": "Tahitian"
+                "value": "Tahitian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Up in Aborigine/Island",
-                "value": "Up in Aborigine/Island"
+                "value": "Up in Aborigine/Island",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             },
             {
                 "key": "Brazilian - Portuguese",
-                "value": "Brazilian - Portuguese"
+                "value": "Brazilian - Portuguese",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Instrumental",
+        "subgroup": "Brass",
+        "skills": [
+            {
+                "key": "Horn",
+                "value": "Horn",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Trombone",
+                "value": "Trombone",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Trumpet",
+                "value": "Trumpet",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Tuba",
+                "value": "Tuba",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Euphonium",
+                "value": "Euphonium",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "French Horn",
+                "value": "French Horn",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Instrumental",
+        "subgroup": "String",
+        "skills": [
+            {
+                "key": "Mandolin",
+                "value": "Mandolin",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Sitar",
+                "value": "Sitar",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Banjo",
+                "value": "Banjo",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Cello",
+                "value": "Cello",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Double Bass",
+                "value": "Double Bass",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Ukulele",
+                "value": "Ukulele",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Viola",
+                "value": "Viola",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Violin",
+                "value": "Violin",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Harp",
+                "value": "Harp",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Zither",
+                "value": "Zither",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Electric Bass",
+                "value": "Electric Bass",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Electric Guitar",
+                "value": "Electric Guitar",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Accoustic Guitar",
+                "value": "Accoustic Guitar",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Flamenco Guitar",
+                "value": "Flamenco Guitar",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Instrumental",
+        "subgroup": "Woodwind",
+        "skills": [
+            {
+                "key": "Oboe",
+                "value": "Oboe",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Piccolo",
+                "value": "Piccolo",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Recorder",
+                "value": "Recorder",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Saxophone",
+                "value": "Saxophone",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Bagpipes",
+                "value": "Bagpipes",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Bassoon",
+                "value": "Bassoon",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Clarinet",
+                "value": "Clarinet",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Flute",
+                "value": "Flute",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Instrumental",
+        "subgroup": "Percussion",
+        "skills": [
+            {
+                "key": "Drums",
+                "value": "Drums",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Bongos",
+                "value": "Bongos",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Cajon",
+                "value": "Cajon",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Instrumental",
+        "subgroup": "Keys",
+        "skills": [
+            {
+                "key": "Keyboard",
+                "value": "Keyboard",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Organ",
+                "value": "Organ",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Piano",
+                "value": "Piano",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Piano Accordian",
+                "value": "Piano Accordian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Concertina",
+                "value": "Concertina",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Instrumental",
+        "subgroup": "Other",
+        "skills": [
+            {
+                "key": "Harmonica",
+                "value": "Harmonica",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Accordian",
+                "value": "Accordian",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Didgerdoo",
+                "value": "Didgerdoo",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Ballet",
+        "skills": [
+            {
+                "key": "Classical Ballet",
+                "value": "Classical Ballet",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Neo Classical Ballet",
+                "value": "Neo Classical Ballet",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Modern/Contemporary",
+                "value": "Modern/Contemporary",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Tap",
+        "skills": [
+            {
+                "key": "Rhythm/Jazz",
+                "value": "Rhythm/Jazz",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Classical",
+                "value": "Classical",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Broadway",
+                "value": "Broadway",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Post Modern",
+                "value": "Post Modern",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Jazz",
+        "skills": [
+            {
+                "key": "Cake Walk",
+                "value": "Cake Walk",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Charleston",
+                "value": "Charleston",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Broadway Jazz",
+                "value": "Broadway Jazz",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Afro-Jazz",
+                "value": "Afro-Jazz",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Jazz-Pop",
+                "value": "Jazz-Pop",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Latino - Jazz",
+                "value": "Latino - Jazz",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Jazz Contemporary",
+                "value": "Jazz Contemporary",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Swing",
+        "skills": [
+            {
+                "key": "Lindy Hop",
+                "value": "Lindy Hop",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Jitterbug",
+                "value": "Jitterbug",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Modern Jive",
+                "value": "Modern Jive",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Jive",
+                "value": "Jive",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Balboa",
+                "value": "Balboa",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Bal-Swing",
+                "value": "Bal-Swing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Lindy Charleston",
+                "value": "Lindy Charleston",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Rodeo Swing",
+                "value": "Rodeo Swing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "East Coast Swing",
+                "value": "East Coast Swing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "West Coast Swing",
+                "value": "West Coast Swing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "DC Hand Dance",
+                "value": "DC Hand Dance",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Carolina Shag",
+                "value": "Carolina Shag",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Collegiate Shag",
+                "value": "Collegiate Shag",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "St. Louis Shag",
+                "value": "St. Louis Shag",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Neo-Swing",
+                "value": "Neo-Swing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Ceroc",
+                "value": "Ceroc",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Traditional/Cultural",
+        "skills": [
+            {
+                "key": "Kapa Haka",
+                "value": "Kapa Haka",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Tongan Dance",
+                "value": "Tongan Dance",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Cook Island Dance",
+                "value": "Cook Island Dance",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Samoan Dance",
+                "value": "Samoan Dance",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Indian Dance",
+                "value": "Indian Dance",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Belly",
+                "value": "Belly",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Greek",
+                "value": "Greek",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Highland",
+                "value": "Highland",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Irish Step",
+                "value": "Irish Step",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Hip Hop",
+        "skills": [
+            {
+                "key": "B-Boying/ Breakdancing",
+                "value": "B-Boying/ Breakdancing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Krumping",
+                "value": "Krumping",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Popping and Locking",
+                "value": "Popping and Locking",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Funk/Jazz",
+                "value": "Funk/Jazz",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Up Rock",
+                "value": "Up Rock",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Liquid Dance",
+                "value": "Liquid Dance",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Boogaloo",
+                "value": "Boogaloo",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Reggae",
+                "value": "Reggae",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Lyrical",
+                "value": "Lyrical",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Stepping",
+                "value": "Stepping",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "New Style",
+                "value": "New Style",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Folk",
+        "skills": [
+            {
+                "key": "Flamenco (Spain)",
+                "value": "Flamenco (Spain)",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Hula (Hawaii)",
+                "value": "Hula (Hawaii)",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Samba (Brazil)",
+                "value": "Samba (Brazil)",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Bharatanatyam (India)",
+                "value": "Bharatanatyam (India)",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Latin/Rhythm",
+        "skills": [
+            {
+                "key": "Rumba",
+                "value": "Rumba",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Samba",
+                "value": "Samba",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Salsa",
+                "value": "Salsa",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Merengue",
+                "value": "Merengue",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Bachata",
+                "value": "Bachata",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Mambo",
+                "value": "Mambo",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Cuban Bolero",
+                "value": "Cuban Bolero",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Spanish Bolero",
+                "value": "Spanish Bolero",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Jive",
+                "value": "Jive",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Zumba",
+                "value": "Zumba",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Ballroom",
+        "skills": [
+            {
+                "key": "Waltz",
+                "value": "Waltz",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Foxtrot",
+                "value": "Foxtrot",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Tango",
+                "value": "Tango",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Cha Cha",
+                "value": "Cha Cha",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Quick Step",
+                "value": "Quick Step",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Hustle",
+                "value": "Hustle",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Viennese Waltz",
+                "value": "Viennese Waltz",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Paso Doble",
+                "value": "Paso Doble",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Night Club 2 Step",
+                "value": "Night Club 2 Step",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Country",
+        "skills": [
+            {
+                "key": "Country",
+                "value": "Country",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Line Dancing",
+                "value": "Line Dancing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Square Dancing",
+                "value": "Square Dancing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Dance",
+        "subgroup": "Other",
+        "skills": [
+            {
+                "key": "Aerobics",
+                "value": "Aerobics",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Cabaret",
+                "value": "Cabaret",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Choreography",
+                "value": "Choreography",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Pole dancing",
+                "value": "Pole dancing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Rock n Roll",
+                "value": "Rock n Roll",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Burlesque",
+                "value": "Burlesque",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Strip Tease",
+                "value": "Strip Tease",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Drag Show",
+                "value": "Drag Show",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Vocal",
+        "subgroup": "General",
+        "skills": [
+            {
+                "key": "Ballad",
+                "value": "Ballad",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Blues",
+                "value": "Blues",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Cabaret",
+                "value": "Cabaret",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Choral",
+                "value": "Choral",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Country & Western",
+                "value": "Country & Western",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Folk",
+                "value": "Folk",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Musical",
+                "value": "Musical",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Jazz",
+                "value": "Jazz",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Popular",
+                "value": "Popular",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Rock",
+                "value": "Rock",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Show",
+                "value": "Show",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Rap",
+                "value": "Rap",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Beat Box",
+                "value": "Beat Box",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Arcapella",
+                "value": "Arcapella",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Pop",
+                "value": "Pop",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Vocal",
+        "subgroup": "Opera",
+        "skills": [
+            {
+                "key": "Alto",
+                "value": "Alto",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Baritone",
+                "value": "Baritone",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Bass",
+                "value": "Bass",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Bass - Baritone",
+                "value": "Bass - Baritone",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "C. Soprano",
+                "value": "C. Soprano",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Contralto",
+                "value": "Contralto",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Counter Tenor",
+                "value": "Counter Tenor",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Female Tenor",
+                "value": "Female Tenor",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Lyric Soprano",
+                "value": "Lyric Soprano",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Mezzo",
+                "value": "Mezzo",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Mezzo Soprano",
+                "value": "Mezzo Soprano",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Soprano",
+                "value": "Soprano",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Tenor",
+                "value": "Tenor",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Circus",
+        "subgroup": "Circus",
+        "skills": [
+            {
+                "key": "Acrobatics",
+                "value": "Acrobatics",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Animal Handling",
+                "value": "Animal Handling",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Balancer",
+                "value": "Balancer",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Clown",
+                "value": "Clown",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Contortionist",
+                "value": "Contortionist",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Croupier",
+                "value": "Croupier",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Fire Eater",
+                "value": "Fire Eater",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Impersonation",
+                "value": "Impersonation",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Juggler",
+                "value": "Juggler",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Magician",
+                "value": "Magician",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Mime",
+                "value": "Mime",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Puppetry",
+                "value": "Puppetry",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Stage Combat",
+                "value": "Stage Combat",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Stilt Walker",
+                "value": "Stilt Walker",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Unicycle",
+                "value": "Unicycle",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Ventriloquist",
+                "value": "Ventriloquist",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Balloon twisting",
+                "value": "Balloon twisting",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Face painting",
+                "value": "Face painting",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Arial Silks & Lyra",
+                "value": "Arial Silks & Lyra",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Trapeze",
+                "value": "Trapeze",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Martial Arts",
+        "skills": [
+            {
+                "key": "Aikido",
+                "value": "Aikido",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Archery",
+                "value": "Archery",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Boxing",
+                "value": "Boxing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Brazilian Jiu-Jitsu",
+                "value": "Brazilian Jiu-Jitsu",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Capoeira",
+                "value": "Capoeira",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Chi-Quong",
+                "value": "Chi-Quong",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Fencing",
+                "value": "Fencing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Filipino Martial Arts",
+                "value": "Filipino Martial Arts",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Judo",
+                "value": "Judo",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Karate",
+                "value": "Karate",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Krav Maga",
+                "value": "Krav Maga",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Kun Khmer",
+                "value": "Kun Khmer",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Kick Boxing",
+                "value": "Kick Boxing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Kung Fu",
+                "value": "Kung Fu",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Lethwei",
+                "value": "Lethwei",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Mixed Martial Arts",
+                "value": "Mixed Martial Arts",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Muay Thai",
+                "value": "Muay Thai",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Ninjitsu",
+                "value": "Ninjitsu",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Sanda (Wushu)",
+                "value": "Sanda (Wushu)",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Sumo Wrestling",
+                "value": "Sumo Wrestling",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Taekwondo",
+                "value": "Taekwondo",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Thai Chi",
+                "value": "Thai Chi",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Tricking",
+                "value": "Tricking",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Weapons",
+                "value": "Weapons",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Wrestling",
+                "value": "Wrestling",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Ball Sports",
+        "skills": [
+            {
+                "key": "AFL Football",
+                "value": "AFL Football",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Cricket",
+                "value": "Cricket",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Soccer",
+                "value": "Soccer",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Rugby",
+                "value": "Rugby",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Rugby League",
+                "value": "Rugby League",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Grid Iron",
+                "value": "Grid Iron",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Tennis",
+                "value": "Tennis",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Squash",
+                "value": "Squash",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Badminton",
+                "value": "Badminton",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Baseball",
+                "value": "Baseball",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Basketball",
+                "value": "Basketball",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Golf",
+                "value": "Golf",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Netball",
+                "value": "Netball",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Touch Rugby",
+                "value": "Touch Rugby",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Hockey",
+                "value": "Hockey",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Road/Ramp",
+        "skills": [
+            {
+                "key": "Cycling",
+                "value": "Cycling",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "BMX",
+                "value": "BMX",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Motor Cycling",
+                "value": "Motor Cycling",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Mountain Biking",
+                "value": "Mountain Biking",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Roller Blading",
+                "value": "Roller Blading",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Scooter",
+                "value": "Scooter",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Skateboarding",
+                "value": "Skateboarding",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Motor racing",
+                "value": "Motor racing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Motorcross",
+                "value": "Motorcross",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Snow/Ice",
+        "skills": [
+            {
+                "key": "Skiing",
+                "value": "Skiing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Snowboarding",
+                "value": "Snowboarding",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Ski Racing",
+                "value": "Ski Racing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Half Pipe",
+                "value": "Half Pipe",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Trick Park",
+                "value": "Trick Park",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Ice Hockey",
+                "value": "Ice Hockey",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Ice Skating",
+                "value": "Ice Skating",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Snow Sled",
+                "value": "Snow Sled",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Professional Stunts",
+        "skills": [
+            {
+                "key": "Body Control",
+                "value": "Body Control",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Heights",
+                "value": "Heights",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Vehicles",
+                "value": "Vehicles",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Animals",
+                "value": "Animals",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Water",
+                "value": "Water",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Fire",
+                "value": "Fire",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Water",
+        "skills": [
+            {
+                "key": "Diving",
+                "value": "Diving",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Fly Fishing",
+                "value": "Fly Fishing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Kayak",
+                "value": "Kayak",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Sailing",
+                "value": "Sailing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Scuba Diving",
+                "value": "Scuba Diving",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Free Diving",
+                "value": "Free Diving",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Surfing",
+                "value": "Surfing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Swimming",
+                "value": "Swimming",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Rowing",
+                "value": "Rowing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Water Skiing",
+                "value": "Water Skiing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Wind Surfing",
+                "value": "Wind Surfing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Surf Life saving",
+                "value": "Surf Life saving",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Para sailing",
+                "value": "Para sailing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Paddle Board",
+                "value": "Paddle Board",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Jetski",
+                "value": "Jetski",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Kite / Wing Surfing",
+                "value": "Kite / Wing Surfing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Foilboarding",
+                "value": "Foilboarding",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Yachting",
+                "value": "Yachting",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Iron Man",
+                "value": "Iron Man",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Horse Riding",
+        "skills": [
+            {
+                "key": "Dressage",
+                "value": "Dressage",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Jockey",
+                "value": "Jockey",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Western",
+                "value": "Western",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Rodeo",
+                "value": "Rodeo",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Show Jumping",
+                "value": "Show Jumping",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Bareback",
+                "value": "Bareback",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Athletics",
+        "skills": [
+            {
+                "key": "Running Long Distance",
+                "value": "Running Long Distance",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Running medium Distance",
+                "value": "Running medium Distance",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Sprinting",
+                "value": "Sprinting",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Hurdles",
+                "value": "Hurdles",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "High Jump",
+                "value": "High Jump",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Long Jump",
+                "value": "Long Jump",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Triple Jump",
+                "value": "Triple Jump",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Shotput",
+                "value": "Shotput",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Javelin",
+                "value": "Javelin",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Pole Vault",
+                "value": "Pole Vault",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Discus",
+                "value": "Discus",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Pentathlon",
+                "value": "Pentathlon",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Heptathlon",
+                "value": "Heptathlon",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Decathlon",
+                "value": "Decathlon",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Gymnastics",
+        "skills": [
+            {
+                "key": "Vault",
+                "value": "Vault",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Uneven Bars",
+                "value": "Uneven Bars",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Balance Beam",
+                "value": "Balance Beam",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Floor",
+                "value": "Floor",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "High Bar",
+                "value": "High Bar",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Pommel Horse",
+                "value": "Pommel Horse",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Rings",
+                "value": "Rings",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Parallel Bars",
+                "value": "Parallel Bars",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Rythmic Gymnastics",
+                "value": "Rythmic Gymnastics",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Yoga/Pilates",
+        "skills": [
+            {
+                "key": "Vinyasa Yoga",
+                "value": "Vinyasa Yoga",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Hatha Yoga",
+                "value": "Hatha Yoga",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Ashtanga Yoga",
+                "value": "Ashtanga Yoga",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Yin Yoga",
+                "value": "Yin Yoga",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Restorative Yoga",
+                "value": "Restorative Yoga",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Bikram Yoga",
+                "value": "Bikram Yoga",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Yogilates",
+                "value": "Yogilates",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Kids Yoga",
+                "value": "Kids Yoga",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Breath Work",
+                "value": "Breath Work",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Sports",
+        "subgroup": "Other",
+        "skills": [
+            {
+                "key": "Rock Climbing",
+                "value": "Rock Climbing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Parachuting",
+                "value": "Parachuting",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Hang gliding",
+                "value": "Hang gliding",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Cheer Leading",
+                "value": "Cheer Leading",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Weight Lifting",
+                "value": "Weight Lifting",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Body Building",
+                "value": "Body Building",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Strongman",
+                "value": "Strongman",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Pilates",
+                "value": "Pilates",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Parkour",
+                "value": "Parkour",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Rip Stick",
+                "value": "Rip Stick",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Performance Skills",
+        "subgroup": "Modeling",
+        "skills": [
+            {
+                "key": "Runway",
+                "value": "Runway",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Body Work",
+                "value": "Body Work",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Editorial",
+                "value": "Editorial",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Showings",
+                "value": "Showings",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Nude",
+                "value": "Nude",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Lingere/Swimwear",
+                "value": "Lingere/Swimwear",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Hand/Feet",
+                "value": "Hand/Feet",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Performance Skills",
+        "subgroup": "General",
+        "skills": [
+            {
+                "key": "After Dinner Speaking",
+                "value": "After Dinner Speaking",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Comedy",
+                "value": "Comedy",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Master of Ceremonies",
+                "value": "Master of Ceremonies",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Musical Comedy",
+                "value": "Musical Comedy",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Professional Musician",
+                "value": "Professional Musician",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Professional Singer",
+                "value": "Professional Singer",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Stand Up Comic",
+                "value": "Stand Up Comic",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "TV Presenting",
+                "value": "TV Presenting",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Children's entertainer",
+                "value": "Children's entertainer",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Musical Theatre",
+                "value": "Musical Theatre",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Professional Theatre",
+                "value": "Professional Theatre",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Web Presenter",
+                "value": "Web Presenter",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Live promotional",
+                "value": "Live promotional",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Improvised role play",
+                "value": "Improvised role play",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Face Painting",
+                "value": "Face Painting",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Performance Skills",
+        "subgroup": "Voice Over",
+        "skills": [
+            {
+                "key": "Voicing for Animation",
+                "value": "Voicing for Animation",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Video game voicing",
+                "value": "Video game voicing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Character",
+                "value": "Character",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Accents",
+                "value": "Accents",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Cartoon",
+                "value": "Cartoon",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            }
+        ]
+    },
+    {
+        "category": "Performance Skills",
+        "subgroup": "Voice",
+        "skills": [
+            {
+                "key": "Commentating",
+                "value": "Commentating",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Disc Jockey",
+                "value": "Disc Jockey",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Radio Presenting",
+                "value": "Radio Presenting",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Talkback Host",
+                "value": "Talkback Host",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Narrator",
+                "value": "Narrator",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Story teller",
+                "value": "Story teller",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Lip Syncing",
+                "value": "Lip Syncing",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Radio Drama",
+                "value": "Radio Drama",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Looping",
+                "value": "Looping",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Auto cue",
+                "value": "Auto cue",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
+            },
+            {
+                "key": "Commercial",
+                "value": "Commercial",
+                "proficiency": null,
+                "media": null,
+                "is_selected": false
             }
         ]
     }

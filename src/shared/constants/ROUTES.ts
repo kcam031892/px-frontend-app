@@ -2,6 +2,8 @@ export const ROUTES = {
   ROOT: '/',
   LOGIN: '/login',
   SIGNUP: '/signup',
+  FORGOT_PASSWORD: '/forgot_password',
+  RESET_PASSWORD: '/reset_password',
   COMPLETE_PROFILE: '/complete_profile',
   TALENT: {
     DASHBOARD: '/talent/dashboard',
