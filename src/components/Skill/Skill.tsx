@@ -184,12 +184,12 @@ const Skill = ({ title, category }: Props) => {
       },
     });
 
-    /* const skillsResponse = await GET({
-      url: <skills-endpoint>,
-      headers: {
-        Authorization: `Bearer ${getAuthToken()}`,
-      },
-    }); */
+    // const skillsResponse = await GET({
+    //   url: `${ENDPOINTS.TALENTS}/`,
+    //   headers: {
+    //     Authorization: `Bearer ${getAuthToken()}`,
+    //   },
+    // });
 
     setMedia(mediaResponse);
     // setSkills(skillsResponse.attributes.skills); // something like that
