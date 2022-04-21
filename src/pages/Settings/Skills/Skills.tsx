@@ -4,6 +4,13 @@ import { Route, Link, Switch, useRouteMatch, useParams, Redirect, useLocation } 
 import { Tabs, Box, Tab, Grid, Card, CardContent, Typography, Input, FormControl, InputLabel } from '@material-ui/core';
 import { useCardContentStyle } from 'themes/styles/useCardContentStyle';
 import Accents from './Accents/Accents';
+import Languages from './Languages/Languages';
+import Instrumental from './Instrumental/Instrumental';
+import Dance from './Dance/Dance';
+import Vocal from './Vocal/Vocal';
+import Circus from './Circus/Circus';
+import Sports from './Sports/Sports';
+import PerformanceSkills from './PerformanceSkills/PerformanceSkills';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -41,43 +48,43 @@ const tabs = [
   {
     name: 'languages',
     header: 'Languages',
-    component: <div>Languages</div>,
+    component: <Languages />,
     disabled: false,
   },
   {
     name: 'instrumental',
     header: 'Instrumental',
-    component: <div>Instrumental</div>,
+    component: <Instrumental />,
     disabled: false,
   },
   {
     name: 'dance',
     header: 'Dance',
-    component: <div>Dance</div>,
+    component: <Dance />,
     disabled: false,
   },
   {
     name: 'vocal',
     header: 'Vocal',
-    component: <div>Vocal</div>,
+    component: <Vocal />,
     disabled: false,
   },
   {
     name: 'circus',
     header: 'Circus',
-    component: <div>Circus</div>,
+    component: <Circus />,
     disabled: false,
   },
   {
     name: 'sports',
     header: 'Sports',
-    component: <div>Sports</div>,
+    component: <Sports />,
     disabled: false,
   },
   {
     name: 'performanceSkills',
     header: 'Performance Skills',
-    component: <div>Performance Skills</div>,
+    component: <PerformanceSkills />,
     disabled: false,
   },
 ];

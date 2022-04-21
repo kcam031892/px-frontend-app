@@ -24,5 +24,13 @@ export const useStyles = makeStyles(() =>
         alignItems: 'center',
       },
     },
+    dialogContentContainer: {
+      padding: '8px 24px 24px',
+    },
+    buttonContainer: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+      gap: '10px',
+    },
   }),
 );
