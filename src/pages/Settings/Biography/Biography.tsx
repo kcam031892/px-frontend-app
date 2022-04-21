@@ -34,6 +34,7 @@ const Biography = () => {
     resume: yup.array(),
     biography: yup.string(),
     statistics: yup.string(),
+    resume_show_year: yup.boolean(),
   });
 
   const handleUpdateBiography = (values: ITalentUpdatePayload) => {

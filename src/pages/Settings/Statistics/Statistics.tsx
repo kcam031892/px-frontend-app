@@ -120,6 +120,7 @@ const Statistics = () => {
 
   const statisticsValidationScheme: yup.SchemaOf<ITalentUpdatePayload> = yup.object().shape({
     resume: yup.array(),
+    resume_show_year: yup.boolean(),
     biography: yup.string(),
     statistics: yup.string(),
   });

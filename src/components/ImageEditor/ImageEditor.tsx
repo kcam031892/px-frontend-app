@@ -291,8 +291,9 @@ const ImageEditor: React.FC<Props> = ({ onCloseEditor, media }) => {
                 background={false}
                 wheelZoomRatio={0.1}
                 cropBoxResizable={true}
-                checkCrossOrigin={true}
+                checkCrossOrigin={false}
                 crossOrigin="anonymous"
+                ready={() => setIsImageLoaded(true)}
                 zoomOnWheel={true}
                 onInitialized={(instance) => {
                   setCropper(instance);

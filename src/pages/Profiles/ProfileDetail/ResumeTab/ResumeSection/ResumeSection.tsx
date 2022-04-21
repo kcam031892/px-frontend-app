@@ -4,8 +4,10 @@ import { DeleteIcon, DownIcon, UpIcon } from 'components/Icons';
 import React from 'react';
 import { useHistory } from 'react-router';
 import { ROUTES } from 'shared/constants/ROUTES';
+import { SectionType } from 'shared/enums/SectionType';
 import { ISection } from 'shared/interfaces/ITalent';
 import { Button } from 'themes/elements';
+import SummaryCard from '../SummaryCard/SummaryCard';
 
 import TableCard from '../TableCard/TableCard';
 import { useStyles } from './ResumeSection.styles';
@@ -17,6 +19,7 @@ type Props = {
   section: ISection;
   handleSelectResume?: (section: ISection) => void;
   handleHideResume?: (section: ISection) => void;
+  isShowYear?: boolean;
 };
 const ResumeSection: React.FC<Props> = ({
   isSelected,
@@ -26,6 +29,7 @@ const ResumeSection: React.FC<Props> = ({
   section,
   handleSelectResume,
   handleHideResume,
+  isShowYear,
 }) => {
   const { push } = useHistory();
   const classes = useStyles();
@@ -35,7 +39,15 @@ const ResumeSection: React.FC<Props> = ({
       <CardContent>
         {/* Content */}
         <InputBase fullWidth value={section.title} readOnly />
-        {module === 'selected' && <TableCard section={section} />}
+        {module === 'selected' && (
+          <>
+            {section.section_type === SectionType.TABLE ? (
+              <TableCard section={section} isShowYear={isShowYear} />
+            ) : (
+              <SummaryCard section={section} />
+            )}
+          </>
+        )}
         {/* Action */}
         <Box
           className={clsx(classes.actionContainer, {

@@ -17,6 +17,7 @@ export interface IResume {
   type: string;
   attributes: {
     id: string;
+    resume_show_year: boolean;
     resume: ISection[];
   };
 }
@@ -52,6 +53,7 @@ export interface ITalentStatisticsResponsePayload extends ICommonCreateResponseP
 }
 
 export interface ITalentUpdatePayload {
+  resume_show_year?: boolean;
   resume?: ISection[];
   biography?: string;
   statistics?: string;
