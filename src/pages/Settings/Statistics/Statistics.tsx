@@ -80,7 +80,7 @@ const Statistics = () => {
     setTalentChipValue((value) => value.filter((v) => v.value !== value));
   };
 
-  const [regionValue, setRegionValue] = useState('');
+  const [regionValue, setRegionValue] = useState(region[0].value);
   const [ageValue, setAgeValue] = useState('');
   const [metricValue, setMetricValue] = useState(metric[0].value);
   const [genderValue, setGenderValue] = useState('');
