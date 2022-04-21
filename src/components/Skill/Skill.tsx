@@ -1,5 +1,17 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Box, Grid, Card, CardContent, Typography, Button, Chip, FormControlLabel, Checkbox } from '@material-ui/core';
+import {
+  Box,
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Chip,
+  FormControlLabel,
+  Checkbox,
+  Snackbar,
+} from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import { useCardContentStyle } from 'themes/styles/useCardContentStyle';
 import { useSkillStyle } from 'themes/styles/useSkillStyle';
 import IMedia, { IMediaResponse } from 'shared/interfaces/IMedia';
@@ -25,9 +37,14 @@ const Skill = ({ title, category }: Props) => {
   const [selectedProficiency, setSelectedProficiency] = useState<IProficiencyItem>({ key: '', value: '' });
   const [isMediaModalOpen, setIsMediaModalOpen] = useState<boolean>(false);
   const [currentSkill, setCurrentSkill] = useState<TCurrentSkill>();
+  const [snackMessage, setSnackMessage] = useState<String | null>(null);
 
   const { getAuthToken } = authToken();
   const { GET, PATCH } = useAxios();
+
+  const handleSnackBarClose = () => {
+    setSnackMessage(null);
+  };
 
   const getSubgroup = (subgroup: string) => skills.filter((x) => x.subgroup === subgroup)![0];
 
@@ -183,6 +200,8 @@ const Skill = ({ title, category }: Props) => {
       data: {
         skills: reconstructedData,
       },
+    }).then((response) => {
+      setSnackMessage(response.data.message);
     });
   };
 
@@ -199,7 +218,7 @@ const Skill = ({ title, category }: Props) => {
     setMedia(mediaResponse);
   }, [GET, getAuthToken]);
 
-  const initialize = useCallback(
+  const initializeSkills = useCallback(
     async (title) => {
       const {
         data: { data: skillsResponse },
@@ -222,7 +241,7 @@ const Skill = ({ title, category }: Props) => {
   }, []);
 
   useEffect(() => {
-    initialize(title);
+    initializeSkills(title);
     // eslint-disable-next-line
   }, [title]);
 
@@ -238,7 +257,7 @@ const Skill = ({ title, category }: Props) => {
           </Typography>
         </Grid>
         <Grid xs={12} md={6} item className={skillStyle.flexRight}>
-          <Button variant="outlined" onClick={initialize}>
+          <Button variant="outlined" onClick={initializeSkills}>
             Cancel
           </Button>
           <Button onClick={onSave} variant="contained" color="primary" className={skillStyle.btnPrimary}>
@@ -307,6 +326,11 @@ const Skill = ({ title, category }: Props) => {
         onCancel={closeMedialModal}
         initialSelectedIds={selectedMediaIds}
       />
+      <Snackbar open={!!snackMessage} autoHideDuration={6000} onClose={handleSnackBarClose}>
+        <Alert severity="success" onClose={handleSnackBarClose}>
+          {snackMessage}
+        </Alert>
+      </Snackbar>
     </Grid>
   );
 };
