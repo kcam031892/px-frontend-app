@@ -1,12 +1,27 @@
 import hS from 'humanize-string';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { authDao } from 'shared/dao/authDao';
-import { ISignInRequestPayload, ISignUpRequestPayload, IUser } from 'shared/interfaces/IUser';
+import {
+  IForgotPasswordRequestPayload,
+  IResetPasswordRequestPayload,
+  ISignInRequestPayload,
+  ISignUpRequestPayload,
+  IUser,
+} from 'shared/interfaces/IUser';
 import { ls } from 'shared/utils/ls';
 
 import { AppThunk, RootState } from '../store';
 
-const { loginWithGoogle, loginWithFacebook, logout, getUserProfile: getUserProfileService, login, signup } = authDao();
+const {
+  loginWithGoogle,
+  loginWithFacebook,
+  logout,
+  getUserProfile: getUserProfileService,
+  login,
+  signup,
+  sendEmail,
+  resetPassword,
+} = authDao();
 
 const { setLS, removeLS } = ls();
 
@@ -104,6 +119,54 @@ export const userSignup =
       dispatch(setErrorMessage(null));
       setLS('is_completed_primary_details', user.attributes.completed_primary_details);
       return user;
+    } catch (err: any) {
+      const { errors = {} } = err.response.data;
+      const errMsg = [];
+      for (const key in errors) {
+        const errArr = errors[key];
+        errMsg.push(`${hS(key)} ${errArr.join('. ')}`);
+      }
+      dispatch(setErrorMessage(`${errMsg.join('. ')}.`));
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  };
+export const userSendEmail =
+  (payload: IForgotPasswordRequestPayload): AppThunk =>
+  async (dispatch) => {
+    try {
+      dispatch(setIsLoading(true));
+
+      const {
+        data: { message },
+      } = await sendEmail(payload);
+
+      dispatch(setErrorMessage(message));
+      return message;
+    } catch (err: any) {
+      const { errors = {} } = err.response.data;
+      const errMsg = [];
+      for (const key in errors) {
+        const errArr = errors[key];
+        errMsg.push(`${hS(key)} ${errArr.join('. ')}`);
+      }
+      dispatch(setErrorMessage(`${errMsg.join('. ')}.`));
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  };
+export const userResetPassword =
+  (payload: IResetPasswordRequestPayload): AppThunk =>
+  async (dispatch) => {
+    try {
+      dispatch(setIsLoading(true));
+
+      const {
+        data: { message },
+      } = await resetPassword(payload);
+
+      dispatch(setErrorMessage(message));
+      return message;
     } catch (err: any) {
       const { errors = {} } = err.response.data;
       const errMsg = [];
