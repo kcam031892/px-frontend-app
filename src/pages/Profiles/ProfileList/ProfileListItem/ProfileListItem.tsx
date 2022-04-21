@@ -75,7 +75,7 @@ const ProfileListItem: React.FC<Props> = ({ profile }) => {
             aria-haspopup="true"
             className={classes.profile__action__button}
             onClick={handleMenuOpen}
-            disabled={profile.attributes.status === ProfileStatus.PENDING}
+            // disabled={profile.attributes.status === ProfileStatus.PENDING}
           >
             <MoreVertIcon />
           </IconButton>
