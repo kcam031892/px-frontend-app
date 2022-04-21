@@ -16,8 +16,8 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import ClearIcon from '@material-ui/icons/Clear';
 import Done from '@material-ui/icons/Done';
 import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
-import ethnicity from 'data/Ethnicities.json';
-import { useStyles } from './EthnicityDialog.styles';
+import talentTypes from 'data/TalentTypes.json';
+import { useStyles } from './TalentTypesDialog.styles';
 import { boolean } from 'yup/lib/locale';
 import { forEach } from 'lodash';
 
@@ -28,8 +28,8 @@ type Props = {
   setSelectedChips: (e: any) => void;
 };
 
-const EthnicityDialog: React.FC<Props> = ({ open, onClose, selectedChips, setSelectedChips }) => {
-  const [allChips, setAllChips] = React.useState(ethnicity);
+const TalentTypesDialog: React.FC<Props> = ({ open, onClose, selectedChips, setSelectedChips }) => {
+  const [allChips, setAllChips] = React.useState(talentTypes);
   const [selected, setSelected] = React.useState(new Set());
 
   const [isLargeDialog, setIsLargeDialog] = useState<boolean>(false);
@@ -79,12 +79,12 @@ const EthnicityDialog: React.FC<Props> = ({ open, onClose, selectedChips, setSel
           <Grid item xs={12} md={12}>
             {allChips.map((c: any) => (
               <Chip
-                label={c.name}
+                label={c.value}
                 key={c.id}
                 onClick={() => handleSelectionChanged(c.id)}
                 variant={selected.has(c.id) ? 'outlined' : 'default'}
               >
-                {c.name}
+                {c.value}
               </Chip>
             ))}
           </Grid>
@@ -113,4 +113,4 @@ const EthnicityDialog: React.FC<Props> = ({ open, onClose, selectedChips, setSel
   );
 };
 
-export default EthnicityDialog;
+export default TalentTypesDialog;

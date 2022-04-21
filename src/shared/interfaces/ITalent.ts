@@ -68,8 +68,8 @@ export interface IStatisticsValues {
   t_shirt_size?: string;
   hip_size_cm?: string;
   hip_size_in?: string;
-  ethnicity?: string[];
-  other_talent_types?: string[];
+  ethnicity?: any[];
+  other_talent_types?: any[];
 }
 
 export interface IStatistics {
