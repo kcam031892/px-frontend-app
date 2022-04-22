@@ -6,7 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { IResetPasswordRequestPayload } from 'shared/interfaces/IUser';
 import { InputPassword, Backdrop } from 'themes/elements';
-import { selectUserState, userResetPassword, setErrorMessage } from 'shared/redux/slicers/user.slicer';
+import {
+  selectUserState,
+  userResetPassword,
+  setErrorMessage,
+  setResponseMessage,
+} from 'shared/redux/slicers/user.slicer';
 import * as yup from 'yup';
 import { FormikProps, useFormik } from 'formik';
 import { getErrorMessage } from 'shared/utils/getErrorMessage';
@@ -15,13 +20,16 @@ import { PasswordPrinciple, validatePassword } from 'shared/utils/passwordUtil';
 import { PasswordStrength } from 'components/PasswordStrength';
 import { useStyles } from './ResetPassword.styles';
 
-const Signup = () => {
+const ResetPassword = () => {
+  const { search = '' } = window.location;
+  const urlParams = new URLSearchParams(search);
+  const token = urlParams.get('reset_password_token');
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
   const [passwordValidationResult, setPasswordValidationResult] = useState<PasswordPrinciple | null>(null);
 
-  const { isLoading, errorMessage, isLoggedIn } = useSelector(selectUserState);
+  const { isLoading, errorMessage, responseMessage, isLoggedIn } = useSelector(selectUserState);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -31,11 +39,13 @@ const Signup = () => {
 
   // Forms
   const initialValues: IResetPasswordRequestPayload = {
+    reset_password_token: token || '',
     password: '',
     password_confirmation: '',
   };
 
   const resetPasswordValidationSchema: yup.SchemaOf<IResetPasswordRequestPayload> = yup.object({
+    reset_password_token: yup.string().required('Token is required'),
     password: yup
       .string()
       .required('Password is required')
@@ -55,10 +65,11 @@ const Signup = () => {
 
   const handleSnackBarClose = () => {
     dispatch(setErrorMessage(null));
+    dispatch(setResponseMessage(null));
   };
 
   const handleSignUpSubmit = async (values: IResetPasswordRequestPayload) => {
-    dispatch(userResetPassword(values));
+    dispatch(userResetPassword(values, history));
   };
 
   const form: FormikProps<IResetPasswordRequestPayload> = useFormik({
@@ -126,6 +137,11 @@ const Signup = () => {
                 {errorMessage}
               </Alert>
             </Snackbar>
+            <Snackbar open={!!responseMessage} autoHideDuration={6000} onClose={handleSnackBarClose}>
+              <Alert severity="success" onClose={handleSnackBarClose}>
+                {responseMessage}
+              </Alert>
+            </Snackbar>
             <Backdrop isLoading={isLoading} />
           </Grid>
         </Grid>
@@ -134,4 +150,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default ResetPassword;

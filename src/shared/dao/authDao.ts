@@ -14,7 +14,7 @@ import {
 } from 'shared/interfaces/IUser';
 import { authToken } from 'shared/utils/authToken';
 
-const { GET, POST, DELETE, PATCH } = useAxios();
+const { GET, POST, DELETE, PATCH, PUT } = useAxios();
 
 export const authDao = () => {
   const { getAuthToken } = authToken();
@@ -42,7 +42,7 @@ export const authDao = () => {
 
   const sendEmail = async (payload: IForgotPasswordRequestPayload) => {
     const response = await POST<IForgotPasswordResponsePayload>({
-      url: `${ENDPOINTS.FORGOT_PASSWORD}`,
+      url: `${ENDPOINTS.RESET_PASSWORD}`,
       data: payload,
     });
 
@@ -52,7 +52,7 @@ export const authDao = () => {
   };
 
   const resetPassword = async (payload: IResetPasswordRequestPayload) => {
-    const response = await POST<IResetPasswordResponsePayload>({
+    const response = await PUT<IResetPasswordResponsePayload>({
       url: `${ENDPOINTS.RESET_PASSWORD}`,
       data: payload,
     });
