@@ -11,6 +11,7 @@ import {
 import { ls } from 'shared/utils/ls';
 
 import { AppThunk, RootState } from '../store';
+import { ROUTES } from 'shared/constants/ROUTES';
 
 const {
   loginWithGoogle,
@@ -29,12 +30,14 @@ export interface UserState {
   isLoading: boolean;
   user: IUser | null;
   errorMessage: string | null;
+  responseMessage: string | null;
   isLoggedIn: boolean;
 }
 const initialState: UserState = {
   isLoading: false,
   user: null,
   errorMessage: null,
+  responseMessage: null,
   isLoggedIn: false,
 };
 export const userSlicer = createSlice({
@@ -49,6 +52,9 @@ export const userSlicer = createSlice({
     },
     setErrorMessage(state: UserState, action: PayloadAction<string | null>) {
       state.errorMessage = action.payload;
+    },
+    setResponseMessage(state: UserState, action: PayloadAction<string | null>) {
+      state.responseMessage = action.payload;
     },
     setIsLoggedIn(state: UserState, action: PayloadAction<boolean>) {
       state.isLoggedIn = action.payload;
@@ -74,6 +80,7 @@ export const {
   setUser,
   setIsLoading,
   setErrorMessage,
+  setResponseMessage,
   setIsLoggedIn,
   handleAuthExpired,
   handleCompleteProfileSuccess,
@@ -138,10 +145,10 @@ export const userSendEmail =
       dispatch(setIsLoading(true));
 
       const {
-        data: { message },
+        data: { message = 'Email successfully sent' },
       } = await sendEmail(payload);
 
-      dispatch(setErrorMessage(message));
+      dispatch(setResponseMessage(message));
       return message;
     } catch (err: any) {
       const { errors = {} } = err.response.data;
@@ -156,16 +163,17 @@ export const userSendEmail =
     }
   };
 export const userResetPassword =
-  (payload: IResetPasswordRequestPayload): AppThunk =>
+  (payload: IResetPasswordRequestPayload, history: any): AppThunk =>
   async (dispatch) => {
     try {
       dispatch(setIsLoading(true));
 
       const {
-        data: { message },
+        data: { message = 'Password successfully updated' },
       } = await resetPassword(payload);
 
-      dispatch(setErrorMessage(message));
+      dispatch(setResponseMessage(message));
+      history.push(ROUTES.LOGIN);
       return message;
     } catch (err: any) {
       const { errors = {} } = err.response.data;

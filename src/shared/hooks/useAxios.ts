@@ -86,7 +86,7 @@ export const useAxios = () => {
     }
   };
 
-  const PUT = async <P, B>(args: IAxios<P, B>): Promise<AxiosResponse> => {
+  const PUT = async <P, B = unknown>(args: IAxios<P, B>): Promise<AxiosResponse> => {
     try {
       return await instance({
         ...args,

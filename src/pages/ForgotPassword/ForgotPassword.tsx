@@ -6,19 +6,19 @@ import { FrontLayout } from 'components';
 import { Link, useHistory } from 'react-router-dom';
 import { IForgotPasswordRequestPayload } from 'shared/interfaces/IUser';
 import { Input, Backdrop } from 'themes/elements';
-import { selectUserState, userSendEmail, setErrorMessage } from 'shared/redux/slicers/user.slicer';
+import { selectUserState, userSendEmail, setErrorMessage, setResponseMessage } from 'shared/redux/slicers/user.slicer';
 import * as yup from 'yup';
 import { FormikProps, useFormik } from 'formik';
 import { getErrorMessage } from 'shared/utils/getErrorMessage';
 import { ROUTES } from 'shared/constants/ROUTES';
 import { useStyles } from './ForgotPassword.styles';
 
-const Signup = () => {
+const ForgotPassword = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { isLoading, errorMessage, isLoggedIn } = useSelector(selectUserState);
+  const { isLoading, errorMessage, responseMessage, isLoggedIn } = useSelector(selectUserState);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -36,16 +36,17 @@ const Signup = () => {
 
   const handleSnackBarClose = () => {
     dispatch(setErrorMessage(null));
+    dispatch(setResponseMessage(null));
   };
 
   const handleforgotPasswordSubmit = async (values: IForgotPasswordRequestPayload) => {
-    // dispatch(userSendEmail(values));
+    dispatch(userSendEmail(values));
   };
 
   const form: FormikProps<IForgotPasswordRequestPayload> = useFormik({
     initialValues,
     validationSchema: forgotPasswordValidationSchema,
-    onSubmit: (values) => console.log('values: ', values), // handleforgotPasswordSubmit(values),
+    onSubmit: (values) => handleforgotPasswordSubmit(values),
   });
 
   return (
@@ -90,6 +91,11 @@ const Signup = () => {
               {errorMessage}
             </Alert>
           </Snackbar>
+          <Snackbar open={!!responseMessage} autoHideDuration={6000} onClose={handleSnackBarClose}>
+            <Alert severity="success" onClose={handleSnackBarClose}>
+              {responseMessage}
+            </Alert>
+          </Snackbar>
           <Backdrop isLoading={isLoading} />
         </Grid>
       </Box>
@@ -97,4 +103,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default ForgotPassword;
