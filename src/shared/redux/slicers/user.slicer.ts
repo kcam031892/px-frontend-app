@@ -139,7 +139,7 @@ export const userSignup =
     }
   };
 export const userSendEmail =
-  (payload: IForgotPasswordRequestPayload): AppThunk =>
+  (payload: IForgotPasswordRequestPayload, history: any): AppThunk =>
   async (dispatch) => {
     try {
       dispatch(setIsLoading(true));
@@ -149,6 +149,7 @@ export const userSendEmail =
       } = await sendEmail(payload);
 
       dispatch(setResponseMessage(message));
+      history.push(ROUTES.LOGIN);
       return message;
     } catch (err: any) {
       const { errors = '' } = err.response.data;
