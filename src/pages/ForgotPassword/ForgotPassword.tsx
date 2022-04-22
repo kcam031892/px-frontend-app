@@ -1,12 +1,11 @@
-import { Box, Button, Grid, Snackbar, Typography } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
+import { Box, Button, Grid, Typography } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FrontLayout } from 'components';
 import { Link, useHistory } from 'react-router-dom';
 import { IForgotPasswordRequestPayload } from 'shared/interfaces/IUser';
 import { Input, Backdrop } from 'themes/elements';
-import { selectUserState, userSendEmail, setErrorMessage, setResponseMessage } from 'shared/redux/slicers/user.slicer';
+import { selectUserState, userSendEmail } from 'shared/redux/slicers/user.slicer';
 import * as yup from 'yup';
 import { FormikProps, useFormik } from 'formik';
 import { getErrorMessage } from 'shared/utils/getErrorMessage';
@@ -18,7 +17,7 @@ const ForgotPassword = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { isLoading, errorMessage, responseMessage, isLoggedIn } = useSelector(selectUserState);
+  const { isLoading, isLoggedIn } = useSelector(selectUserState);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -34,13 +33,8 @@ const ForgotPassword = () => {
     email: yup.string().email('Wrong email format').required('Email is required'),
   });
 
-  const handleSnackBarClose = () => {
-    dispatch(setErrorMessage(null));
-    dispatch(setResponseMessage(null));
-  };
-
   const handleforgotPasswordSubmit = async (values: IForgotPasswordRequestPayload) => {
-    dispatch(userSendEmail(values));
+    dispatch(userSendEmail(values, history));
   };
 
   const form: FormikProps<IForgotPasswordRequestPayload> = useFormik({
@@ -86,16 +80,6 @@ const ForgotPassword = () => {
           </Button>
         </Grid>
         <Grid xs={12} md={12} lg={12}>
-          <Snackbar open={!!errorMessage} autoHideDuration={6000} onClose={handleSnackBarClose}>
-            <Alert severity="error" onClose={handleSnackBarClose}>
-              {errorMessage}
-            </Alert>
-          </Snackbar>
-          <Snackbar open={!!responseMessage} autoHideDuration={6000} onClose={handleSnackBarClose}>
-            <Alert severity="success" onClose={handleSnackBarClose}>
-              {responseMessage}
-            </Alert>
-          </Snackbar>
           <Backdrop isLoading={isLoading} />
         </Grid>
       </Box>
