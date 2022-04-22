@@ -151,13 +151,8 @@ export const userSendEmail =
       dispatch(setResponseMessage(message));
       return message;
     } catch (err: any) {
-      const { errors = {} } = err.response.data;
-      const errMsg = [];
-      for (const key in errors) {
-        const errArr = errors[key];
-        errMsg.push(`${hS(key)} ${errArr.join('. ')}`);
-      }
-      dispatch(setErrorMessage(`${errMsg.join('. ')}.`));
+      const { errors = '' } = err.response.data;
+      dispatch(setErrorMessage(errors));
     } finally {
       dispatch(setIsLoading(false));
     }
