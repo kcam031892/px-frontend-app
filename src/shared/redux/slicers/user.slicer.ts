@@ -11,6 +11,7 @@ import {
 import { ls } from 'shared/utils/ls';
 
 import { AppThunk, RootState } from '../store';
+import { ROUTES } from 'shared/constants/ROUTES';
 
 const {
   loginWithGoogle,
@@ -162,16 +163,17 @@ export const userSendEmail =
     }
   };
 export const userResetPassword =
-  (payload: IResetPasswordRequestPayload): AppThunk =>
+  (payload: IResetPasswordRequestPayload, history: any): AppThunk =>
   async (dispatch) => {
     try {
       dispatch(setIsLoading(true));
 
       const {
-        data: { message },
+        data: { message = 'Password successfully updated' },
       } = await resetPassword(payload);
 
-      dispatch(setErrorMessage(message));
+      dispatch(setResponseMessage(message));
+      history.push(ROUTES.LOGIN);
       return message;
     } catch (err: any) {
       const { errors = {} } = err.response.data;
