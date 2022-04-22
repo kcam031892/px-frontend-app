@@ -22,6 +22,7 @@ import { errorResponseToArray } from 'shared/utils/errorResponseToArray';
 import { ContactInput, Input, InputPassword, useAlert, Backdrop } from 'themes/elements';
 import { useCardContentStyle } from 'themes/styles/useCardContentStyle';
 import { IAccount, IAccountResponsePayload, IAccountUpdatePayload } from 'shared/interfaces/IAccount';
+import { IUserChangePasswordRequestPayload } from 'shared/interfaces/IUser';
 import { getErrorMessage } from 'shared/utils/getErrorMessage';
 import gender from 'data/Gender.json';
 import country from 'data/Countries.json';
@@ -30,6 +31,7 @@ import age from 'data/Age.json';
 import talentTypes from 'data/TalentTypes.json';
 import contactMethod from 'data/ContactMethod.json';
 import { accountService } from 'shared/services/accountService';
+import { authService } from 'shared/services/authService';
 import * as yup from 'yup';
 import { FormikProps, useFormik } from 'formik';
 import { PasswordStrength } from 'components/PasswordStrength';
@@ -40,6 +42,7 @@ type Props = {
 };
 
 const { getAccount, updateAccount } = accountService();
+const { changePassword } = authService();
 
 import { useStyles } from './MyAccount.styles';
 import { Type } from 'typescript';

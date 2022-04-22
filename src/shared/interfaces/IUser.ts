@@ -75,11 +75,13 @@ export interface IUserCompleteProfileResponsePayload {
   message: string;
 }
 
-export interface IChangePasswordRequestPayload {
-  password: string;
-  password_confirmation: string;
+export interface IUserChangePasswordRequestPayload {
+  current_password: string;
+  new_password: string;
+  new_password_confirmation: string;
 }
 
-export interface IChangePasswordResponsePayload {
+export interface IUserChangePasswordResponsePayload {
+  data: IUser;
   message: string;
 }
