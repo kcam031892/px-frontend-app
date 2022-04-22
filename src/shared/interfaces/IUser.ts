@@ -79,3 +79,7 @@ export interface IChangePasswordRequestPayload {
   password: string;
   password_confirmation: string;
 }
+
+export interface IChangePasswordResponsePayload {
+  message: string;
+}
