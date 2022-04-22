@@ -73,3 +73,8 @@ export interface IUserCompleteProfileResponsePayload {
   data: IUser;
   message: string;
 }
+
+export interface IChangePasswordRequestPayload {
+  password: string;
+  password_confirmation: string;
+}
