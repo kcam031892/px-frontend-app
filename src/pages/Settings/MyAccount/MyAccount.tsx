@@ -31,7 +31,6 @@ import age from 'data/Age.json';
 import talentTypes from 'data/TalentTypes.json';
 import contactMethod from 'data/ContactMethod.json';
 import { accountService } from 'shared/services/accountService';
-import { authService } from 'shared/services/authService';
 import * as yup from 'yup';
 import { FormikProps, useFormik } from 'formik';
 import { PasswordStrength } from 'components/PasswordStrength';
@@ -42,7 +41,6 @@ type Props = {
 };
 
 const { getAccount, updateAccount } = accountService();
-const { changePassword } = authService();
 
 import { useStyles } from './MyAccount.styles';
 import { Type } from 'typescript';
@@ -55,8 +53,6 @@ const MyAccount = () => {
 
   const classes = useStyles();
   const cardContentStyle = useCardContentStyle();
-
-  const today = new Date();
 
   const initialValues: IAccountUpdatePayload = {
     email: data ? data.data.attributes.email : '',
@@ -72,7 +68,7 @@ const MyAccount = () => {
     state_region: data ? data.data.attributes.state_region : '',
     age_range_from: data ? data.data.attributes.age_range_from : '',
     age_range_to: data ? data.data.attributes.age_range_to : '',
-    birth_date: data ? data.data.attributes.birth_date : today,
+    birth_date: data ? data.data.attributes.birth_date : '',
     representation: data ? data.data.attributes.representation : false,
     preferred_contact_method: data ? data.data.attributes.preferred_contact_method : '',
   };
@@ -91,7 +87,7 @@ const MyAccount = () => {
     state_region: yup.string().required(),
     age_range_from: yup.string(),
     age_range_to: yup.string(),
-    birth_date: yup.date(),
+    birth_date: yup.string(),
     representation: yup.boolean().default(false),
     preferred_contact_method: yup.string().default(''),
   });
