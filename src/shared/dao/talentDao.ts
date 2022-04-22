@@ -44,7 +44,7 @@ export const talentDao = () => {
 
   const getStatistics = async () => {
     const response = await GET<ITalentStatisticsResponsePayload>({
-      url: `${ENDPOINTS.TALENTS}/biography`,
+      url: `${ENDPOINTS.TALENTS}/statistics`,
       headers: {
         Authorization: `Bearer ${getAuthToken()}`,
       },

@@ -38,10 +38,11 @@ import { useAlert } from 'themes/elements';
 import ImageOverlay from './ImageItem/ImageOverlay';
 import { debounce } from 'lodash';
 import IMedia from 'shared/interfaces/IMedia';
+import { base64ToBlob } from 'base64-blob';
 
 const { getMediaProfile, setSelectProfileMedia, unSelectProfileMedia, updateProfileMediaSort, setProfilePrimaryImage } =
   profileService();
-const { getMediaList } = mediaService();
+const { getMediaList, updateMedia } = mediaService();
 
 const ImageTab = () => {
   const { profileId } = useParams() as { profileId: string };
@@ -57,6 +58,7 @@ const ImageTab = () => {
   const { mutate: unselectMutate } = unSelectProfileMedia();
   const { mutate: updateSortMutate, isLoading: isLoadingUpdateSort } = updateProfileMediaSort();
   const { mutate: primaryImageMutate, isLoading: isSaving } = setProfilePrimaryImage();
+  const { mutateAsync: updateMediaMutate } = updateMedia();
   const queryClient = useQueryClient();
 
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -135,6 +137,20 @@ const ImageTab = () => {
           } else {
             AlertOpen('error', 'Something went wrong');
           }
+        },
+      },
+    );
+  };
+
+  const handleCroppedSave = async (media: IMedia, modifiedImage: string) => {
+    const formData = new FormData();
+    const convertedFile = await base64ToBlob(modifiedImage);
+    formData.set('modified_attachment', convertedFile);
+    await updateMediaMutate(
+      { mediumId: media.attributes.id, formData },
+      {
+        onSuccess: () => {
+          queryClient.resetQueries('media');
         },
       },
     );
@@ -280,7 +296,14 @@ const ImageTab = () => {
         classes={{ paper: classes.dialogPaper }}
       >
         <DialogContent className={classes.dialogContent}>
-          {selectedMedia && <ImageEditor onCloseEditor={() => setIsEditorOpen(false)} media={selectedMedia} />}
+          {selectedMedia && (
+            <ImageEditor
+              onCloseEditor={() => setIsEditorOpen(false)}
+              media={selectedMedia}
+              url={selectedMedia.attributes.attachment_url}
+              handleCroppedSave={handleCroppedSave}
+            />
+          )}
         </DialogContent>
       </Dialog>
       {isAlertOpen && alertRef}
