@@ -16,7 +16,7 @@ export interface IAccount {
         adult_minor: string;
         age_range_from: string;
         age_range_to: string;
-        birth_date: string;
+        birth_date: Date;
         representation: boolean;
         preferred_contact_method: string;
         created_at: number;
@@ -42,7 +42,7 @@ export interface IAccountUpdatePayload {
     adult_minor?: string;
     age_range_from?: string;
     age_range_to?: string;
-    birth_date?: string;
+    birth_date?: Date;
     representation: boolean;
     preferred_contact_method?: string;
 }

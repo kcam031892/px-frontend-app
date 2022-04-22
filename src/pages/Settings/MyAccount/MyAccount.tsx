@@ -19,7 +19,7 @@ import { IAlertStatus } from 'shared/interfaces/utils/IAlert';
 import { AxiosError } from 'axios';
 import { IErrorResponse } from 'shared/interfaces/utils/IErrorResonse';
 import { errorResponseToArray } from 'shared/utils/errorResponseToArray';
-import { ContactInput, Input, InputPassword } from 'themes/elements';
+import { ContactInput, Input, InputPassword, useAlert, Backdrop } from 'themes/elements';
 import { useCardContentStyle } from 'themes/styles/useCardContentStyle';
 import { IAccount, IAccountResponsePayload, IAccountUpdatePayload } from 'shared/interfaces/IAccount';
 import { getErrorMessage } from 'shared/utils/getErrorMessage';
@@ -44,17 +44,16 @@ const { getAccount, updateAccount } = accountService();
 import { useStyles } from './MyAccount.styles';
 import { Type } from 'typescript';
 
-const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
-  const { data } = getAccount();
-  const { mutate, isLoading: isMutationLoading } = updateAccount();
+const MyAccount = () => {
+  const { data, isLoading } = getAccount();
+  const { mutate, isLoading: isUpdateLoading } = updateAccount();
+  const { isOpen: isAlertOpen, alertRef, AlertOpen } = useAlert({ autoHideDuration: 2000, horizontal: 'center' });
   const queryClient = useQueryClient();
 
   const classes = useStyles();
   const cardContentStyle = useCardContentStyle();
 
-  const [selectAgeValue, setSelectAgeValue] = useState(data ? data.data.attributes.adult_minor : '');
-  const [isTrue, setIsTrue] = useState(data ? data.data.attributes.representation : false);
-  const [selectCountryValue, setSelectCountryVaue] = useState(data ? data.data.attributes.country : '');
+  const today = new Date();
 
   const initialValues: IAccountUpdatePayload = {
     email: data ? data.data.attributes.email : '',
@@ -70,7 +69,7 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
     state_region: data ? data.data.attributes.state_region : '',
     age_range_from: data ? data.data.attributes.age_range_from : '',
     age_range_to: data ? data.data.attributes.age_range_to : '',
-    birth_date: data ? data.data.attributes.birth_date : '',
+    birth_date: data ? data.data.attributes.birth_date : today,
     representation: data ? data.data.attributes.representation : false,
     preferred_contact_method: data ? data.data.attributes.preferred_contact_method : '',
   };
@@ -89,7 +88,7 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
     state_region: yup.string().required(),
     age_range_from: yup.string(),
     age_range_to: yup.string(),
-    birth_date: yup.string(),
+    birth_date: yup.date(),
     representation: yup.boolean().default(false),
     preferred_contact_method: yup.string().default(''),
   });
@@ -98,15 +97,7 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
     mutate(values, {
       onSuccess: () => {
         queryClient.invalidateQueries('accounts');
-        AlertOpen('success', 'Account has been updated');
-      },
-      onError: (errors: any, variables, context) => {
-        if (errors?.response?.data?.errors) {
-          const errorResponseArray = errorResponseToArray(errors.response.data.errors);
-          AlertOpen('error', errorResponseArray.join(','));
-        } else {
-          AlertOpen('error', 'Something went wrong');
-        }
+        AlertOpen('success', 'Account details has been successfully updated');
       },
     });
   };
@@ -115,11 +106,8 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
     initialValues,
     validationSchema: updateAccountValidationScheme,
     onSubmit: (values) => handleSubmit(values),
+    enableReinitialize: true,
   });
-
-  const selectAge = (event: React.ChangeEvent<{ value: any }>) => {
-    setSelectAgeValue(event.target.value);
-  };
 
   const selectCountry = (e: React.ChangeEvent<{ value: any }>) => {
     const value = country.filter(function (item) {
@@ -143,6 +131,9 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
       form.setFieldValue('state_region', data.data.attributes.state_region);
       form.setFieldValue('age_range_from', data.data.attributes.age_range_from);
       form.setFieldValue('age_range_to', data.data.attributes.age_range_to);
+      form.setFieldValue('birth_date', data.data.attributes.birth_date);
+      form.setFieldValue('representation', data.data.attributes.representation);
+      form.setFieldValue('preferred_contact_method', data.data.attributes.preferred_contact_method);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
@@ -154,380 +145,408 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
 
   return (
     <Grid container spacing={0}>
-      <Grid container spacing={2}>
-        <Grid xs={12} md={6} item>
-          <Card variant="outlined">
-            <CardContent className={cardContentStyle.root}>
-              <Typography variant="h6" gutterBottom>
-                My Details
-              </Typography>
-              <Grid container spacing={2}>
-                <Grid xs={12} md={6} item>
-                  <Input
-                    label={'First Name'}
-                    fullWidth
-                    InputProps={{ disableUnderline: true }}
-                    InputLabelProps={{ shrink: true }}
-                    name="first_name"
-                    value={form.values.first_name}
-                    onChange={form.handleChange}
-                  />
-                </Grid>
-                <Grid xs={12} md={6} item>
-                  <Input
-                    label={'Last Name'}
-                    fullWidth
-                    InputProps={{ disableUnderline: true }}
-                    InputLabelProps={{ shrink: true }}
-                    name="last_name"
-                    value={form.values.last_name}
-                    onChange={form.handleChange}
-                  />
-                </Grid>
-                <Grid xs={12} md={6} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <InputLabel id="lblType" shrink>
-                      Gender
-                    </InputLabel>
-                    <Select
-                      labelId={'lblType'}
-                      disableUnderline
-                      onChange={form.handleChange}
-                      value={form.values.gender}
-                      name="gender"
-                    >
-                      {gender.map((i) => (
-                        <MenuItem key={i.key} value={i.value}>
-                          {i.value}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
-        </Grid>
+      {isAlertOpen && alertRef}
+      {!isLoading && (
+        <>
+          <Grid container spacing={2}>
+            <Grid xs={12} md={6} item>
+              <Card variant="outlined">
+                <CardContent className={cardContentStyle.root}>
+                  <Typography variant="h6" gutterBottom>
+                    My Details
+                  </Typography>
+                  <Grid container spacing={2}>
+                    <Grid xs={12} md={6} item>
+                      <Input
+                        label={'First Name'}
+                        fullWidth
+                        InputProps={{ disableUnderline: true }}
+                        InputLabelProps={{ shrink: true }}
+                        name="first_name"
+                        value={form.values.first_name}
+                        onChange={form.handleChange}
+                      />
+                    </Grid>
+                    <Grid xs={12} md={6} item>
+                      <Input
+                        label={'Last Name'}
+                        fullWidth
+                        InputProps={{ disableUnderline: true }}
+                        InputLabelProps={{ shrink: true }}
+                        name="last_name"
+                        value={form.values.last_name}
+                        onChange={form.handleChange}
+                      />
+                    </Grid>
+                    <Grid xs={12} md={6} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        <InputLabel id="lblType" shrink>
+                          Gender
+                        </InputLabel>
+                        <Select
+                          labelId={'lblType'}
+                          disableUnderline
+                          onChange={(e) => {
+                            form.setFieldValue('gender', e.target.value);
+                            form.handleChange(e);
+                          }}
+                          value={form.values.gender}
+                          name="gender"
+                        >
+                          {gender.map((i) => (
+                            <MenuItem key={i.key} value={i.value}>
+                              {i.value}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
 
-        <Grid xs={12} md={6} item>
-          <Card variant="outlined">
-            <CardContent className={cardContentStyle.root}>
-              <Typography variant="h6" gutterBottom>
-                Contact Details
-              </Typography>
-              <Grid container spacing={2}>
-                <Grid xs={12} md={6} item>
-                  <Input
-                    label={'Email Address'}
-                    fullWidth
-                    InputProps={{ disableUnderline: true }}
-                    InputLabelProps={{ shrink: true }}
-                    value={form.values.email}
-                    name="email"
-                    onChange={form.handleChange}
-                  />
-                </Grid>
-                <Grid xs={12} md={6} item>
-                  <ContactInput
-                    className={classes.contactInput}
-                    name="contact_no"
-                    handleCodeChange={(val: any) => {
-                      form.setFieldValue('country_code', val);
-                    }}
-                    onChange={(e) => {
-                      if (form.errors.contact_no && !form.touched.contact_no) {
-                        form.setFieldTouched('contact_number');
-                        form.validateField('contact_number');
-                      }
-                      return form.handleChange(e);
-                    }}
-                    errorMessage={getErrorMessage(form.touched.contact_no, form.errors.contact_no)}
-                    value={form.values.contact_no}
-                  />
-                </Grid>
-                <Grid xs={12} md={6} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <InputLabel id="lblType" shrink>
-                      Country of Residence
-                    </InputLabel>
-                    <Select
-                      labelId={'lblType'}
-                      disableUnderline
-                      value={form.values.country}
-                      name="country"
-                      onChange={(e) => {
-                        form.handleChange(e);
-                        selectCountry(e);
-                      }}
-                    >
-                      {country.map((i) => (
-                        <MenuItem key={i.code} value={i.name}>
-                          {i.name}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                    <input
-                      id="country_code"
-                      value={form.values.country_code}
-                      name="country_code"
-                      onChange={form.handleChange}
-                      type="hidden"
-                    ></input>
-                  </FormControl>
-                </Grid>
-                <Grid xs={12} md={6} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <InputLabel id="lblType" shrink>
-                      State/Region
-                    </InputLabel>
-                    <Select
-                      labelId={'lblType'}
-                      disableUnderline
-                      name="state_region"
-                      value={form.values.state_region}
-                      onChange={form.handleChange}
-                    >
-                      {state
-                        .filter((state) => state.countryCode === form.values.country_code)
-                        .map((i) => (
-                          <MenuItem key={i.id} value={i.name}>
-                            {i.name}
-                          </MenuItem>
-                        ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid xs={12} item>
-          <Card variant="outlined">
-            <CardContent className={cardContentStyle.root}>
-              <Typography variant="h6" gutterBottom>
-                Talent Details
-              </Typography>
-              <Grid container spacing={2}>
-                <Grid xs={12} md={6} lg={3} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <InputLabel id="lblType" shrink>
-                      Primary Talent Type
-                    </InputLabel>
-                    <Select
-                      labelId={'lblType'}
-                      disableUnderline
-                      name="primary_type"
-                      value={form.values.primary_type}
-                      onChange={form.handleChange}
-                    >
-                      {talentTypes.map((i) => (
-                        <MenuItem key={i.id} value={i.value}>
-                          {i.label}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid xs={12} md={6} lg={3} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <InputLabel id="lblType" shrink>
-                      Adult/Minor
-                    </InputLabel>
-                    <Select
-                      labelId={'lblType'}
-                      disableUnderline
-                      name="adult_minor"
-                      value={form.values.adult_minor}
-                      onChange={(e) => {
-                        form.handleChange(e);
-                        selectAge(e);
-                      }}
-                    >
-                      {age.map((i) => (
-                        <MenuItem key={i.key} value={i.value}>
-                          {i.value}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-                {selectAgeValue === 'Minor' ? (
-                  <Grid xs={12} md={12} lg={6} item>
-                    <FormControl margin={'normal'} fullWidth>
-                      <Grid container spacing={2}>
-                        <Grid lg={6} md={6} xs={12} item>
-                          <TextField
-                            type="date"
-                            label={'Date of Birth (For Security Only)'}
-                            fullWidth
-                            InputProps={{ disableUnderline: true }}
-                            InputLabelProps={{ shrink: true }}
-                            name="birth_date"
-                            value={form.values.birth_date}
-                            onChange={form.handleChange}
-                          />
-                        </Grid>
+            <Grid xs={12} md={6} item>
+              <Card variant="outlined">
+                <CardContent className={cardContentStyle.root}>
+                  <Typography variant="h6" gutterBottom>
+                    Contact Details
+                  </Typography>
+                  <Grid container spacing={2}>
+                    <Grid xs={12} md={6} item>
+                      <Input
+                        label={'Email Address'}
+                        fullWidth
+                        InputProps={{ disableUnderline: true }}
+                        InputLabelProps={{ shrink: true }}
+                        value={form.values.email}
+                        name="email"
+                        onChange={form.handleChange}
+                      />
+                    </Grid>
+                    <Grid xs={12} md={6} item>
+                      <ContactInput
+                        className={classes.contactInput}
+                        name="contact_no"
+                        handleCodeChange={(val: any) => {
+                          form.setFieldValue('country_code', form.values.country_code);
+                        }}
+                        onChange={(e) => {
+                          if (form.errors.contact_no && !form.touched.contact_no) {
+                            form.setFieldTouched('contact_no');
+                            form.validateField('contact_no');
+                          }
+                          return form.handleChange(e);
+                        }}
+                        errorMessage={getErrorMessage(form.touched.contact_no, form.errors.contact_no)}
+                        value={form.values.contact_no}
+                      />
+                    </Grid>
+                    <Grid xs={12} md={6} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        <InputLabel id="lblType" shrink>
+                          Country of Residence
+                        </InputLabel>
+                        <Select
+                          labelId={'lblType'}
+                          disableUnderline
+                          value={form.values.country}
+                          name="country"
+                          onChange={(e) => {
+                            form.handleChange(e);
+                            selectCountry(e);
+                            form.setFieldValue('country', e.target.value);
+                          }}
+                        >
+                          {country.map((i) => (
+                            <MenuItem key={i.code} value={i.name}>
+                              {i.name}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                        <input
+                          id="country_code"
+                          value={form.values.country_code}
+                          name="country_code"
+                          onChange={form.handleChange}
+                          type="hidden"
+                        ></input>
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={12} md={6} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        <InputLabel id="lblType" shrink>
+                          State/Region
+                        </InputLabel>
+                        <Select
+                          labelId={'lblType'}
+                          disableUnderline
+                          name="state_region"
+                          value={form.values.state_region}
+                          onChange={(e) => {
+                            form.handleChange(e);
+                            form.setFieldValue('state_region', e.target.value);
+                          }}
+                        >
+                          {state
+                            .filter((state) => state.countryCode === form.values.country_code)
+                            .map((i) => (
+                              <MenuItem key={i.id} value={i.name}>
+                                {i.name}
+                              </MenuItem>
+                            ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid xs={12} item>
+              <Card variant="outlined">
+                <CardContent className={cardContentStyle.root}>
+                  <Typography variant="h6" gutterBottom>
+                    Talent Details
+                  </Typography>
+                  <Grid container spacing={2}>
+                    <Grid xs={12} md={6} lg={3} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        <InputLabel id="lblType" shrink>
+                          Primary Talent Type
+                        </InputLabel>
+                        <Select
+                          labelId={'lblType'}
+                          disableUnderline
+                          name="primary_type"
+                          value={form.values.primary_type}
+                          onChange={(e) => {
+                            form.setFieldValue('primary_type', e.target.value);
+                            form.handleChange(e);
+                          }}
+                        >
+                          {talentTypes.map((i) => (
+                            <MenuItem key={i.id} value={i.value}>
+                              {i.label}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={12} md={6} lg={3} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        <InputLabel id="lblType" shrink>
+                          Adult/Minor
+                        </InputLabel>
+                        <Select
+                          labelId={'lblType'}
+                          disableUnderline
+                          name="adult_minor"
+                          value={form.values.adult_minor}
+                          onChange={(e) => {
+                            form.setFieldValue('adult_minor', e.target.value);
+                            form.handleChange(e);
+                          }}
+                        >
+                          {age.map((i) => (
+                            <MenuItem key={i.key} value={i.value}>
+                              {i.value}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                    {form.values.adult_minor === 'Minor' ? (
+                      <Grid xs={12} md={12} lg={6} item>
+                        <FormControl margin={'normal'} fullWidth>
+                          <Grid container spacing={2}>
+                            <Grid lg={6} md={6} xs={12} item>
+                              <TextField
+                                type="date"
+                                label={'Date of Birth (For Security Only)'}
+                                fullWidth
+                                InputProps={{ disableUnderline: true }}
+                                InputLabelProps={{ shrink: true }}
+                                name="birth_date"
+                                value={form.values.birth_date}
+                                onChange={(e) => {
+                                  form.handleChange(e);
+                                  form.setFieldValue('birth_date', e.target.value);
+                                }}
+                              />
+                            </Grid>
+                          </Grid>
+                        </FormControl>
                       </Grid>
-                    </FormControl>
-                  </Grid>
-                ) : (
-                  <Grid lg={6} xs={12} item>
-                    <FormControl margin={'normal'} fullWidth>
-                      <Grid container spacing={2}>
-                        <Grid lg={6} xs={6} item>
-                          <FormControl fullWidth>
-                            <InputLabel id="lblAgeRange" shrink>
-                              Age Range From
-                            </InputLabel>
-                            <Select
-                              labelId={'lblType'}
-                              value={form.values.age_range_from}
-                              onChange={form.handleChange}
-                              name="age_range_from"
-                              disableUnderline
-                            >
-                              {(() => {
-                                const ageRange = [];
+                    ) : (
+                      <Grid lg={6} xs={12} item>
+                        <FormControl margin={'normal'} fullWidth>
+                          <Grid container spacing={2}>
+                            <Grid lg={6} xs={6} item>
+                              <FormControl fullWidth>
+                                <InputLabel id="lblAgeRange" shrink>
+                                  Age Range From
+                                </InputLabel>
+                                <Select
+                                  labelId={'lblType'}
+                                  value={form.values.age_range_from}
+                                  onChange={(e) => {
+                                    form.setFieldValue('age_range_from', e.target.value);
+                                    form.handleChange(e);
+                                  }}
+                                  name="age_range_from"
+                                  disableUnderline
+                                >
+                                  {(() => {
+                                    const ageRange = [];
 
-                                for (let i = 18; i <= 120; i++) {
-                                  ageRange.push(
-                                    <MenuItem key={i} value={i}>
-                                      {i} years old
-                                    </MenuItem>,
-                                  );
-                                }
+                                    for (let i = 18; i <= 120; i++) {
+                                      ageRange.push(
+                                        <MenuItem key={i} value={i}>
+                                          {i} years old
+                                        </MenuItem>,
+                                      );
+                                    }
 
-                                return ageRange;
-                              })()}
-                            </Select>
-                          </FormControl>
-                        </Grid>
-                        <Grid lg={6} xs={6} item>
-                          <FormControl fullWidth>
-                            <InputLabel id="lblAgeRange" shrink>
-                              Age Range To
-                            </InputLabel>
-                            <Select
-                              labelId={'lblType'}
-                              value={form.values.age_range_to}
-                              onChange={form.handleChange}
-                              name="age_range_to"
-                              disableUnderline
-                            >
-                              {(() => {
-                                const ageRange = [];
+                                    return ageRange;
+                                  })()}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+                            <Grid lg={6} xs={6} item>
+                              <FormControl fullWidth>
+                                <InputLabel id="lblAgeRange" shrink>
+                                  Age Range To
+                                </InputLabel>
+                                <Select
+                                  labelId={'lblType'}
+                                  value={form.values.age_range_to}
+                                  onChange={(e) => {
+                                    form.setFieldValue('age_range_to', e.target.value);
+                                    form.handleChange(e);
+                                  }}
+                                  name="age_range_to"
+                                  disableUnderline
+                                >
+                                  {(() => {
+                                    const ageRange = [];
 
-                                for (let i = 18; i <= 120; i++) {
-                                  ageRange.push(
-                                    <MenuItem key={i} value={i}>
-                                      {i} years old
-                                    </MenuItem>,
-                                  );
-                                }
+                                    for (let i = 18; i <= 120; i++) {
+                                      ageRange.push(
+                                        <MenuItem key={i} value={i}>
+                                          {i} years old
+                                        </MenuItem>,
+                                      );
+                                    }
 
-                                return ageRange;
-                              })()}
-                            </Select>
-                          </FormControl>
-                        </Grid>
+                                    return ageRange;
+                                  })()}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+                          </Grid>
+                        </FormControl>
                       </Grid>
-                    </FormControl>
+                    )}
                   </Grid>
-                )}
-              </Grid>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    name="representation"
-                    checked={form.values.representation}
-                    value={form.values.representation}
-                    onChange={(e) => {
-                      setIsTrue(e.target.checked);
-                      form.handleChange(e);
-                    }}
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="representation"
+                        checked={form.values.representation}
+                        value={form.values.representation}
+                        onChange={(e) => {
+                          form.setFieldValue('representation', e.target.checked);
+                          form.handleChange(e);
+                        }}
+                      />
+                    }
+                    label="I am seeking representation and would like to be contacted by Agents and Managers"
                   />
-                }
-                label="I am seeking representation and would like to be contacted by Agents and Managers"
-              />
-              <Grid container spacing={2}>
-                <Grid xs={12} md={6} lg={3} item>
-                  <FormControl margin={'normal'} fullWidth>
-                    <InputLabel id="lblType" shrink {...getDisabled(!form.values.representation)}>
-                      Preferred Method of Contact
-                    </InputLabel>
-                    <Select
-                      labelId={'lblType'}
-                      disableUnderline
-                      name="preferred_contact_method"
-                      value={form.values.preferred_contact_method}
-                      onChange={form.handleChange}
-                      {...getDisabled(!form.values.representation)}
-                    >
-                      {contactMethod.map((i) => (
-                        <MenuItem key={i.key} value={i.value}>
-                          {i.value}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid xs={12} item>
-          <Card variant="outlined">
-            <CardContent className={cardContentStyle.root}>
-              <Typography variant="h6" gutterBottom>
-                Change Password
-              </Typography>
-              <Grid container spacing={2}>
-                <Grid xs={6} spacing={2} item container>
-                  <Grid xs={12} lg={6} item>
-                    <InputPassword
-                      id={'currentPassword'}
-                      label={'Current Password'}
-                      margin={'normal'}
-                      fullWidth
-                      InputProps={{ disableUnderline: true }}
-                      InputLabelProps={{ shrink: true }}
-                    />
+                  <Grid container spacing={2}>
+                    <Grid xs={12} md={6} lg={3} item>
+                      <FormControl margin={'normal'} fullWidth>
+                        <InputLabel id="lblType" shrink {...getDisabled(!form.values.representation)}>
+                          Preferred Method of Contact
+                        </InputLabel>
+                        <Select
+                          labelId={'lblType'}
+                          disableUnderline
+                          name="preferred_contact_method"
+                          value={form.values.preferred_contact_method}
+                          onChange={(e) => {
+                            form.handleChange(e);
+                            form.setFieldValue('preferred_contact_method', e.target.value);
+                          }}
+                          {...getDisabled(!form.values.representation)}
+                        >
+                          {contactMethod.map((i) => (
+                            <MenuItem key={i.key} value={i.value}>
+                              {i.value}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
                   </Grid>
-                  <Grid xs={12} lg={6} item></Grid>
-                  <Grid xs={12} lg={6} item>
-                    <InputPassword
-                      id={'newPassword'}
-                      label={'New Password'}
-                      margin={'normal'}
-                      fullWidth
-                      InputProps={{ disableUnderline: true }}
-                      InputLabelProps={{ shrink: true }}
-                    />
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid xs={12} item>
+              <Card variant="outlined">
+                <CardContent className={cardContentStyle.root}>
+                  <Typography variant="h6" gutterBottom>
+                    Change Password
+                  </Typography>
+                  <Grid container spacing={2}>
+                    <Grid xs={6} spacing={2} item container>
+                      <Grid xs={12} lg={6} item>
+                        <InputPassword
+                          id={'currentPassword'}
+                          label={'Current Password'}
+                          margin={'normal'}
+                          fullWidth
+                          InputProps={{ disableUnderline: true }}
+                          InputLabelProps={{ shrink: true }}
+                        />
+                      </Grid>
+                      <Grid xs={12} lg={6} item></Grid>
+                      <Grid xs={12} lg={6} item>
+                        <InputPassword
+                          id={'newPassword'}
+                          label={'New Password'}
+                          margin={'normal'}
+                          fullWidth
+                          InputProps={{ disableUnderline: true }}
+                          InputLabelProps={{ shrink: true }}
+                        />
+                      </Grid>
+                      <Grid xs={12} lg={6} item>
+                        <InputPassword
+                          id={'confirmPassword'}
+                          label={'Confirm New Password'}
+                          margin={'normal'}
+                          fullWidth
+                          InputProps={{ disableUnderline: true }}
+                          InputLabelProps={{ shrink: true }}
+                        />
+                      </Grid>
+                    </Grid>
+                    <Grid xs={6} item className={classes.passwordPrinciples}>
+                      <PasswordStrength />
+                    </Grid>
                   </Grid>
-                  <Grid xs={12} lg={6} item>
-                    <InputPassword
-                      id={'confirmPassword'}
-                      label={'Confirm New Password'}
-                      margin={'normal'}
-                      fullWidth
-                      InputProps={{ disableUnderline: true }}
-                      InputLabelProps={{ shrink: true }}
-                    />
-                  </Grid>
-                </Grid>
-                <Grid xs={6} item className={classes.passwordPrinciples}>
-                  <PasswordStrength />
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
-      <Box mt={3}>
-        <Button variant="contained" disableElevation onClick={() => form.handleSubmit()} disabled={isMutationLoading}>
-          {isMutationLoading ? 'Saving Changes...' : 'Save Changes'}
-        </Button>
-      </Box>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+          <Box mt={3}>
+            <Button variant="contained" onClick={() => form.handleSubmit()} disableElevation>
+              Save Changes
+            </Button>
+          </Box>
+        </>
+      )}
+      <Backdrop isLoading={isLoading || isUpdateLoading} />
     </Grid>
   );
 };
