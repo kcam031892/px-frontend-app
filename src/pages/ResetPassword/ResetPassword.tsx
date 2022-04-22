@@ -15,7 +15,10 @@ import { PasswordPrinciple, validatePassword } from 'shared/utils/passwordUtil';
 import { PasswordStrength } from 'components/PasswordStrength';
 import { useStyles } from './ResetPassword.styles';
 
-const Signup = () => {
+const ResetPassword = () => {
+  const { search = '' } = window.location;
+  const urlParams = new URLSearchParams(search);
+  const token = urlParams.get('reset_password_token');
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -31,11 +34,13 @@ const Signup = () => {
 
   // Forms
   const initialValues: IResetPasswordRequestPayload = {
+    reset_password_token: token || '',
     password: '',
     password_confirmation: '',
   };
 
   const resetPasswordValidationSchema: yup.SchemaOf<IResetPasswordRequestPayload> = yup.object({
+    reset_password_token: yup.string().required('Token is required'),
     password: yup
       .string()
       .required('Password is required')
@@ -134,4 +139,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default ResetPassword;

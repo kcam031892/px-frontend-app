@@ -39,13 +39,13 @@ const Signup = () => {
   };
 
   const handleforgotPasswordSubmit = async (values: IForgotPasswordRequestPayload) => {
-    // dispatch(userSendEmail(values));
+    dispatch(userSendEmail(values));
   };
 
   const form: FormikProps<IForgotPasswordRequestPayload> = useFormik({
     initialValues,
     validationSchema: forgotPasswordValidationSchema,
-    onSubmit: (values) => console.log('values: ', values), // handleforgotPasswordSubmit(values),
+    onSubmit: (values) => handleforgotPasswordSubmit(values),
   });
 
   return (
