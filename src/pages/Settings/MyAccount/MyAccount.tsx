@@ -516,7 +516,7 @@ const MyAccount: React.FC<Props> = ({ account, AlertOpen }) => {
                   </Grid>
                 </Grid>
                 <Grid xs={6} item className={classes.passwordPrinciples}>
-                  <PasswordStrength />
+                  <PasswordStrength password="" />
                 </Grid>
               </Grid>
             </CardContent>

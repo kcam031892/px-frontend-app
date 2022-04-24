@@ -109,7 +109,7 @@ const ResetPassword = () => {
                 InputLabelProps={{ shrink: true }}
                 inputProps={{ tabIndex: 8 }}
               />
-              <PasswordStrength />
+              <PasswordStrength password="" />
             </Box>
           </Grid>
           <Grid className={classes.button__container}>

@@ -25,6 +25,7 @@ const Signup = () => {
   const history = useHistory();
   const [passwordValidationResult, setPasswordValidationResult] = useState<PasswordPrinciple | null>(null);
   const [states, setStates] = useState<any>([]);
+  const [password_str, setPasswordStr] = useState<string>('');
 
   const { isLoading, isLoggedIn } = useSelector(selectUserState);
 
@@ -221,6 +222,7 @@ const Signup = () => {
                     form.setFieldTouched('password');
                     form.validateField('password');
                   }
+                  setPasswordStr(e.target.value || '');
                   return form.handleChange(e);
                 }}
                 errorMessage={getErrorMessage(form.touched.password, form.errors.password)}
@@ -248,7 +250,7 @@ const Signup = () => {
                 InputLabelProps={{ shrink: true }}
                 inputProps={{ tabIndex: 8 }}
               />
-              <PasswordStrength />
+              <PasswordStrength password={password_str} />
             </Box>
           </Grid>
           <Grid xs={12} md={12} lg={12} className={classes.button__container}>

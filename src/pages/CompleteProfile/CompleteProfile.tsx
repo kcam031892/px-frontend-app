@@ -148,7 +148,7 @@ const CompleteProfile = () => {
                 InputLabelProps={{ shrink: true }}
                 inputProps={{ tabIndex: 8 }}
               />
-              <PasswordStrength />
+              <PasswordStrength password="" />
             </Box>
           </Grid>
 
