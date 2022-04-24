@@ -75,6 +75,7 @@ const Signup = () => {
     password: yup
       .string()
       .required('Password is required')
+      .min(8, 'Password must be atleast 8 characters')
       .test('passwordValidate', 'Invalid password', (value: any) => {
         if (value) {
           const validatePasswordResult = validatePassword(value);
