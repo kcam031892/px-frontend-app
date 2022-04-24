@@ -1,16 +1,14 @@
-import { Box, Button, Grid, Snackbar } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
+import { Box, Button, Grid } from '@material-ui/core';
 import { FrontLayout } from 'components';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { ISignUpRequestPayload } from 'shared/interfaces/IUser';
 import { ContactInput, Input, InputPassword, Select, Backdrop } from 'themes/elements';
-import { selectUserState, userSignup, setErrorMessage } from 'shared/redux/slicers/user.slicer';
+import { selectUserState, userSignup } from 'shared/redux/slicers/user.slicer';
 import * as yup from 'yup';
 import { FormikProps, useFormik } from 'formik';
 import { getErrorMessage } from 'shared/utils/getErrorMessage';
-import { IKeyValue } from 'shared/interfaces/utils/IKeyValue';
 import { ROUTES } from 'shared/constants/ROUTES';
 import { PasswordPrinciple, validatePassword } from 'shared/utils/passwordUtil';
 import { PasswordStrength } from 'components/PasswordStrength';
@@ -28,7 +26,7 @@ const Signup = () => {
   const [passwordValidationResult, setPasswordValidationResult] = useState<PasswordPrinciple | null>(null);
   const [states, setStates] = useState<any>([]);
 
-  const { isLoading, errorMessage, isLoggedIn } = useSelector(selectUserState);
+  const { isLoading, isLoggedIn } = useSelector(selectUserState);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -94,10 +92,6 @@ const Signup = () => {
     const filteredStates = statesList.filter((state) => state.countryCode === countryCode);
     const newStates = filteredStates.map((state) => ({ key: state.name, value: state.name }));
     setStates(newStates);
-  };
-
-  const handleSnackBarClose = () => {
-    dispatch(setErrorMessage(null));
   };
 
   const handleSignUpSubmit = async (values: ISignUpRequestPayload) => {
@@ -266,11 +260,6 @@ const Signup = () => {
             </Button>
           </Grid>
           <Grid xs={12} md={12} lg={12}>
-            <Snackbar open={!!errorMessage} autoHideDuration={6000} onClose={handleSnackBarClose}>
-              <Alert severity="error" onClose={handleSnackBarClose}>
-                {errorMessage}
-              </Alert>
-            </Snackbar>
             <Backdrop isLoading={isLoading} />
           </Grid>
         </Grid>
