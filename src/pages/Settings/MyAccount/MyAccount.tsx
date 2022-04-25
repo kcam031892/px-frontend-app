@@ -136,10 +136,9 @@ const MyAccount = () => {
 
   const validatePassword = () => {
     changePasswordmutate(passwordState, {
-      // onSuccess: (e, q, r) => {
-      //   console.log(e);
-      //   console.log(r);
-      // },
+      onSuccess: (e) => {
+        console.log(e);
+      },
     });
   };
 
