@@ -14,6 +14,7 @@ type Props = {
 const { getAuthToken, isAuthenticated, isCompletedPrimaryDetail } = tokenService();
 const ClientRoute: React.FC<Props> = ({ component: Component, exact, path }) => {
   // isAuthenticated() ? <Component /> : <Redirect to={ROUTES.LOGIN} />
+  console.log('is auth', isAuthenticated(), isCompletedPrimaryDetail());
 
   const authToken = getAuthToken();
   const dispatch = useDispatch();
