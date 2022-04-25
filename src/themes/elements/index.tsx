@@ -2,7 +2,7 @@ export { useAlert } from './Alert';
 export { Backdrop } from './Backdrop';
 export { Button } from './Button';
 export { ImageSlider } from './ImageSlider';
-export { ContactInput, Input, InputNumber, InputPassword, Select } from './Input';
+export { ContactInput, Input, InputNumber, InputPassword, Select, SelectWithData } from './Input';
 export { Tab } from './Tab';
 export { Tabs } from './Tabs';
 export { VideoSlider } from './VideoSlider';

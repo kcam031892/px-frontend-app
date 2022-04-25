@@ -11,22 +11,23 @@ import {
   Grid,
   InputLabel,
   MenuItem,
-  Select,
   Typography,
+  Select,
 } from '@material-ui/core';
 import { useQueryClient } from 'react-query';
 import { IAlertStatus } from 'shared/interfaces/utils/IAlert';
 import { AxiosError } from 'axios';
 import { IErrorResponse } from 'shared/interfaces/utils/IErrorResonse';
 import { errorResponseToArray } from 'shared/utils/errorResponseToArray';
-import { ContactInput, Input, InputPassword, useAlert, Backdrop } from 'themes/elements';
+import { ContactInput, Input, InputPassword, useAlert, SelectWithData, Backdrop } from 'themes/elements';
 import { useCardContentStyle } from 'themes/styles/useCardContentStyle';
 import { IAccount, IAccountResponsePayload, IAccountUpdatePayload } from 'shared/interfaces/IAccount';
 import { IUserChangePasswordRequestPayload } from 'shared/interfaces/IUser';
 import { getErrorMessage } from 'shared/utils/getErrorMessage';
 import gender from 'data/Gender.json';
-import country from 'data/Countries.json';
-import state from 'data/States.json';
+import countriesList from 'data/Countries.json';
+import stateLessCountries from 'data/StateLessCountries.json';
+import statesList from 'data/States.json';
 import age from 'data/Age.json';
 import talentTypes from 'data/TalentTypes.json';
 import contactMethod from 'data/ContactMethod.json';
@@ -49,11 +50,16 @@ import { useStyles } from './MyAccount.styles';
 import { Type } from 'typescript';
 
 const MyAccount = () => {
+  const classes = useStyles();
+  const cardContentStyle = useCardContentStyle();
+
   const { data, isLoading } = getAccount();
   const { mutate, isLoading: isUpdateLoading } = updateAccount();
   const { mutate: changePasswordmutate } = changePassword();
   const { isOpen: isAlertOpen, alertRef, AlertOpen } = useAlert({ autoHideDuration: 2000, horizontal: 'center' });
   const queryClient = useQueryClient();
+
+  const [states, setStates] = useState<any>([]);
 
   const [passwordState, setPasswordState] = useState<IUserChangePasswordRequestPayload>({
     current_password: '',
@@ -67,9 +73,6 @@ const MyAccount = () => {
     }
   }
 
-  const classes = useStyles();
-  const cardContentStyle = useCardContentStyle();
-
   const initialValues: IAccountUpdatePayload = {
     email: data ? data.data.attributes.email : '',
     full_name: data ? data.data.attributes.full_name : '',
@@ -77,16 +80,20 @@ const MyAccount = () => {
     last_name: data ? data.data.attributes.last_name : '',
     gender: data ? data.data.attributes.gender : '',
     contact_no: data ? data.data.attributes.contact_no : '',
-    country: data ? data.data.attributes.country : '',
-    country_code: data ? data.data.attributes.country_code : '',
+    country: data ? data.data.attributes.country : 'US',
+    country_code: data ? data.data.attributes.country_code : '1',
     primary_type: data ? data.data.attributes.primary_type : '',
-    adult_minor: data ? data.data.attributes.adult_minor : 'Adult',
+    adult_minor: data ? data.data.attributes.adult_minor : '',
     state_region: data ? data.data.attributes.state_region : '',
     age_range_from: data ? data.data.attributes.age_range_from : '',
     age_range_to: data ? data.data.attributes.age_range_to : '',
     birth_date: data ? data.data.attributes.birth_date : '',
     representation: data ? data.data.attributes.representation : false,
     preferred_contact_method: data ? data.data.attributes.preferred_contact_method : '',
+  };
+
+  const handleStateLessCountries = (countryCode: any) => {
+    return stateLessCountries.includes(countryCode);
   };
 
   const updateAccountValidationScheme: yup.SchemaOf<IAccountUpdatePayload> = yup.object().shape({
@@ -100,7 +107,11 @@ const MyAccount = () => {
     country_code: yup.string().required(),
     primary_type: yup.string(),
     adult_minor: yup.string().required(),
-    state_region: yup.string().required(),
+    state_region: yup.string().when('country', {
+      is: (val: any) => handleStateLessCountries(val),
+      then: yup.string().notRequired(),
+      otherwise: yup.string().required('State is required'),
+    }),
     age_range_from: yup.string(),
     age_range_to: yup.string(),
     birth_date: yup.string(),
@@ -117,14 +128,19 @@ const MyAccount = () => {
     });
     changePasswordmutate(passwordState, {
       onSuccess: () => {
-        queryClient.invalidateQueries('accounts');
+        queryClient.invalidateQueries('password');
         AlertOpen('success', 'Password has been successfully updated');
       },
     });
   };
 
   const validatePassword = () => {
-    changePasswordmutate(passwordState, {});
+    changePasswordmutate(passwordState, {
+      // onSuccess: (e, q, r) => {
+      //   console.log(e);
+      //   console.log(r);
+      // },
+    });
   };
 
   const form = useFormik({
@@ -133,13 +149,6 @@ const MyAccount = () => {
     onSubmit: (values) => handleSubmit(values),
     enableReinitialize: true,
   });
-
-  const selectCountry = (e: React.ChangeEvent<{ value: any }>) => {
-    const value = country.filter(function (item) {
-      return item.name == e.target.value;
-    });
-    form.setFieldValue('country_code', value[0].code);
-  };
 
   useEffect(() => {
     if (data) {
@@ -166,6 +175,14 @@ const MyAccount = () => {
   const getDisabled = (val: any) => {
     if (val) return { disabled: true };
     return {};
+  };
+
+  const countries = countriesList.map((country) => ({ key: country.name, value: country.code }));
+
+  const handleSetCountryStates = (countryCode: any) => {
+    const filteredStates = statesList.filter((state) => state.countryCode === countryCode);
+    const newStates = filteredStates.map((state) => ({ key: state.name, value: state.name }));
+    setStates(newStates);
   };
 
   return (
@@ -251,83 +268,49 @@ const MyAccount = () => {
                     </Grid>
                     <Grid xs={12} md={6} item>
                       <ContactInput
+                        handleCodeChange={(val: any) => {
+                          form.setFieldValue('country_code', val);
+                        }}
+                        country={form.values.country.toLowerCase()}
                         className={classes.contactInput}
                         name="contact_no"
-                        handleCodeChange={(val: any) => {
-                          form.setFieldValue('country_code', form.values.country_code);
-                        }}
                         onChange={(e) => {
-                          if (form.errors.contact_no && !form.touched.contact_no) {
-                            form.setFieldTouched('contact_no');
-                            form.validateField('contact_no');
-                          }
+                          form.setFieldTouched('contact_no');
                           return form.handleChange(e);
                         }}
-                        errorMessage={getErrorMessage(form.touched.contact_no, form.errors.contact_no)}
                         value={form.values.contact_no}
                       />
                     </Grid>
                     <Grid xs={12} md={6} item>
-                      <FormControl margin={'normal'} fullWidth>
-                        <InputLabel id="lblType" shrink>
-                          Country of Residence
-                        </InputLabel>
-                        <Select
-                          labelId={'lblType'}
-                          disableUnderline
-                          value={form.values.country}
-                          name="country"
-                          onChange={(e) => {
-                            form.handleChange(e);
-                            selectCountry(e);
-                            form.setFieldValue('country', e.target.value);
-                          }}
-                        >
-                          {country.map((i) => (
-                            <MenuItem key={i.code} value={i.name}>
-                              {i.name}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                        <input
-                          id="country_code"
-                          value={form.values.country_code}
-                          name="country_code"
-                          onChange={form.handleChange}
-                          type="hidden"
-                        ></input>
-                      </FormControl>
+                      <SelectWithData
+                        label="Country of Residence"
+                        fullWidth
+                        data={countries}
+                        value={form.values.country}
+                        onChange={(e: any) => {
+                          form.setFieldValue('country', e.target.value);
+                          form.setFieldValue('state_region', '');
+                          handleSetCountryStates(e.target.value);
+                        }}
+                        errorMessage={getErrorMessage(form.touched.country, form.errors.country)}
+                      />
                     </Grid>
                     <Grid xs={12} md={6} item>
-                      <FormControl margin={'normal'} fullWidth>
-                        <InputLabel id="lblType" shrink>
-                          State/Region
-                        </InputLabel>
-                        <Select
-                          labelId={'lblType'}
-                          disableUnderline
-                          name="state_region"
-                          value={form.values.state_region}
-                          onChange={(e) => {
-                            form.handleChange(e);
-                            form.setFieldValue('state_region', e.target.value);
-                          }}
-                        >
-                          {state
-                            .filter((state) => state.countryCode === form.values.country_code)
-                            .map((i) => (
-                              <MenuItem key={i.id} value={i.name}>
-                                {i.name}
-                              </MenuItem>
-                            ))}
-                        </Select>
-                      </FormControl>
+                      <SelectWithData
+                        label="State/Region"
+                        fullWidth
+                        data={states}
+                        value={form.values.state_region}
+                        onChange={(e: any) => form.setFieldValue('state_region', e.target.value)}
+                        errorMessage={getErrorMessage(form.touched.state_region, form.errors.state_region)}
+                        disabled={states.length === 0}
+                      />
                     </Grid>
                   </Grid>
                 </CardContent>
               </Card>
             </Grid>
-            <Grid xs={12} item>
+            <Grid xs={12} md={12} lg={12} item>
               <Card variant="outlined">
                 <CardContent className={cardContentStyle.root}>
                   <Typography variant="h6" gutterBottom>
@@ -437,7 +420,7 @@ const MyAccount = () => {
                                 </Select>
                               </FormControl>
                             </Grid>
-                            <Grid lg={6} xs={6} item>
+                            <Grid lg={6} md={6} xs={6} item>
                               <FormControl fullWidth>
                                 <InputLabel id="lblAgeRange" shrink>
                                   Age Range To
@@ -516,15 +499,15 @@ const MyAccount = () => {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid xs={12} item>
+            <Grid xs={12} md={12} lg={12} item>
               <Card variant="outlined">
                 <CardContent className={cardContentStyle.root}>
                   <Typography variant="h6" gutterBottom>
                     Change Password
                   </Typography>
                   <Grid container spacing={2}>
-                    <Grid xs={6} spacing={2} item container>
-                      <Grid xs={12} lg={6} item>
+                    <Grid xs={12} md={6} lg={6} spacing={2} item container>
+                      <Grid xs={12} md={6} lg={6} item>
                         <InputPassword
                           id={'currentPassword'}
                           label={'Current Password'}
@@ -542,8 +525,8 @@ const MyAccount = () => {
                           }}
                         />
                       </Grid>
-                      <Grid xs={12} lg={6} item></Grid>
-                      <Grid xs={12} lg={6} item>
+                      <Grid xs={12} md={6} lg={6} item></Grid>
+                      <Grid xs={12} md={6} lg={6} item>
                         <InputPassword
                           id={'newPassword'}
                           label={'New Password'}
@@ -560,7 +543,7 @@ const MyAccount = () => {
                           disabled={!passwordState.current_password}
                         />
                       </Grid>
-                      <Grid xs={12} lg={6} item>
+                      <Grid xs={12} md={6} lg={6} item>
                         <InputPassword
                           id={'confirmPassword'}
                           label={'Confirm New Password'}
@@ -578,7 +561,7 @@ const MyAccount = () => {
                         />
                       </Grid>
                     </Grid>
-                    <Grid xs={6} item className={classes.passwordPrinciples}>
+                    <Grid xs={12} md={6} lg={6} item className={classes.passwordPrinciples}>
                       <PasswordStrength />
                     </Grid>
                   </Grid>
