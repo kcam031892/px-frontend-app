@@ -79,6 +79,8 @@ const Statistics = () => {
   const handleOpenConfirmationDialog = () => setIsConfirmationDialog(true);
   const handleCloseConfirmationDialog = () => setIsConfirmationDialog(false);
 
+  const [ethncitiyData, setEthnicityData] = useState(data ? data.data.attributes.statistics.ethnicity : []);
+
   const initialValues: ITalentUpdatePayload = {
     statistics: {
       region: data ? data.data.attributes.statistics.region : '',
@@ -228,14 +230,18 @@ const Statistics = () => {
     form.setFieldValue(field, num);
   }
 
-  const onEthnicityChipDelete = (e: any) => () => {
-    form.setFieldValue('statistics.ethnicity', (chips: any) => chips.filter((chip: any) => chip.id !== e.name));
+  interface ChipData {
+    id: number;
+    value: string;
+  }
+
+  const onEthnicityChipDelete = (e: ChipData) => () => {
+    setEthnicityData((chips: any) => chips.filter((chip: any) => chip.id !== e.id));
+    console.log(e);
   };
 
-  const onTalentChipDelete = (e: any) => () => {
-    form.setFieldValue('statistics.other_talent_types', (chips: any) =>
-      chips.filter((chip: any) => chip.id !== e.value),
-    );
+  const onTalentChipDelete = (e: ChipData) => () => {
+    form.setFieldValue('statistics.other_talent_types', (chips: any) => chips.filter((chip: any) => chip.id !== e.id));
   };
 
   return (
@@ -1502,16 +1508,20 @@ const Statistics = () => {
                       </div>
 
                       <Grid className={classes.chipContainer}>
-                        {form.values.statistics?.ethnicity?.map((v) => (
-                          <Chip
-                            key={v.name}
-                            label={v.name}
-                            onDelete={(e) => {
-                              onEthnicityChipDelete(v.name);
-                              form.handleChange(e);
-                            }}
-                          />
-                        ))}
+                        {form.values.statistics?.ethnicity
+                          ? form.values.statistics?.ethnicity?.map((v) => (
+                              <Chip
+                                key={v.name}
+                                label={v.name}
+                                onDelete={(e) => {
+                                  onEthnicityChipDelete(v);
+                                }}
+                                onMouseDown={(event) => {
+                                  event.stopPropagation();
+                                }}
+                              />
+                            ))
+                          : ''}
                       </Grid>
                     </Grid>
                     <Grid xs={12} md={6} lg={6} item>
@@ -1564,10 +1574,11 @@ const Statistics = () => {
         </>
       )}
       <EthnicityDialog
+        key={form.values.statistics?.ethnicity?.length}
         open={isEthnicityDialogOpen}
         onClose={handleCloseEthnicityDialog}
         selectedChips={form.values.statistics?.ethnicity}
-        setSelectedChips={(e) => form.setFieldValue('statistics.ethnicity', e)}
+        setSelectedChips={(field: any, value: any) => form.setFieldValue(field, value)}
       />
       <TalentTypesDialog
         open={isTalentTypesDialogOpen}

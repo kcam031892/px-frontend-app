@@ -8,9 +8,10 @@ import {
   ISignInResponsePayload,
   IUserCompleteProfilePayload,
   IUserCompleteProfileResponsePayload,
+  IUserChangePasswordRequestPayload,
 } from 'shared/interfaces/IUser';
 
-const { login: loginDao, setCompleteProfile: setCompleteProfileDao } = authDao();
+const { login: loginDao, setCompleteProfile: setCompleteProfileDao, changePassword: changePasswordDao } = authDao();
 
 export const authService = () => {
   const login = createAsyncThunk<ISignInResponsePayload, ISignInRequestPayload, { rejectValue: any }>(
@@ -31,8 +32,13 @@ export const authService = () => {
     );
   };
 
+  const changePassword = () => {
+    return useMutation((payload: IUserChangePasswordRequestPayload) => changePasswordDao(payload));
+  };
+
   return {
     login,
     setCompleteProfile,
+    changePassword,
   };
 };

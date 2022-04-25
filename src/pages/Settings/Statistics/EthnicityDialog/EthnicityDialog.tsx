@@ -22,10 +22,11 @@ import { boolean } from 'yup/lib/locale';
 import { forEach } from 'lodash';
 
 type Props = {
+  key: number | undefined;
   open: boolean;
   onClose: () => void;
   selectedChips: any[] | undefined;
-  setSelectedChips: (e: any) => void;
+  setSelectedChips: (field: any, value: any) => void;
 };
 
 const EthnicityDialog: React.FC<Props> = ({ open, onClose, selectedChips, setSelectedChips }) => {
@@ -52,7 +53,7 @@ const EthnicityDialog: React.FC<Props> = ({ open, onClose, selectedChips, setSel
   function onSave() {
     const arr = Array.from(selected);
     const res = allChips.filter((i) => arr.includes(i.id));
-    setSelectedChips(res);
+    setSelectedChips('statistics.ethnicity', res);
   }
 
   return (
