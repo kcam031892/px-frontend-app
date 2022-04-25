@@ -265,7 +265,6 @@ const Statistics = () => {
                         <Select
                           labelId={'lblType'}
                           onChange={(e) => {
-                            handleOpenConfirmationDialog();
                             form.handleChange(e);
                             form.setFieldValue('statistics.region', e.target.value);
                           }}
@@ -290,7 +289,6 @@ const Statistics = () => {
                           labelId={'lblType'}
                           disableUnderline
                           onChange={(e) => {
-                            handleOpenConfirmationDialog();
                             form.handleChange(e);
                             form.setFieldValue('statistics.adult_minor', e.target.value);
                           }}
@@ -314,7 +312,6 @@ const Statistics = () => {
                           labelId={'lblType'}
                           disableUnderline
                           onChange={(e) => {
-                            handleOpenConfirmationDialog();
                             form.handleChange(e);
                             form.setFieldValue('statistics.metric_system', e.target.value);
                           }}
@@ -338,7 +335,6 @@ const Statistics = () => {
                           labelId={'lblType'}
                           disableUnderline
                           onChange={(e) => {
-                            handleOpenConfirmationDialog();
                             form.handleChange(e);
                             form.setFieldValue('statistics.gender', e.target.value);
                           }}
