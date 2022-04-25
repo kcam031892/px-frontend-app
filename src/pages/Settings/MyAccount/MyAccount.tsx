@@ -31,9 +31,11 @@ import age from 'data/Age.json';
 import talentTypes from 'data/TalentTypes.json';
 import contactMethod from 'data/ContactMethod.json';
 import { accountService } from 'shared/services/accountService';
+import { authService } from 'shared/services/authService';
 import * as yup from 'yup';
 import { FormikProps, useFormik } from 'formik';
 import { PasswordStrength } from 'components/PasswordStrength';
+import { PasswordPrinciple, validatePassword } from 'shared/utils/passwordUtil';
 
 type Props = {
   account: IAccount[];
@@ -41,6 +43,7 @@ type Props = {
 };
 
 const { getAccount, updateAccount } = accountService();
+const { changePassword } = authService();
 
 import { useStyles } from './MyAccount.styles';
 import { Type } from 'typescript';
@@ -48,8 +51,21 @@ import { Type } from 'typescript';
 const MyAccount = () => {
   const { data, isLoading } = getAccount();
   const { mutate, isLoading: isUpdateLoading } = updateAccount();
+  const { mutate: changePasswordmutate } = changePassword();
   const { isOpen: isAlertOpen, alertRef, AlertOpen } = useAlert({ autoHideDuration: 2000, horizontal: 'center' });
   const queryClient = useQueryClient();
+
+  const [passwordState, setPasswordState] = useState<IUserChangePasswordRequestPayload>({
+    current_password: '',
+    new_password: '',
+    new_password_confirmation: '',
+  });
+
+  function ifEmpty(val: any) {
+    if (!val) {
+      setPasswordState({ ...passwordState, current_password: '', new_password: '', new_password_confirmation: '' });
+    }
+  }
 
   const classes = useStyles();
   const cardContentStyle = useCardContentStyle();
@@ -99,6 +115,16 @@ const MyAccount = () => {
         AlertOpen('success', 'Account details has been successfully updated');
       },
     });
+    changePasswordmutate(passwordState, {
+      onSuccess: () => {
+        queryClient.invalidateQueries('accounts');
+        AlertOpen('success', 'Password has been successfully updated');
+      },
+    });
+  };
+
+  const validatePassword = () => {
+    changePasswordmutate(passwordState, {});
   };
 
   const form = useFormik({
@@ -506,6 +532,14 @@ const MyAccount = () => {
                           fullWidth
                           InputProps={{ disableUnderline: true }}
                           InputLabelProps={{ shrink: true }}
+                          name="current_password"
+                          value={passwordState.current_password}
+                          onChange={(e) => {
+                            form.handleChange(e);
+                            setPasswordState({ ...passwordState, current_password: e.target.value });
+                            ifEmpty(e.target.value);
+                            validatePassword();
+                          }}
                         />
                       </Grid>
                       <Grid xs={12} lg={6} item></Grid>
@@ -517,6 +551,13 @@ const MyAccount = () => {
                           fullWidth
                           InputProps={{ disableUnderline: true }}
                           InputLabelProps={{ shrink: true }}
+                          name="new_password"
+                          value={passwordState.new_password}
+                          onChange={(e) => {
+                            form.handleChange(e);
+                            setPasswordState({ ...passwordState, new_password: e.target.value });
+                          }}
+                          disabled={!passwordState.current_password}
                         />
                       </Grid>
                       <Grid xs={12} lg={6} item>
@@ -527,6 +568,13 @@ const MyAccount = () => {
                           fullWidth
                           InputProps={{ disableUnderline: true }}
                           InputLabelProps={{ shrink: true }}
+                          name="new_password_confirmation"
+                          value={passwordState.new_password_confirmation}
+                          onChange={(e) => {
+                            form.handleChange(e);
+                            setPasswordState({ ...passwordState, new_password_confirmation: e.target.value });
+                          }}
+                          disabled={!passwordState.current_password}
                         />
                       </Grid>
                     </Grid>
