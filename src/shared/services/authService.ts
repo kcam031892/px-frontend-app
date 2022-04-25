@@ -9,6 +9,7 @@ import {
   IUserCompleteProfilePayload,
   IUserCompleteProfileResponsePayload,
   IUserChangePasswordRequestPayload,
+  IUserChangePasswordResponsePayload,
 } from 'shared/interfaces/IUser';
 
 const { login: loginDao, setCompleteProfile: setCompleteProfileDao, changePassword: changePasswordDao } = authDao();
@@ -33,7 +34,9 @@ export const authService = () => {
   };
 
   const changePassword = () => {
-    return useMutation((payload: IUserChangePasswordRequestPayload) => changePasswordDao(payload));
+    return useMutation<IUserChangePasswordResponsePayload, Error, IUserChangePasswordRequestPayload>(
+      (payload: IUserChangePasswordRequestPayload) => changePasswordDao(payload),
+    );
   };
 
   return {
