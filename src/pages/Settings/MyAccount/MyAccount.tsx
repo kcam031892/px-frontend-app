@@ -561,7 +561,7 @@ const MyAccount = () => {
                       </Grid>
                     </Grid>
                     <Grid xs={12} md={6} lg={6} item className={classes.passwordPrinciples}>
-                      <PasswordStrength />
+                      <PasswordStrength password="" />
                     </Grid>
                   </Grid>
                 </CardContent>

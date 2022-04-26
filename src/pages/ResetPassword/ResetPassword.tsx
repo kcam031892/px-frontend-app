@@ -22,6 +22,7 @@ const ResetPassword = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [passwordValidationResult, setPasswordValidationResult] = useState<PasswordPrinciple | null>(null);
+  const [password_str, setPasswordStr] = useState<string>('');
 
   const { isLoading, isLoggedIn } = useSelector(selectUserState);
 
@@ -43,6 +44,7 @@ const ResetPassword = () => {
     password: yup
       .string()
       .required('Password is required')
+      .min(8, 'Password must be atleast 8 characters')
       .test('passwordValidate', 'Invalid password', (value: any) => {
         if (value) {
           const validatePasswordResult = validatePassword(value);
@@ -82,6 +84,7 @@ const ResetPassword = () => {
                     form.setFieldTouched('password');
                     form.validateField('password');
                   }
+                  setPasswordStr(e.target.value || '');
                   return form.handleChange(e);
                 }}
                 errorMessage={getErrorMessage(form.touched.password, form.errors.password)}
@@ -109,7 +112,7 @@ const ResetPassword = () => {
                 InputLabelProps={{ shrink: true }}
                 inputProps={{ tabIndex: 8 }}
               />
-              <PasswordStrength />
+              <PasswordStrength password={password_str} />
             </Box>
           </Grid>
           <Grid className={classes.button__container}>

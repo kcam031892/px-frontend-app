@@ -1,15 +1,4 @@
-import {
-  Box,
-  Button,
-  FormControlLabel,
-  Snackbar,
-  TextField,
-  Theme,
-  Typography,
-  createStyles,
-  makeStyles,
-} from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
+import { Box, Button, FormControlLabel } from '@material-ui/core';
 import { FacebookLogin, FrontLayout, GoogleLogin } from 'components';
 import { MyCheckBox } from 'components/textField';
 import { FormikProps, useFormik } from 'formik';
@@ -19,17 +8,9 @@ import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-lo
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { ROUTES } from 'shared/constants/ROUTES';
-import { ISignInRequestPayload, ISignInResponsePayload } from 'shared/interfaces/IUser';
-import {
-  selectUserState,
-  setErrorMessage,
-  userFacebookLogin,
-  userGoogleLogin,
-  userLogin,
-} from 'shared/redux/slicers/user.slicer';
-import { authService } from 'shared/services/authService';
+import { ISignInRequestPayload } from 'shared/interfaces/IUser';
+import { selectUserState, userFacebookLogin, userGoogleLogin, userLogin } from 'shared/redux/slicers/user.slicer';
 import { getErrorMessage } from 'shared/utils/getErrorMessage';
-import { ls } from 'shared/utils/ls';
 import { Backdrop, Input, InputPassword } from 'themes/elements';
 import * as yup from 'yup';
 
@@ -41,12 +22,11 @@ interface LoginState {
   rememberMe: boolean;
 }
 
-const { getLS } = ls();
 const Login = () => {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
-  const { user, isLoading, errorMessage, isLoggedIn } = useSelector(selectUserState);
+  const { isLoading, isLoggedIn } = useSelector(selectUserState);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -112,10 +92,6 @@ const Login = () => {
     if (event.key === 'Enter') {
       handleLogin();
     }
-  };
-
-  const handleSnackBarClose = () => {
-    dispatch(setErrorMessage(null));
   };
 
   // useEffect(() => {
@@ -189,12 +165,6 @@ const Login = () => {
       <Button variant="outlined" disableElevation fullWidth component={Link} to={'/signup'}>
         Create an Account
       </Button>
-
-      <Snackbar open={!!errorMessage} autoHideDuration={6000} onClose={handleSnackBarClose}>
-        <Alert severity="error" onClose={handleSnackBarClose}>
-          {errorMessage && 'Login Failed. Invalid Email or Password entered.'}
-        </Alert>
-      </Snackbar>
       <Backdrop isLoading={isLoading} />
     </FrontLayout>
   );
