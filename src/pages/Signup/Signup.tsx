@@ -39,11 +39,11 @@ const Signup = () => {
   const initialValues: ISignUpRequestPayload = {
     first_name: '',
     last_name: '',
-    contact_number: null,
+    contact_no: null,
     email: '',
-    country: '',
+    country: 'us',
     country_code: '1',
-    state: '',
+    state_region: '',
     password: '',
     password_confirmation: '',
     user_type: 'talent',
@@ -58,7 +58,7 @@ const Signup = () => {
   const signUpValidationSchema: yup.SchemaOf<ISignUpRequestPayload> = yup.object({
     first_name: yup.string().required('First name is required'),
     last_name: yup.string().required('Last name is required'),
-    contact_number: yup
+    contact_no: yup
       .number()
       .typeError('Contact number must be numbers only')
       .positive('Contact number must be greater than zero')
@@ -66,7 +66,7 @@ const Signup = () => {
     email: yup.string().email('Wrong email format').required('Email is required'),
     country: yup.string().required('Country is required'),
     country_code: yup.string().required('Country code is required'),
-    state: yup.string().when('country', {
+    state_region: yup.string().when('country', {
       is: (val: any) => handleStateLessCountries(val),
       then: yup.string().notRequired(),
       otherwise: yup.string().required('State is required'),
@@ -103,7 +103,7 @@ const Signup = () => {
   const form: FormikProps<ISignUpRequestPayload> = useFormik({
     initialValues,
     validationSchema: signUpValidationSchema,
-    onSubmit: (values) => handleSignUpSubmit(values),
+    onSubmit: (values) => console.log('values: ', values), //handleSignUpSubmit(values),
   });
 
   return (
@@ -150,19 +150,20 @@ const Signup = () => {
               inputProps={{ tabIndex: 2 }}
             />
             <ContactInput
-              name="contact_number"
+              name="contact_no"
               handleCodeChange={(val: any) => {
                 form.setFieldValue('country_code', val);
               }}
+              country={form.values.country.toLowerCase()}
               onChange={(e) => {
-                if (form.errors.contact_number && !form.touched.contact_number) {
-                  form.setFieldTouched('contact_number');
-                  form.validateField('contact_number');
+                if (form.errors.contact_no && !form.touched.contact_no) {
+                  form.setFieldTouched('contact_no');
+                  form.validateField('contact_no');
                 }
                 return form.handleChange(e);
               }}
-              errorMessage={getErrorMessage(form.touched.contact_number, form.errors.contact_number)}
-              value={form.values.contact_number}
+              errorMessage={getErrorMessage(form.touched.contact_no, form.errors.contact_no)}
+              value={form.values.contact_no}
             />
             <Input
               label={'Email Address'}
@@ -192,7 +193,7 @@ const Signup = () => {
                     value={form.values.country}
                     onChange={(event) => {
                       form.setFieldValue('country', event.target.value);
-                      form.setFieldValue('state', '');
+                      form.setFieldValue('state_region', '');
                       handleSetCountryStates(event.target.value);
                     }}
                     errorMessage={getErrorMessage(form.touched.country, form.errors.country)}
@@ -203,9 +204,9 @@ const Signup = () => {
                     label=" "
                     fullWidth
                     data={states}
-                    value={form.values.state}
-                    onChange={(event) => form.setFieldValue('state', event.target.value)}
-                    errorMessage={getErrorMessage(form.touched.state, form.errors.state)}
+                    value={form.values.state_region}
+                    onChange={(event) => form.setFieldValue('state_region', event.target.value)}
+                    errorMessage={getErrorMessage(form.touched.state_region, form.errors.state_region)}
                     disabled={states.length === 0}
                   />
                 </Grid>
