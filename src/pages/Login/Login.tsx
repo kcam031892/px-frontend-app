@@ -160,7 +160,9 @@ const Login = () => {
       >
         Log In
       </Button>
-      <GoogleLogin handleLoginSuccess={handleGoogleSuccess} />
+      <div className={classes.googleLoginStyle}>
+        <GoogleLogin handleLoginSuccess={handleGoogleSuccess} />
+      </div>
       <FacebookLogin handleLoginSuccess={handleFacebookSuccess} />
       <Button variant="outlined" disableElevation fullWidth component={Link} to={'/signup'}>
         Create an Account

@@ -16,5 +16,20 @@ export const useStyles = makeStyles(() =>
       color: '#A4A4A4',
       textDecoration: 'none',
     },
+    googleLoginStyle: {
+      height: '36.5px',
+      overflow: 'hidden',
+      display: 'flex',
+      justifyContent: 'center',
+      width: '100%',
+      borderRadius: '5px',
+      marginBottom: '15px',
+      '& > div': {
+        width: '100%',
+      },
+      '& svg': {
+        height: '36.5px',
+      },
+    },
   }),
 );
