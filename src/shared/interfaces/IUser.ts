@@ -47,11 +47,11 @@ export interface IResetPasswordResponsePayload {
 export interface ISignUpRequestPayload {
   first_name: string;
   last_name: string;
-  contact_number: number | null;
+  contact_no: number | null;
   email: string;
   country: string;
   country_code: string;
-  state: string | undefined;
+  state_region: string | undefined;
   user_type: string;
   password: string;
   password_confirmation: string;
