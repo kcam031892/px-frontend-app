@@ -2,13 +2,16 @@ import { Box } from '@material-ui/core';
 import React from 'react';
 import FBLogin, { ReactFacebookFailureResponse, ReactFacebookLoginInfo } from 'react-facebook-login';
 import { CONFIG } from 'shared/config';
+import { useStyles } from './FacebookLogin.style';
 
 type Props = {
   handleLoginSuccess: (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse) => void;
 };
 const FacebookLogin: React.FC<Props> = ({ handleLoginSuccess }) => {
+  const classes = useStyles();
+
   return (
-    <Box style={{ marginBottom: 16 }}>
+    <Box style={{ marginBottom: 10 }} className={classes.facebookButtonContainer}>
       <FBLogin
         appId={CONFIG.FACEBOOK_APP_ID}
         autoLoad={false}

@@ -155,7 +155,7 @@ const Login = () => {
         disableElevation
         fullWidth
         onClick={() => form.handleSubmit()}
-        style={{ marginBottom: '16px' }}
+        style={{ marginBottom: '10px' }}
         disabled={isLoading}
       >
         Log In

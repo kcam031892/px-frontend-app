@@ -23,7 +23,7 @@ export const useStyles = makeStyles(() =>
       justifyContent: 'center',
       width: '100%',
       borderRadius: '5px',
-      marginBottom: '15px',
+      marginBottom: '10px',
       '& > div': {
         width: '100%',
       },
