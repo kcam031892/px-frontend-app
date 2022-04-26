@@ -75,7 +75,15 @@ const ForgotPassword = () => {
           <Button variant="contained" disableElevation fullWidth tabIndex={10} onClick={() => form.handleSubmit()}>
             Send Email
           </Button>
-          <Button variant="outlined" disableElevation fullWidth component={Link} to={'/login'} tabIndex={11}>
+          <Button
+            variant="outlined"
+            disableElevation
+            fullWidth
+            style={{ marginTop: 10 }}
+            component={Link}
+            to={'/login'}
+            tabIndex={11}
+          >
             Cancel
           </Button>
         </Grid>

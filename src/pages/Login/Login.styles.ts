@@ -38,6 +38,9 @@ export const useStyles = makeStyles(() =>
       '& svg': {
         height: '34.5px !important',
       },
+      '& span': {
+        fontSize: '14px',
+      },
     },
   }),
 );

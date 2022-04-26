@@ -153,6 +153,14 @@ const CompleteProfile = () => {
                 InputProps={{ disableUnderline: true }}
                 InputLabelProps={{ shrink: true }}
                 inputProps={{ tabIndex: 8 }}
+                onCopy={(e) => {
+                  e.preventDefault();
+                  return false;
+                }}
+                onPaste={(e) => {
+                  e.preventDefault();
+                  return false;
+                }}
               />
               {/* <span className={classes.password__helper} onClick={toggleFullModel}>
             (?)
@@ -174,6 +182,14 @@ const CompleteProfile = () => {
                 InputProps={{ disableUnderline: true }}
                 InputLabelProps={{ shrink: true }}
                 inputProps={{ tabIndex: 8 }}
+                onCopy={(e) => {
+                  e.preventDefault();
+                  return false;
+                }}
+                onPaste={(e) => {
+                  e.preventDefault();
+                  return false;
+                }}
               />
               <PasswordStrength password={password_str} />
             </Box>
@@ -186,6 +202,7 @@ const CompleteProfile = () => {
               disableElevation
               fullWidth
               tabIndex={10}
+              style={{ marginBottom: 10 }}
               onClick={() => form.handleSubmit()}
             >
               Update Profile

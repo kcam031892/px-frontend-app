@@ -20,8 +20,8 @@ const FacebookLogin: React.FC<Props> = ({ handleLoginSuccess }) => {
         containerStyle={{ width: '100%' }}
         buttonStyle={{
           width: '100%',
-          padding: 7.5,
-          fontSize: 16,
+          padding: 8.8,
+          fontSize: 14,
           fontWeight: 'normal',
           textTransform: 'initial',
           borderRadius: 4,

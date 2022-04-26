@@ -129,6 +129,14 @@ const Login = () => {
           onChange={form.handleChange}
           value={form.values.user.password}
           onKeyPress={handleInputKeyPress}
+          onCopy={(e) => {
+            e.preventDefault();
+            return false;
+          }}
+          onPaste={(e) => {
+            e.preventDefault();
+            return false;
+          }}
         />
       </Box>
       <Box className={classes.extraContainer}>
