@@ -80,7 +80,7 @@ const MyAccount = () => {
     last_name: data ? data.data.attributes.last_name : '',
     gender: data ? data.data.attributes.gender : '',
     contact_no: data ? data.data.attributes.contact_no : '',
-    country: data ? data.data.attributes.country : 'US',
+    country: data ? data.data.attributes.country : 'us',
     country_code: data ? data.data.attributes.country_code : '1',
     primary_type: data ? data.data.attributes.primary_type : '',
     adult_minor: data ? data.data.attributes.adult_minor : '',
@@ -106,7 +106,7 @@ const MyAccount = () => {
     country: yup.string().required(),
     country_code: yup.string().required(),
     primary_type: yup.string(),
-    adult_minor: yup.string().required(),
+    adult_minor: yup.string(),
     state_region: yup.string().when('country', {
       is: (val: any) => handleStateLessCountries(val),
       then: yup.string().notRequired(),
