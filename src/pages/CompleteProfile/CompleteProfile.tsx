@@ -202,12 +202,18 @@ const CompleteProfile = () => {
               disableElevation
               fullWidth
               tabIndex={10}
-              style={{ marginBottom: 10 }}
               onClick={() => form.handleSubmit()}
             >
               Update Profile
             </Button>
-            <Button variant="outlined" disableElevation fullWidth onClick={() => handleLogOut()} tabIndex={11}>
+            <Button
+              variant="outlined"
+              disableElevation
+              fullWidth
+              style={{ marginTop: 10 }}
+              onClick={() => handleLogOut()}
+              tabIndex={11}
+            >
               Cancel to Log In
             </Button>
           </Grid>
