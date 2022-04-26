@@ -9,6 +9,7 @@ export const useStyles = makeStyles(() =>
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+      padding: '15px',
     },
     mainContainer: {
       width: '400px',

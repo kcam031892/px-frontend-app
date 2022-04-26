@@ -129,6 +129,14 @@ const Login = () => {
           onChange={form.handleChange}
           value={form.values.user.password}
           onKeyPress={handleInputKeyPress}
+          onCopy={(e) => {
+            e.preventDefault();
+            return false;
+          }}
+          onPaste={(e) => {
+            e.preventDefault();
+            return false;
+          }}
         />
       </Box>
       <Box className={classes.extraContainer}>
@@ -155,12 +163,14 @@ const Login = () => {
         disableElevation
         fullWidth
         onClick={() => form.handleSubmit()}
-        style={{ marginBottom: '16px' }}
+        style={{ marginBottom: '10px' }}
         disabled={isLoading}
       >
         Log In
       </Button>
-      <GoogleLogin handleLoginSuccess={handleGoogleSuccess} />
+      <div className={classes.googleLoginStyle}>
+        <GoogleLogin handleLoginSuccess={handleGoogleSuccess} />
+      </div>
       <FacebookLogin handleLoginSuccess={handleFacebookSuccess} />
       <Button variant="outlined" disableElevation fullWidth component={Link} to={'/signup'}>
         Create an Account

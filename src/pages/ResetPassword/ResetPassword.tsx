@@ -93,6 +93,14 @@ const ResetPassword = () => {
                 InputProps={{ disableUnderline: true }}
                 InputLabelProps={{ shrink: true }}
                 inputProps={{ tabIndex: 8 }}
+                onCopy={(e) => {
+                  e.preventDefault();
+                  return false;
+                }}
+                onPaste={(e) => {
+                  e.preventDefault();
+                  return false;
+                }}
               />
               <InputPassword
                 label={'Repeat Password'}
@@ -111,6 +119,14 @@ const ResetPassword = () => {
                 InputProps={{ disableUnderline: true }}
                 InputLabelProps={{ shrink: true }}
                 inputProps={{ tabIndex: 8 }}
+                onCopy={(e) => {
+                  e.preventDefault();
+                  return false;
+                }}
+                onPaste={(e) => {
+                  e.preventDefault();
+                  return false;
+                }}
               />
               <PasswordStrength password={password_str} />
             </Box>
@@ -119,7 +135,15 @@ const ResetPassword = () => {
             <Button variant="contained" disableElevation fullWidth tabIndex={10} onClick={() => form.handleSubmit()}>
               Update Password
             </Button>
-            <Button variant="outlined" disableElevation fullWidth component={Link} to={'/login'} tabIndex={11}>
+            <Button
+              variant="outlined"
+              disableElevation
+              fullWidth
+              style={{ marginTop: 10 }}
+              component={Link}
+              to={'/login'}
+              tabIndex={11}
+            >
               Cancel
             </Button>
           </Grid>
