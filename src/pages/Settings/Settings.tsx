@@ -16,14 +16,7 @@ const tabs = [
   {
     name: 'myAccount',
     header: 'My Account',
-    component: (
-      <MyAccount
-        account={[]}
-        AlertOpen={function (success: any, message: string): void {
-          throw new Error('Function not implemented.');
-        }}
-      />
-    ),
+    component: <MyAccount />,
     disabled: false,
   },
   {

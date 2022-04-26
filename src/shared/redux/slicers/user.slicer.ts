@@ -192,10 +192,10 @@ export const userGoogleLogin =
         data: { data: user, token },
       } = await loginWithGoogle(payload);
       dispatch(setUser({ user }));
-      dispatch(setIsLoggedIn(true));
       setLS('auth_token', token);
       setLS('user', JSON.stringify(user));
       setLS('is_completed_primary_details', user.attributes.completed_primary_details);
+      dispatch(setIsLoggedIn(true));
       dispatch(setErrorMessage(null));
     } catch (err: any) {
       dispatch(setErrorMessage(err.response.data.message));

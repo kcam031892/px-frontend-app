@@ -11,6 +11,8 @@ import {
   ISignUpResponsePayload,
   IUserCompleteProfilePayload,
   IUserCompleteProfileResponsePayload,
+  IUserChangePasswordRequestPayload,
+  IUserChangePasswordResponsePayload,
 } from 'shared/interfaces/IUser';
 import { authToken } from 'shared/utils/authToken';
 
@@ -62,6 +64,17 @@ export const authDao = () => {
     };
   };
 
+  const setCompleteProfile = async (payload: IUserCompleteProfilePayload) => {
+    const response = await PATCH<IUserCompleteProfilePayload>({
+      url: `${ENDPOINTS.PROVIDER_AUTHENTICATION}`,
+      data: payload,
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
+    return response.data;
+  };
+
   const loginWithGoogle = async (token: string) => {
     const response = await POST<ISignInResponsePayload>({
       url: `${ENDPOINTS.USERS}/google/sign_in?token=${token}`,
@@ -93,9 +106,9 @@ export const authDao = () => {
     };
   };
 
-  const setCompleteProfile = async (payload: IUserCompleteProfilePayload) => {
-    const response = await PATCH<IUserCompleteProfileResponsePayload>({
-      url: `${ENDPOINTS.PROVIDER_AUTHENTICATION}`,
+  const changePassword = async (payload: IUserChangePasswordRequestPayload) => {
+    const response = await PATCH<IUserChangePasswordResponsePayload>({
+      url: `${ENDPOINTS.CHANGE_PASSWORD}`,
       data: payload,
       headers: {
         Authorization: `Bearer ${getAuthToken()}`,
@@ -125,6 +138,7 @@ export const authDao = () => {
     loginWithFacebook,
     getUserProfile,
     setCompleteProfile,
+    changePassword,
     logout,
   };
 };
