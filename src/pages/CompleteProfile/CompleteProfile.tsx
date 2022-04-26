@@ -32,6 +32,7 @@ const CompleteProfile = () => {
   const history = useHistory();
 
   const [passwordValidationResult, setPasswordValidationResult] = useState<PasswordPrinciple | null>(null);
+  const [password_str, setPasswordStr] = useState<string>('');
 
   const { user, isLoading, errorMessage, isLoggedIn } = useSelector(selectUserState);
 
@@ -49,6 +50,7 @@ const CompleteProfile = () => {
     password: yup
       .string()
       .required('Password is required')
+      .min(8, 'Password must be atleast 8 characters')
       .test('passwordValidate', 'Invalid password', (value: any) => {
         if (value) {
           const validatePasswordResult = validatePassword(value);
@@ -95,7 +97,13 @@ const CompleteProfile = () => {
               label={'First Name'}
               autoFocus
               name="first_name"
-              onChange={form.handleChange}
+              onChange={(e) => {
+                if (form.errors.first_name && !form.touched.first_name) {
+                  form.setFieldTouched('first_name');
+                  form.validateField('first_name');
+                }
+                return form.handleChange(e);
+              }}
               errorMessage={getErrorMessage(form.touched.first_name, form.errors.first_name)}
               value={form.values.first_name}
               fullWidth
@@ -108,7 +116,13 @@ const CompleteProfile = () => {
             <Input
               label={'Last Name'}
               name="last_name"
-              onChange={form.handleChange}
+              onChange={(e) => {
+                if (form.errors.last_name && !form.touched.last_name) {
+                  form.setFieldTouched('last_name');
+                  form.validateField('last_name');
+                }
+                return form.handleChange(e);
+              }}
               errorMessage={getErrorMessage(form.touched.last_name, form.errors.last_name)}
               value={form.values.last_name}
               fullWidth
@@ -125,7 +139,14 @@ const CompleteProfile = () => {
                 label={'New Password'}
                 margin={'normal'}
                 name="password"
-                onChange={form.handleChange}
+                onChange={(e) => {
+                  if (form.errors.password && !form.touched.password) {
+                    form.setFieldTouched('password');
+                    form.validateField('password');
+                  }
+                  setPasswordStr(e.target.value || '');
+                  return form.handleChange(e);
+                }}
                 errorMessage={getErrorMessage(form.touched.password, form.errors.password)}
                 value={form.values.password}
                 fullWidth
@@ -140,7 +161,13 @@ const CompleteProfile = () => {
                 label={'Repeat Password'}
                 margin={'normal'}
                 name="password_confirmation"
-                onChange={form.handleChange}
+                onChange={(e) => {
+                  if (form.errors.password_confirmation && !form.touched.password_confirmation) {
+                    form.setFieldTouched('password_confirmation');
+                    form.validateField('password_confirmation');
+                  }
+                  return form.handleChange(e);
+                }}
                 errorMessage={getErrorMessage(form.touched.password_confirmation, form.errors.password_confirmation)}
                 value={form.values.password_confirmation}
                 fullWidth
@@ -148,7 +175,7 @@ const CompleteProfile = () => {
                 InputLabelProps={{ shrink: true }}
                 inputProps={{ tabIndex: 8 }}
               />
-              <PasswordStrength />
+              <PasswordStrength password={password_str} />
             </Box>
           </Grid>
 
