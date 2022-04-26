@@ -27,8 +27,16 @@ export const useStyles = makeStyles(() =>
       '& > div': {
         width: '100%',
       },
+      '& > div > div:hover': {
+        backgroundColor: '#166af4 !important',
+      },
+      '& > div > div > div': {
+        height: '34.5px !important',
+        borderTopLeftRadius: '4px !important',
+        borderBottomLeftRadius: '4px !important',
+      },
       '& svg': {
-        height: '36.5px',
+        height: '34.5px !important',
       },
     },
   }),

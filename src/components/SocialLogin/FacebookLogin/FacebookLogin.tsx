@@ -14,8 +14,15 @@ const FacebookLogin: React.FC<Props> = ({ handleLoginSuccess }) => {
         autoLoad={false}
         fields="name,email,picture"
         callback={handleLoginSuccess}
-        containerStyle={{ width: '100%', padding: 4 }}
-        buttonStyle={{ width: '100%', padding: 8, fontSize: 16, fontWeight: 'normal', textTransform: 'initial' }}
+        containerStyle={{ width: '100%' }}
+        buttonStyle={{
+          width: '100%',
+          padding: 7.5,
+          fontSize: 16,
+          fontWeight: 'normal',
+          textTransform: 'initial',
+          borderRadius: 4,
+        }}
         textButton="Sign in with Facebook"
       />
     </Box>

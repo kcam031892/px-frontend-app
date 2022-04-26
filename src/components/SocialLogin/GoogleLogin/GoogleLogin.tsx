@@ -9,11 +9,16 @@ type Props = {
 };
 const GoogleLogin: React.FC<Props> = ({ handleLoginSuccess }) => {
   return (
-    <Box style={{ marginBottom: 16, backgroundColor: 'red' }}>
+    <Box style={{ backgroundColor: 'red' }}>
       <GLogin
         clientId={CONFIG.GOOGLE_APP_ID}
         onSuccess={handleLoginSuccess}
-        render={(renderProps) => <GoogleButton onClick={renderProps.onClick} style={{ width: '100%' }} />}
+        render={(renderProps) => (
+          <GoogleButton
+            onClick={renderProps.onClick}
+            style={{ width: '100%', height: '36.5px !important', lineHeight: '36.5px' }}
+          />
+        )}
       />
     </Box>
   );
