@@ -103,7 +103,7 @@ const Signup = () => {
   const form: FormikProps<ISignUpRequestPayload> = useFormik({
     initialValues,
     validationSchema: signUpValidationSchema,
-    onSubmit: (values) => console.log('values: ', values), //handleSignUpSubmit(values),
+    onSubmit: (values) => handleSignUpSubmit(values),
   });
 
   return (
