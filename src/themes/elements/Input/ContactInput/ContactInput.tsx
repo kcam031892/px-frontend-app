@@ -10,8 +10,10 @@ import { useStyles } from './ContactInput.styles';
 type Props = {
   errorMessage?: string;
   handleCodeChange?: any;
+  country?: string;
+  value?: any;
 } & TextFieldProps;
-const ContactInput: React.FC<Props> = ({ errorMessage, handleCodeChange, ...props }) => {
+const ContactInput: React.FC<Props> = ({ errorMessage, handleCodeChange, country, value, ...props }) => {
   const classes = useStyles();
   return (
     <FormControl fullWidth>
@@ -30,7 +32,7 @@ const ContactInput: React.FC<Props> = ({ errorMessage, handleCodeChange, ...prop
         /> */}
         <PhoneInput
           specialLabel={''}
-          country={'us'}
+          country={country}
           inputClass={classes.contactInput_class}
           containerClass={classes.contactContainer_class}
           buttonClass={classes.contactButton_class}
@@ -46,6 +48,7 @@ const ContactInput: React.FC<Props> = ({ errorMessage, handleCodeChange, ...prop
           style={{ flex: '1' }}
           errorMessage={errorMessage}
           {...props}
+          value={value}
         />
       </Box>
     </FormControl>

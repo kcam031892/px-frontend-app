@@ -37,7 +37,7 @@ export interface IAccountUpdatePayload {
     contact_no: string;
     country: string;
     country_code: string;
-    state_region: string;
+    state_region: string | undefined;
     primary_type?: string;
     adult_minor?: string;
     age_range_from?: string;
